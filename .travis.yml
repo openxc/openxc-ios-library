@@ -4,6 +4,7 @@
 
 language: objective-c,Swift
 osx_image: xcode10
+
  cache: cocoapods
  podfile: Example/Podfile
 # before_install:
