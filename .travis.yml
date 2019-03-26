@@ -12,4 +12,4 @@ osx_image: xcode 10.0
 - pod repo update
 script:
 - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator9.3 ONLY_ACTIVE_ARCH=NO | xcpretty
-- pod lib lint --allow-warnings
+#- pod lib lint --allow-warnings
