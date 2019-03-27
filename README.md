@@ -64,10 +64,6 @@ To install XCode command line tools, follow these steps for XCode:
 
 Please see our [Contribution Documents] (https://github.com/openxc/openxc-ios-framework/blob/master/CONTRIBUTING.mkd)
 
-## License
-Copyright (c) 2016 Ford Motor Company
-Licensed under the BSD license.
-
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
