@@ -90,4 +90,5 @@ kranjanford, kranjan@ford.com
 ## License
 
 openxcframework is available under the MIT license. See the LICENSE file for more info.
+
 Copyright (c) 2016 Ford Motor Company Licensed under the BSD license.
