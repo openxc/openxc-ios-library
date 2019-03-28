@@ -11,7 +11,7 @@ import openXCiOSFramework
 import CoreLocation
 
 class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManagerDelegate {
-
+    
     
     @IBOutlet var PopupView: UIView!
     
@@ -25,7 +25,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
     //Tracefile play back switch and textfield
     @IBOutlet weak var playswitch: UISwitch!
     @IBOutlet weak var playname: UITextField!
-
+    
     @IBOutlet weak var locationswitch: UISwitch!
     @IBOutlet weak var bleAutoswitch: UISwitch!
     @IBOutlet weak var protoswitch: UISwitch!
@@ -51,25 +51,25 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
-         NM = NetworkDataManager.sharedInstance
-         vm = VehicleManager.sharedInstance
-         tfm = TraceFileManager.sharedInstance
-         bm = BluetoothManager.sharedInstance
+        
+        NM = NetworkDataManager.sharedInstance
+        vm = VehicleManager.sharedInstance
+        tfm = TraceFileManager.sharedInstance
+        bm = BluetoothManager.sharedInstance
         // Do any additional setup after loading the view.
         PopupView.backgroundColor = UIColor(white: 1, alpha: 0.5)
         
         vm.setCommandDefaultTarget(self, action: DataSourceController.handle_cmd_response)
-         //ranjan added code for Network data
-         // watch for changes to network file output file name field
-         networkDataHost.addTarget(self, action: #selector(networkDataFieldDidChange), for:UIControlEvents.editingChanged)
-         networkDataPort.addTarget(self, action: #selector(networkPortFieldDidChange), for:UIControlEvents.editingChanged)
-         //networkDataHost.isHidden = true
-     
-         // watch for changes to trace file input file name field
-         playname.addTarget(self, action: #selector(playFieldDidChange), for: UIControlEvents.editingChanged)
+        //ranjan added code for Network data
+        // watch for changes to network file output file name field
+        networkDataHost.addTarget(self, action: #selector(networkDataFieldDidChange), for:UIControlEvents.editingChanged)
+        networkDataPort.addTarget(self, action: #selector(networkPortFieldDidChange), for:UIControlEvents.editingChanged)
+        //networkDataHost.isHidden = true
+        
+        // watch for changes to trace file input file name field
+        playname.addTarget(self, action: #selector(playFieldDidChange), for: UIControlEvents.editingChanged)
         // playname.isHidden = true
-
+        
         
         // check saved value of trace input switch
         let locationIsOn = UserDefaults.standard.bool(forKey: "locationOn")
@@ -107,43 +107,43 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         if  vehicleInterface == "Bluetooth" {
             titleLabel.text = vehicleInterface
             interfaceValue = vehicleInterface
-           
+            
         }
         else if  vehicleInterface == "Network" {
             if let hostName = (UserDefaults.standard.value(forKey: "networkHostName")  as? String){
                 networkDataHost.text = hostName//(UserDefaults.standard.value(forKey: "networkHostName")  as! String)
                 networkDataPort.text = (UserDefaults.standard.value(forKey: "networkPortName")  as! String)
-               
-                 }
-             interfaceValue = vehicleInterface
-           
+                
+            }
+            interfaceValue = vehicleInterface
+            
             
         }
             
         else if vehicleInterface == "Pre-recorded Tracefile" {
             if let tracefile = (UserDefaults.standard.value(forKey: "traceInputFilename")  as? String){
-            playname.text = tracefile//(UserDefaults.standard.value(forKey: "traceInputFilename")  as! String)
+                playname.text = tracefile//(UserDefaults.standard.value(forKey: "traceInputFilename")  as! String)
             }
-             interfaceValue = vehicleInterface
+            interfaceValue = vehicleInterface
         }
         else if vehicleInterface ==  "None"{
             interfaceValue = "None"
-           
+            
         }else{
             titleLabel.text = "Bluetooth"
             interfaceValue = "Bluetooth"
         }
-         self.setValueVehicleInterface()
+        self.setValueVehicleInterface()
     }
-
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     //Dismiss button main view Action
     @IBAction func dismissView(_ sender: AnyObject) {
-     
+        
         self.dismiss(animated: true, completion: nil)
     }
     //Vehicle interface button main view Action
@@ -159,7 +159,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         
         PopupView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         
-       self.view.addSubview(PopupView)
+        self.view.addSubview(PopupView)
         if let vechileInterface = UserDefaults.standard.value(forKey: "vehicleInterface") as? NSString {
             titleLabel.text = vechileInterface as String
             interfaceValue = vechileInterface as String
@@ -247,10 +247,10 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             networkDataHost.isUserInteractionEnabled = false
             networkDataPort.isUserInteractionEnabled = false
             
-             playname.backgroundColor = UIColor.lightGray
-             networkDataHost.backgroundColor = UIColor.lightGray
-             networkDataPort.backgroundColor = UIColor.lightGray
-    
+            playname.backgroundColor = UIColor.lightGray
+            networkDataHost.backgroundColor = UIColor.lightGray
+            networkDataPort.backgroundColor = UIColor.lightGray
+            
             UserDefaults.standard.set(interfaceValue, forKey:"vehicleInterface")
             titleLabel.text = interfaceValue
             
@@ -264,7 +264,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             networkDataHost.text = ""
             playname.text = ""
         }
-         else if  (interfaceValue == "Pre-recorded Tracefile") {
+        else if  (interfaceValue == "Pre-recorded Tracefile") {
             playname.isUserInteractionEnabled = true
             
             networkDataHost.backgroundColor = UIColor.lightGray
@@ -312,10 +312,10 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             networkDataPort.backgroundColor = UIColor.lightGray
             if  (interfaceValue == "None") {
                 titleLabel.text = interfaceValue
-            UserDefaults.standard.set("None", forKey:"vehicleInterface")
+                UserDefaults.standard.set("None", forKey:"vehicleInterface")
             }else{
                 titleLabel.text = interfaceValue
-               UserDefaults.standard.set("Bluetooth", forKey:"vehicleInterface")
+                UserDefaults.standard.set("Bluetooth", forKey:"vehicleInterface")
             }
             //titleLabel.text = interfaceValue
             
@@ -334,14 +334,14 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
     // and show or hide the text field for filename accordingly
     @IBAction func locationChange(_ sender: UISwitch) {
         
-         UserDefaults.standard.set(sender.isOn, forKey:"locationOn")
-
+        UserDefaults.standard.set(sender.isOn, forKey:"locationOn")
+        
     }
     // autoconnect switch changed, save it's value
     @IBAction func autoChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey:"autoConnectOn")
         if sender.isOn{
-        bm.setAutoconnect(true)
+            bm.setAutoconnect(true)
         }
     }
     
@@ -362,39 +362,39 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         }
         UserDefaults.standard.set(sender.isOn, forKey:"protobufOn")
     }
-  
+    
     func payloadFormatCommand(platformFormat:NSString) {
         if bm.isBleConnected{
-        let cm = VehicleCommandRequest()
-        if (platformFormat == "protobuf" ){
-           cm.format = "protobuf"
-        }
-        else{
-           cm.format = "json"
-        }
-        
-        cm.command = .payload_format
-        self.vm.sendCommand(cm)
-        //showActivityIndicator()
+            let cm = VehicleCommandRequest()
+            if (platformFormat == "protobuf" ){
+                cm.format = "protobuf"
+            }
+            else{
+                cm.format = "json"
+            }
+            
+            cm.command = .payload_format
+            self.vm.sendCommand(cm)
+            //showActivityIndicator()
             
         }
     }
     func showActivityIndicator() {
         //acitivityInd.startAnimating()
         self.view.alpha = 0.5
-       
+        
         
     }
     func hideActivityIndicator() {
         //acitivityInd.stopAnimating()
         self.view.alpha = 1.0
-       
+        
         
     }
     // MARK: UI Function
     
     func handle_cmd_response(_ rsp:NSDictionary) {
-       // self.hideActivityIndicator()
+        // self.hideActivityIndicator()
         // extract the command response message
         let cr = rsp.object(forKey: "vehiclemessage") as! VehicleCommandResponse
         
@@ -414,39 +414,39 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
     }
     // text view delegate to clear keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-       
+        
         if textField.tag == 101{
             textField.resignFirstResponder()
             UserDefaults.standard.set(playname.text, forKey:"traceInputFilename")
             //if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
             tfm.enableTraceFileSource(playname.text! as NSString)
-           
-           //}
-           
+            
+            //}
+            
         }
         if textField.tag == 102{
             if (textField.text != ""){
-            networkDataPort.becomeFirstResponder()
-        }else{
-            
-            let alertController = UIAlertController(title: "", message:
-                "Please enter valid host name", preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-        }
+                networkDataPort.becomeFirstResponder()
+            }else{
+                
+                let alertController = UIAlertController(title: "", message:
+                    "Please enter valid host name", preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }
         }
         if textField.tag == 103{
             if (textField.text != ""){
-            self.networkDataFetch(hostName: networkDataHost.text!,PortName: networkDataPort.text!)
+                self.networkDataFetch(hostName: networkDataHost.text!,PortName: networkDataPort.text!)
                 UserDefaults.standard.set(networkDataHost.text!, forKey:"networkHostName")
                 UserDefaults.standard.set(networkDataPort.text!, forKey:"networkPortName")
-            textField.resignFirstResponder();
+                textField.resignFirstResponder();
             }else{
                 let alertController = UIAlertController(title: "", message:
                     "Please enter valid port number", preferredStyle: UIAlertControllerStyle.alert)
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
                 self.present(alertController, animated: true, completion: nil)
-   
+                
             }
         }
         return true;
@@ -455,8 +455,8 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
     func networkDataFetch(hostName:String,PortName:String)  {
         // networkData.text = name as String
         
-         //let ip  = hostName
-         let port  = Int(PortName)
+        //let ip  = hostName
+        let port  = Int(PortName)
         if(hostName != "" && PortName != ""){
             NetworkDataManager.sharedInstance.connect(ip:hostName, portvalue: port!, completionHandler: { (success) in
                 print(success)
@@ -474,7 +474,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
                 }
             })
         }
-
+        
         
     }
     
@@ -492,7 +492,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         UserDefaults.standard.set(textField.text, forKey:"traceInputFilename")
     }
     
- 
+    
     func keyboardWillShow() {
         if view.frame.origin.y == 0{
             self.view.frame.origin.y -= 120
@@ -511,13 +511,13 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

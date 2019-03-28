@@ -9,7 +9,7 @@
 import UIKit
 import openXCiOSFramework
 class RecordingSourceController: UIViewController,UITextFieldDelegate {
-
+    
     @IBOutlet weak var recswitch: UISwitch!
     @IBOutlet weak var recname: UITextField!
     @IBOutlet weak var dweetswitch: UISwitch!
@@ -23,7 +23,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
     var vm: VehicleManager!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         // grab VM instance
         vm = VehicleManager.sharedInstance
@@ -181,7 +181,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
     // text view delegate to clear keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder();
-       
+        
         if textField.tag == 103 {
             let str = textField.text
             if str!.range(of:".json") != nil {
@@ -196,10 +196,10 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
             
         }
         if textField.tag == 105{
-   
+            
             print(textField.text as Any)
             if textField.text != "http://"{
-                 UserDefaults.standard.set(textField.text, forKey:"traceURLname")
+                UserDefaults.standard.set(textField.text, forKey:"traceURLname")
                 
             }else{
                 let alertController = UIAlertController(title: "", message:
@@ -211,7 +211,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         return true;
     }
     
-  
+    
     
     // trace file output file name changed, save it in nsuserdefaults
     @objc func recFieldDidChange(_ textField: UITextField) {
@@ -222,7 +222,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
     // trace file output file name changed, save it in nsuserdefaults
     @objc func traceURLFieldDidChange(_ textField: UITextField) {
         
-       // UserDefaults.standard.set(textField.text, forKey:"traceURLname")
+        // UserDefaults.standard.set(textField.text, forKey:"traceURLname")
         
     }
     @objc func keyboardWillShow() {
@@ -237,13 +237,13 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         }
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

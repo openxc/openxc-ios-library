@@ -14,7 +14,7 @@ import openXCiOSFramework
 
 class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-   
+    
     
     // UI Labels
     @IBOutlet weak var actConLab: UILabel!
@@ -23,6 +23,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var devidLab: UILabel!
     @IBOutlet weak var platformLab: UILabel!
     @IBOutlet weak var throughputLab: UILabel!
+    @IBOutlet weak var averageMessageLab: UILabel!
     @IBOutlet weak var NetworkImg: UIImageView!
     
     fileprivate var troughputLoop: Timer!
@@ -38,7 +39,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var cm: Command!
     var tfm: TraceFileManager!
     var bm: BluetoothManager!
-
+    
     // timer for UI counter updates
     var timer: Timer!
     
@@ -56,7 +57,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cm = Command.sharedInstance
         tfm = TraceFileManager.sharedInstance
         bm = BluetoothManager.sharedInstance
-
+        
         // setup the status callback, and the command response callback
         vm.setManagerCallbackTarget(self, action: StatusViewController.manager_status_updates)
         //vm.setCanDefaultTarget(self, action: StatusViewController.handle_cmd_response)
@@ -68,19 +69,19 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         vm.setManagerDebug(true)
     }
     override func viewDidAppear(_ animated: Bool) {
-      //  let name = UserDefaults.standard.value(forKey: "networkAdress") as? NSString
+        //  let name = UserDefaults.standard.value(forKey: "networkAdress") as? NSString
         
         
-         if let name = (UserDefaults.standard.value(forKey: "vehicleInterface") as? String) {
+        if let name = (UserDefaults.standard.value(forKey: "vehicleInterface") as? String) {
             if name == "Bluetooth"{
                 if (bm.isBleConnected) {
                     DispatchQueue.main.async {
                         
                         self.disconnectBtn.isHidden = false
-                       // self.searchBtn.isEnabled = true
+                        // self.searchBtn.isEnabled = true
                         self.NetworkImg.isHidden = true
                         //self.actConLab.text = "---"
-                       //self.msgRvcdLab.text = "---"
+                        //self.msgRvcdLab.text = "---"
                         //self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
                     }
                 }else{
@@ -91,12 +92,26 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.msgRvcdLab.text = "---"
                     self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
                 }
-                return
+                //return
                 
             }
             
             if (bm.isBleConnected && !UserDefaults.standard.bool(forKey: "throughputOn")) {
-                throughputLab.text = "Off"
+                DispatchQueue.main.async {
+                    self.throughputLab.text = "off"
+                    self.averageMessageLab.text = "off"
+                }
+                vm.setThroughput(false)
+            }else{
+                
+                if bm.isBleConnected{
+                    if  UserDefaults.standard.bool(forKey: "throughputOn"){
+                        vm.setThroughput(true)
+                        troughputLoop = Timer.scheduledTimer(timeInterval: 5.0, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
+                    }
+                }
+                print(UserDefaults.standard.bool(forKey: "throughputOn"))
+                
             }
             if name == "Network"{
                 if (!vm.isNetworkConnected){
@@ -104,7 +119,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         if let port = (UserDefaults.standard.value(forKey: "networkPortName") as? String){
                             self.networkDataFetch(hostName: name ,PortName: port )
                         }
-
+                        
                     }else{
                         DispatchQueue.main.async {
                             self.actConLab.text = ""
@@ -139,7 +154,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 return
             }
-         
+            
             
             if name == "None"{
                 DispatchQueue.main.async {
@@ -178,19 +193,19 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 return
             }
-         } else{
+        } else{
             
-//            self.searchBtn.isEnabled = true
-//            self.NetworkImg.isHidden = true
-//            self.actConLab.text = "---"
-//            self.msgRvcdLab.text = "---"
-//            self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
+            //            self.searchBtn.isEnabled = true
+            //            self.NetworkImg.isHidden = true
+            //            self.actConLab.text = "---"
+            //            self.msgRvcdLab.text = "---"
+            //            self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
             
         }
-       
+        
         // check to see if a trace input file has been set up
-
-}
+        
+    }
     //ranjan added code for Network data
     func networkDataFetch(hostName:String,PortName:String)  {
         // networkData.text = name as String
@@ -201,21 +216,21 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             NetworkDataManager.sharedInstance.connect(ip:hostName, portvalue: port!, completionHandler: { (success) in
                 print(success)
                 if(success){
-                     self.timer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(StatusViewController.msgRxdUpdate(_:)), userInfo: nil, repeats: true)
+                    self.timer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(StatusViewController.msgRxdUpdate(_:)), userInfo: nil, repeats: true)
                     if self.bm.messageCount > 0{
-                    UserDefaults.standard.set(hostName, forKey:"networkHostName")
-                    UserDefaults.standard.set(PortName, forKey:"networkPortName")
-                    DispatchQueue.main.async {
-                        
-                        self.NetworkImg.isHidden = true
-                        self.actConLab.text = ""
-                        self.verLab.text = "---"
-                        self.devidLab.text = "---"
-                        self.platformLab.text = "---"
-                        self.searchBtn.setTitle("WIFI CONNECTED",for:UIControlState())
-                        self.searchBtn.isEnabled = false
+                        UserDefaults.standard.set(hostName, forKey:"networkHostName")
+                        UserDefaults.standard.set(PortName, forKey:"networkPortName")
+                        DispatchQueue.main.async {
+                            
+                            self.NetworkImg.isHidden = true
+                            self.actConLab.text = ""
+                            self.verLab.text = "---"
+                            self.devidLab.text = "---"
+                            self.platformLab.text = "---"
+                            self.searchBtn.setTitle("WIFI CONNECTED",for:UIControlState())
+                            self.searchBtn.isEnabled = false
+                        }
                     }
-                 }
                     //self.callBack()
                 }else{
                     DispatchQueue.main.async {
@@ -235,18 +250,34 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
             })
         }
-
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @objc func calculateThroughput(){
-     let value = bm.calculateThroughput()
-        self.throughputLab.text = value
+        if (bm.isBleConnected && UserDefaults.standard.bool(forKey: "throughputOn")){
+           
+            let value = bm.calculateThroughput()
+            let arrOfStr = value.split(separator: ".")
+            
+            self.throughputLab.text! = String(arrOfStr[0])
+            self.averageMessageLab.text! = String(arrOfStr[1])
+        }else{
+            if (bm.isBleConnected){
+            self.throughputLab.text = "off"
+            self.averageMessageLab.text = "off"
+            troughputLoop.invalidate()
+            }else{
+                self.throughputLab.text = "---"
+                self.averageMessageLab.text = "---"
+                troughputLoop.invalidate()
+            }
+        }
+        
     }
     // this function is called when the scan button is hit
     @IBAction func searchHit(_ sender: UIButton) {
@@ -262,7 +293,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if UserDefaults.standard.bool(forKey: "autoConnectOn") {
                 bm.setAutoconnect(true)
             }
-                vm.setThroughput(false)
+            vm.setThroughput(false)
             if  UserDefaults.standard.bool(forKey: "throughputOn"){
                 //print(UserDefaults.standard.bool(forKey: "throughputOn"))
                 vm.setThroughput(true)
@@ -276,12 +307,12 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             // check to see if a trace input file has been set up
             //if UserDefaults.standard.bool(forKey: "traceInputOn") {
-           // if let name = UserDefaults.standard.value(forKey: "traceInputFilename") as? NSString {
-                  //  vm.enableTraceFileSource(name)
-                   // self.searchBtn.isEnabled = false
-               
-               // }
-           // }
+            // if let name = UserDefaults.standard.value(forKey: "traceInputFilename") as? NSString {
+            //  vm.enableTraceFileSource(name)
+            // self.searchBtn.isEnabled = false
+            
+            // }
+            // }
             
             
             // check to see if a trace output file has been configured
@@ -289,7 +320,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
                     
                     if !vm.isTraceFileConnected == true{
-                             tfm.enableTraceFileSink(name)
+                        tfm.enableTraceFileSink(name)
                     }else{
                         let alertController = UIAlertController (title: "Setting", message: "Please Disable pre record tracefile in data source", preferredStyle: .alert)
                         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
@@ -300,7 +331,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             // start the VI scan
             bm.scan(completionHandler:{(success) in
-
+                
                 // update the UI
                 if(!success){
                     let alertController = UIAlertController (title: "Setting", message: "Please enable Bluetooth", preferredStyle: .alert)
@@ -337,7 +368,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 
             })
-
+            
         }
     }
     
@@ -347,8 +378,12 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // extract the status message
         let status = rsp.object(forKey: "status") as! Int
         let msg = VehicleManagerStatusMessage(rawValue: status)
-       
-        
+        if (bm.isBleConnected && !UserDefaults.standard.bool(forKey: "throughputOn")) {
+            DispatchQueue.main.async {
+                self.throughputLab.text = "off"
+                self.averageMessageLab.text = "off"
+            }
+        }
         // show/reload the table showing detected VIs
         if msg==VehicleManagerStatusMessage.c5DETECTED {
             DispatchQueue.main.async {
@@ -366,7 +401,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.actConLab.text = "✅"
                 self.NetworkImg.isHidden = true
                 self.searchBtn.setTitle("BLE VI CONNECTED",for:UIControlState())
-              
+                
             }
         }
         if (vm.isNetworkConnected) {
@@ -379,20 +414,23 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
             }
         }
-      
+        
         // update the UI showing disconnected VI
         if msg==VehicleManagerStatusMessage.c5DISCONNECTED {
             if(!vm.isTraceFileConnected){
-            DispatchQueue.main.async {
-                self.actConLab.text = "---"
-                self.msgRvcdLab.text = "---"
-                self.verLab.text = "---"
-                self.devidLab.text = "---"
-                self.platformLab.text = "---"
-                self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
-                self.disconnectBtn.isHidden = true
-            }
-
+                DispatchQueue.main.async {
+                    self.actConLab.text = "---"
+                    self.msgRvcdLab.text = "---"
+                    self.verLab.text = "---"
+                    self.devidLab.text = "---"
+                    self.platformLab.text = "---"
+                    self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
+                    self.disconnectBtn.isHidden = true
+                    self.throughputLab.text = "---"
+                    self.averageMessageLab.text = "---"
+                    
+                }
+                
             }
         }
         
@@ -420,20 +458,20 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.cm.sendCommand(cm)
             }
         }
- 
+        
     }
     
-//    if  UserDefaults.standard.bool(forKey: "throughputOn"){
-//    if bm.isBleConnected{
-//    //print(UserDefaults.standard.bool(forKey: "throughputOn"))
-//    vm.setThroughput(true)
-//    troughputLoop = Timer.scheduledTimer(timeInterval: 5.0, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
-//    }
-//    }
+    //    if  UserDefaults.standard.bool(forKey: "throughputOn"){
+    //    if bm.isBleConnected{
+    //    //print(UserDefaults.standard.bool(forKey: "throughputOn"))
+    //    vm.setThroughput(true)
+    //    troughputLoop = Timer.scheduledTimer(timeInterval: 5.0, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
+    //    }
+    //    }
     // this function handles all command responses
     func handle_cmd_response(_ rsp:NSDictionary) {
         
-      
+        
         // extract the command response message
         let cr = rsp.object(forKey: "vehiclemessage") as! VehicleCommandResponse
         
@@ -457,7 +495,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
         if cr.command_response.isEqual(to: "platform") || cr.command_response.isEqual(to: ".platform") {
-
+            
             DispatchQueue.main.async {
                 self.platformLab.text = cr.message as String
             }
@@ -470,8 +508,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // this function is called by the timer, it updates the UI
     @objc func msgRxdUpdate(_ t:Timer) {
         if bm.connectionState == VehicleManagerConnectionState.operational || vm.isNetworkConnected || vm.isTraceFileConnected{
-           
-             DispatchQueue.main.async {
+            
+            DispatchQueue.main.async {
                 self.msgRvcdLab.text = String(self.bm.messageCount)
             }
         }
@@ -493,7 +531,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // how many VIs have been discovered
-
+        
         tableView.dataSource = self
         
         let count = bm.discoveredVI().count

@@ -625,12 +625,12 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   public func calculateThroughput() -> (String) {
     //.. Code process
     let returnData = String(data: tempDataBuffer as Data, encoding: .utf8)
-    //print(returnData as Any)
+    let result2 = tempDataBuffer.length
     let arrOfStr = returnData?.split(separator: "\0")
     let value1 = (arrOfStr?.count)!/5
     let value = tempDataBuffer.length/5
     let result = String(value)
-    let result1 = String(value1) + " msg," + result + " byte/sec"
+    let result1 = String(value1) + " msg," + result + " byte/sec." + String(result2) + " Bytes"
    // print(arrOfStr?.count as Any)
     tempDataBuffer.setData(NSMutableData() as Data)
     return result1
