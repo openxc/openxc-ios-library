@@ -55,7 +55,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         hideAll()
         customCommandTF.delegate = self
@@ -64,7 +64,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         acitivityInd.activityIndicatorViewStyle =
             UIActivityIndicatorViewStyle.whiteLarge
         acitivityInd.isHidden = true
-
+        
         // grab VM instance
         vm = VehicleManager.sharedInstance
         bm = BluetoothManager.sharedInstance
@@ -82,7 +82,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         //bypassSeg.addTarget(self, action: #selector(bypassSegmentedControlValueChanged), for: .valueChanged)
         // pFormatSeg.addTarget(self, action: #selector(formatSegmentedControlValueChanged), for: .valueChanged)
         
-         isJsonFormat = vm.jsonMode
+        isJsonFormat = vm.jsonMode
         
     }
     
@@ -187,11 +187,11 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         
     }
     func  sendCommandWithValue(sRow:NSInteger){
-         let vcm = VehicleCommandRequest()
+        let vcm = VehicleCommandRequest()
         switch sRow {
         case 0:
             //responseLab.text = ""
-           
+            
             vcm.command = .version
             self.cm.sendCommand(vcm)
             // activity indicator
@@ -208,7 +208,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             showActivityIndicator()
             break
         case 2:
-
+            
             
             //let cm = VehicleCommandRequest()
             
@@ -238,7 +238,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             } else {
                 vcm.bypass = false
             }
-
+            
             vcm.command = .af_bypass
             self.cm.sendCommand(vcm)
             showActivityIndicator()
@@ -254,8 +254,8 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             }
             vcm.command = .payload_format
             if !vm.jsonMode && pFormatSeg.selectedSegmentIndex==0{
-            self.cm.sendCommand(vcm)
-            showActivityIndicator()
+                self.cm.sendCommand(vcm)
+                showActivityIndicator()
             }
             if vm.jsonMode && pFormatSeg.selectedSegmentIndex==1{
                 self.cm.sendCommand(vcm)
@@ -321,15 +321,15 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         if cr.command_response.isEqual(to: "payload_format") || cr.command_response.isEqual(to: ".payloadformat") {
             if(cr.status){
-            if !vm.jsonMode && !isJsonFormat{
-            vm.setProtobufMode(false)
-            UserDefaults.standard.set(false, forKey:"protobufOn")
-            }
-            if vm.jsonMode && isJsonFormat{
-                vm.setProtobufMode(true)
-                UserDefaults.standard.set(true, forKey:"protobufOn")
-                 payloadFormatResp = String(cr.status)
-            }
+                if !vm.jsonMode && !isJsonFormat{
+                    vm.setProtobufMode(false)
+                    UserDefaults.standard.set(false, forKey:"protobufOn")
+                }
+                if vm.jsonMode && isJsonFormat{
+                    vm.setProtobufMode(true)
+                    UserDefaults.standard.set(true, forKey:"protobufOn")
+                    payloadFormatResp = String(cr.status)
+                }
             }
             payloadFormatResp = String(cr.status)
             isJsonFormat = vm.jsonMode
@@ -355,9 +355,9 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         let cr = rsp.object(forKey: "vehiclemessage") as! VehicleCommandResponse
         
         if rsp.allKeys.count > 2 {
-        dashDict.setObject(cr.command_response,forKey: "command_response" as NSCopying)
-        dashDict.setObject(cr.message,forKey: "message" as NSCopying)
-        dashDict.setObject(cr.status,forKey: "status" as NSCopying)
+            dashDict.setObject(cr.command_response,forKey: "command_response" as NSCopying)
+            dashDict.setObject(cr.message,forKey: "message" as NSCopying)
+            dashDict.setObject(cr.status,forKey: "status" as NSCopying)
         }else{
             dashDict.setObject(cr.command_response,forKey: "command_response" as NSCopying)
             dashDict.setObject(cr.status,forKey: "status" as NSCopying)
