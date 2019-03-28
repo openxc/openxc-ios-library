@@ -1,6 +1,6 @@
 # openxcframework
 
-[![CI Status](https://img.shields.io/travis/kranjanford/openxcframework.svg?style=flat)](https://travis-ci.org/kranjanford/openxcframework)
+[![CI Status](https://img.shields.io/travis/kranjanford/openxcframework.svg?style=flat)](https://travis-ci.org/openxc/openxc-ios-library)
 [![Version](https://img.shields.io/cocoapods/v/openxcframework.svg?style=flat)](https://cocoapods.org/pods/openxcframework)
 [![License](https://img.shields.io/cocoapods/l/openxcframework.svg?style=flat)](https://cocoapods.org/pods/openxcframework)
 [![Platform](https://img.shields.io/cocoapods/p/openxcframework.svg?style=flat)](https://cocoapods.org/pods/openxcframework)
@@ -30,11 +30,11 @@ The framework can be picked directly from the releases
 
 Make sure you have XCode9 installed with iOS11 to build it from XCode. This framework must be included in any iOS application that needs to connect to a VI
 
-Refer to this [document](https://github.com/openxc/openxc-ios-framework/blob/master/OpenXC_iOS_Document.docx) for more details on installation and usage.
+Refer to this [document](https://github.com/openxc/openxc-ios-library/blob/master/OpenXC_iOS_Document.docx) for more details on installation and usage.
 
-API usage details are available [here](https://github.com/openxc/openxc-ios-framework/blob/master/iOS%20Framework%20API%20Guide.pdf). 
+API usage details are available [here](https://github.com/openxc/openxc-ios-library/blob/master/iOS%20Framework%20API%20Guide.pdf). 
 
-Also see [Step by Step Guide] (https://github.com/openxc/openxc-ios-framework/blob/master/StepsToBuildOpenXCiOSFrameworkAndDemoApp.docx) to build framework. 
+Also see [Step by Step Guide] (https://github.com/openxc/openxc-ios-library/blob/master/StepsToBuildOpenXCiOSFrameworkAndDemoApp.docx) to build framework. 
 
 
 ## Tests
@@ -62,7 +62,7 @@ To install XCode command line tools, follow these steps for XCode:
 
 ## Contributing
 
-Please see our [Contribution Documents] (https://github.com/openxc/openxc-ios-framework/blob/master/CONTRIBUTING.mkd)
+Please see our [Contribution Documents] (https://github.com/openxc/openxc-ios-library/blob/master/CONTRIBUTING.mkd)
 
 ## Example
 
