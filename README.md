@@ -1,4 +1,4 @@
-# openxcframework
+# OpenXC-iOS-Library
 
 [![CI Status](https://img.shields.io/travis/kranjanford/openxcframework.svg?style=flat)](https://travis-ci.org/openxc/openxc-ios-library)
 [![Version](https://img.shields.io/cocoapods/v/openxcframework.svg?style=flat)](https://cocoapods.org/pods/openxcframework)
@@ -11,7 +11,7 @@ This framework is part of the OpenXC project. This iOS framework contains the to
 
 OpenXC iOS framework for use with the C5 BLE device. See also the [openxc-ios-app-demo](To run the example project, clone the repo, and run `pod install` from the Example directory first.)
 
-## OpenXC-iOS-Framework-Version
+## OpenXC-iOS-Library-Version
 * V3.0.1
 
 ## Supported versions:
