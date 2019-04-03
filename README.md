@@ -1,18 +1,18 @@
-# openxcframework
+# OpenXC-iOS-Library
 
 [![CI Status](https://img.shields.io/travis/kranjanford/openxcframework.svg?style=flat)](https://travis-ci.org/openxc/openxc-ios-library)
 [![Version](https://img.shields.io/cocoapods/v/openxcframework.svg?style=flat)](https://cocoapods.org/pods/openxcframework)
 [![License](https://img.shields.io/cocoapods/l/openxcframework.svg?style=flat)](https://cocoapods.org/pods/openxcframework)
 [![Platform](https://img.shields.io/cocoapods/p/openxcframework.svg?style=flat)](https://cocoapods.org/pods/openxcframework)
 
-# OpenXC-iOS-Framework
+# OpenXC-iOS-Library
 This framework is part of the OpenXC project. This iOS framework contains the tools required to read vehicle data from the vehicle's CAN bus through the OpenXC vehicle interface in any iOS application.
 
 
 OpenXC iOS framework for use with the C5 BLE device. See also the [openxc-ios-app-demo](To run the example project, clone the repo, and run `pod install` from the Example directory first.)
 
-## OpenXC-iOS-Framework-Version
-* V3.0.0
+## OpenXC-iOS-Library-Version
+* V3.0.1
 
 ## Supported versions:
 * iOS - upto 11.2.5
