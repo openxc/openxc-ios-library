@@ -2,7 +2,7 @@
 # * https://www.objc.io/issues/6-build-tools/travis-ci/
 # * https://github.com/supermarin/xcpretty#usage
 
-language: objective-c,swift
+language: objective-c swift
 osx_image: xcode10.0
 xcode_project:  Example/openxcframework.xcworkspace
 xcode_scheme: openxc-ios-framework
