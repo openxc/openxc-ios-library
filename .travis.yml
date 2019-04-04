@@ -2,8 +2,8 @@
 # * https://www.objc.io/issues/6-build-tools/travis-ci/
 # * https://github.com/supermarin/xcpretty#usage
 
-language: objective-c swift
-osx_image: xcode10.0
+language: swift
+osx_image: xcode9.0
 xcode_project:  Example/openxcframework.xcworkspace
 xcode_scheme: openxc-ios-framework
 xcode_sdk: iphonesimulator11.0
@@ -23,7 +23,7 @@ branches:
 #- pod install --project-directory=Example
 
 script:
-- xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator9.3 ONLY_ACTIVE_ARCH=NO
+- xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator9.3 ONLY_ACTIVE_ARCH=NO | xcpretty
 #- pod lib lint --allow-warnings
 # -- set -o pipefail &&
 
