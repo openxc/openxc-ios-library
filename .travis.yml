@@ -16,10 +16,6 @@ script:
 - xcodebuild clean build test -project openxc-ios-framework.xcodeproj -scheme openxc-ios-framework -destination 'platform=iOS Simulator,name=iPhone 6s,OS=11.4'  ONLY_ACTIVE_ARCH=NO
 
 
-#script:
-#- xcodebuild clean build test -project openxc-ios-framework.xcodeproj -scheme openxc-ios-framework -destination 'platform=iOS Simulator,name=iPhone 6s,OS=11.4'  ONLY_ACTIVE_ARCH=NO
-
-
 # cache: cocoapods
 # podfile: Example/Podfile
 # before_install:
