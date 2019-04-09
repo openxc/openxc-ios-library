@@ -350,7 +350,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             }
             
         } catch {
-            
+            print(error.localizedDescription)
         }
         
         
