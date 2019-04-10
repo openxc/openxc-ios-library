@@ -13,7 +13,7 @@ branches:
 - next
 
 script:
-- xcodebuild clean build test -project openxc-ios-framework.xcodeproj -scheme openxc-ios-framework -destination 'platform=iOS Simulator,name=iPhone 6s,OS=9.2'  ONLY_ACTIVE_ARCH=NO
+- xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator9.3 ONLY_ACTIVE_ARCH=NO | xcpretty
 
 # cache: cocoapods
 # podfile: Example/Podfile
