@@ -9,7 +9,10 @@
 /* Begin PBXBuildFile section */
 		0DDF25306B5813E0B4B8C63D /* Pods_openxcframework_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D77287E931FD4428955C4B /* Pods_openxcframework_Tests.framework */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		7D06DA19225DE872003C8DF3 /* NetworkManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA15225DE872003C8DF3 /* NetworkManagerTest.swift */; };
+		7D06DA1A225DE872003C8DF3 /* TraceFileManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA16225DE872003C8DF3 /* TraceFileManagerTest.swift */; };
+		7D06DA1B225DE872003C8DF3 /* BluetoothManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA17225DE872003C8DF3 /* BluetoothManagerTest.swift */; };
+		7D06DA1C225DE872003C8DF3 /* VehicleManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA18225DE872003C8DF3 /* VehicleManagerTest.swift */; };
 		7D4C63B82239247700A04A53 /* nouns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C63A62239247600A04A53 /* nouns.txt */; };
 		7D4C63B92239247700A04A53 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63A72239247600A04A53 /* StatusViewController.swift */; };
 		7D4C63BA2239247700A04A53 /* CanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63A82239247600A04A53 /* CanViewController.swift */; };
@@ -52,8 +55,12 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* openxcframework_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openxcframework_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		79087BEA6A8530B9EA606A35 /* openxcframework.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = openxcframework.podspec; path = ../openxcframework.podspec; sourceTree = "<group>"; };
+		7D06DA14225DE871003C8DF3 /* openxcframework_Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openxcframework_Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		7D06DA15225DE872003C8DF3 /* NetworkManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTest.swift; sourceTree = "<group>"; };
+		7D06DA16225DE872003C8DF3 /* TraceFileManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceFileManagerTest.swift; sourceTree = "<group>"; };
+		7D06DA17225DE872003C8DF3 /* BluetoothManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManagerTest.swift; sourceTree = "<group>"; };
+		7D06DA18225DE872003C8DF3 /* VehicleManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleManagerTest.swift; sourceTree = "<group>"; };
 		7D4C63A52239247500A04A53 /* openxcframework_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openxcframework_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		7D4C63A62239247600A04A53 /* nouns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nouns.txt; sourceTree = "<group>"; };
 		7D4C63A72239247600A04A53 /* StatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
@@ -159,8 +166,12 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				7D06DA17225DE872003C8DF3 /* BluetoothManagerTest.swift */,
+				7D06DA15225DE872003C8DF3 /* NetworkManagerTest.swift */,
+				7D06DA16225DE872003C8DF3 /* TraceFileManagerTest.swift */,
+				7D06DA18225DE872003C8DF3 /* VehicleManagerTest.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				7D06DA14225DE871003C8DF3 /* openxcframework_Tests-Bridging-Header.h */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -263,7 +274,7 @@
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0940;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -412,7 +423,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				7D06DA1B225DE872003C8DF3 /* BluetoothManagerTest.swift in Sources */,
+				7D06DA19225DE872003C8DF3 /* NetworkManagerTest.swift in Sources */,
+				7D06DA1C225DE872003C8DF3 /* VehicleManagerTest.swift in Sources */,
+				7D06DA1A225DE872003C8DF3 /* TraceFileManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +606,7 @@
 			baseConfigurationReference = 395AE63C3A79FDE08DF36475 /* Pods-openxcframework_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -604,6 +619,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/openxcframework_Tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/openxcframework_Example.app/openxcframework_Example";
@@ -615,6 +632,7 @@
 			baseConfigurationReference = 248002F5E019D1B46765138D /* Pods-openxcframework_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -623,6 +641,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/openxcframework_Tests-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/openxcframework_Example.app/openxcframework_Example";
