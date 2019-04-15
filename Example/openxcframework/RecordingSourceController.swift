@@ -124,7 +124,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
             
         }
         // load the dweet name into the text field
-        //dweetname.text = UserDefaults.standard.string(forKey: "dweetname")
+        dweetname.text = UserDefaults.standard.string(forKey: "dweetname")
         // check value of dweet out switch
         let dweetOn = UserDefaults.standard.bool(forKey: "dweetOutputOn")
         // update UI if necessary
