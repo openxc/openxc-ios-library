@@ -48,8 +48,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         self.disconnectBtn.isHidden = true
         // change tab bar text colors
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.gray], for:UIControlState())
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.white], for:.selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for:UIControl.State())
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for:.selected)
         
         
         // instantiate the VM
@@ -90,7 +90,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.NetworkImg.isHidden = true
                     self.actConLab.text = "---"
                     self.msgRvcdLab.text = "---"
-                    self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
+                    self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControl.State())
                 }
                 //return
                 
@@ -127,11 +127,11 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             self.devidLab.text = "---"
                             self.platformLab.text = "---"
                             self.msgRvcdLab.text = "---"
-                            self.searchBtn.setTitle("WIFI NOT CONNECTED",for:UIControlState())
+                            self.searchBtn.setTitle("WIFI NOT CONNECTED",for:UIControl.State())
                             self.searchBtn.isEnabled = false
                             let alertController = UIAlertController(title: "", message:
-                                "please check the host adress", preferredStyle: UIAlertControllerStyle.alert)
-                            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                                "please check the host adress", preferredStyle: UIAlertController.Style.alert)
+                            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                             self.present(alertController, animated: true, completion: nil)
                         }
                         
@@ -148,7 +148,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         self.devidLab.text = "---"
                         self.platformLab.text = "---"
                         //self.msgRvcdLab.text = "---"
-                        self.searchBtn.setTitle("WIFI  CONNECTED",for:UIControlState())
+                        self.searchBtn.setTitle("WIFI  CONNECTED",for:UIControl.State())
                         self.searchBtn.isEnabled = false
                     }
                 }
@@ -163,7 +163,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.verLab.text = "---"
                     self.devidLab.text = "---"
                     self.platformLab.text = "---"
-                    self.searchBtn.setTitle("None",for:UIControlState())
+                    self.searchBtn.setTitle("None",for:UIControl.State())
                     self.searchBtn.isEnabled = false
                 }
                 return
@@ -177,7 +177,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         self.searchBtn.isEnabled = false
                         DispatchQueue.main.async {
                             self.actConLab.text = "✅"
-                            self.searchBtn.setTitle("Trace File Playing",for:UIControlState())
+                            self.searchBtn.setTitle("Trace File Playing",for:UIControl.State())
                             self.verLab.text = "---"
                             self.devidLab.text = "---"
                             self.platformLab.text = "---"
@@ -186,7 +186,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         
                         DispatchQueue.main.async {
                             self.actConLab.text = "✅"
-                            self.searchBtn.setTitle("Trace File Playing",for:UIControlState())
+                            self.searchBtn.setTitle("Trace File Playing",for:UIControl.State())
                             
                         }
                     }
@@ -227,7 +227,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             self.verLab.text = "---"
                             self.devidLab.text = "---"
                             self.platformLab.text = "---"
-                            self.searchBtn.setTitle("WIFI CONNECTED",for:UIControlState())
+                            self.searchBtn.setTitle("WIFI CONNECTED",for:UIControl.State())
                             self.searchBtn.isEnabled = false
                         }
                     }
@@ -239,11 +239,11 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         self.devidLab.text = "---"
                         self.platformLab.text = "---"
                         self.msgRvcdLab.text = "---"
-                        self.searchBtn.setTitle("WIFI NOT CONNECTED",for:UIControlState())
+                        self.searchBtn.setTitle("WIFI NOT CONNECTED",for:UIControl.State())
                         self.searchBtn.isEnabled = false
                         let alertController = UIAlertController(title: "", message:
-                            "error ocured in connection", preferredStyle: UIAlertControllerStyle.alert)
-                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                            "error ocured in connection", preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                         self.present(alertController, animated: true, completion: nil)
                     }
                     
@@ -323,7 +323,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         tfm.enableTraceFileSink(name)
                     }else{
                         let alertController = UIAlertController (title: "Setting", message: "Please Disable pre record tracefile in data source", preferredStyle: .alert)
-                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                         self.present(alertController, animated: true, completion: nil)
                     }
                 }
@@ -337,7 +337,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     let alertController = UIAlertController (title: "Setting", message: "Please enable Bluetooth", preferredStyle: .alert)
                     let url = URL(string: "App-Prefs:root=Bluetooth")
                     let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
-                        guard URL(string: UIApplicationOpenSettingsURLString) != nil else {
+                        guard URL(string: UIApplication.openSettingsURLString) != nil else {
                             return
                         }
                         
@@ -360,7 +360,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 DispatchQueue.main.async {
                     self.actConLab.text = "❓"
-                    self.searchBtn.setTitle("SCANNING",for:UIControlState())
+                    self.searchBtn.setTitle("SCANNING",for:UIControl.State())
                     //                    let alertController = UIAlertController(title: "", message:
                     //                        "Please check the BLE power is on ", preferredStyle: UIAlertControllerStyle.alert)
                     //                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
@@ -400,7 +400,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.peripheralTable.isHidden = true
                 self.actConLab.text = "✅"
                 self.NetworkImg.isHidden = true
-                self.searchBtn.setTitle("BLE VI CONNECTED",for:UIControlState())
+                self.searchBtn.setTitle("BLE VI CONNECTED",for:UIControl.State())
                 
             }
         }
@@ -409,7 +409,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.peripheralTable.isHidden = true
                 self.actConLab.text = ""
                 self.NetworkImg.isHidden = false
-                self.searchBtn.setTitle("WIFI CONNECTED",for:UIControlState())
+                self.searchBtn.setTitle("WIFI CONNECTED",for:UIControl.State())
                 self.searchBtn.isEnabled = false
                 
             }
@@ -424,7 +424,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.verLab.text = "---"
                     self.devidLab.text = "---"
                     self.platformLab.text = "---"
-                    self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
+                    self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControl.State())
                     self.disconnectBtn.isHidden = true
                     self.throughputLab.text = "---"
                     self.averageMessageLab.text = "---"
@@ -545,7 +545,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // grab a cell
         var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "cell") as UITableViewCell?
         if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "cell")
+            cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "cell")
         }
         
         // grab the name of the VI for this row

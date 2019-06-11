@@ -66,7 +66,7 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   //  variable holding number of messages received since last Connection established
   open var messageCount: Int = 0
   // Initialization
-  static open let sharedInstance: BluetoothManager = {
+  static public let sharedInstance: BluetoothManager = {
     
     return BluetoothManager()
     

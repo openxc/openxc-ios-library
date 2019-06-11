@@ -198,7 +198,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "cell") as UITableViewCell?
         if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "cell")
+            cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "cell")
         }
         
         // sort the name keys alphabetically
@@ -309,7 +309,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     func isHeadsetPluggedIn() -> Bool {
         let route = AVAudioSession.sharedInstance().currentRoute
         for desc in route.outputs {
-            if desc.portType == AVAudioSessionPortHeadphones {
+            if convertFromAVAudioSessionPort(desc.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headphones) {
                 return true
             }
         }
@@ -371,3 +371,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionPort(_ input: AVAudioSession.Port) -> String {
+	return input.rawValue
+}

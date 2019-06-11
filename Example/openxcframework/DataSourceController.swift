@@ -62,12 +62,12 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         vm.setCommandDefaultTarget(self, action: DataSourceController.handle_cmd_response)
         //ranjan added code for Network data
         // watch for changes to network file output file name field
-        networkDataHost.addTarget(self, action: #selector(networkDataFieldDidChange), for:UIControlEvents.editingChanged)
-        networkDataPort.addTarget(self, action: #selector(networkPortFieldDidChange), for:UIControlEvents.editingChanged)
+        networkDataHost.addTarget(self, action: #selector(networkDataFieldDidChange), for:UIControl.Event.editingChanged)
+        networkDataPort.addTarget(self, action: #selector(networkPortFieldDidChange), for:UIControl.Event.editingChanged)
         //networkDataHost.isHidden = true
         
         // watch for changes to trace file input file name field
-        playname.addTarget(self, action: #selector(playFieldDidChange), for: UIControlEvents.editingChanged)
+        playname.addTarget(self, action: #selector(playFieldDidChange), for: UIControl.Event.editingChanged)
         // playname.isHidden = true
         
         
@@ -430,8 +430,8 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             }else{
                 
                 let alertController = UIAlertController(title: "", message:
-                    "Please enter valid host name", preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                    "Please enter valid host name", preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                 self.present(alertController, animated: true, completion: nil)
             }
         }
@@ -443,8 +443,8 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
                 textField.resignFirstResponder();
             }else{
                 let alertController = UIAlertController(title: "", message:
-                    "Please enter valid port number", preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                    "Please enter valid port number", preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                 self.present(alertController, animated: true, completion: nil)
                 
             }
@@ -466,8 +466,8 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
                     //self.callBack()
                 }else{
                     let alertController = UIAlertController(title: "", message:
-                        "error ocured in connection", preferredStyle: UIAlertControllerStyle.alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                        "error ocured in connection", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                     self.present(alertController, animated: true, completion: nil)
                     UserDefaults.standard.set(nil, forKey:"networkHostName")
                     UserDefaults.standard.set(nil, forKey:"networkPortName")

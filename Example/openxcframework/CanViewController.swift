@@ -85,7 +85,7 @@ class CanViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         var cell:UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: "cell") as UITableViewCell?
         if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "cell")
+            cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "cell")
         }
         
         // sort the name keys alphabetically

@@ -210,7 +210,7 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
             if mloadtrim=="" {
                 // its optional
             }
-            if mloadtrim.characters.count%2==0 { //payload must be even length
+            if mloadtrim.count%2==0 { //payload must be even length
                 
                 let appendedStr = "0x" + mloadtrim
                 

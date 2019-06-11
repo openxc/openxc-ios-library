@@ -61,8 +61,8 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         customCommandTF.delegate = self
         acitivityInd.center = self.view.center
         acitivityInd.hidesWhenStopped = true
-        acitivityInd.activityIndicatorViewStyle =
-            UIActivityIndicatorViewStyle.whiteLarge
+        acitivityInd.style =
+            UIActivityIndicatorView.Style.whiteLarge
         acitivityInd.isHidden = true
         
         // grab VM instance
@@ -159,10 +159,10 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
     func convertDict(cleanedstring:String){
         let searchCharacter: Character = ","
         let searchCharacter1: Character = ":"
-        if cleanedstring.lowercased().characters.contains(searchCharacter) {
+        if cleanedstring.lowercased().contains(searchCharacter) {
             let fullNameArr = cleanedstring.components(separatedBy: ",")
             for  dataValue in fullNameArr{
-                if dataValue.lowercased().characters.contains(searchCharacter1) {
+                if dataValue.lowercased().contains(searchCharacter1) {
                     let badchar = CharacterSet(charactersIn: "\"{}[]")
                     let cleanedstring = dataValue.components(separatedBy: badchar).joined()
                     let newString3 = cleanedstring.replacingOccurrences(of: "\"", with: "")
@@ -380,7 +380,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         var rowTitle:NSAttributedString!
         
-        rowTitle = NSAttributedString(string: commands[row], attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
+        rowTitle = NSAttributedString(string: commands[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         return rowTitle
     }
     
