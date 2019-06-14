@@ -4,10 +4,10 @@
 
 
 language: swift
-osx_image: xcode10.0
+osx_image: xcode10.2
 xcode_project:  Example/openxcframework.xcworkspace
 xcode_scheme: openxc-ios-framework
-xcode_sdk: iphonesimulator11.0
+xcode_sdk: iphonesimulator12.0
 
 branches:
 - master
@@ -26,7 +26,7 @@ branches:
 #- pod install --project-directory=Example
 
 script:
-- xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator9.3 ONLY_ACTIVE_ARCH=NO | xcpretty
+- xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
 #- pod lib lint --allow-warnings
 # -- set -o pipefail &&
 
