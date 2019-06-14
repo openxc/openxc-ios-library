@@ -8,9 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = 'openxcframework'
-  s.version          = '1.1.3'
+  s.version          = '1.1.4'
   s.summary          = 'A short description of openxcframework.'
-  s.swift_version    = '3.2'
+  s.swift_version    = '5.0'
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.
@@ -26,10 +26,10 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/openxc/openxc-ios-library.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '12.0'
   s.exclude_files = 'openxcframework/*.plist'
   s.source_files = 'openxcframework/*.{swift}'
-  s.dependency 'protobufSwift', '~> 1.3.3'
+  s.dependency 'protobufSwift', '~> 1.3.4'
   s.module_name = 'openXCiOSFramework'
   s.frameworks = 'ExternalAccessory', 'CoreBluetooth', 'Foundation'
 
