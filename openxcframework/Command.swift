@@ -60,7 +60,7 @@ open class Command: NSObject {
     // This signleton init allows mutiple controllers to access the same instantiation
     // of the VehicleManager. There is only a single instantiation of the VehicleManager
     // for the entire client app
-    static open let sharedInstance: Command = {
+    static public let sharedInstance: Command = {
         let instance = Command()
         return instance
     }()

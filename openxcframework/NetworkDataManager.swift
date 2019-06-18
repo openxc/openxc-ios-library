@@ -22,7 +22,7 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
     var callbackHandler: ((Bool) -> ())?  = nil
     
     // Initialization
-    static open let sharedInstance: NetworkDataManager = {
+    static public let sharedInstance: NetworkDataManager = {
         let instance = NetworkDataManager()
         return instance
     }()
@@ -39,8 +39,8 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
         inputstream?.delegate = self
         outputstream?.delegate = self
         
-        inputstream?.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
-        outputstream?.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        inputstream?.schedule(in: RunLoop.current, forMode: RunLoop.Mode.default)
+        outputstream?.schedule(in: RunLoop.current, forMode:RunLoop.Mode.default)
         
         inputstream?.open()
         

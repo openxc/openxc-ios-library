@@ -12,7 +12,7 @@ open class VehicleMessageUnit: NSObject {
 
     static let sharedNetwork = VehicleMessageUnit()
     // Initialization
-    static open let sharedInstance: VehicleMessageUnit = {
+    static public let sharedInstance: VehicleMessageUnit = {
         let instance = VehicleMessageUnit()
         return instance
     }()
