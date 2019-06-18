@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'openxcframework'
-  s.version          = '1.1.5'
+  s.version          = '1.1.6'
   s.summary          = 'A short description of openxcframework.'
   s.swift_version    = '5.0'
 # This description is used to generate tags and improve search results.
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/openxc/openxc-ios-library.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '9.3'
   s.exclude_files = 'openxcframework/*.plist'
   s.source_files = 'openxcframework/*.{swift}'
   s.dependency 'protobufSwift', '~> 1.3.4'
