@@ -38,7 +38,7 @@ open class TraceFileManager: NSObject {
   fileprivate var managerCallback: TargetAction?
   
   // Initialization
-  static open let sharedInstance: TraceFileManager = {
+  static public let sharedInstance: TraceFileManager = {
     
     return TraceFileManager()
     

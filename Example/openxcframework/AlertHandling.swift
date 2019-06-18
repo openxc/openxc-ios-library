@@ -20,7 +20,7 @@ open class AlertHandling : NSObject {
     //        return _sharedInstance
     //    }
     // Initialization
-    static open let sharedInstance: AlertHandling = {
+    static public let sharedInstance: AlertHandling = {
         let instance = AlertHandling()
         return instance
     }()
@@ -28,7 +28,7 @@ open class AlertHandling : NSObject {
         //connecting = false
     }
     
-    open func showAlert(onViewController viewController:UIViewController, withText text:String, withMessage message:String, style:UIAlertControllerStyle = .alert, actions:UIAlertAction...){
+    open func showAlert(onViewController viewController:UIViewController, withText text:String, withMessage message:String, style:UIAlertController.Style = .alert, actions:UIAlertAction...){
         alert = UIAlertController(title: text, message: message, preferredStyle: style)
         if actions.count == 0{
             alert!.addAction(self.getAlertAction(withTitle: "OK", handler: { _ -> Void in
@@ -43,7 +43,7 @@ open class AlertHandling : NSObject {
         viewController.present(alert!, animated: true, completion: nil)
     }
     
-    open func getAlertAction(withTitle title:String, style:UIAlertActionStyle = .default, handler:((UIAlertAction)->Void)?)->UIAlertAction{
+    open func getAlertAction(withTitle title:String, style:UIAlertAction.Style = .default, handler:((UIAlertAction)->Void)?)->UIAlertAction{
         return UIAlertAction(title: title, style: style, handler: handler)
     }
     

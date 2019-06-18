@@ -76,7 +76,7 @@ open class VehicleManager: NSObject {
   // This signleton init allows mutiple controllers to access the same instantiation
   // of the VehicleManager. There is only a single instantiation of the VehicleManager
   // for the entire client app
-  static open let sharedInstance: VehicleManager = {
+  static public let sharedInstance: VehicleManager = {
     let instance = VehicleManager()
     return instance
   }()

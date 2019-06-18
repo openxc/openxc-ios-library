@@ -28,21 +28,21 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         // grab VM instance
         vm = VehicleManager.sharedInstance
         // watch for changes to trace file output file name field
-        recname.addTarget(self, action: #selector(recFieldDidChange), for: UIControlEvents.editingChanged)
+        recname.addTarget(self, action: #selector(recFieldDidChange), for: UIControl.Event.editingChanged)
         recname.isHidden = true
         
         // watch for changes to dweet name field
-        dweetname.addTarget(self, action: #selector(dweetFieldDidChange), for: UIControlEvents.editingChanged)
-        dweetname.addTarget(self, action: #selector(keyboardWillShow), for: UIControlEvents.editingDidBegin)
-        dweetname.addTarget(self, action: #selector(keyboardWillHide), for: UIControlEvents.editingDidEnd)
+        dweetname.addTarget(self, action: #selector(dweetFieldDidChange), for: UIControl.Event.editingChanged)
+        dweetname.addTarget(self, action: #selector(keyboardWillShow), for: UIControl.Event.editingDidBegin)
+        dweetname.addTarget(self, action: #selector(keyboardWillHide), for: UIControl.Event.editingDidEnd)
         dweetname.isHidden = true
         dweetnamelabel.isHidden = true
         
         
         // watch for changes to dweet name field
-        traceURLname.addTarget(self, action: #selector(traceURLFieldDidChange), for: UIControlEvents.editingChanged)
-        traceURLname.addTarget(self, action: #selector(keyboardWillShow), for: UIControlEvents.editingDidBegin)
-        traceURLname.addTarget(self, action: #selector(keyboardWillHide), for: UIControlEvents.editingDidEnd)
+        traceURLname.addTarget(self, action: #selector(traceURLFieldDidChange), for: UIControl.Event.editingChanged)
+        traceURLname.addTarget(self, action: #selector(keyboardWillShow), for: UIControl.Event.editingDidBegin)
+        traceURLname.addTarget(self, action: #selector(keyboardWillHide), for: UIControl.Event.editingDidEnd)
         traceURLname.isHidden = true
         tergetURLnamelabel.isHidden = true
         
@@ -189,8 +189,8 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
                 UserDefaults.standard.set(textField.text, forKey:"traceOutputFilename")
             }else{
                 let alertController = UIAlertController(title: "", message:
-                    "Plese specify file Name with .json", preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                    "Plese specify file Name with .json", preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                 self.present(alertController, animated: true, completion: nil)
             }
             
@@ -203,8 +203,8 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
                 
             }else{
                 let alertController = UIAlertController(title: "", message:
-                    "Plese specify target URL Name ", preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                    "Plese specify target URL Name ", preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                 self.present(alertController, animated: true, completion: nil)
             }
         }
