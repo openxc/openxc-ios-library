@@ -318,7 +318,7 @@ final public class VehicleMessage : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -877,7 +877,7 @@ final public class VehicleMessage : GeneratedMessage {
           if let enumstype = VehicleMessage.Types.init(rawValue: valueInttype) {
                type = enumstype
           } else {
-            _ = try unknownFieldsBuilder.mergeVarintField(number: 1, value: Int64(valueInttype))
+            _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value: Int64(valueInttype))
             
           }
 
@@ -971,7 +971,7 @@ final public class CanMessage : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -1244,7 +1244,7 @@ final public class CanMessage : GeneratedMessage {
           if let enumsframeFormat = CanMessage.FrameFormat(rawValue:valueIntframeFormat){
                frameFormat = enumsframeFormat
           } else {
-            _ = try unknownFieldsBuilder.mergeVarintField(number: 4, value:Int64(valueIntframeFormat))
+            _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 4, value:Int64(valueIntframeFormat))
           }
 
         default:
@@ -1317,7 +1317,7 @@ final public class ControlCommand : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -1985,7 +1985,7 @@ final public class ControlCommand : GeneratedMessage {
           if let enumstype = ControlCommand.Types.init(rawValue: valueInttype){
                type = enumstype
           } else {
-            _ = try unknownFieldsBuilder.mergeVarintField(number: 1, value:Int64(valueInttype))
+            _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
           }
 
         case 18:
@@ -2084,7 +2084,7 @@ final public class DiagnosticControlCommand : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -2316,7 +2316,7 @@ final public class DiagnosticControlCommand : GeneratedMessage {
           if let enumsaction = DiagnosticControlCommand.Action(rawValue:valueIntaction){
                action = enumsaction
           } else {
-            _ = try unknownFieldsBuilder.mergeVarintField(number: 2, value:Int64(valueIntaction))
+            _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntaction))
           }
 
         default:
@@ -2341,7 +2341,7 @@ final public class PassthroughModeControlCommand : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -2552,7 +2552,7 @@ final public class AcceptanceFilterBypassCommand : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -2781,7 +2781,7 @@ final public class PayloadFormatCommand : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -2931,7 +2931,7 @@ final public class PayloadFormatCommand : GeneratedMessage {
           if let enumsformat = PayloadFormatCommand.PayloadFormat(rawValue:valueIntformat){
                format = enumsformat
           } else {
-            _ = try unknownFieldsBuilder.mergeVarintField(number: 1, value:Int64(valueIntformat))
+            _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntformat))
           }
 
         default:
@@ -2953,7 +2953,7 @@ final public class PredefinedObd2RequestsCommand : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -3147,7 +3147,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
       required public init() {
            super.init()
       }
-      override public func isInitialized() -> Bool {
+       public func isInitialized() -> Bool {
        return true
       }
       override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -3338,7 +3338,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
               if let enumsnetworkType = NetworkOperatorSettings.NetworkDescriptor.NetworkType(rawValue:valueIntnetworkType){
                    networkType = enumsnetworkType
               } else {
-                _ = try unknownFieldsBuilder.mergeVarintField(number: 2, value:Int64(valueIntnetworkType))
+                _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntnetworkType))
               }
 
             default:
@@ -3391,7 +3391,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -3656,7 +3656,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
           if let enumsoperatorSelectMode = NetworkOperatorSettings.OperatorSelectMode(rawValue:valueIntoperatorSelectMode){
                operatorSelectMode = enumsoperatorSelectMode
           } else {
-            _ = try unknownFieldsBuilder.mergeVarintField(number: 2, value:Int64(valueIntoperatorSelectMode))
+            _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntoperatorSelectMode))
           }
 
         case 26:
@@ -3686,7 +3686,7 @@ final public class NetworkDataSettings : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -3856,7 +3856,7 @@ final public class ServerConnectSettings : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -4067,7 +4067,7 @@ final public class ModemConfigurationCommand : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -4439,7 +4439,7 @@ final public class RtcconfigurationCommand : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -4611,7 +4611,7 @@ final public class CommandResponse : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -4837,7 +4837,7 @@ final public class CommandResponse : GeneratedMessage {
           if let enumstype = ControlCommand.Types.init(rawValue: valueInttype){
                type = enumstype
           } else {
-            _ = try unknownFieldsBuilder.mergeVarintField(number: 1, value:Int64(valueInttype))
+            _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
           }
 
         case 18:
@@ -4910,7 +4910,7 @@ final public class DiagnosticRequest : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -5388,7 +5388,7 @@ final public class DiagnosticRequest : GeneratedMessage {
           if let enumsdecodedType = DiagnosticRequest.DecodedType(rawValue:valueIntdecodedType){
                decodedType = enumsdecodedType
           } else {
-            _ = try unknownFieldsBuilder.mergeVarintField(number: 9, value:Int64(valueIntdecodedType))
+            _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 9, value:Int64(valueIntdecodedType))
           }
 
         default:
@@ -5433,7 +5433,7 @@ final public class DiagnosticResponse : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -5917,7 +5917,7 @@ final public class DynamicField : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -6181,7 +6181,7 @@ final public class DynamicField : GeneratedMessage {
           if let enumstype = DynamicField.Types.init(rawValue: valueInttype){
                type = enumstype
           } else {
-            _ = try unknownFieldsBuilder.mergeVarintField(number: 1, value:Int64(valueInttype))
+            _ = try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
           }
 
         case 18:
@@ -6216,7 +6216,7 @@ final public class SimpleMessage : GeneratedMessage {
   required public init() {
        super.init()
   }
-  override public func isInitialized() -> Bool {
+   public func isInitialized() -> Bool {
    return true
   }
   override public func writeTo(codedOutputStream:CodedOutputStream) throws {
@@ -6541,6 +6541,14 @@ final public class SimpleMessage : GeneratedMessage {
 }
 
 extension VehicleMessage: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<VehicleMessage> {
     var mergedArray = Array<VehicleMessage>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6571,6 +6579,14 @@ extension VehicleMessage: GeneratedMessageProtocol {
   }
 }
 extension CanMessage: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<CanMessage> {
     var mergedArray = Array<CanMessage>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6601,6 +6617,14 @@ extension CanMessage: GeneratedMessageProtocol {
   }
 }
 extension ControlCommand: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<ControlCommand> {
     var mergedArray = Array<ControlCommand>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6631,6 +6655,14 @@ extension ControlCommand: GeneratedMessageProtocol {
   }
 }
 extension DiagnosticControlCommand: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<DiagnosticControlCommand> {
     var mergedArray = Array<DiagnosticControlCommand>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6661,6 +6693,13 @@ extension DiagnosticControlCommand: GeneratedMessageProtocol {
   }
 }
 extension PassthroughModeControlCommand: GeneratedMessageProtocol {
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<PassthroughModeControlCommand> {
     var mergedArray = Array<PassthroughModeControlCommand>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6691,6 +6730,14 @@ extension PassthroughModeControlCommand: GeneratedMessageProtocol {
   }
 }
 extension AcceptanceFilterBypassCommand: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<AcceptanceFilterBypassCommand> {
     var mergedArray = Array<AcceptanceFilterBypassCommand>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6721,6 +6768,14 @@ extension AcceptanceFilterBypassCommand: GeneratedMessageProtocol {
   }
 }
 extension PayloadFormatCommand: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<PayloadFormatCommand> {
     var mergedArray = Array<PayloadFormatCommand>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6751,6 +6806,14 @@ extension PayloadFormatCommand: GeneratedMessageProtocol {
   }
 }
 extension PredefinedObd2RequestsCommand: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<PredefinedObd2RequestsCommand> {
     var mergedArray = Array<PredefinedObd2RequestsCommand>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6781,6 +6844,14 @@ extension PredefinedObd2RequestsCommand: GeneratedMessageProtocol {
   }
 }
 extension NetworkOperatorSettings: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<NetworkOperatorSettings> {
     var mergedArray = Array<NetworkOperatorSettings>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6811,6 +6882,14 @@ extension NetworkOperatorSettings: GeneratedMessageProtocol {
   }
 }
 extension NetworkOperatorSettings.NetworkDescriptor: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<NetworkOperatorSettings.NetworkDescriptor> {
     var mergedArray = Array<NetworkOperatorSettings.NetworkDescriptor>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6841,6 +6920,14 @@ extension NetworkOperatorSettings.NetworkDescriptor: GeneratedMessageProtocol {
   }
 }
 extension NetworkDataSettings: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<NetworkDataSettings> {
     var mergedArray = Array<NetworkDataSettings>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6871,6 +6958,14 @@ extension NetworkDataSettings: GeneratedMessageProtocol {
   }
 }
 extension ServerConnectSettings: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<ServerConnectSettings> {
     var mergedArray = Array<ServerConnectSettings>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6901,6 +6996,14 @@ extension ServerConnectSettings: GeneratedMessageProtocol {
   }
 }
 extension ModemConfigurationCommand: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<ModemConfigurationCommand> {
     var mergedArray = Array<ModemConfigurationCommand>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6931,6 +7034,14 @@ extension ModemConfigurationCommand: GeneratedMessageProtocol {
   }
 }
 extension RtcconfigurationCommand: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<RtcconfigurationCommand> {
     var mergedArray = Array<RtcconfigurationCommand>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6961,6 +7072,14 @@ extension RtcconfigurationCommand: GeneratedMessageProtocol {
   }
 }
 extension CommandResponse: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<CommandResponse> {
     var mergedArray = Array<CommandResponse>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -6991,6 +7110,14 @@ extension CommandResponse: GeneratedMessageProtocol {
   }
 }
 extension DiagnosticRequest: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<DiagnosticRequest> {
     var mergedArray = Array<DiagnosticRequest>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -7021,6 +7148,14 @@ extension DiagnosticRequest: GeneratedMessageProtocol {
   }
 }
 extension DiagnosticResponse: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<DiagnosticResponse> {
     var mergedArray = Array<DiagnosticResponse>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -7051,6 +7186,14 @@ extension DiagnosticResponse: GeneratedMessageProtocol {
   }
 }
 extension DynamicField: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<DynamicField> {
     var mergedArray = Array<DynamicField>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {
@@ -7081,6 +7224,14 @@ extension DynamicField: GeneratedMessageProtocol {
   }
 }
 extension SimpleMessage: GeneratedMessageProtocol {
+    
+    public typealias BuilderType = Google.Protobuf.`Any`.Builder
+    public subscript(key: String) -> Any? {
+        get {
+            return""
+        }
+    }
+    
   public class func parseArrayDelimitedFrom(inputStream:InputStream) throws -> Array<SimpleMessage> {
     var mergedArray = Array<SimpleMessage>()
     while let value = try parseDelimitedFrom(inputStream: inputStream) {

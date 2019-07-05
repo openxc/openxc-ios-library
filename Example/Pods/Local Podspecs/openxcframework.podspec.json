@@ -1,6 +1,6 @@
 {
   "name": "openxcframework",
-  "version": "1.1.4",
+  "version": "1.1.6",
   "summary": "A short description of openxcframework.",
   "swift_version": "5.0",
   "homepage": "https://github.com/openxc/openxc-ios-library",
@@ -13,16 +13,16 @@
   },
   "source": {
     "git": "https://github.com/openxc/openxc-ios-library.git",
-    "tag": "1.1.4"
+    "tag": "1.1.6"
   },
   "platforms": {
-    "ios": "12.0"
+    "ios": "9.3"
   },
   "exclude_files": "openxcframework/*.plist",
   "source_files": "openxcframework/*.{swift}",
   "dependencies": {
-    "protobufSwift": [
-      "~> 1.3.4"
+    "ProtocolBuffers-Swift": [
+
     ]
   },
   "module_name": "openXCiOSFramework",

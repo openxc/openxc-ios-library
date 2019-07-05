@@ -2,9 +2,9 @@ PODS:
   - HockeySDK (5.1.4):
     - HockeySDK/DefaultLib (= 5.1.4)
   - HockeySDK/DefaultLib (5.1.4)
-  - openxcframework (1.1.4):
-    - protobufSwift (~> 1.3.4)
-  - protobufSwift (1.3.4)
+  - openxcframework (1.1.6):
+    - ProtocolBuffers-Swift
+  - ProtocolBuffers-Swift (4.0.6)
 
 DEPENDENCIES:
   - HockeySDK
@@ -13,7 +13,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - HockeySDK
-    - protobufSwift
+    - ProtocolBuffers-Swift
 
 EXTERNAL SOURCES:
   openxcframework:
@@ -21,8 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
-  openxcframework: 863e919719ba616f905011fd7be5c2bcfa1f235b
-  protobufSwift: 20a196e154bb6a2b630cb7dee841eb4584d6e819
+  openxcframework: 9dbf70ed93f38df573dde6131bebb4cf5d74045b
+  ProtocolBuffers-Swift: 09b5cfcc641ab512d6aaa1d2cc3879a40432052c
 
 PODFILE CHECKSUM: c50021e72e6e334ee32b7f5ca5d6af145ff4500d
 
