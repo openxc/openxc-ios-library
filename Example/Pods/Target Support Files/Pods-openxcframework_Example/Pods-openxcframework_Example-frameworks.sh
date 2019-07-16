@@ -153,12 +153,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/ProtocolBuffers-Swift/ProtocolBuffers.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/openxcframework/openXCiOSFramework.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/protobufSwift/ProtocolBuffers.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/ProtocolBuffers-Swift/ProtocolBuffers.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/openxcframework/openXCiOSFramework.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/protobufSwift/ProtocolBuffers.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

@@ -48,7 +48,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         
         //UserDefaults.standard.set(interfaceValue, forKey:"vehicleInterface")
         let value =  UserDefaults.standard.string(forKey: "vehicleInterface")
-        print(value)
+        print(value as Any)
         // check saved value of trace Sink switch
         let traceOutOn = UserDefaults.standard.bool(forKey: "uploadTaraceOn")
         print(traceOutOn)
@@ -138,11 +138,21 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
     // the trace output enabled switch changed, save it's new value
     // and show or hide the text field for filename accordingly
     @IBAction func recChange(_ sender: UISwitch) {
+        
+        if (!vm.isTraceFileConnected) {
         UserDefaults.standard.set(sender.isOn, forKey:"traceOutputOn")
         if sender.isOn {
             recname.isHidden = false
         } else {
             recname.isHidden = true
+        }
+        }else{
+            recswitch.setOn(false, animated:false)
+            let alertController = UIAlertController(title: "", message:
+                "Please stop playing from trace file", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            
         }
     }
     @IBAction func dweetChange(_ sender: UISwitch) {

@@ -194,7 +194,8 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         self.setValueVehicleInterface()
     }
     @IBAction func trscefileBtnAction(_ sender: Any) {
-        
+        let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")
+        if (!traceSinkOn){
         bluetoothBtn.isSelected = false
         networkBtn.isSelected = false
         tracefileBtn.isSelected = true
@@ -202,6 +203,12 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         interfaceValue = "Pre-recorded Tracefile"
         PopupView.removeFromSuperview()
         self.setValueVehicleInterface()
+        }else{
+            let alertController = UIAlertController(title: "", message:
+                "Please stop recording to trace file", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     @IBAction func noneBtnAction(_ sender: Any) {
         
