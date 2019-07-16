@@ -12,7 +12,7 @@ This framework is part of the OpenXC project. This iOS framework contains the to
 OpenXC iOS framework for use with the C5 BLE device. See also the [openxc-ios-app-demo](To run the example project, clone the repo, and run `pod install` from the Example directory first.)
 
 ## OpenXC-iOS-Library-Version
-* V3.0.3
+* V4.0.0
 
 ## Supported versions:
 * iOS - upto 12.0
@@ -28,7 +28,7 @@ The framework can be picked directly from the releases
 
 ## Building from XCode
 
-Make sure you have XCode9 installed with iOS11 to build it from XCode. This framework must be included in any iOS application that needs to connect to a VI
+Make sure you have XCode10 installed with iOS11 to build it from XCode. This framework must be included in any iOS application that needs to connect to a VI
 
 Refer to this [document](https://github.com/openxc/openxc-ios-library/blob/master/OpenXC_iOS_Document.docx) for more details on installation and usage.
 
