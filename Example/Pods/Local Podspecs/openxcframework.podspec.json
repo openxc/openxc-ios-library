@@ -1,6 +1,6 @@
 {
   "name": "openxcframework",
-  "version": "1.1.6",
+  "version": "4.0.0",
   "summary": "A short description of openxcframework.",
   "swift_version": "5.0",
   "homepage": "https://github.com/openxc/openxc-ios-library",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/openxc/openxc-ios-library.git",
-    "tag": "1.1.6"
+    "tag": "4.0.0"
   },
   "platforms": {
     "ios": "9.3"

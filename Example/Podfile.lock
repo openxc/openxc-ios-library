@@ -1,18 +1,23 @@
 PODS:
-  - HockeySDK (5.1.4):
-    - HockeySDK/DefaultLib (= 5.1.4)
-  - HockeySDK/DefaultLib (5.1.4)
-  - openxcframework (1.1.6):
+  - AppCenter (2.2.0):
+    - AppCenter/Analytics (= 2.2.0)
+    - AppCenter/Crashes (= 2.2.0)
+  - AppCenter/Analytics (2.2.0):
+    - AppCenter/Core
+  - AppCenter/Core (2.2.0)
+  - AppCenter/Crashes (2.2.0):
+    - AppCenter/Core
+  - openxcframework (4.0.0):
     - ProtocolBuffers-Swift
   - ProtocolBuffers-Swift (4.0.6)
 
 DEPENDENCIES:
-  - HockeySDK
+  - AppCenter
   - openxcframework (from `../`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - HockeySDK
+    - AppCenter
     - ProtocolBuffers-Swift
 
 EXTERNAL SOURCES:
@@ -20,10 +25,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
-  openxcframework: 9dbf70ed93f38df573dde6131bebb4cf5d74045b
+  AppCenter: c809e69d93218b9861b4f8e54ded8dcf4d2131e7
+  openxcframework: 6481af0f07f864a99fa3a8560cc8152f577f3ead
   ProtocolBuffers-Swift: 09b5cfcc641ab512d6aaa1d2cc3879a40432052c
 
-PODFILE CHECKSUM: c50021e72e6e334ee32b7f5ca5d6af145ff4500d
+PODFILE CHECKSUM: f2d0fa3f68cab83a814e453755d9a4d8bf474222
 
 COCOAPODS: 1.6.1
