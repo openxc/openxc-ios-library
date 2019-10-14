@@ -153,8 +153,7 @@ open class VehicleManager: NSObject {
   
   public var throughputEnabled: Bool = false
   // config variable determining whether trace output is generated
-  fileprivate var traceFilesinkEnabled: Bool = false
-  //fileprivate var traceFilesinkEnabled: Bool = false
+ // fileprivate var traceFilesinkEnabled: Bool = false
   // config variable holding trace output file name
   fileprivate var traceFilesinkName: NSString = ""
   
