@@ -154,6 +154,7 @@ open class VehicleManager: NSObject {
   public var throughputEnabled: Bool = false
   // config variable determining whether trace output is generated
   fileprivate var traceFilesinkEnabled: Bool = false
+  //fileprivate var traceFilesinkEnabled: Bool = false
   // config variable holding trace output file name
   fileprivate var traceFilesinkName: NSString = ""
   
@@ -1170,7 +1171,8 @@ open class VehicleManager: NSObject {
       
       // if trace file output is enabled, create a string from the message
       // and send it to the trace file writer
-      if traceFilesinkEnabled {
+        vmlog(TraceFileManager.sharedInstance.traceFilesinkEnabled)
+      if (TraceFileManager.sharedInstance.traceFilesinkEnabled) {
         let str = String(data: data_chunk as Data,encoding: String.Encoding.utf8)
         TraceFileManager.sharedInstance.traceFileWriter(str!)
       }

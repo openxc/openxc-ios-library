@@ -61,7 +61,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         // check saved value of trace output switch
         let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")
         // update UI if necessary
-        if traceSinkOn == true {
+        if (traceSinkOn) {
             recswitch.setOn(true, animated:false)
             recname.isHidden = false
         }

@@ -31,6 +31,10 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var searchBtn: UIButton!
     // disconnect button
     @IBOutlet weak var disconnectBtn: UIButton!
+    // Trace Split button
+    @IBOutlet weak var splitTraceBtn: UIButton!
+    // Trace Split button
+    @IBOutlet weak var startStopBtn: UIButton!
     // table for holding/showing discovered VIs
     @IBOutlet weak var peripheralTable: UITableView!
     
@@ -47,6 +51,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.disconnectBtn.isHidden = true
+   
         // change tab bar text colors
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for:UIControl.State())
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for:.selected)
@@ -70,7 +75,17 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     override func viewDidAppear(_ animated: Bool) {
         //  let name = UserDefaults.standard.value(forKey: "networkAdress") as? NSString
-        
+        let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")
+        // update UI if necessary
+        if (traceSinkOn){
+            self.splitTraceBtn.isHidden = false
+            self.startStopBtn.isHidden = false
+            self.startStopBtn.isSelected = true
+        }else{
+            self.splitTraceBtn.isHidden = true
+            self.startStopBtn.isHidden = true
+            //self.startStopBtn.isSelected = true
+        }
         
         if let name = (UserDefaults.standard.value(forKey: "vehicleInterface") as? String) {
             if name == "Bluetooth"{
@@ -514,12 +529,30 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
     }
+    // this function is called when the slit trace button is hit
+    @IBAction func onClickStartstop(_ sender: UIButton) {
+        if (startStopBtn.isSelected) {
+            startStopBtn.isSelected = false
+        } else {
+            startStopBtn.isSelected = true
+           tfm.disableTraceFileSink()
+        }
+    }
+     // this function is called when the slit trace button is hit
+    @IBAction func onClickSplit(_ sender: UIButton) {
+        tfm.disableTraceFileSink()
+        if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
+            if !vm.isTraceFileConnected == true{
+                tfm.enableTraceFileSink(name)
+            }
+        }
+    }
     
-    // this function is called when the scan button is hit
+    // this function is called when the disconnect button is hit
     @IBAction func disconnectHit(_ sender: UIButton) {
         
         print(" in disconnect")
-        print(bm.connectionState)
+        print(bm.connectionState as Any)
         
         // make sure we're not already connected first
         if (bm.isBleConnected) {
