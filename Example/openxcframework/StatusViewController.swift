@@ -51,6 +51,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.disconnectBtn.isHidden = true
+        self.splitTraceBtn.isHidden = true
+        self.startStopBtn.isHidden = true
    
         // change tab bar text colors
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for:UIControl.State())
@@ -77,7 +79,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //  let name = UserDefaults.standard.value(forKey: "networkAdress") as? NSString
         let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")
         // update UI if necessary
-        if (traceSinkOn){
+        if (traceSinkOn && bm.isBleConnected){
             self.splitTraceBtn.isHidden = false
             self.startStopBtn.isHidden = false
             self.startStopBtn.isSelected = true
@@ -91,7 +93,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if name == "Bluetooth"{
                 if (bm.isBleConnected) {
                     DispatchQueue.main.async {
-                        
                         self.disconnectBtn.isHidden = false
                         // self.searchBtn.isEnabled = true
                         self.NetworkImg.isHidden = true
@@ -412,6 +413,9 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             vm.setCommandDefaultTarget(self, action: StatusViewController.handle_cmd_response)
             DispatchQueue.main.async {
                 self.disconnectBtn.isHidden = false
+                self.splitTraceBtn.isHidden = false
+                self.startStopBtn.isHidden = false
+                self.startStopBtn.isSelected = true
                 self.peripheralTable.isHidden = true
                 self.actConLab.text = "✅"
                 self.NetworkImg.isHidden = true
@@ -441,6 +445,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.platformLab.text = "---"
                     self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControl.State())
                     self.disconnectBtn.isHidden = true
+                    self.splitTraceBtn.isHidden = true
+                    self.startStopBtn.isHidden = true
                     self.throughputLab.text = "---"
                     self.averageMessageLab.text = "---"
                     
@@ -533,9 +539,15 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func onClickStartstop(_ sender: UIButton) {
         if (startStopBtn.isSelected) {
             startStopBtn.isSelected = false
+            tfm.traceFilesinkEnabled = false
+//            if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
+//                if !vm.isTraceFileConnected == true{
+//                    tfm.enableTraceFileSink(name)
+//                }
+//            }
         } else {
             startStopBtn.isSelected = true
-           tfm.disableTraceFileSink()
+             tfm.traceFilesinkEnabled = true
         }
     }
      // this function is called when the slit trace button is hit

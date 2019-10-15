@@ -155,21 +155,21 @@ open class VehicleManager: NSObject {
   // config variable determining whether trace output is generated
  // fileprivate var traceFilesinkEnabled: Bool = false
   // config variable holding trace output file name
-  fileprivate var traceFilesinkName: NSString = ""
+  //fileprivate var traceFilesinkName: NSString = ""
   
   // config variable determining whether trace input is used instead of BTLE data
-  fileprivate var traceFilesourceEnabled: Bool = false
+  //fileprivate var traceFilesourceEnabled: Bool = false
   // config variable holding trace input file name
-  fileprivate var traceFilesourceName: NSString = ""
+  //fileprivate var traceFilesourceName: NSString = ""
   // private timer for trace input message send rate
-  fileprivate var traceFilesourceTimer: Timer = Timer()
+  //fileprivate var traceFilesourceTimer: Timer = Timer()
   // private file handle to trace input file
-  fileprivate var traceFilesourceHandle: FileHandle?
+  //fileprivate var traceFilesourceHandle: FileHandle?
   // private variable holding timestamps when last message received
-  fileprivate var traceFilesourceLastMsgTime: NSInteger = 0
-  fileprivate var traceFilesourceLastActualTime: NSInteger = 0
+  //fileprivate var traceFilesourceLastMsgTime: NSInteger = 0
+  //fileprivate var traceFilesourceLastActualTime: NSInteger = 0
   // this tells us we're tracking the time held in the trace file
-  fileprivate var traceFilesourceTimeTracking: Bool = false
+  //fileprivate var traceFilesourceTimeTracking: Bool = false
   
   // public variable holding VehicleManager connection state enum
  // open var connectionState: VehicleManagerConnectionState! = .notConnected
@@ -194,7 +194,6 @@ open class VehicleManager: NSObject {
 
   // diag last req msg id
   open var lastReqMsg_id : NSInteger = 0
-  
   // MARK: Class Functions
   
   // set the callback for VM status updates
@@ -286,7 +285,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendCommand:target")
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return ""}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return ""}
     
     // save the callback in order, so we know which to call when responses are received
     BLETxSendToken += 1
@@ -307,7 +306,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendCommand")
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return}
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
@@ -338,7 +337,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendDiagReq:cmd")
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return ""}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return ""}
     
     // save the callback in order, so we know which to call when responses are received
     BLETxSendToken += 1
@@ -359,7 +358,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendDiagReq")
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return}
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
@@ -482,7 +481,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendCanReq")
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return}
     
     // common can send method
     sendCanCommon(cmd)
@@ -1062,23 +1061,23 @@ open class VehicleManager: NSObject {
       // insert a delay if we're reading from a tracefile
       // and we're tracking the timestamps in the file to
       // decide when to send the next message
-      if traceFilesourceTimeTracking {
+      if TraceFileManager.sharedInstance.traceFilesourceTimeTracking {
         let msTimeNow = Int(Date.timeIntervalSinceReferenceDate*1000)
-        if traceFilesourceLastMsgTime == 0 {
+        if TraceFileManager.sharedInstance.traceFilesourceLastMsgTime == 0 {
           // first time
-          traceFilesourceLastMsgTime = timestamp
-          traceFilesourceLastActualTime = msTimeNow
+          TraceFileManager.sharedInstance.traceFilesourceLastMsgTime = timestamp
+          TraceFileManager.sharedInstance.traceFilesourceLastActualTime = msTimeNow
 
         }
-        let msgDelta = timestamp - traceFilesourceLastMsgTime
-        let actualDelta = msTimeNow - traceFilesourceLastActualTime
+        let msgDelta = timestamp - TraceFileManager.sharedInstance.traceFilesourceLastMsgTime
+        let actualDelta = msTimeNow - TraceFileManager.sharedInstance.traceFilesourceLastActualTime
         let deltaDelta : Double = (Double(msgDelta) - Double(actualDelta))/1000.0
         if deltaDelta > 0 {
           Thread.sleep(forTimeInterval: deltaDelta)
         }
 
-        traceFilesourceLastMsgTime = timestamp
-        traceFilesourceLastActualTime = msTimeNow
+        TraceFileManager.sharedInstance.traceFilesourceLastMsgTime = timestamp
+        TraceFileManager.sharedInstance.traceFilesourceLastActualTime = msTimeNow
 
       }
       
@@ -1487,7 +1486,7 @@ open class VehicleManager: NSObject {
   @objc public func sendTraceURLData(urlName:String,rspdict:NSMutableDictionary,isdrrsp:Bool) {
 
     //declare parameter as a dictionary which contains string as key and value combination. considering inputs are valid
-    //"https://openxc-openxc-message-stream-dev.apps.pp01i.edc1.cf.ford.com/api/v1/message/ranjansiphone/save"//"http://localhost:8080/print"
+    //"http://localhost:8080/print"
     let urlName = urlName
     var traceArr = [AnyObject]()
     if !isdrrsp {
