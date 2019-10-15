@@ -390,7 +390,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // this function receives all status updates from the VM
     func manager_status_updates(_ rsp:NSDictionary) {
-        
+        let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")
         // extract the status message
         let status = rsp.object(forKey: "status") as! Int
         let msg = VehicleManagerStatusMessage(rawValue: status)
@@ -412,10 +412,12 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if msg==VehicleManagerStatusMessage.c5CONNECTED {
             vm.setCommandDefaultTarget(self, action: StatusViewController.handle_cmd_response)
             DispatchQueue.main.async {
+                if (traceSinkOn){
+                    self.splitTraceBtn.isHidden = false
+                    self.startStopBtn.isHidden = false
+                    self.startStopBtn.isSelected = true
+                }
                 self.disconnectBtn.isHidden = false
-                self.splitTraceBtn.isHidden = false
-                self.startStopBtn.isHidden = false
-                self.startStopBtn.isSelected = true
                 self.peripheralTable.isHidden = true
                 self.actConLab.text = "✅"
                 self.NetworkImg.isHidden = true
