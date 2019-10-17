@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import HockeySDK
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        self.setUpHockeySDK()
+        self.setUpAppCenterSDK()
+        
         
         return true
     }
@@ -44,16 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         
     }
-    func setUpHockeySDK() {
-        
-        BITHockeyManager.shared().configure(withIdentifier: "8684d9e9ea0b4c3bbc9484ccb16965df")
-        //enable crash reporting
-        BITHockeyManager.shared().isCrashManagerDisabled = false
-        BITHockeyManager.shared().crashManager.crashManagerStatus = BITCrashManagerStatus.alwaysAsk
-        BITHockeyManager.shared().start()
-        //This line is obsolete in the crash only builds
-        BITHockeyManager.shared().authenticator.authenticateInstallation()
-        
+    func setUpAppCenterSDK() {
+        MSAppCenter.start("8684d9e9-ea0b-4c3b-bc94-84ccb16965df", withServices: [MSAnalytics.self, MSCrashes.self])
+
     }
     
 }

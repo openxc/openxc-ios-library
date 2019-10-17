@@ -2,7 +2,7 @@ use_frameworks!
 
 target 'openxcframework_Example' do
   pod 'openxcframework', :path => '../'
-  pod 'HockeySDK'
+   pod 'AppCenter'
   target 'openxcframework_Tests' do
     inherit! :search_paths
 
