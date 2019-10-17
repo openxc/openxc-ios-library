@@ -511,7 +511,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             cvc?.versionResp = String(cr.message)
         }
-        if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceid"){
+        if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
             DispatchQueue.main.async {
                 self.devidLab.text = cr.message as String
             }

@@ -5443,10 +5443,10 @@ final public class CommandResponse : GeneratedMessage {
 
     public fileprivate(set) var type:ControlCommand.ProtoType = ControlCommand.ProtoType.unused
     public fileprivate(set) var hasType:Bool = false
-    public fileprivate(set) var message:String! = nil
+    public fileprivate(set) var message:String = ""
     public fileprivate(set) var hasMessage:Bool = false
 
-    public fileprivate(set) var status:Bool! = nil
+    public fileprivate(set) var status:Bool = false
     public fileprivate(set) var hasStatus:Bool = false
 
     required public init() {
@@ -5622,7 +5622,7 @@ final public class CommandResponse : GeneratedMessage {
         @discardableResult
         public func clearMessage() -> CommandResponse.Builder{
             builderResult.hasMessage = false
-            builderResult.message = nil
+            builderResult.message = ""
             return self
         }
         public var status:Bool {
@@ -5647,7 +5647,7 @@ final public class CommandResponse : GeneratedMessage {
         @discardableResult
         public func clearStatus() -> CommandResponse.Builder{
             builderResult.hasStatus = false
-            builderResult.status = nil
+            builderResult.status = false
             return self
         }
         override public var internalGetResult:GeneratedMessage {
@@ -6464,30 +6464,30 @@ final public class DiagnosticResponse : GeneratedMessage {
         return fieldCheck
     }
 
-    public fileprivate(set) var bus:Int32! = nil
+    public fileprivate(set) var bus:Int32 = Int32(0)
     public fileprivate(set) var hasBus:Bool = false
 
-    public fileprivate(set) var messageId:UInt32! = nil
+    public fileprivate(set) var messageId:UInt32 = UInt32(0)
     public fileprivate(set) var hasMessageId:Bool = false
 
-    public fileprivate(set) var mode:UInt32! = nil
+    public fileprivate(set) var mode:UInt32 = UInt32(0)
     public fileprivate(set) var hasMode:Bool = false
 
-    public fileprivate(set) var pid:UInt32! = nil
+    public fileprivate(set) var pid:UInt32 = UInt32(0)
     public fileprivate(set) var hasPid:Bool = false
 
-    public fileprivate(set) var success:Bool! = nil
+    public fileprivate(set) var success:Bool = true
     public fileprivate(set) var hasSuccess:Bool = false
 
-    public fileprivate(set) var negativeResponseCode:UInt32! = nil
+    public fileprivate(set) var negativeResponseCode:UInt32 = UInt32(0)
     public fileprivate(set) var hasNegativeResponseCode:Bool = false
 
     /// TODO we are capping this at 8 bytes for now - need to change when we
     /// support multi-frame responses
-    public fileprivate(set) var payload:Data! = nil
+    public fileprivate(set) var payload:Data = Data()
     public fileprivate(set) var hasPayload:Bool = false
 
-    public fileprivate(set) var value:Double! = nil
+    public fileprivate(set) var value:Double! = Double(0)
     public fileprivate(set) var hasValue:Bool = false
 
     required public init() {
@@ -6713,7 +6713,7 @@ final public class DiagnosticResponse : GeneratedMessage {
         @discardableResult
         public func clearBus() -> DiagnosticResponse.Builder{
             builderResult.hasBus = false
-            builderResult.bus = nil
+            builderResult.bus = Int32(0)
             return self
         }
         public var messageId:UInt32 {
@@ -6738,7 +6738,7 @@ final public class DiagnosticResponse : GeneratedMessage {
         @discardableResult
         public func clearMessageId() -> DiagnosticResponse.Builder{
             builderResult.hasMessageId = false
-            builderResult.messageId = nil
+            builderResult.messageId = UInt32(0)
             return self
         }
         public var mode:UInt32 {
@@ -6763,7 +6763,7 @@ final public class DiagnosticResponse : GeneratedMessage {
         @discardableResult
         public func clearMode() -> DiagnosticResponse.Builder{
             builderResult.hasMode = false
-            builderResult.mode = nil
+            builderResult.mode = UInt32(0)
             return self
         }
         public var pid:UInt32 {
@@ -6788,7 +6788,7 @@ final public class DiagnosticResponse : GeneratedMessage {
         @discardableResult
         public func clearPid() -> DiagnosticResponse.Builder{
             builderResult.hasPid = false
-            builderResult.pid = nil
+            builderResult.pid = UInt32(0)
             return self
         }
         public var success:Bool {
@@ -6813,7 +6813,7 @@ final public class DiagnosticResponse : GeneratedMessage {
         @discardableResult
         public func clearSuccess() -> DiagnosticResponse.Builder{
             builderResult.hasSuccess = false
-            builderResult.success = nil
+            builderResult.success = false
             return self
         }
         public var negativeResponseCode:UInt32 {
@@ -6838,7 +6838,7 @@ final public class DiagnosticResponse : GeneratedMessage {
         @discardableResult
         public func clearNegativeResponseCode() -> DiagnosticResponse.Builder{
             builderResult.hasNegativeResponseCode = false
-            builderResult.negativeResponseCode = nil
+            builderResult.negativeResponseCode = UInt32(0)
             return self
         }
         /// TODO we are capping this at 8 bytes for now - need to change when we
@@ -6865,7 +6865,7 @@ final public class DiagnosticResponse : GeneratedMessage {
         @discardableResult
         public func clearPayload() -> DiagnosticResponse.Builder{
             builderResult.hasPayload = false
-            builderResult.payload = nil
+            builderResult.payload = Data()
             return self
         }
         public var value:Double {
