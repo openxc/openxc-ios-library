@@ -1,13 +1,12 @@
 //package openxc;
-
-
 //option java_package = "com.openxc";
 //option java_outer_classname = "BinaryMessages";
 
 syntax = "proto3";
 
 message VehicleMessage {
-    enum Type { UNUSED = 0; CAN = 1; SIMPLE = 2; DIAGNOSTIC = 3; CONTROL_COMMAND = 4;COMMAND_RESPONSE = 5; }
+    enum Type {UNUSED = 0; CAN = 1; SIMPLE = 2; DIAGNOSTIC = 3; CONTROL_COMMAND = 4;
+            COMMAND_RESPONSE = 5; }
 
      Type type = 1;
      CanMessage can_message = 2;
@@ -20,7 +19,7 @@ message VehicleMessage {
 
 message CanMessage {
     enum FrameFormat {
-        UNUSED = 0;
+         UNUSED = 0;
         STANDARD = 1;
         EXTENDED = 2;
     }
@@ -130,12 +129,12 @@ message RTCConfigurationCommand {
 
 message CommandResponse {
      ControlCommand.Type type = 1;
-     string message = 2;
-     bool status = 3;
+      string message = 2;
+      bool status = 3;
 }
 
 message DiagnosticRequest {
-    enum DecodedType { UNUSED = 0;NONE = 1; OBD2 = 2; }
+    enum DecodedType {UNUSED = 0; NONE = 1; OBD2 = 2; }
 
      int32 bus = 1;
      uint32 message_id = 2;
@@ -164,7 +163,7 @@ message DiagnosticResponse {
 }
 
 message DynamicField {
-    enum Type {UNUSED = 0;STRING = 1; NUM = 2; BOOL = 3; }
+    enum Type { UNUSED = 0;STRING = 1; NUM = 2; BOOL = 3; }
 
      Type type = 1;
      string string_value = 2;
