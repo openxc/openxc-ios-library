@@ -83,22 +83,7 @@ open class VehicleManager: NSObject {
   fileprivate override init() {
   }
 
-  // MARK: Class Vars
-  // -----------------
- /*
-  // CoreBluetooth variables
-  fileprivate var centralManager: CBCentralManager!
-  fileprivate var openXCPeripheral: CBPeripheral!
-  fileprivate var openXCService: CBService!
-  fileprivate var openXCNotifyChar: CBCharacteristic!
-  fileprivate var openXCWriteChar: CBCharacteristic!
-  */
-  // dictionary of discovered openXC peripherals when scanning
- // fileprivate var foundOpenXCPeripherals: [String:CBPeripheral] = [String:CBPeripheral]()
-  
-  // config for auto connecting to first discovered VI
-   //open var autoConnectPeripheral : Bool = true
-   //fileprivate var autoConnectPeripheral : Bool = true
+
   // config for outputting debug messages to console
     fileprivate var managerDebug : Bool = false
     
@@ -153,29 +138,7 @@ open class VehicleManager: NSObject {
   
   public var throughputEnabled: Bool = false
   // config variable determining whether trace output is generated
-  fileprivate var traceFilesinkEnabled: Bool = false
-  // config variable holding trace output file name
-  fileprivate var traceFilesinkName: NSString = ""
-  
-  // config variable determining whether trace input is used instead of BTLE data
-  fileprivate var traceFilesourceEnabled: Bool = false
-  // config variable holding trace input file name
-  fileprivate var traceFilesourceName: NSString = ""
-  // private timer for trace input message send rate
-  fileprivate var traceFilesourceTimer: Timer = Timer()
-  // private file handle to trace input file
-  fileprivate var traceFilesourceHandle: FileHandle?
-  // private variable holding timestamps when last message received
-  fileprivate var traceFilesourceLastMsgTime: NSInteger = 0
-  fileprivate var traceFilesourceLastActualTime: NSInteger = 0
-  // this tells us we're tracking the time held in the trace file
-  fileprivate var traceFilesourceTimeTracking: Bool = false
-  
-  // public variable holding VehicleManager connection state enum
- // open var connectionState: VehicleManagerConnectionState! = .notConnected
-  // public variable holding number of messages received since last Connection established
 
- //open var messageCount: Int = 0
   //Connected to network simulator
   open var isNetworkConnected: Bool = false
 
@@ -194,7 +157,6 @@ open class VehicleManager: NSObject {
 
   // diag last req msg id
   open var lastReqMsg_id : NSInteger = 0
-  
   // MARK: Class Functions
   
   // set the callback for VM status updates
@@ -286,7 +248,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendCommand:target")
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return ""}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return ""}
     
     // save the callback in order, so we know which to call when responses are received
     BLETxSendToken += 1
@@ -307,7 +269,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendCommand")
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return}
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
@@ -338,7 +300,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendDiagReq:cmd")
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return ""}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return ""}
     
     // save the callback in order, so we know which to call when responses are received
     BLETxSendToken += 1
@@ -359,7 +321,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendDiagReq")
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return}
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
@@ -482,7 +444,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendCanReq")
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return}
     
     // common can send method
     sendCanCommon(cmd)
@@ -829,6 +791,7 @@ open class VehicleManager: NSObject {
         let nameValue = msg.commandResponse.type
         if nameValue != .diagnostic{
           decoded = true
+            print("Response command>>>>\(msg)")
           self.protobufCommandResponse(msg : msg)
         }
         
@@ -908,14 +871,10 @@ open class VehicleManager: NSObject {
     
   }
   
-
    fileprivate func protobufCommandResponse(msg : VehicleMessage){
-
     
     //          let name = msg.commandResponse.type.toString()
     let name = msg.commandResponse.type.description
-    
-    
     // build command response message
     let rsp : VehicleCommandResponse = VehicleCommandResponse()
     rsp.timestamp = Int(truncatingIfNeeded:msg.timestamp)
@@ -973,13 +932,13 @@ open class VehicleManager: NSObject {
     // TODO: debug printouts, maybe remove
     if rsp.value != nil {
       if rsp.pid != nil {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid) success:\(rsp.success) value:\(rsp.value)")
+        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ?? 0) success:\(rsp.success) value:\(rsp.value ?? 0)")
       } else {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.value)")
+        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.value ?? 0)")
       }
     } else {
       if rsp.pid != nil {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid) success:\(rsp.success) payload:\(rsp.payload)")
+        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ?? 0) success:\(rsp.success) payload:\(rsp.payload)")
       } else {
         vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.payload)")
       }
@@ -1062,47 +1021,42 @@ open class VehicleManager: NSObject {
       // insert a delay if we're reading from a tracefile
       // and we're tracking the timestamps in the file to
       // decide when to send the next message
-      if traceFilesourceTimeTracking {
+      if TraceFileManager.sharedInstance.traceFilesourceTimeTracking {
         let msTimeNow = Int(Date.timeIntervalSinceReferenceDate*1000)
-        if traceFilesourceLastMsgTime == 0 {
+        if TraceFileManager.sharedInstance.traceFilesourceLastMsgTime == 0 {
           // first time
-          traceFilesourceLastMsgTime = timestamp
-          traceFilesourceLastActualTime = msTimeNow
+          TraceFileManager.sharedInstance.traceFilesourceLastMsgTime = timestamp
+          TraceFileManager.sharedInstance.traceFilesourceLastActualTime = msTimeNow
 
         }
-        let msgDelta = timestamp - traceFilesourceLastMsgTime
-        let actualDelta = msTimeNow - traceFilesourceLastActualTime
+        let msgDelta = timestamp - TraceFileManager.sharedInstance.traceFilesourceLastMsgTime
+        let actualDelta = msTimeNow - TraceFileManager.sharedInstance.traceFilesourceLastActualTime
         let deltaDelta : Double = (Double(msgDelta) - Double(actualDelta))/1000.0
         if deltaDelta > 0 {
           Thread.sleep(forTimeInterval: deltaDelta)
         }
 
-        traceFilesourceLastMsgTime = timestamp
-        traceFilesourceLastActualTime = msTimeNow
+        TraceFileManager.sharedInstance.traceFilesourceLastMsgTime = timestamp
+        TraceFileManager.sharedInstance.traceFilesourceLastActualTime = msTimeNow
 
       }
-      
       
       // evented measurement rsp
       ///////////////////
       // evented measuerment messages will have an "event" key
       if let event = json["event"] as? NSString {
-        
+         vmlog(event)
         self.Measurementrsp(json:json as [String:AnyObject],timestamp:timestamp)
       }
-        
 
-        
         // measurement rsp
         ///////////////////
         // normal measuerment messages will have an "name" key (but no "event" key)
       else if let name = json["name"] as? NSString {
         
-        //vmlog(<#T##strings: Any...##Any#>)
+        vmlog(name)
         self.Measurementrsp(json:json as [String:AnyObject],timestamp:timestamp)
       }
-
-        
         
         // command rsp
         ///////////////////
@@ -1170,7 +1124,8 @@ open class VehicleManager: NSObject {
       
       // if trace file output is enabled, create a string from the message
       // and send it to the trace file writer
-      if traceFilesinkEnabled {
+        vmlog(TraceFileManager.sharedInstance.traceFilesinkEnabled)
+      if (TraceFileManager.sharedInstance.traceFilesinkEnabled) {
         let str = String(data: data_chunk as Data,encoding: String.Encoding.utf8)
         TraceFileManager.sharedInstance.traceFileWriter(str!)
       }
@@ -1486,7 +1441,7 @@ open class VehicleManager: NSObject {
   @objc public func sendTraceURLData(urlName:String,rspdict:NSMutableDictionary,isdrrsp:Bool) {
 
     //declare parameter as a dictionary which contains string as key and value combination. considering inputs are valid
-    //"https://openxc-openxc-message-stream-dev.apps.pp01i.edc1.cf.ford.com/api/v1/message/ranjansiphone/save"//"http://localhost:8080/print"
+    //"http://localhost:8080/print"
     let urlName = urlName
     var traceArr = [AnyObject]()
     if !isdrrsp {
@@ -1516,10 +1471,8 @@ open class VehicleManager: NSObject {
       request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
       request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
       request.httpBody = data
-      
-      
-      
-    } catch let error {
+
+    }catch let error {
       print(error.localizedDescription)
     }
     
@@ -1558,12 +1511,7 @@ open class VehicleManager: NSObject {
   //fileprivate to open
   open func RxDataParser(_ separator:UInt8) {
 
-//    if throughputEnabled{
-//      tempDataBuffer.append(RxDataBuffer as Data)
-//      print(RxDataBuffer.length)
-//      print(tempDataBuffer.length)
-//    }
-    
+
     ////////////////
     // Protobuf decoding
     /////////////////
