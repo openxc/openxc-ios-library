@@ -1,4 +1,12 @@
 # OpenXC iOS App Demo Changelog
+
+## v5.0.0
+
+
+* Feature: App Center SDK Integration for crash Annalytics.
+* Feature: Split trace button to split trace file into multiple file.
+
+
 ## v4.0.0
 
 * Improvement: Support for iOS 12.
