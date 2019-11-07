@@ -30,7 +30,6 @@ open class TraceFileManager: NSObject {
   open var traceFilesourceLastActualTime: NSInteger = 0
   // this tells us we're tracking the time held in the trace file
   open var traceFilesourceTimeTracking: Bool = false
-  var offset = 0
   // config for outputting debug messages to console
   fileprivate var managerDebug : Bool = false
   //open var traceDisableLoopOn = false
@@ -313,8 +312,6 @@ open class TraceFileManager: NSObject {
         }
       }
     }
-    
-
   }
   open func traceFileRestart() {
      if (traceFilesourceName != ""){
