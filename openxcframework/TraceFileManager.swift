@@ -30,10 +30,9 @@ open class TraceFileManager: NSObject {
   open var traceFilesourceLastActualTime: NSInteger = 0
   // this tells us we're tracking the time held in the trace file
   open var traceFilesourceTimeTracking: Bool = false
-  
   // config for outputting debug messages to console
   fileprivate var managerDebug : Bool = false
-  
+  //open var traceDisableLoopOn = false
   // optional variable holding callback for VehicleManager status updates
   fileprivate var managerCallback: TargetAction?
   
@@ -277,7 +276,7 @@ open class TraceFileManager: NSObject {
   // Called by timer function when client app provides a speed value for
   // trace input file
   @objc fileprivate dynamic func traceFileReader() {
-    
+    //readDataToEndOfFile
     // if the trace file is enabled and open, read 20B
     if traceFilesourceEnabled && traceFilesourceHandle != nil {
       let rdData = traceFilesourceHandle!.readData(ofLength: 20)
@@ -293,19 +292,31 @@ open class TraceFileManager: NSObject {
         VehicleManager.sharedInstance.isTraceFileConnected = true
         VehicleManager.sharedInstance.RxDataParser(0x0a)
       } else {
-        // There was no data read, so we're at the end of the
-        // trace input file. Close the input file and timer
-        vmlog("traceFilesource EOF")
-        traceFilesourceHandle!.closeFile()
-        traceFilesourceHandle = nil
-        traceFilesourceTimer.invalidate()
-        // notify the client app if the callback is enabled
-        if let act = managerCallback {
-          act.performAction(["status":VehicleManagerStatusMessage.trace_SOURCE_END.rawValue] as NSMutableDictionary)
+        //This is condition for replaying trace file in loop  .
+        let traceDisableLoopOn = UserDefaults.standard.bool(forKey: "disableTraceLoopOn")
+        if (traceDisableLoopOn ){
+            //This is for playing trace file once  .
+            // There was no data read, so we're at the end of the
+            // trace input file. Close the input file and timer
+            vmlog("traceFilesource EOF")
+            traceFilesourceHandle!.closeFile()
+            traceFilesourceHandle = nil
+            traceFilesourceTimer.invalidate()
+            // notify the client app if the callback is enabled
+            if let act = managerCallback {
+                act.performAction(["status":VehicleManagerStatusMessage.trace_SOURCE_END.rawValue] as NSMutableDictionary)
+            }
+        }else{
+            traceFilesourceTimer.invalidate()
+           self.traceFileRestart()
         }
       }
-      
     }
-    
   }
+  open func traceFileRestart() {
+     if (traceFilesourceName != ""){
+       self.enableTraceFileSource(traceFilesourceName)
+    }
+}
+    
 }
