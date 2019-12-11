@@ -8,6 +8,7 @@
 
 import UIKit
 import openXCiOSFramework
+
 class RecordingSourceController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var recswitch: UISwitch!
@@ -18,12 +19,16 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var uploadtraceswitch: UISwitch!
     @IBOutlet weak var traceURLname: UITextField!
     @IBOutlet weak var tergetURLnamelabel: UILabel!
-    
+    @IBOutlet weak var apiSourcenamelabel: UILabel!
+    var apiSourceName:String!
+    var BaseUrl: String = "http://oxccs-api-qa.apps.pp01.useast.cf.ford.com/api/v1/message/"
     // the VM
     var vm: VehicleManager!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        apiSourcenamelabel.text = (UserDefaults.standard.string(forKey: "DeviceUUID"))
+        apiSourceName = (UserDefaults.standard.string(forKey: "DeviceUUID"))!.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+        print(apiSourceName as Any)
         // Do any additional setup after loading the view.
         // grab VM instance
         vm = VehicleManager.sharedInstance
@@ -209,7 +214,9 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
             
             print(textField.text as Any)
             if textField.text != "http://"{
-                UserDefaults.standard.set(textField.text, forKey:"traceURLname")
+                let traceURL = BaseUrl + apiSourceName + "/save"
+                print(traceURL)
+                UserDefaults.standard.set(traceURL, forKey:"traceURLname")
                 
             }else{
                 let alertController = UIAlertController(title: "", message:
