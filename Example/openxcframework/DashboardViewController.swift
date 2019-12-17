@@ -154,7 +154,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         var val = vr.value as AnyObject
         // make sure we don't have any nulls in the dictionary, better to have blank strings
         if val.isEqual(NSNull()) {
-            val="" as AnyObject
+            val="Off" as AnyObject
         }
         if vr.isEvented {
             var e:NSString
