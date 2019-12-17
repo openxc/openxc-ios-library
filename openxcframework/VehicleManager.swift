@@ -1442,8 +1442,6 @@ open class VehicleManager: NSObject {
 
     //declare parameter as a dictionary which contains string as key and value combination. considering inputs are valid
     //var base64String = "my fancy string".data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
-    //"http://localhost:8080/print"
-    //https://oxccs-api-qa.apps.pp01.useast.cf.ford.com/api/v1/message/345235435645/save
     let urlName = urlName
     var traceArr = [AnyObject]()
     if !isdrrsp {
