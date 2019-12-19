@@ -471,6 +471,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Vinod Lingamsetty (8CK4Y5ZHN7)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = D95XHVNG2Z;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -528,6 +529,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Vinod Lingamsetty (8CK4Y5ZHN7)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = D95XHVNG2Z;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
