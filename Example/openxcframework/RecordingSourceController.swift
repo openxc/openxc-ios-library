@@ -21,7 +21,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var tergetURLnamelabel: UILabel!
     @IBOutlet weak var apiSourcenamelabel: UILabel!
     var apiSourceName:String!
-    var BaseUrl: String = "http://oxccs-api-qa.apps.pp01.useast.cf.ford.com/api/v1/message/"
+    var BaseUrl: String = "http://oxccs-api-qa.apps.pp01.useast.cf.ford.com/"
     // the VM
     var vm: VehicleManager!
     override func viewDidLoad() {
@@ -73,7 +73,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
             recname.text = name as String
         }
-        if let name = UserDefaults.standard.value(forKey: "traceURLname") as? NSString {
+        if let name = UserDefaults.standard.value(forKey: "traceURLbasename") as? NSString {
             traceURLname.text = name as String
         }
         // at first run, get a random dweet name
@@ -214,10 +214,11 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
             
             print(textField.text as Any)
             if textField.text != "http://"{
-                let traceURL = BaseUrl + apiSourceName + "/save"
+                let traceUrlArr = textField.text!.components(separatedBy: "//")
+                let traceURL = BaseUrl + traceUrlArr[1] + apiSourceName + "/save"
                 print(traceURL)
                 UserDefaults.standard.set(traceURL, forKey:"traceURLname")
-                
+                UserDefaults.standard.set(traceUrlArr[1], forKey:"traceURLbasename")
             }else{
                 let alertController = UIAlertController(title: "", message:
                     "Plese specify target URL Name ", preferredStyle: UIAlertController.Style.alert)
