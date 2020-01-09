@@ -57,5 +57,9 @@ class modalSettingsView: UIViewController, UITextFieldDelegate {
         
         aboutView.removeFromSuperview()
     }
-    
+    // 'back' hit, clear all view and show initial menu view
+    @IBAction func notificationBtnClick(_ sender: AnyObject) {
+        
+        
+    }
 }
