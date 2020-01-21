@@ -433,6 +433,12 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     tempDataBuffer = NSMutableData()
     VehicleManager.sharedInstance.RxDataBuffer = NSMutableData()
     foundOpenXCPeripherals = [String:CBPeripheral]()
+    let powerDropOn = UserDefaults.standard.bool(forKey: "powerDropChange")
+    // update UI if necessary
+    if powerDropOn == true {
+    let nc = NotificationCenter.default
+    nc.post(name: Notification.Name("BLEDisconnect"), object: nil)
+    }
     
   }
   

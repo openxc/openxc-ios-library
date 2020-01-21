@@ -145,7 +145,13 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
                         if messageFromServer == nil
                         {
                             print("Network hasbeen closed")
-                        }
+                            let networkDropOn = UserDefaults.standard.bool(forKey: "networkDropChange")
+                            if networkDropOn == true {
+                                let nc = NotificationCenter.default
+                                nc.post(name: Notification.Name("NetworkDisconnect"), object: nil)
+                            }
+                            }
+                            
                         else
                         {
                             print("MessageFromServer = \(String(describing: messageFromServer))")

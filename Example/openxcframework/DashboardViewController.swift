@@ -72,7 +72,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         locationManager.requestWhenInUseAuthorization()
         
         self.sendTraceURLData()
+        
+    
     }
+    
     @objc func sendTraceURLData() {
         if UserDefaults.standard.bool(forKey: "uploadTaraceOn") {
             if let urlname = (UserDefaults.standard.value(forKey: "traceURLname") as? String) {
@@ -86,6 +89,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(powerDrop), name: NSNotification.Name("BLEDisconnect"), object: nil)
+        nc.addObserver(self, selector: #selector(networkDrop), name: Notification.Name("NetworkDisconnect"), object: nil)
         
         if !bm.isBleConnected {
             dashDict = NSMutableDictionary()
@@ -368,9 +375,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
-    
+    @objc func powerDrop(){
+        AlertHandling.sharedInstance.showToast(controller: self, message: "BLE Power Droped", seconds: 3)
+    }
+    @objc func networkDrop(){
+         AlertHandling.sharedInstance.showToast(controller: self, message: "Network Connection Droped", seconds: 3)
+    }
 }
-
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionPort(_ input: AVAudioSession.Port) -> String {

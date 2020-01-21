@@ -76,8 +76,14 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         vm.setCommandDefaultTarget(self, action: StatusViewController.handle_cmd_response)
         // turn on debug output
         vm.setManagerDebug(true)
+
     }
     override func viewDidAppear(_ animated: Bool) {
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(powerDrop), name: Notification.Name("BLEDisconnect"), object: nil)
+        nc.addObserver(self, selector: #selector(networkDrop), name: Notification.Name("NetworkDisconnect"), object: nil)
+
+       // self.powerDrop()
         //  let name = UserDefaults.standard.value(forKey: "networkAdress") as? NSString
         let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")
         // update UI if necessary
@@ -102,10 +108,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     DispatchQueue.main.async {
                         self.disconnectBtn.isHidden = false
                         self.NetworkImg.isHidden = true
-                        // self.searchBtn.isEnabled = true
-                        //self.actConLab.text = "---"
-                        //self.msgRvcdLab.text = "---"
-                        //self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
+                       
                     }
                 }
                 else
@@ -216,12 +219,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         } else{
             
-            //            self.searchBtn.isEnabled = true
-            //            self.NetworkImg.isHidden = true
-            //            self.actConLab.text = "---"
-            //            self.msgRvcdLab.text = "---"
-            //            self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
-            
         }
         
         // check to see if a trace input file has been set up
@@ -300,6 +297,13 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
     }
+    @objc func powerDrop(){
+        AlertHandling.sharedInstance.showToast(controller: self, message: "BLE Power Droped", seconds: 3)
+    }
+    @objc func networkDrop(){
+        AlertHandling.sharedInstance.showToast(controller: self, message: "Network Connection Droped", seconds: 3)
+    }
+    
     // this function is called when the scan button is hit
     @IBAction func searchHit(_ sender: UIButton) {
         
@@ -326,14 +330,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.vm.setProtobufMode(true)
             }
             
-            // check to see if a trace input file has been set up
-            //if UserDefaults.standard.bool(forKey: "traceInputOn") {
-            // if let name = UserDefaults.standard.value(forKey: "traceInputFilename") as? NSString {
-            //  vm.enableTraceFileSource(name)
-            // self.searchBtn.isEnabled = false
-            
-            // }
-            // }
             
             
             // check to see if a trace output file has been configured
@@ -382,10 +378,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 DispatchQueue.main.async {
                     self.actConLab.text = "❓"
                     self.searchBtn.setTitle("SCANNING",for:UIControl.State())
-                    //                    let alertController = UIAlertController(title: "", message:
-                    //                        "Please check the BLE power is on ", preferredStyle: UIAlertControllerStyle.alert)
-                    //                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-                    //                    self.present(alertController, animated: true, completion: nil)
                 }
                 
             })
@@ -489,13 +481,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    //    if  UserDefaults.standard.bool(forKey: "throughputOn"){
-    //    if bm.isBleConnected{
-    //    //print(UserDefaults.standard.bool(forKey: "throughputOn"))
-    //    vm.setThroughput(true)
-    //    troughputLoop = Timer.scheduledTimer(timeInterval: 5.0, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
-    //    }
-    //    }
     // this function handles all command responses
     func handle_cmd_response(_ rsp:NSDictionary) {
         
@@ -547,11 +532,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if (startStopBtn.isSelected) {
             startStopBtn.isSelected = false
             tfm.traceFilesinkEnabled = false
-//            if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
-//                if !vm.isTraceFileConnected == true{
-//                    tfm.enableTraceFileSink(name)
-//                }
-//            }
+            
         } else {
             startStopBtn.isSelected = true
              tfm.traceFilesinkEnabled = true

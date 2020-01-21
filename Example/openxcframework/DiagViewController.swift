@@ -38,10 +38,12 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         vm.setDiagnosticDefaultTarget(self, action: DiagViewController.default_diag_rsp)
         // set custom target for specific Diagnostic request
         vm.addDiagnosticTarget([1,2015,1], target: self, action: DiagViewController.new_diag_rsp)
-        
+    
         
     }
-    
+    @objc func powerDrop(){
+        AlertHandling.sharedInstance.showToast(controller: self, message: "BLE Power Droped", seconds: 3)
+    }
     // method for custom taregt - specific diagnostic request
     func new_diag_rsp(_ rsp:NSDictionary) {
         print("in new diag response")
@@ -53,6 +55,10 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(powerDrop), name: Notification.Name("BLEDisconnect"), object: nil)
+        
         if(!bm.isBleConnected){
             
             AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)

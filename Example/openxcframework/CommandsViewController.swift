@@ -84,9 +84,15 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         isJsonFormat = vm.jsonMode
         
+        
     }
-    
+    @objc func powerDrop(){
+        AlertHandling.sharedInstance.showToast(controller: self, message: "BLE Power Droped", seconds: 3)
+    }
     override func viewDidAppear(_ animated: Bool) {
+        //Receive notification for the power drop
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(powerDrop), name: Notification.Name("BLEDisconnect"), object: nil)
         if(!bm.isBleConnected){
             
             AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)
