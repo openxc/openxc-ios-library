@@ -57,7 +57,7 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* openxcframework_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openxcframework_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		79087BEA6A8530B9EA606A35 /* openxcframework.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = openxcframework.podspec; path = ../openxcframework.podspec; sourceTree = "<group>"; };
+		79087BEA6A8530B9EA606A35 /* openxcframework.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = openxcframework.podspec; path = ../openxcframework.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7D06DA14225DE871003C8DF3 /* openxcframework_Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openxcframework_Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		7D06DA15225DE872003C8DF3 /* NetworkManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTest.swift; sourceTree = "<group>"; };
 		7D06DA16225DE872003C8DF3 /* TraceFileManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceFileManagerTest.swift; sourceTree = "<group>"; };

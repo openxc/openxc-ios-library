@@ -7,7 +7,7 @@ PODS:
   - AppCenter/Core (2.2.0)
   - AppCenter/Crashes (2.2.0):
     - AppCenter/Core
-  - openxcframework (4.0.0):
+  - openxcframework (5.0.0):
     - ProtocolBuffers-Swift
   - ProtocolBuffers-Swift (4.0.6)
 
@@ -16,7 +16,7 @@ DEPENDENCIES:
   - openxcframework (from `../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AppCenter
     - ProtocolBuffers-Swift
 
@@ -26,9 +26,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppCenter: c809e69d93218b9861b4f8e54ded8dcf4d2131e7
-  openxcframework: 6481af0f07f864a99fa3a8560cc8152f577f3ead
+  openxcframework: 6170eea06ceb1a0977468a264cb57774d87e2048
   ProtocolBuffers-Swift: 09b5cfcc641ab512d6aaa1d2cc3879a40432052c
 
 PODFILE CHECKSUM: f2d0fa3f68cab83a814e453755d9a4d8bf474222
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.4
