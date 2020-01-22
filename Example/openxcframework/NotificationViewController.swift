@@ -30,11 +30,6 @@ class NotificationViewController: UIViewController {
             networkSwitch.setOn(true, animated:false)
         }
         
-        let usbDropOn = UserDefaults.standard.bool(forKey: "usbDropChange")
-        // update UI if necessary
-        if usbDropOn == true {
-            usbSwitch.setOn(true, animated:false)
-        }
     }
     
     // close modal view
@@ -50,13 +45,6 @@ class NotificationViewController: UIViewController {
     }
     @IBAction func networkDropChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey:"networkDropChange")
-        if sender.isOn {
-        }else{
-            
-        }
-    }
-    @IBAction func usbDropChange(_ sender: UISwitch) {
-        UserDefaults.standard.set(sender.isOn, forKey:"usbDropChange")
         if sender.isOn {
         }else{
             

@@ -65,6 +65,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // set default measurement target
         vm.setMeasurementDefaultTarget(self, action: DashboardViewController.default_measurement_change)
+        vm.setManagerCallbackTarget(self, action: DashboardViewController.manager_status_updates)
         
         locationManager.delegate=self;
         locationManager.desiredAccuracy=kCLLocationAccuracyBest;
@@ -89,10 +90,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(powerDrop), name: NSNotification.Name("BLEDisconnect"), object: nil)
-        nc.addObserver(self, selector: #selector(networkDrop), name: Notification.Name("NetworkDisconnect"), object: nil)
         
         if !bm.isBleConnected {
             dashDict = NSMutableDictionary()
@@ -149,7 +146,21 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func manager_status_updates(_ rsp:NSDictionary) {
+        // extract the status message
+        let status = rsp.object(forKey: "status") as! Int
+        let msg = VehicleManagerStatusMessage(rawValue: status)
+        if msg==VehicleManagerStatusMessage.c5DISCONNECTED {
+            if (UserDefaults.standard.bool(forKey: "powerDropChange")){
+                powerDrop()
+            }
+        }
+        if (msg==VehicleManagerStatusMessage.networkDISCONNECTED) {
+            if (UserDefaults.standard.bool(forKey: "networkDropChange")){
+                networkDrop()
+            }
+        }
+    }
     
     
     func default_measurement_change(_ rsp:NSDictionary) {

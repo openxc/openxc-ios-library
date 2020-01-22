@@ -16,7 +16,6 @@ public enum VehicleManagerConnectionState: Int {
   case connected=3              // connection established (but not ready to receive btle writes)
   case operational=4            // C5 VI operational (notify enabled and writes accepted)
 }
-
 open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
 
   
@@ -31,7 +30,6 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   fileprivate var openXCService: CBService!
   fileprivate var openXCNotifyChar: CBCharacteristic!
   open var openXCWriteChar: CBCharacteristic!
-  
   // dictionary of discovered openXC peripherals when scanning
   open var foundOpenXCPeripherals: [String:CBPeripheral] = [String:CBPeripheral]()
   
@@ -319,14 +317,14 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   // Core Bluetooth has disconnected from BLE peripheral
   open func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
     vmlog("in centralManager:didDisconnectPeripheral:")
-    //vmlog(error!)
+    // update UI if necessary
     let autoOn = UserDefaults.standard.bool(forKey: "autoConnectOn")
     // just reconnect automatically to the same device for now
     if peripheral == openXCPeripheral && autoOn{
       centralManager.connect(openXCPeripheral, options:nil)
       
       // notify client if the callback is enabled
-      //      if let act = managerCallback {
+       //     if let act = managerCallback {
       //        act.performAction(["status":VehicleManagerStatusMessage.c5DISCONNECTED.rawValue] as NSDictionary)
       //      }
       
@@ -338,10 +336,12 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
       connectionState  = .connectionInProgress
     }else{
      connectionState = .notConnected
+        
     }
     if let act = VehicleManager.sharedInstance.managerCallback {
-      act.performAction(["status":VehicleManagerStatusMessage.c5DISCONNECTED.rawValue] as NSDictionary)
+            act.performAction(["status":VehicleManagerStatusMessage.c5DISCONNECTED.rawValue] as NSDictionary)
     }
+ 
   }
   
   
@@ -433,12 +433,6 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     tempDataBuffer = NSMutableData()
     VehicleManager.sharedInstance.RxDataBuffer = NSMutableData()
     foundOpenXCPeripherals = [String:CBPeripheral]()
-    let powerDropOn = UserDefaults.standard.bool(forKey: "powerDropChange")
-    // update UI if necessary
-    if powerDropOn == true {
-    let nc = NotificationCenter.default
-    nc.post(name: Notification.Name("BLEDisconnect"), object: nil)
-    }
     
   }
   

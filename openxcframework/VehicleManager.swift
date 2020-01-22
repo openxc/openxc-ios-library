@@ -47,7 +47,8 @@ public enum VehicleManagerStatusMessage: Int {
   case trace_SOURCE_END=6         // configured trace input end of file reached
   case trace_SINK_WRITE_ERROR=7   // error in writing message to trace file
   case ble_RX_DATA_PARSE_ERROR=8  // error in parsing data received from VI
- 
+  case networkDISCONNECTED=9      // Network Data Source disconnected
+  case networkCONNECTED=10        // Network Data Source connected
 }
 // This enum is outside of the main class for ease of use in the client app. It allows
 // for referencing the enum without the class hierarchy in front of it. Ie. the enums

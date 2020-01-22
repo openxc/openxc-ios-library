@@ -55,7 +55,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.disconnectBtn.isHidden = true
         self.splitTraceBtn.isHidden = true
         self.startStopBtn.isHidden = true
-   
+
         // change tab bar text colors
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for:UIControl.State())
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for:.selected)
@@ -76,14 +76,10 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         vm.setCommandDefaultTarget(self, action: StatusViewController.handle_cmd_response)
         // turn on debug output
         vm.setManagerDebug(true)
+       //NotificationCenter.default.addObserver(self, selector: #selector(powerDrop), name: NSNotification.Name("BLEDisconnect"), object: nil)
 
     }
     override func viewDidAppear(_ animated: Bool) {
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(powerDrop), name: Notification.Name("BLEDisconnect"), object: nil)
-        nc.addObserver(self, selector: #selector(networkDrop), name: Notification.Name("NetworkDisconnect"), object: nil)
-
-       // self.powerDrop()
         //  let name = UserDefaults.standard.value(forKey: "networkAdress") as? NSString
         let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")
         // update UI if necessary
@@ -432,10 +428,29 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
             }
         }
-        
+        if msg==VehicleManagerStatusMessage.networkDISCONNECTED {
+            if(!vm.isTraceFileConnected){
+                if (UserDefaults.standard.bool(forKey: "networkDropChange")){
+                    networkDrop()
+                }
+                DispatchQueue.main.async {
+                    self.actConLab.text = ""
+                    self.verLab.text = "---"
+                    self.devidLab.text = "---"
+                    self.platformLab.text = "---"
+                    self.msgRvcdLab.text = "---"
+                    self.searchBtn.setTitle("WIFI NOT CONNECTED",for:UIControl.State())
+                    self.searchBtn.isEnabled = false
+                }
+            }
+        }
         // update the UI showing disconnected VI
         if msg==VehicleManagerStatusMessage.c5DISCONNECTED {
             if(!vm.isTraceFileConnected){
+                if (UserDefaults.standard.bool(forKey: "powerDropChange")){
+                powerDrop()
+                }
+                
                 DispatchQueue.main.async {
                     self.actConLab.text = "---"
                     self.msgRvcdLab.text = "---"
