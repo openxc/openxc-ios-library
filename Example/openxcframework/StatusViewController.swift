@@ -31,6 +31,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var searchBtn: UIButton!
     // disconnect button
     @IBOutlet weak var disconnectBtn: UIButton!
+    // REstart Trace button
+    @IBOutlet weak var restartTraceBtn: UIButton!
     // Trace Split button
     @IBOutlet weak var splitTraceBtn: UIButton!
     // Trace Split button
@@ -80,7 +82,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")
         // update UI if necessary
         if (traceSinkOn && bm.isBleConnected){
-            self.splitTraceBtn.isHidden = false
             self.startStopBtn.isHidden = false
             self.startStopBtn.isSelected = true
         }else{
@@ -88,19 +89,27 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.startStopBtn.isHidden = true
             //self.startStopBtn.isSelected = true
         }
+         let traceDisableLoopOn = UserDefaults.standard.bool(forKey: "disableTraceLoopOn")
+        if (traceDisableLoopOn ){
+             self.restartTraceBtn.isHidden = false
+        }else{
+             self.restartTraceBtn.isHidden = true
+        }
         
         if let name = (UserDefaults.standard.value(forKey: "vehicleInterface") as? String) {
             if name == "Bluetooth"{
                 if (bm.isBleConnected) {
                     DispatchQueue.main.async {
                         self.disconnectBtn.isHidden = false
-                        // self.searchBtn.isEnabled = true
                         self.NetworkImg.isHidden = true
+                        // self.searchBtn.isEnabled = true
                         //self.actConLab.text = "---"
                         //self.msgRvcdLab.text = "---"
                         //self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
                     }
-                }else{
+                }
+                else
+                {
                     self.disconnectBtn.isHidden = true
                     self.searchBtn.isEnabled = true
                     self.NetworkImg.isHidden = true
@@ -108,8 +117,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.msgRvcdLab.text = "---"
                     self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControl.State())
                 }
-                //return
-                
             }
             
             if (bm.isBleConnected && !UserDefaults.standard.bool(forKey: "throughputOn")) {
@@ -157,7 +164,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }else{
                     timer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(StatusViewController.msgRxdUpdate(_:)), userInfo: nil, repeats: true)
                     DispatchQueue.main.async {
-                        
                         self.NetworkImg.isHidden = false
                         self.actConLab.text = ""
                         self.verLab.text = "---"
@@ -203,7 +209,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         DispatchQueue.main.async {
                             self.actConLab.text = "✅"
                             self.searchBtn.setTitle("Trace File Playing",for:UIControl.State())
-                            
                         }
                     }
                 }
@@ -333,8 +338,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             // check to see if a trace output file has been configured
             if UserDefaults.standard.bool(forKey: "traceOutputOn") {
+               //tfm.traceDisableLoopOn = UserDefaults.standard.bool(forKey: "disableTraceLoopOn")
                 if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
-                    
                     if !vm.isTraceFileConnected == true{
                         tfm.enableTraceFileSink(name)
                     }else{
@@ -574,7 +579,10 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             bm.disconnect()
         }
     }
-    
+    // this function is called when the Restart trace button is hit
+    @IBAction func restartTraceHit(_ sender: UIButton) {
+                tfm.traceFileRestart()
+    }
     // table view delegate functions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

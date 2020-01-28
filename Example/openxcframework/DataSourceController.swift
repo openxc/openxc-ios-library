@@ -30,6 +30,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
     @IBOutlet weak var bleAutoswitch: UISwitch!
     @IBOutlet weak var protoswitch: UISwitch!
     @IBOutlet weak var sensorswitch: UISwitch!
+    @IBOutlet weak var disableTraceLoopSwitch: UISwitch!
     
     //ranjan added code for Network data
     @IBOutlet weak var throughputswitch: UISwitch!
@@ -58,6 +59,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         bm = BluetoothManager.sharedInstance
         // Do any additional setup after loading the view.
         PopupView.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        disableTraceLoopSwitch.isUserInteractionEnabled = false
         
         vm.setCommandDefaultTarget(self, action: DataSourceController.handle_cmd_response)
         //ranjan added code for Network data
@@ -95,6 +97,11 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         // update UI if necessary
         if throughputOn == true {
             throughputswitch.setOn(true, animated:false)
+        }// check saved value of disable trace switch
+        let disableTraceOn = UserDefaults.standard.bool(forKey: "disableTraceLoopOn")
+        // update UI if necessary
+        if disableTraceOn == true {
+            disableTraceLoopSwitch.setOn(true, animated:false)
         }
         // check saved value of protobuf switch
         let protobufOn = UserDefaults.standard.bool(forKey: "protobufOn")
@@ -124,6 +131,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             if let tracefile = (UserDefaults.standard.value(forKey: "traceInputFilename")  as? String){
                 playname.text = tracefile//(UserDefaults.standard.value(forKey: "traceInputFilename")  as! String)
             }
+            disableTraceLoopSwitch.isUserInteractionEnabled = true
             interfaceValue = vehicleInterface
         }
         else if vehicleInterface ==  "None"{
@@ -134,6 +142,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             interfaceValue = "Bluetooth"
         }
         self.setValueVehicleInterface()
+        
     }
     
     
@@ -247,7 +256,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         }
     }
     func setValueVehicleInterface(){
-        
+        disableTraceLoopSwitch.isUserInteractionEnabled = false
         if  (interfaceValue == "None") {
             
             playname.isUserInteractionEnabled = false
@@ -270,6 +279,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             networkDataPort.text = ""
             networkDataHost.text = ""
             playname.text = ""
+            
         }
         else if  (interfaceValue == "Pre-recorded Tracefile") {
             playname.isUserInteractionEnabled = true
@@ -290,11 +300,11 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             }
             networkDataPort.text = ""
             networkDataHost.text = ""
+            disableTraceLoopSwitch.isUserInteractionEnabled = true
         }
         else if  (interfaceValue == "Network") {
             playname.isUserInteractionEnabled = false
             playname.backgroundColor = UIColor.lightGray
-            
             networkDataHost.isUserInteractionEnabled = true
             networkDataPort.isUserInteractionEnabled = true
             UserDefaults.standard.set(interfaceValue, forKey:"vehicleInterface")
@@ -332,6 +342,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             networkDataPort.text = ""
             networkDataHost.text = ""
             playname.text = ""
+            //disableTraceLoopSwitch.isUserInteractionEnabled = false
             
         }
         
@@ -359,6 +370,13 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
     // throughput mode switch changed, save it's value
     @IBAction func throughputswitch(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey:"throughputOn")
+    }
+    // disableTraceLoop mode switch changed, save it's value
+    @IBAction func disableTraceLoopswitch(_ sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey:"disableTraceLoopOn")
+        if(!sender.isOn){
+            tfm.traceFileRestart()
+        }
     }
     // protbuf mode switch changed, save it's value
     @IBAction func protoChange(_ sender: UISwitch) {
