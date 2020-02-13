@@ -1,11 +1,19 @@
 # OpenXC iOS App Demo Changelog
 
-## v5.0.0
+## v6.0.0
 
+* Improvement: Support for Protobuf 3
+* Feature: Added disable trace loop and restart trace features
+* Feature: Added base64 encoding to source ID for cloud export
+* UI: Minor UI layout changes
+* Fix: Updated code signing data
+* Fix: Replaced numerous nil values with default values
+* Fix: Added AppTransportSecurity setting
+
+## v5.0.0
 
 * Feature: App Center SDK Integration for crash Annalytics.
 * Feature: Split trace button to split trace file into multiple file.
-
 
 ## v4.0.0
 
