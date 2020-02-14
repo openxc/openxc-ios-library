@@ -2,13 +2,10 @@
 
 ## v6.0.0
 
-* Improvement: Support for Protobuf 3
-* Feature: Added disable trace loop and restart trace features
-* Feature: Added base64 encoding to source ID for cloud export
+* Enhancement: Updated to Protobuf 3
+* Feature: Upload trace data to URL
 * UI: Minor UI layout changes
-* Fix: Updated code signing data
-* Fix: Replaced numerous nil values with default values
-* Fix: Added AppTransportSecurity setting
+* Fix: Set defaults for missing signal values in dashboard
 
 ## v5.0.0
 
