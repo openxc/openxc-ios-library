@@ -56,6 +56,7 @@ To install XCode command line tools, follow these steps for XCode:
 ## Releasing the App and Library
 
 * Update CHANGELOG.mkd
+* Merge into master push to GitHub
 * Update OpenXC in CocoaPods:
     * Update s.version in openxcframework.podspec
     * Follow the instructions in step #7 [here.](https://code.tutsplus.com/tutorials/creating-your-first-cocoapod--cms-24332)
