@@ -41,8 +41,8 @@
 		62AD6FB4C56EE0AF140CF21D5DE9D5AC /* Google.Protobuf.Descriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A1FD9B0F121DE50102FBDF176CBB7 /* Google.Protobuf.Descriptor.proto.swift */; };
 		663510E2D675E5108288BADDC3ECFF23 /* Google.Protobuf.SwiftDescriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498853C02C1999549E8188F25CA64FA /* Google.Protobuf.SwiftDescriptor.proto.swift */; };
 		68F17CB161F3C7F79D835E45EEC39A18 /* WireFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156F71C336E9185AFEF53155EDED03A /* WireFormat.swift */; };
-		792C6FA8AAE877BF9CA22FEADB636324 /* Openxc.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAB1B17790B3A22E22EB1DDE63B1B2C /* Openxc.proto.swift */; };
 		7DA628D26176EA2B6ECA8983D648AE4E /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFD22D48900BCA5A87670598A332D5B /* BluetoothManager.swift */; };
+		7DBC24D62355E8900036DBA1 /* Openxc.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBC24D52355E8900036DBA1 /* Openxc.proto.swift */; };
 		816BD72F69536A50F01A8F05E4402C0E /* UnknownFieldSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B06B60691F43BF3589A25E0941F04B /* UnknownFieldSet.swift */; };
 		850857EDAE2AF1BFB960BE5503790571 /* ExtensionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8354D21F34B5E0B305260AD0BF5AD9 /* ExtensionRegistry.swift */; };
 		8DFED4ACD418E05C7674DF0A5D15F2DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 348859CDB4441C6252D9275D5BA82B80 /* Foundation.framework */; };
@@ -155,6 +155,7 @@
 		706E6DC9712F80985B7DA7DB5C642B4A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		75AF749F04EF91955AEF7619A98D1D5E /* Google.Protobuf.FieldMask.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.FieldMask.proto.swift; path = Source/Google.Protobuf.FieldMask.proto.swift; sourceTree = "<group>"; };
 		7B4F8C387C3460096857F316ADA8E082 /* Pods-openxcframework_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-openxcframework_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		7DBC24D52355E8900036DBA1 /* Openxc.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Openxc.proto.swift; path = openxcframework/Openxc.proto.swift; sourceTree = "<group>"; };
 		7DBE6F206FADC4B39CB42695E22399F5 /* Google.Protobuf.Wrappers.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Wrappers.proto.swift; path = Source/Google.Protobuf.Wrappers.proto.swift; sourceTree = "<group>"; };
 		808450F4292535917860988085D5B01B /* NetworkDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkDataManager.swift; path = openxcframework/NetworkDataManager.swift; sourceTree = "<group>"; };
 		84DCCBA88E7B713DED9441DCAB526185 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/ExternalAccessory.framework; sourceTree = DEVELOPER_DIR; };
@@ -183,7 +184,6 @@
 		D3B151B4C31AEDC072B79F945CA5797C /* ConcreateExtensionField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConcreateExtensionField.swift; path = Source/ConcreateExtensionField.swift; sourceTree = "<group>"; };
 		D415461FE7AA65C3B4D9F531AB5D77D6 /* Pods-openxcframework_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-openxcframework_Example.release.xcconfig"; sourceTree = "<group>"; };
 		DB76C7449106B6E376BD0803981D20F1 /* Google.Protobuf.Timestamp.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Timestamp.proto.swift; path = Source/Google.Protobuf.Timestamp.proto.swift; sourceTree = "<group>"; };
-		DDAB1B17790B3A22E22EB1DDE63B1B2C /* Openxc.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Openxc.proto.swift; path = openxcframework/Openxc.proto.swift; sourceTree = "<group>"; };
 		E3F855305232EF7E0625B10BA1DF9754 /* Pods-openxcframework_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Example-Info.plist"; sourceTree = "<group>"; };
 		E3FF39A963DC3726C7207C2D730541B4 /* ProtocolBuffers-Swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-Swift-umbrella.h"; sourceTree = "<group>"; };
 		E8F8471BAEE7323F36B53C26E3B0E861 /* ProtocolBuffers-Swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ProtocolBuffers-Swift.modulemap"; sourceTree = "<group>"; };
@@ -451,6 +451,7 @@
 		E292F62657680EDF3237F8D476089CD1 /* openxcframework */ = {
 			isa = PBXGroup;
 			children = (
+				7DBC24D52355E8900036DBA1 /* Openxc.proto.swift */,
 				5EFD22D48900BCA5A87670598A332D5B /* BluetoothManager.swift */,
 				3E78D39D2CCB3876659BBBCB1CF64CDD /* CAN.swift */,
 				C3F1F9D8697BE929B722932C3A780E05 /* Command.swift */,
@@ -458,7 +459,6 @@
 				64CB0CA00A3A0B772C9B43E612B5E09C /* Measurement.swift */,
 				C1DA518EE042BB562DF4535541FE2ADA /* Message.swift */,
 				808450F4292535917860988085D5B01B /* NetworkDataManager.swift */,
-				DDAB1B17790B3A22E22EB1DDE63B1B2C /* Openxc.proto.swift */,
 				CDDBF5D7DE36D71A4F68D0C797C2F4AA /* OpenXCClasses.swift */,
 				6085B3350AB98D8DE365CFDEA49560B0 /* TargetAction.swift */,
 				E9BE8F047397655AE7CA2C9844BE5A58 /* TraceFileManager.swift */,
@@ -734,10 +734,10 @@
 				9E7F9DC72E0497CF0A568142AC451C04 /* Measurement.swift in Sources */,
 				9AD836F2963DB3E029CDFC910287171A /* Message.swift in Sources */,
 				C35D6C84E4043776B2E7C6A75EA177BF /* NetworkDataManager.swift in Sources */,
-				792C6FA8AAE877BF9CA22FEADB636324 /* Openxc.proto.swift in Sources */,
 				ED3B94B7F33E7ED57C58D280FBCDD8EF /* OpenXCClasses.swift in Sources */,
 				39733D64FE7C8CFD6C732EC19E1E3952 /* openxcframework-dummy.m in Sources */,
 				CEEFC53A08D0AC740278928C6765F885 /* TargetAction.swift in Sources */,
+				7DBC24D62355E8900036DBA1 /* Openxc.proto.swift in Sources */,
 				F59D3B5B5825B788EC3183BEC2D1AEB6 /* TraceFileManager.swift in Sources */,
 				027ECE5678F833DCB11429A676FD16C5 /* Utilities.swift in Sources */,
 				19EB7A9B8BBD40F9EF6F407A682B6BE1 /* VehicleManager.swift in Sources */,

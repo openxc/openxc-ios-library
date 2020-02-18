@@ -872,15 +872,17 @@ open class VehicleManager: NSObject {
   }
   
    fileprivate func protobufCommandResponse(msg : VehicleMessage){
-    
-    //          let name = msg.commandResponse.type.toString()
+
     let name = msg.commandResponse.type.description
     // build command response message
+    print(msg)
     let rsp : VehicleCommandResponse = VehicleCommandResponse()
-    rsp.timestamp = Int(truncatingIfNeeded:msg.timestamp)
-    rsp.command_response = name.lowercased() as NSString
-    rsp.message = msg.commandResponse.message as NSString
-    rsp.status = msg.commandResponse.status
+        rsp.timestamp = Int(truncatingIfNeeded:msg.timestamp)
+        rsp.command_response = name.lowercased() as NSString
+        rsp.message = msg.commandResponse.message as NSString
+        rsp.status = msg.commandResponse.status
+    
+    
     
 
     // First see if the default command callback is defined. If it is
@@ -910,11 +912,17 @@ open class VehicleManager: NSObject {
     rsp.bus = Int(msg.diagnosticResponse.bus)
     rsp.message_id = Int(msg.diagnosticResponse.messageId)
     rsp.mode = Int(msg.diagnosticResponse.mode)
-    if msg.diagnosticResponse.hasPid {rsp.pid = Int(msg.diagnosticResponse.pid)}
+    if msg.diagnosticResponse.hasPid {
+        rsp.pid = Int(msg.diagnosticResponse.pid)
+        
+    }
     rsp.success = msg.diagnosticResponse.success
     //   if msg.diagnosticResponse.hasPayload {rsp.payload = String(data:msg.diagnosticResponse.payload as Data,encoding: String.Encoding.utf8)! as NSString}
     //   if msg.diagnosticResponse.hasPayload {rsp.payload = (String(data:msg.diagnosticResponse.payload as Data,encoding: String.Encoding.utf8)! as NSString) as String}
-    if msg.diagnosticResponse.hasValue {rsp.value = Int(msg.diagnosticResponse.value)}
+    if msg.diagnosticResponse.hasValue {
+        rsp.value = Int(msg.diagnosticResponse.value)
+        
+    }
     
     if rsp.value != nil {
        rsp.success = true//msg.diagnosticResponse.success
@@ -1373,10 +1381,10 @@ open class VehicleManager: NSObject {
     rsp.bus = bus
     rsp.message_id = id
     rsp.mode = mode
-    rsp.pid = pid
+    rsp.pid = pid!
     rsp.success = success
     rsp.payload = payload
-    rsp.value = value
+    rsp.value = value!
     
      //Adde for NRC fix
     if(!success){
@@ -1438,10 +1446,10 @@ open class VehicleManager: NSObject {
   // TODO: ToDo - Uncomment the code when when there will be a server URL and test the code
 
   //Send data using trace URL
-  @objc public func sendTraceURLData(urlName:String,rspdict:NSMutableDictionary,isdrrsp:Bool) {
+    @objc public func sendTraceURLData(urlName:String,rspdict:NSMutableDictionary,isdrrsp:Bool) {
 
     //declare parameter as a dictionary which contains string as key and value combination. considering inputs are valid
-    //"http://localhost:8080/print"
+    //var base64String = "my fancy string".data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
     let urlName = urlName
     var traceArr = [AnyObject]()
     if !isdrrsp {

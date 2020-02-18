@@ -8,6 +8,7 @@
 
 import UIKit
 import openXCiOSFramework
+
 class RecordingSourceController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var recswitch: UISwitch!
@@ -18,12 +19,16 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var uploadtraceswitch: UISwitch!
     @IBOutlet weak var traceURLname: UITextField!
     @IBOutlet weak var tergetURLnamelabel: UILabel!
-    
+    @IBOutlet weak var apiSourcenamelabel: UILabel!
+    var apiSourceName:String!
+    var BaseUrl: String = "http://oxccs-api-qa.apps.pp01.useast.cf.ford.com/"
     // the VM
     var vm: VehicleManager!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        apiSourcenamelabel.text = (UserDefaults.standard.string(forKey: "DeviceUUID"))
+        apiSourceName = (UserDefaults.standard.string(forKey: "DeviceUUID"))!.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
+        print(apiSourceName as Any)
         // Do any additional setup after loading the view.
         // grab VM instance
         vm = VehicleManager.sharedInstance
@@ -68,7 +73,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
             recname.text = name as String
         }
-        if let name = UserDefaults.standard.value(forKey: "traceURLname") as? NSString {
+        if let name = UserDefaults.standard.value(forKey: "traceURLbasename") as? NSString {
             traceURLname.text = name as String
         }
         // at first run, get a random dweet name
@@ -209,8 +214,11 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
             
             print(textField.text as Any)
             if textField.text != "http://"{
-                UserDefaults.standard.set(textField.text, forKey:"traceURLname")
-                
+                let traceUrlArr = textField.text!.components(separatedBy: "//")
+                let traceURL = BaseUrl + traceUrlArr[1] + apiSourceName + "/save"
+                print(traceURL)
+                UserDefaults.standard.set(traceURL, forKey:"traceURLname")
+                UserDefaults.standard.set(traceUrlArr[1], forKey:"traceURLbasename")
             }else{
                 let alertController = UIAlertController(title: "", message:
                     "Plese specify target URL Name ", preferredStyle: UIAlertController.Style.alert)

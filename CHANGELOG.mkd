@@ -1,11 +1,16 @@
 # OpenXC iOS App Demo Changelog
 
-## v5.0.0
+## v6.0.0
 
+* Enhancement: Updated to Protobuf 3
+* Feature: Upload trace data to URL
+* UI: Minor UI layout changes
+* Fix: Set defaults for missing signal values in dashboard
+
+## v5.0.0
 
 * Feature: App Center SDK Integration for crash Annalytics.
 * Feature: Split trace button to split trace file into multiple file.
-
 
 ## v4.0.0
 

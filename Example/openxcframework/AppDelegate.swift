@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         self.setUpAppCenterSDK()
-        
+        self.getUUID()
         
         return true
     }
@@ -51,6 +51,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MSAppCenter.start("8684d9e9-ea0b-4c3b-bc94-84ccb16965df", withServices: [MSAnalytics.self, MSCrashes.self])
 
     }
-    
+    func getUUID () {
+        let device_id = UIDevice.current.identifierForVendor!.uuidString
+        print(device_id)
+        UserDefaults.standard.set(device_id, forKey: "DeviceUUID") //setObject
+        
+    }
+
 }
 

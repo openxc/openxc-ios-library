@@ -307,7 +307,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         if cr.command_response.isEqual(to: "version") || cr.command_response.isEqual(to: ".version") {
             versionResp = cr.message as String
         }
-        if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceid"){
+        if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
             deviceIdResp = cr.message as String
         }
         
@@ -340,7 +340,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         if cr.command_response.isEqual(to: "rtc_configuration") || cr.command_response.isEqual(to: ".rtcconfiguration") {
             rtcConfigResp = String(cr.status)
         }
-        if cr.command_response.isEqual(to: "sd_mount_status") || cr.command_response.isEqual(to: ".sdmountstatus"){
+        if cr.command_response.isEqual(to: "sd_mount_status") || cr.command_response.isEqual(to: ".sdmountStatus") || cr.command_response.isEqual(to: ".sdMountStatus"){
             sdCardResp = String(cr.status)
         }else{
             customCommandResp = String(cr.message)
