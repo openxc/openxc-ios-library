@@ -62,7 +62,7 @@ To install XCode command line tools, follow these steps for XCode:
     * Follow the instructions in step #7 [here.](https://code.tutsplus.com/tutorials/creating-your-first-cocoapod--cms-24332)
     * When pushing to the specs repository, you must register your session first: $pod trunk register name@example.com 'Your Name'
     * The email address must belong to an owner of the pod 
-* Travis CI will take care of the rest.
+* Go to https://github.com/openxc/openxc-ios-library/releases and promote the tag you just created to a new release - copy and paste the changelog into the description. Note that the tag was already created in the CocoaPods section above.
 
 
 ## Contributing
