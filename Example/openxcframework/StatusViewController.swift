@@ -507,8 +507,10 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // update the UI depending on the command type- version,device_id works for JSON mode, not in protobuf - TODO
         
         var cvc:CommandsViewController?
-        let vcCount = self.tabBarController?.viewControllers?.count
-        cvc = self.tabBarController?.viewControllers?[vcCount!-1] as! CommandsViewController?
+            DispatchQueue.main.async {
+               let vcCount = self.tabBarController?.viewControllers?.count
+                      cvc = self.tabBarController?.viewControllers?[vcCount!-1] as! CommandsViewController?
+           }
         
         if cr.command_response.isEqual(to: "version") || cr.command_response.isEqual(to: ".version") {
             DispatchQueue.main.async {
