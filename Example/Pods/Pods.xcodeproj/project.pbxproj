@@ -19,58 +19,60 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0FA52813BC0381B4B13AAB570B74EADD /* Google.Protobuf.Timestamp.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB76C7449106B6E376BD0803981D20F1 /* Google.Protobuf.Timestamp.proto.swift */; };
-		18BA542158CE7D8FB2F8CD2E0794272B /* Pods-openxcframework_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D25795DD8D971DE703E5FC0BD979F67D /* Pods-openxcframework_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C6ACB80DC8BED90D97292780C7CAD91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D32806F72BCA84E5BC968BD23C04E5 /* Foundation.framework */; };
-		21C9E63514AE6DEA7248233733A34CBF /* VehicleMessageUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4903F7C19BE7A3E3CE7BB6984D273C /* VehicleMessageUnit.swift */; };
-		223A6725A14C37CD5F15D3836865A131 /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60FF4713AE43F1C5AF2192BBA7F5A6A /* RingBuffer.swift */; };
-		25E459E13763FD1DF4BFA365347683CD /* CAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78D39D2CCB3876659BBBCB1CF64CDD /* CAN.swift */; };
-		273D8668FBF2DDC6EA0003056350D015 /* NetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808450F4292535917860988085D5B01B /* NetworkDataManager.swift */; };
-		2A654122807750B774A8E528E21CAA06 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F1F9D8697BE929B722932C3A780E05 /* Command.swift */; };
-		2B61C8EE7A6AE2523CE89B8B08B6BAF9 /* Openxc.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAB1B17790B3A22E22EB1DDE63B1B2C /* Openxc.proto.swift */; };
-		385292A619BCDC696D7C369F6A8D04CF /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DA518EE042BB562DF4535541FE2ADA /* Message.swift */; };
-		3ACC470C108D4B46C14E9D5CF1785686 /* AbstractMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C6ADCE78A4578283CBCB838B7485E /* AbstractMessage.swift */; };
-		412B94D235A408C89216EC23328F39BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D32806F72BCA84E5BC968BD23C04E5 /* Foundation.framework */; };
-		41947915BC23419939318B916298C9F1 /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6085B3350AB98D8DE365CFDEA49560B0 /* TargetAction.swift */; };
-		43ADA064D7ECC999685F33EE77A80380 /* WireFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156F71C336E9185AFEF53155EDED03A /* WireFormat.swift */; };
-		50637D196C177F07D85AFA2C694941E0 /* openxcframework-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDACB3F1DBEE925C0E37F36B3968508 /* openxcframework-dummy.m */; };
-		52D3723588C24CAA718DB4E3AAA848EC /* Google.Protobuf.Empty.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9204E10631BC55131D4767AD20AE8 /* Google.Protobuf.Empty.proto.swift */; };
-		59E4217256E5662312B8717F82D5D381 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFB731E88BDB42B1FD8CA1F497A150E /* Field.swift */; };
-		689FF9AE12DA40CA49FFF8CB6DBC7401 /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF30D613298E6B261849B4206CEE7B5C /* ProtocolBuffers.framework */; };
-		71BA5154D293B64AE306E1B0FCC23844 /* Google.Protobuf.Type.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3114F77BB0A800FCD77E3AF9742ED /* Google.Protobuf.Type.proto.swift */; };
-		72D03F414C502EDDFDB703380A3C45E2 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFD22D48900BCA5A87670598A332D5B /* BluetoothManager.swift */; };
-		7A15C0C3FF704B763EBCD554DE173764 /* Diagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBBDE380662C9D87B53AF358D29203 /* Diagnostic.swift */; };
-		7BEC645197AA001F55A856519995BB25 /* ProtocolBuffers-Swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CA72CD173A5871C17F658F282C830E3 /* ProtocolBuffers-Swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		86EA91F44F4C3D916706F773CD8F234E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E4F89A8668F7DEFE8CA8F3A1AF773 /* Utilities.swift */; };
-		8B2EA1D09EE6A37EDCEDB44BAAEE90B7 /* openxcframework-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DD6CE6BAAE4F2734074172734677D537 /* openxcframework-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8D91F99D7905CDF5A575CEC8C40C5A6C /* ProtocolBuffers-Swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C12ECA3BEC0EC7EB7C9569B26DBE0 /* ProtocolBuffers-Swift-dummy.m */; };
-		947DA28695C9348BE3AB69502FF1E233 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380A9FD3E2048F9712A8F3A38A20E300 /* CoreBluetooth.framework */; };
-		966CCFDF72C7ADEA45763D1EABCA4D4E /* Pods-openxcframework_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5331ABDA72F26375E8CE90EC09B6F429 /* Pods-openxcframework_Example-dummy.m */; };
-		A097A5ECE9C6C0031600C5385D023AF2 /* Pods-openxcframework_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2188810360A1A5BD7EFEBE1AA94D2535 /* Pods-openxcframework_Tests-dummy.m */; };
-		A183CD2E44DF6D899096BA6B1AD57767 /* Google.Protobuf.Api.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FE6C06DABDB101CBD6F0ACF7593EE /* Google.Protobuf.Api.proto.swift */; };
-		A1EE749EA508C19E2BDCEDF43D0DC7BC /* CodedInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622FEA614FBAE220D25D955C41C1529D /* CodedInputStream.swift */; };
-		A5E95017F381D9695E0019FFCD20F831 /* ExtendableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437C15C9F1248831257C94E039C190C /* ExtendableMessage.swift */; };
-		A72BD91D0F29E2389C0B886EE49F75E0 /* Google.Protobuf.Wrappers.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBE6F206FADC4B39CB42695E22399F5 /* Google.Protobuf.Wrappers.proto.swift */; };
-		A83680CBFA59EC04429EBC62ED61B1DD /* ExtensionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8354D21F34B5E0B305260AD0BF5AD9 /* ExtensionRegistry.swift */; };
-		A9BA2DA672518B8DA6C5BB271DFFEFF8 /* UnknownFieldSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B06B60691F43BF3589A25E0941F04B /* UnknownFieldSet.swift */; };
-		AE81F558F938C1BDAAE6E7C06E7C2FA8 /* CodedOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EFA862B2D076E69DDC41C593F833BF /* CodedOutputStream.swift */; };
-		B4D44E6D227E8C1FD4095AEC018A3F12 /* Google.Protobuf.Duration.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187713866722185F744ABC85EC8BD3C /* Google.Protobuf.Duration.proto.swift */; };
-		B883C66A36B78A4852D157D2A67F3FA6 /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5467E09B1B0AE7C57F1BC53876A5E4 /* VehicleManager.swift */; };
-		BB98B880E383B3883D2D388D6B9D7B0E /* Google.Protobuf.Any.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D654A78847A8244B671396B3F062C5 /* Google.Protobuf.Any.proto.swift */; };
-		BD8DF1B1BA953E4B3656B6093E88E988 /* ConcreateExtensionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B151B4C31AEDC072B79F945CA5797C /* ConcreateExtensionField.swift */; };
-		C9FB95A9516634DED6CA67EC3079CC2D /* Google.Protobuf.SourceContext.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496D608B48C398C439DED01D1971015C /* Google.Protobuf.SourceContext.proto.swift */; };
-		CB9E38E375AD1E7B5CB0AFD8BD702671 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D32806F72BCA84E5BC968BD23C04E5 /* Foundation.framework */; };
-		CF40B6F6BA4CA7A56FC36AD6D1C2B2D8 /* Pods-openxcframework_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F19044AFC07BBE7CB831A2A7359655BD /* Pods-openxcframework_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D1B01237A7BF6953278E1182D93EF358 /* GeneratedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF25D9188F1B96B803D377982031A4 /* GeneratedMessage.swift */; };
-		D779809EDD7E7D141E6153168593CFC6 /* Google.Protobuf.Struct.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C735FF2D81234AC893B8E4B022BAEF /* Google.Protobuf.Struct.proto.swift */; };
-		D988DB2D74708FB1595D3F7A879B9763 /* Google.Protobuf.SwiftDescriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498853C02C1999549E8188F25CA64FA /* Google.Protobuf.SwiftDescriptor.proto.swift */; };
-		DCADBE9360749C9B397D098ADC778463 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F859125C77C7472BE5A175A944D9BA73 /* ExternalAccessory.framework */; };
-		DE5B47DDADA6BE693B7F406481277BB5 /* Google.Protobuf.FieldMask.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AF749F04EF91955AEF7619A98D1D5E /* Google.Protobuf.FieldMask.proto.swift */; };
-		DEFE688C4D1739E793D57D866129F7CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D32806F72BCA84E5BC968BD23C04E5 /* Foundation.framework */; };
-		E327C7DA9A61D0C93DFDD1E07C40BC74 /* Google.Protobuf.Descriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A1FD9B0F121DE50102FBDF176CBB7 /* Google.Protobuf.Descriptor.proto.swift */; };
-		F256F5AF45CBFA8562D3ED34788728FC /* OpenXCClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDBF5D7DE36D71A4F68D0C797C2F4AA /* OpenXCClasses.swift */; };
-		F3A0D0AB0255D17E5A94A4B84F9F4B4D /* TraceFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE8F047397655AE7CA2C9844BE5A58 /* TraceFileManager.swift */; };
-		FEC6FF3E0C6918276008A6C4CB5E32D7 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CB0CA00A3A0B772C9B43E612B5E09C /* Measurement.swift */; };
+
+		027ECE5678F833DCB11429A676FD16C5 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E4F89A8668F7DEFE8CA8F3A1AF773 /* Utilities.swift */; };
+		0ACDEBF4462387B7F892D4E68871D411 /* Google.Protobuf.Wrappers.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBE6F206FADC4B39CB42695E22399F5 /* Google.Protobuf.Wrappers.proto.swift */; };
+		0C8FAEDE8CD7EE159ADB94489B7E8878 /* Diagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBBDE380662C9D87B53AF358D29203 /* Diagnostic.swift */; };
+		0C9775BB2C8305D0C3110F5CAD4A8D9E /* Google.Protobuf.FieldMask.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AF749F04EF91955AEF7619A98D1D5E /* Google.Protobuf.FieldMask.proto.swift */; };
+		14EB0AC6C59A6A54493558A220520FAA /* AbstractMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C6ADCE78A4578283CBCB838B7485E /* AbstractMessage.swift */; };
+		19EB7A9B8BBD40F9EF6F407A682B6BE1 /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5467E09B1B0AE7C57F1BC53876A5E4 /* VehicleManager.swift */; };
+		1BD358E88A81AA78DC328089E6788B84 /* Google.Protobuf.Timestamp.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB76C7449106B6E376BD0803981D20F1 /* Google.Protobuf.Timestamp.proto.swift */; };
+		242B07D6DE0EBDA0342906088AA55B30 /* ExtendableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437C15C9F1248831257C94E039C190C /* ExtendableMessage.swift */; };
+		24EA0AB2FF11D6D46AD7A58302C48E86 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 348859CDB4441C6252D9275D5BA82B80 /* Foundation.framework */; };
+		2D39618A805001C1DD4CFCE542E52C20 /* CAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78D39D2CCB3876659BBBCB1CF64CDD /* CAN.swift */; };
+		333C9E6D5432DB30067E2A0183DA5042 /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 258280631E7B08D23C7C34D21F738D0A /* ProtocolBuffers.framework */; };
+		380FE8D18F8E322183ECA3417CFCCF10 /* Google.Protobuf.Api.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FE6C06DABDB101CBD6F0ACF7593EE /* Google.Protobuf.Api.proto.swift */; };
+		39733D64FE7C8CFD6C732EC19E1E3952 /* openxcframework-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1254A5721F66878A46F1C7ED4E4F86CF /* openxcframework-dummy.m */; };
+		4DAF600219796C322CED43E7AD3BD2A1 /* ProtocolBuffers-Swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E3FF39A963DC3726C7207C2D730541B4 /* ProtocolBuffers-Swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDFD0236241688DCC0A158A7C1992CD /* Pods-openxcframework_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1974AFDAA072D5A0036D97D07EAFEDEB /* Pods-openxcframework_Example-dummy.m */; };
+		4F0E36FBBA64D23B179832E3CF803E54 /* Google.Protobuf.Duration.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187713866722185F744ABC85EC8BD3C /* Google.Protobuf.Duration.proto.swift */; };
+		5286096F4AB0AB225761F6DE75EA2289 /* VehicleMessageUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4903F7C19BE7A3E3CE7BB6984D273C /* VehicleMessageUnit.swift */; };
+		61C60F60A2C7373173C7507F0C354B50 /* GeneratedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF25D9188F1B96B803D377982031A4 /* GeneratedMessage.swift */; };
+		62AD6FB4C56EE0AF140CF21D5DE9D5AC /* Google.Protobuf.Descriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A1FD9B0F121DE50102FBDF176CBB7 /* Google.Protobuf.Descriptor.proto.swift */; };
+		663510E2D675E5108288BADDC3ECFF23 /* Google.Protobuf.SwiftDescriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498853C02C1999549E8188F25CA64FA /* Google.Protobuf.SwiftDescriptor.proto.swift */; };
+		68F17CB161F3C7F79D835E45EEC39A18 /* WireFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156F71C336E9185AFEF53155EDED03A /* WireFormat.swift */; };
+		7DA628D26176EA2B6ECA8983D648AE4E /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFD22D48900BCA5A87670598A332D5B /* BluetoothManager.swift */; };
+		7DBC24D62355E8900036DBA1 /* Openxc.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBC24D52355E8900036DBA1 /* Openxc.proto.swift */; };
+		816BD72F69536A50F01A8F05E4402C0E /* UnknownFieldSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B06B60691F43BF3589A25E0941F04B /* UnknownFieldSet.swift */; };
+		850857EDAE2AF1BFB960BE5503790571 /* ExtensionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8354D21F34B5E0B305260AD0BF5AD9 /* ExtensionRegistry.swift */; };
+		8DFED4ACD418E05C7674DF0A5D15F2DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 348859CDB4441C6252D9275D5BA82B80 /* Foundation.framework */; };
+		9679F1F93BBEB44B800DC32E667A887A /* CodedOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EFA862B2D076E69DDC41C593F833BF /* CodedOutputStream.swift */; };
+		9AD836F2963DB3E029CDFC910287171A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DA518EE042BB562DF4535541FE2ADA /* Message.swift */; };
+		9CD0C9276E3E0F868E77C48F349A156F /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F1F9D8697BE929B722932C3A780E05 /* Command.swift */; };
+		9E7F9DC72E0497CF0A568142AC451C04 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CB0CA00A3A0B772C9B43E612B5E09C /* Measurement.swift */; };
+		9F522D526210560A70F381900CAA156B /* CodedInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622FEA614FBAE220D25D955C41C1529D /* CodedInputStream.swift */; };
+		AB4015416E375DC0B24417897F6B5903 /* Google.Protobuf.Any.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D654A78847A8244B671396B3F062C5 /* Google.Protobuf.Any.proto.swift */; };
+		AE257B6D4B818082720DABCF5E73261A /* Google.Protobuf.SourceContext.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496D608B48C398C439DED01D1971015C /* Google.Protobuf.SourceContext.proto.swift */; };
+		B461D01A4CB965A862A34C58101B9D91 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311104541A9BEE90DF0DEEDB7B9BB416 /* CoreBluetooth.framework */; };
+		B56582F813C256D9950DBF172064224F /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60FF4713AE43F1C5AF2192BBA7F5A6A /* RingBuffer.swift */; };
+		B987DBB993EDDC16980244FE607F87F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 348859CDB4441C6252D9275D5BA82B80 /* Foundation.framework */; };
+		BC2332EE034F3CAC0EF5C3DDDB8A71FE /* Pods-openxcframework_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A528173DCBB57B5B4C592B445DE986 /* Pods-openxcframework_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C17B20E0B4AC2545E12FC2D7FB7C6835 /* Google.Protobuf.Type.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3114F77BB0A800FCD77E3AF9742ED /* Google.Protobuf.Type.proto.swift */; };
+		C35D6C84E4043776B2E7C6A75EA177BF /* NetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808450F4292535917860988085D5B01B /* NetworkDataManager.swift */; };
+		C5BFC04C4E0866E8DD2110BDF35881E8 /* Google.Protobuf.Empty.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9204E10631BC55131D4767AD20AE8 /* Google.Protobuf.Empty.proto.swift */; };
+		C7964E0CCEEC480CC2CD4B6C91993026 /* Pods-openxcframework_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BA40EFD6A35F0AD2BE63F38CFA4EB68 /* Pods-openxcframework_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CEEFC53A08D0AC740278928C6765F885 /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6085B3350AB98D8DE365CFDEA49560B0 /* TargetAction.swift */; };
+		D7007D5D613599F7C92DF8D9E7184C8C /* ProtocolBuffers-Swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 28ED761EDA854DFCCC589AB4E31F7573 /* ProtocolBuffers-Swift-dummy.m */; };
+		DB726B8E1E2643F632810886CCD20158 /* Google.Protobuf.Struct.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C735FF2D81234AC893B8E4B022BAEF /* Google.Protobuf.Struct.proto.swift */; };
+		DC4CEF94604D29042FD09F7041926F36 /* ConcreateExtensionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B151B4C31AEDC072B79F945CA5797C /* ConcreateExtensionField.swift */; };
+		DF001F5D72348D5922B5DB40E95D6843 /* openxcframework-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 88F52E411FE5E563E581FDE6BC09DF6E /* openxcframework-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED3B94B7F33E7ED57C58D280FBCDD8EF /* OpenXCClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDBF5D7DE36D71A4F68D0C797C2F4AA /* OpenXCClasses.swift */; };
+		ED8AAFE2E4FF8938DEF729A79DEEEB1B /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DCCBA88E7B713DED9441DCAB526185 /* ExternalAccessory.framework */; };
+		F13062C0740345196E6949D6F13A131F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 348859CDB4441C6252D9275D5BA82B80 /* Foundation.framework */; };
+		F59D3B5B5825B788EC3183BEC2D1AEB6 /* TraceFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE8F047397655AE7CA2C9844BE5A58 /* TraceFileManager.swift */; };
+		FB4D5FA0C305B2B61EB4142B864AD571 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFB731E88BDB42B1FD8CA1F497A150E /* Field.swift */; };
+		FFE690C7E03567440745FB890431E1A0 /* Pods-openxcframework_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FD43C88E67E4E2C01D1BA46283DC74A6 /* Pods-openxcframework_Tests-dummy.m */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,7 +154,10 @@
 		7331C5F298F9F32F9445047E3CBD8C58 /* Pods-openxcframework_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-openxcframework_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		73CB6F4DE51629807245C97614FED393 /* openXCiOSFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = openXCiOSFramework.framework; path = openxcframework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75AF749F04EF91955AEF7619A98D1D5E /* Google.Protobuf.FieldMask.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.FieldMask.proto.swift; path = Source/Google.Protobuf.FieldMask.proto.swift; sourceTree = "<group>"; };
-		7D320A9E26158567F1ADD8458AFE0322 /* ProtocolBuffers-Swift-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ProtocolBuffers-Swift-Info.plist"; sourceTree = "<group>"; };
+
+		7B4F8C387C3460096857F316ADA8E082 /* Pods-openxcframework_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-openxcframework_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		7DBC24D52355E8900036DBA1 /* Openxc.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Openxc.proto.swift; path = openxcframework/Openxc.proto.swift; sourceTree = "<group>"; };
+
 		7DBE6F206FADC4B39CB42695E22399F5 /* Google.Protobuf.Wrappers.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Wrappers.proto.swift; path = Source/Google.Protobuf.Wrappers.proto.swift; sourceTree = "<group>"; };
 		808450F4292535917860988085D5B01B /* NetworkDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkDataManager.swift; path = openxcframework/NetworkDataManager.swift; sourceTree = "<group>"; };
 		84677D2DD07FF687D67C12E722BB9995 /* openxcframework.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = openxcframework.modulemap; sourceTree = "<group>"; };
@@ -183,10 +188,11 @@
 		D25795DD8D971DE703E5FC0BD979F67D /* Pods-openxcframework_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-openxcframework_Tests-umbrella.h"; sourceTree = "<group>"; };
 		D3B151B4C31AEDC072B79F945CA5797C /* ConcreateExtensionField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConcreateExtensionField.swift; path = Source/ConcreateExtensionField.swift; sourceTree = "<group>"; };
 		DB76C7449106B6E376BD0803981D20F1 /* Google.Protobuf.Timestamp.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Timestamp.proto.swift; path = Source/Google.Protobuf.Timestamp.proto.swift; sourceTree = "<group>"; };
-		DD6CE6BAAE4F2734074172734677D537 /* openxcframework-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "openxcframework-umbrella.h"; sourceTree = "<group>"; };
-		DDAB1B17790B3A22E22EB1DDE63B1B2C /* Openxc.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Openxc.proto.swift; path = openxcframework/Openxc.proto.swift; sourceTree = "<group>"; };
-		E0F60E41013C6C48DC917A3991A8B400 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		E8D32806F72BCA84E5BC968BD23C04E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+
+		E3F855305232EF7E0625B10BA1DF9754 /* Pods-openxcframework_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Example-Info.plist"; sourceTree = "<group>"; };
+		E3FF39A963DC3726C7207C2D730541B4 /* ProtocolBuffers-Swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-Swift-umbrella.h"; sourceTree = "<group>"; };
+		E8F8471BAEE7323F36B53C26E3B0E861 /* ProtocolBuffers-Swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ProtocolBuffers-Swift.modulemap"; sourceTree = "<group>"; };
+
 		E9BE8F047397655AE7CA2C9844BE5A58 /* TraceFileManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TraceFileManager.swift; path = openxcframework/TraceFileManager.swift; sourceTree = "<group>"; };
 		EF30D613298E6B261849B4206CEE7B5C /* ProtocolBuffers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ProtocolBuffers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19044AFC07BBE7CB831A2A7359655BD /* Pods-openxcframework_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-openxcframework_Example-umbrella.h"; sourceTree = "<group>"; };
@@ -441,6 +447,7 @@
 		E292F62657680EDF3237F8D476089CD1 /* openxcframework */ = {
 			isa = PBXGroup;
 			children = (
+				7DBC24D52355E8900036DBA1 /* Openxc.proto.swift */,
 				5EFD22D48900BCA5A87670598A332D5B /* BluetoothManager.swift */,
 				3E78D39D2CCB3876659BBBCB1CF64CDD /* CAN.swift */,
 				C3F1F9D8697BE929B722932C3A780E05 /* Command.swift */,
@@ -448,7 +455,6 @@
 				64CB0CA00A3A0B772C9B43E612B5E09C /* Measurement.swift */,
 				C1DA518EE042BB562DF4535541FE2ADA /* Message.swift */,
 				808450F4292535917860988085D5B01B /* NetworkDataManager.swift */,
-				DDAB1B17790B3A22E22EB1DDE63B1B2C /* Openxc.proto.swift */,
 				CDDBF5D7DE36D71A4F68D0C797C2F4AA /* OpenXCClasses.swift */,
 				6085B3350AB98D8DE365CFDEA49560B0 /* TargetAction.swift */,
 				E9BE8F047397655AE7CA2C9844BE5A58 /* TraceFileManager.swift */,
@@ -728,21 +734,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72D03F414C502EDDFDB703380A3C45E2 /* BluetoothManager.swift in Sources */,
-				25E459E13763FD1DF4BFA365347683CD /* CAN.swift in Sources */,
-				2A654122807750B774A8E528E21CAA06 /* Command.swift in Sources */,
-				7A15C0C3FF704B763EBCD554DE173764 /* Diagnostic.swift in Sources */,
-				FEC6FF3E0C6918276008A6C4CB5E32D7 /* Measurement.swift in Sources */,
-				385292A619BCDC696D7C369F6A8D04CF /* Message.swift in Sources */,
-				273D8668FBF2DDC6EA0003056350D015 /* NetworkDataManager.swift in Sources */,
-				2B61C8EE7A6AE2523CE89B8B08B6BAF9 /* Openxc.proto.swift in Sources */,
-				F256F5AF45CBFA8562D3ED34788728FC /* OpenXCClasses.swift in Sources */,
-				50637D196C177F07D85AFA2C694941E0 /* openxcframework-dummy.m in Sources */,
-				41947915BC23419939318B916298C9F1 /* TargetAction.swift in Sources */,
-				F3A0D0AB0255D17E5A94A4B84F9F4B4D /* TraceFileManager.swift in Sources */,
-				86EA91F44F4C3D916706F773CD8F234E /* Utilities.swift in Sources */,
-				B883C66A36B78A4852D157D2A67F3FA6 /* VehicleManager.swift in Sources */,
-				21C9E63514AE6DEA7248233733A34CBF /* VehicleMessageUnit.swift in Sources */,
+
+				7DA628D26176EA2B6ECA8983D648AE4E /* BluetoothManager.swift in Sources */,
+				2D39618A805001C1DD4CFCE542E52C20 /* CAN.swift in Sources */,
+				9CD0C9276E3E0F868E77C48F349A156F /* Command.swift in Sources */,
+				0C8FAEDE8CD7EE159ADB94489B7E8878 /* Diagnostic.swift in Sources */,
+				9E7F9DC72E0497CF0A568142AC451C04 /* Measurement.swift in Sources */,
+				9AD836F2963DB3E029CDFC910287171A /* Message.swift in Sources */,
+				C35D6C84E4043776B2E7C6A75EA177BF /* NetworkDataManager.swift in Sources */,
+				ED3B94B7F33E7ED57C58D280FBCDD8EF /* OpenXCClasses.swift in Sources */,
+				39733D64FE7C8CFD6C732EC19E1E3952 /* openxcframework-dummy.m in Sources */,
+				CEEFC53A08D0AC740278928C6765F885 /* TargetAction.swift in Sources */,
+				7DBC24D62355E8900036DBA1 /* Openxc.proto.swift in Sources */,
+				F59D3B5B5825B788EC3183BEC2D1AEB6 /* TraceFileManager.swift in Sources */,
+				027ECE5678F833DCB11429A676FD16C5 /* Utilities.swift in Sources */,
+				19EB7A9B8BBD40F9EF6F407A682B6BE1 /* VehicleManager.swift in Sources */,
+				5286096F4AB0AB225761F6DE75EA2289 /* VehicleMessageUnit.swift in Sources */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -82,11 +82,11 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         // create the string we want to show in the received messages UI
         var newTxt = "bus:"+vr.bus.description+" id:0x"+String(format:"%x",vr.message_id)+" mode:0x"+String(format:"%x",vr.mode)+"timestamp"+String(vr.timestamp)
         if vr.pid != nil {
-            newTxt = newTxt+" pid:0x"+String(format:"%x",vr.pid!)
+            newTxt = newTxt+" pid:0x"+String(format:"%x",vr.pid)
         }
         newTxt = newTxt+" success:"+vr.success.description
         if vr.value != nil {
-            newTxt = newTxt+" value:"+vr.value!.description
+            newTxt = newTxt+" value:"+vr.value.description
             
         }else{
             newTxt = newTxt+" payload:"+(vr.payload.description)
@@ -116,10 +116,10 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         dashDict.setObject(String(format:"%x",vr.message_id),forKey: "id" as NSCopying)
         dashDict.setObject(String(format:"%x",vr.success.description),forKey: "success" as NSCopying)
         if vr.pid != nil {
-            dashDict.setObject(String(format:"%x",vr.pid!),forKey: "pid" as NSCopying)
+            dashDict.setObject(String(format:"%x",vr.pid),forKey: "pid" as NSCopying)
         }
         if vr.value != nil {
-            dashDict.setObject(vr.value!.description,forKey: "value" as NSCopying)
+            dashDict.setObject(vr.value.description,forKey: "value" as NSCopying)
             
         }else{
             dashDict.setObject(vr.payload.description,forKey: "payload" as NSCopying)

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'openxcframework'
-  s.version          = '5.0.0'
+  s.version          = '6.0.0'
   s.summary          = 'A short description of openxcframework.'
   s.swift_version    = '5.0'
 # This description is used to generate tags and improve search results.

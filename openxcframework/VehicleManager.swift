@@ -873,15 +873,17 @@ open class VehicleManager: NSObject {
   }
   
    fileprivate func protobufCommandResponse(msg : VehicleMessage){
-    
-    //          let name = msg.commandResponse.type.toString()
+
     let name = msg.commandResponse.type.description
     // build command response message
+    print(msg)
     let rsp : VehicleCommandResponse = VehicleCommandResponse()
-    rsp.timestamp = Int(truncatingIfNeeded:msg.timestamp)
-    rsp.command_response = name.lowercased() as NSString
-    rsp.message = msg.commandResponse.message as NSString
-    rsp.status = msg.commandResponse.status
+        rsp.timestamp = Int(truncatingIfNeeded:msg.timestamp)
+        rsp.command_response = name.lowercased() as NSString
+        rsp.message = msg.commandResponse.message as NSString
+        rsp.status = msg.commandResponse.status
+    
+    
     
 
     // First see if the default command callback is defined. If it is
@@ -911,11 +913,17 @@ open class VehicleManager: NSObject {
     rsp.bus = Int(msg.diagnosticResponse.bus)
     rsp.message_id = Int(msg.diagnosticResponse.messageId)
     rsp.mode = Int(msg.diagnosticResponse.mode)
-    if msg.diagnosticResponse.hasPid {rsp.pid = Int(msg.diagnosticResponse.pid)}
+    if msg.diagnosticResponse.hasPid {
+        rsp.pid = Int(msg.diagnosticResponse.pid)
+        
+    }
     rsp.success = msg.diagnosticResponse.success
     //   if msg.diagnosticResponse.hasPayload {rsp.payload = String(data:msg.diagnosticResponse.payload as Data,encoding: String.Encoding.utf8)! as NSString}
     //   if msg.diagnosticResponse.hasPayload {rsp.payload = (String(data:msg.diagnosticResponse.payload as Data,encoding: String.Encoding.utf8)! as NSString) as String}
-    if msg.diagnosticResponse.hasValue {rsp.value = Int(msg.diagnosticResponse.value)}
+    if msg.diagnosticResponse.hasValue {
+        rsp.value = Int(msg.diagnosticResponse.value)
+        
+    }
     
     if rsp.value != nil {
        rsp.success = true//msg.diagnosticResponse.success
@@ -1374,10 +1382,10 @@ open class VehicleManager: NSObject {
     rsp.bus = bus
     rsp.message_id = id
     rsp.mode = mode
-    rsp.pid = pid
+    rsp.pid = pid!
     rsp.success = success
     rsp.payload = payload
-    rsp.value = value
+    rsp.value = value!
     
      //Adde for NRC fix
     if(!success){

@@ -403,6 +403,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // update the UI showing connected VI
         if msg==VehicleManagerStatusMessage.c5CONNECTED {
+            
             vm.setCommandDefaultTarget(self, action: StatusViewController.handle_cmd_response)
             DispatchQueue.main.async {
                 if (traceSinkOn){
@@ -515,7 +516,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             cvc?.versionResp = String(cr.message)
         }
-        if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceid"){
+        if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
             DispatchQueue.main.async {
                 self.devidLab.text = cr.message as String
             }
