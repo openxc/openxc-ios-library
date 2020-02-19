@@ -9,14 +9,14 @@
 This framework is part of the OpenXC project. This iOS framework contains the tools required to read vehicle data from the vehicle's CAN bus through the OpenXC vehicle interface in any iOS application.
 
 
-OpenXC iOS framework for use with the C5 BLE device. See also the [openxc-ios-app-demo](To run the example project, clone the repo, and run `pod install` from the Example directory first.)
+OpenXC iOS framework for use with the C5 BLE device. See also the [openxc-ios-app-demo](https://github.com/openxc/openxc-ios-app-demo). To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## OpenXC-iOS-Library-Version
 * V6.0.0
 
 ## Supported versions:
-* iOS - upto 12.0
-* XCode - upto 10.2
+* iOS - up to 12.0
+* XCode - up to 10.2
 * Swift - Swift5
 
 Note: TravisCI build run will work only till XCode 10.2 -iOS 12.0 (https://github.com/travis-ci/travis-ci/issues/7031) but the framework supports XCode 10.2 and iOS 12
@@ -34,7 +34,7 @@ Refer to this [document](https://github.com/openxc/openxc-ios-library/blob/maste
 
 API usage details are available [here](https://github.com/openxc/openxc-ios-library/blob/master/iOS%20Framework%20API%20Guide.pdf). 
 
-Also see [Step by Step Guide] (https://github.com/openxc/openxc-ios-library/blob/master/StepsToBuildOpenXCiOSFrameworkAndDemoApp.docx) to build framework. 
+Also see [Step by Step Guide](https://github.com/openxc/openxc-ios-library/blob/master/StepsToBuildOpenXCiOSFrameworkAndDemoApp.docx) to build framework. 
 
 
 ## Tests
@@ -57,12 +57,17 @@ To install XCode command line tools, follow these steps for XCode:
 
 * Update CHANGELOG.mkd
 * Merge into master push to GitHub
-* Travis CI will take care of the rest.
+* Update OpenXC in CocoaPods:
+    * Update s.version in openxcframework.podspec
+    * Follow the instructions in step #7 [here.](https://code.tutsplus.com/tutorials/creating-your-first-cocoapod--cms-24332)
+    * When pushing to the specs repository, you must register your session first: $pod trunk register name@example.com 'Your Name'
+    * The email address must belong to an owner of the pod 
+* Go to https://github.com/openxc/openxc-ios-library/releases and promote the tag you just created to a new release - copy and paste the changelog into the description. Note that the tag was already created in the CocoaPods section above.
 
 
 ## Contributing
 
-Please see our [Contribution Documents] (https://github.com/openxc/openxc-ios-library/blob/master/CONTRIBUTING.mkd)
+Please see our [Contribution Documents](https://github.com/openxc/openxc-ios-library/blob/master/CONTRIBUTING.mkd)
 
 ## Example
 
