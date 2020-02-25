@@ -41,7 +41,7 @@ class modalSettingsView: UIViewController, UITextFieldDelegate {
     
     // show 'about' view
     @IBAction func aboutHit(_ sender: AnyObject) {
-        
+        aboutView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         mainView.addSubview(aboutView)
     }
     
