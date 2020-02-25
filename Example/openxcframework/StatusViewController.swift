@@ -69,14 +69,12 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // setup the status callback, and the command response callback
         vm.setManagerCallbackTarget(self, action: StatusViewController.manager_status_updates)
-        //vm.setCanDefaultTarget(self, action: StatusViewController.handle_cmd_response)
         
         // setup the status callback, and the command response callback
-        //cm.setManagerCallbackTarget(self, action: StatusViewController.manager_status_updates)
         vm.setCommandDefaultTarget(self, action: StatusViewController.handle_cmd_response)
         // turn on debug output
         vm.setManagerDebug(true)
-       //NotificationCenter.default.addObserver(self, selector: #selector(powerDrop), name: NSNotification.Name("BLEDisconnect"), object: nil)
+
 
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -89,7 +87,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }else{
             self.splitTraceBtn.isHidden = true
             self.startStopBtn.isHidden = true
-            //self.startStopBtn.isSelected = true
         }
          let traceDisableLoopOn = UserDefaults.standard.bool(forKey: "disableTraceLoopOn")
         if (traceDisableLoopOn ){
