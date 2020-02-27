@@ -16,7 +16,6 @@ public enum VehicleManagerConnectionState: Int {
   case connected=3              // connection established (but not ready to receive btle writes)
   case operational=4            // C5 VI operational (notify enabled and writes accepted)
 }
-
 open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
 
   
@@ -31,7 +30,6 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   fileprivate var openXCService: CBService!
   fileprivate var openXCNotifyChar: CBCharacteristic!
   open var openXCWriteChar: CBCharacteristic!
-  
   // dictionary of discovered openXC peripherals when scanning
   open var foundOpenXCPeripherals: [String:CBPeripheral] = [String:CBPeripheral]()
   
@@ -91,31 +89,9 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
       return
     }
     
-    //    // if the found VI list is empty, just return
-    //    if foundOpenXCPeripherals.count == 0 {
-    //      vmlog("VehicleManager has not found any VIs!")
-    //
-    //      return
-    //    }
-    //
-    //    // for this method, just connect to first one found
-    //    openXCPeripheral = foundOpenXCPeripherals.first?.1
-    //    openXCPeripheral.delegate = self
-    
-    //    // start the connection process
-    //    vmlog("VehicleManager connect started")
-    //    centralManager.connect(openXCPeripheral, options:nil)
-    //    connectionState = .connectionInProgress
-    //
-    //  }
-    //
-    //
-    //  // connect the VM to a specific VI
+    // start the connection process
+   // connect the VM to a specific VI
 
-    //
-    //    // if the found VI list is empty, just return
-    //    if foundOpenXCPeripherals[name] == nil {
-    // if the name is given, look it up. Otherwise use any peripheral
     openXCPeripheral = (name != nil ? foundOpenXCPeripherals[name!] : foundOpenXCPeripherals.first?.1)
     
     if openXCPeripheral == nil {
@@ -124,7 +100,6 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     }
     
     // for this method, just connect to first one found
-    // openXCPeripheral = foundOpenXCPeripherals[name]
     openXCPeripheral.delegate = self
     
     // start the connection process
@@ -319,16 +294,11 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   // Core Bluetooth has disconnected from BLE peripheral
   open func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
     vmlog("in centralManager:didDisconnectPeripheral:")
-    //vmlog(error!)
+    // update UI if necessary
     let autoOn = UserDefaults.standard.bool(forKey: "autoConnectOn")
     // just reconnect automatically to the same device for now
     if peripheral == openXCPeripheral && autoOn{
       centralManager.connect(openXCPeripheral, options:nil)
-      
-      // notify client if the callback is enabled
-      //      if let act = managerCallback {
-      //        act.performAction(["status":VehicleManagerStatusMessage.c5DISCONNECTED.rawValue] as NSDictionary)
-      //      }
       
       // clear any saved context
       latestVehicleMeasurements = NSMutableDictionary()
@@ -338,10 +308,13 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
       connectionState  = .connectionInProgress
     }else{
      connectionState = .notConnected
+        
     }
+       // notify client if the callback is enabled
     if let act = VehicleManager.sharedInstance.managerCallback {
-      act.performAction(["status":VehicleManagerStatusMessage.c5DISCONNECTED.rawValue] as NSDictionary)
+            act.performAction(["status":VehicleManagerStatusMessage.c5DISCONNECTED.rawValue] as NSDictionary)
     }
+ 
   }
   
   
@@ -463,29 +436,8 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
       }
       
      tempDataBuffer.append(data)
-      //tempDataBuffer1.append(data)
-//      let sepdata = Data(bytes: UnsafePointer<UInt8>([0x00] as [UInt8]), count: 1)
-//      let rangedata = NSMakeRange(0, tempDataBuffer.length)
-//      let foundRange = tempDataBuffer.range(of: sepdata, options:[], in:rangedata)
-//      if foundRange.location != NSNotFound {
-        // extract the entire message from the rx data buffer
-        VehicleManager.sharedInstance.RxDataBuffer.append(data)//tempDataBuffer.subdata(with: NSMakeRange(0,foundRange.location+1))
+        VehicleManager.sharedInstance.RxDataBuffer.append(data)
         VehicleManager.sharedInstance.RxDataParser(0x00)
-        // tempDataBuffer.resetBytes(in:NSMakeRange(0,foundRange.location))
-        // if there is leftover data in the buffer, make sure to keep it otherwise
-        // the parsing will not work for the next message that is partially complete now
-//        if tempDataBuffer.length-1 > foundRange.location {
-//          tempDataBuffer.resetBytes(in:NSMakeRange(0,foundRange.location+1))
-//          let data_left : NSMutableData = NSMutableData()
-//          data_left.append(tempDataBuffer.subdata(with: NSMakeRange(foundRange.location+1,tempDataBuffer.length-foundRange.location-1)))
-//          tempDataBuffer = data_left
-//        } else {
-//          tempDataBuffer = NSMutableData()
-//        }
-     // }
-      //if data.count > 0 {
-      //RxDataBuffer.append(data)
-    // RxDataParser(0x00)
     }
     
   }
@@ -631,7 +583,6 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     let value = tempDataBuffer.length/5
     let result = String(value)
     let result1 = String(value1) + " msg," + result + " byte/sec." + String(result2) + " Bytes"
-   // print(arrOfStr?.count as Any)
     tempDataBuffer.setData(NSMutableData() as Data)
     return result1
   }
