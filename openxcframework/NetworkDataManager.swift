@@ -50,6 +50,9 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
         }else{
             //print("not connected")
             VehicleManager.sharedInstance.isNetworkConnected = false
+            if let act = VehicleManager.sharedInstance.managerCallback {
+                act.performAction(["status":VehicleManagerStatusMessage.networkDISCONNECTED.rawValue] as NSDictionary)
+            }
         }
     }
     
@@ -57,6 +60,9 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
         inputstream?.close()
         outputstream?.close()
         VehicleManager.sharedInstance.isNetworkConnected = false
+        if let act = VehicleManager.sharedInstance.managerCallback {
+            act.performAction(["status":VehicleManagerStatusMessage.networkDISCONNECTED.rawValue] as NSDictionary)
+        }
     }
     
     public func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
@@ -77,6 +83,9 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
                 self.callbackHandler!(false)
                 print("output:Error Occurred\n")
                 VehicleManager.sharedInstance.isNetworkConnected = false
+                if let act = VehicleManager.sharedInstance.managerCallback {
+                    act.performAction(["status":VehicleManagerStatusMessage.networkDISCONNECTED.rawValue] as NSDictionary)
+                }
             }
             print("Input : Error Occurred\n")
             break
@@ -102,6 +111,9 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
             
             
             VehicleManager.sharedInstance.isNetworkConnected = true
+            if let act = VehicleManager.sharedInstance.managerCallback {
+                act.performAction(["status":VehicleManagerStatusMessage.networkCONNECTED.rawValue] as NSDictionary)
+            }
             self.callbackHandler!(true)
             
             if(aStream == outputstream)
@@ -145,7 +157,9 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
                         if messageFromServer == nil
                         {
                             print("Network hasbeen closed")
-                        }
+                          
+                            }
+                            
                         else
                         {
                             print("MessageFromServer = \(String(describing: messageFromServer))")

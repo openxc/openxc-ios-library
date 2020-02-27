@@ -20,58 +20,58 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0FA52813BC0381B4B13AAB570B74EADD /* Google.Protobuf.Timestamp.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB76C7449106B6E376BD0803981D20F1 /* Google.Protobuf.Timestamp.proto.swift */; };
+		0FA52813BC0381B4B13AAB570B74EADD /* Google.Protobuf.Timestamp.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBEE2D6B3FDA98E5A6D8C51BE60EE18 /* Google.Protobuf.Timestamp.proto.swift */; };
 		18BA542158CE7D8FB2F8CD2E0794272B /* Pods-openxcframework_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D25795DD8D971DE703E5FC0BD979F67D /* Pods-openxcframework_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C6ACB80DC8BED90D97292780C7CAD91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D32806F72BCA84E5BC968BD23C04E5 /* Foundation.framework */; };
-		21C9E63514AE6DEA7248233733A34CBF /* VehicleMessageUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4903F7C19BE7A3E3CE7BB6984D273C /* VehicleMessageUnit.swift */; };
-		223A6725A14C37CD5F15D3836865A131 /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60FF4713AE43F1C5AF2192BBA7F5A6A /* RingBuffer.swift */; };
-		25E459E13763FD1DF4BFA365347683CD /* CAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E78D39D2CCB3876659BBBCB1CF64CDD /* CAN.swift */; };
-		273D8668FBF2DDC6EA0003056350D015 /* NetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808450F4292535917860988085D5B01B /* NetworkDataManager.swift */; };
-		2A654122807750B774A8E528E21CAA06 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F1F9D8697BE929B722932C3A780E05 /* Command.swift */; };
-		2B61C8EE7A6AE2523CE89B8B08B6BAF9 /* Openxc.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAB1B17790B3A22E22EB1DDE63B1B2C /* Openxc.proto.swift */; };
-		385292A619BCDC696D7C369F6A8D04CF /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DA518EE042BB562DF4535541FE2ADA /* Message.swift */; };
-		3ACC470C108D4B46C14E9D5CF1785686 /* AbstractMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C6ADCE78A4578283CBCB838B7485E /* AbstractMessage.swift */; };
+		21C9E63514AE6DEA7248233733A34CBF /* VehicleMessageUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4649DDC0E25653B4B1A9DB0FD1B614 /* VehicleMessageUnit.swift */; };
+		223A6725A14C37CD5F15D3836865A131 /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D1155425E395C854C42E6D0BA3EAB3 /* RingBuffer.swift */; };
+		25E459E13763FD1DF4BFA365347683CD /* CAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB39DDD75B842734B9D1D99057C7A7A /* CAN.swift */; };
+		273D8668FBF2DDC6EA0003056350D015 /* NetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF1CE444DC08D64CF411DEFB0E55E63 /* NetworkDataManager.swift */; };
+		2A654122807750B774A8E528E21CAA06 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F54F510DB96D1C4A52603718AC92574 /* Command.swift */; };
+		2B61C8EE7A6AE2523CE89B8B08B6BAF9 /* Openxc.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965CE4D40B235F4D1203E641B6CE496B /* Openxc.proto.swift */; };
+		385292A619BCDC696D7C369F6A8D04CF /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F70A9C19DF33B145146C3A789EEAD /* Message.swift */; };
+		3ACC470C108D4B46C14E9D5CF1785686 /* AbstractMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04F2F03A809EFE6B1B974E41A075462 /* AbstractMessage.swift */; };
 		412B94D235A408C89216EC23328F39BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D32806F72BCA84E5BC968BD23C04E5 /* Foundation.framework */; };
-		41947915BC23419939318B916298C9F1 /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6085B3350AB98D8DE365CFDEA49560B0 /* TargetAction.swift */; };
-		43ADA064D7ECC999685F33EE77A80380 /* WireFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6156F71C336E9185AFEF53155EDED03A /* WireFormat.swift */; };
-		50637D196C177F07D85AFA2C694941E0 /* openxcframework-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDACB3F1DBEE925C0E37F36B3968508 /* openxcframework-dummy.m */; };
-		52D3723588C24CAA718DB4E3AAA848EC /* Google.Protobuf.Empty.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D9204E10631BC55131D4767AD20AE8 /* Google.Protobuf.Empty.proto.swift */; };
-		59E4217256E5662312B8717F82D5D381 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFB731E88BDB42B1FD8CA1F497A150E /* Field.swift */; };
+		41947915BC23419939318B916298C9F1 /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40492BB3EDB0955BB2573E65F5CCC5 /* TargetAction.swift */; };
+		43ADA064D7ECC999685F33EE77A80380 /* WireFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D60D2AD90A3B11ACF8606A82764F82 /* WireFormat.swift */; };
+		50637D196C177F07D85AFA2C694941E0 /* openxcframework-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C41FB4564D3DD52E8D63E9564B2E4003 /* openxcframework-dummy.m */; };
+		52D3723588C24CAA718DB4E3AAA848EC /* Google.Protobuf.Empty.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD2EE85D5301C808E436B93AF1F09BF /* Google.Protobuf.Empty.proto.swift */; };
+		59E4217256E5662312B8717F82D5D381 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEC37F157AFD39EF30952662C999943 /* Field.swift */; };
 		689FF9AE12DA40CA49FFF8CB6DBC7401 /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF30D613298E6B261849B4206CEE7B5C /* ProtocolBuffers.framework */; };
-		71BA5154D293B64AE306E1B0FCC23844 /* Google.Protobuf.Type.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D3114F77BB0A800FCD77E3AF9742ED /* Google.Protobuf.Type.proto.swift */; };
-		72D03F414C502EDDFDB703380A3C45E2 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFD22D48900BCA5A87670598A332D5B /* BluetoothManager.swift */; };
-		7A15C0C3FF704B763EBCD554DE173764 /* Diagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBBDE380662C9D87B53AF358D29203 /* Diagnostic.swift */; };
-		7BEC645197AA001F55A856519995BB25 /* ProtocolBuffers-Swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CA72CD173A5871C17F658F282C830E3 /* ProtocolBuffers-Swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		86EA91F44F4C3D916706F773CD8F234E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E4F89A8668F7DEFE8CA8F3A1AF773 /* Utilities.swift */; };
-		8B2EA1D09EE6A37EDCEDB44BAAEE90B7 /* openxcframework-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DD6CE6BAAE4F2734074172734677D537 /* openxcframework-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8D91F99D7905CDF5A575CEC8C40C5A6C /* ProtocolBuffers-Swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C12ECA3BEC0EC7EB7C9569B26DBE0 /* ProtocolBuffers-Swift-dummy.m */; };
+		71BA5154D293B64AE306E1B0FCC23844 /* Google.Protobuf.Type.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DEEDE8AF8A393385919EA5C23BBD89 /* Google.Protobuf.Type.proto.swift */; };
+		72D03F414C502EDDFDB703380A3C45E2 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE999A27B63374B910DC7358EBD62261 /* BluetoothManager.swift */; };
+		7A15C0C3FF704B763EBCD554DE173764 /* Diagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6048E8976B6F6EE99FA4B5FA95756916 /* Diagnostic.swift */; };
+		7BEC645197AA001F55A856519995BB25 /* ProtocolBuffers-Swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A9AC171B516088665DD282B518A9D52 /* ProtocolBuffers-Swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		86EA91F44F4C3D916706F773CD8F234E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBCA76DF2F8F3C3DFEFA652382F1078 /* Utilities.swift */; };
+		8B2EA1D09EE6A37EDCEDB44BAAEE90B7 /* openxcframework-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B88D8298C46A80617C56DA0FFC76D012 /* openxcframework-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8D91F99D7905CDF5A575CEC8C40C5A6C /* ProtocolBuffers-Swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D249292BC5055D44BA5D1E5809D1029B /* ProtocolBuffers-Swift-dummy.m */; };
 		947DA28695C9348BE3AB69502FF1E233 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380A9FD3E2048F9712A8F3A38A20E300 /* CoreBluetooth.framework */; };
 		966CCFDF72C7ADEA45763D1EABCA4D4E /* Pods-openxcframework_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5331ABDA72F26375E8CE90EC09B6F429 /* Pods-openxcframework_Example-dummy.m */; };
 		A097A5ECE9C6C0031600C5385D023AF2 /* Pods-openxcframework_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2188810360A1A5BD7EFEBE1AA94D2535 /* Pods-openxcframework_Tests-dummy.m */; };
-		A183CD2E44DF6D899096BA6B1AD57767 /* Google.Protobuf.Api.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FE6C06DABDB101CBD6F0ACF7593EE /* Google.Protobuf.Api.proto.swift */; };
-		A1EE749EA508C19E2BDCEDF43D0DC7BC /* CodedInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622FEA614FBAE220D25D955C41C1529D /* CodedInputStream.swift */; };
-		A5E95017F381D9695E0019FFCD20F831 /* ExtendableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4437C15C9F1248831257C94E039C190C /* ExtendableMessage.swift */; };
-		A72BD91D0F29E2389C0B886EE49F75E0 /* Google.Protobuf.Wrappers.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBE6F206FADC4B39CB42695E22399F5 /* Google.Protobuf.Wrappers.proto.swift */; };
-		A83680CBFA59EC04429EBC62ED61B1DD /* ExtensionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8354D21F34B5E0B305260AD0BF5AD9 /* ExtensionRegistry.swift */; };
-		A9BA2DA672518B8DA6C5BB271DFFEFF8 /* UnknownFieldSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B06B60691F43BF3589A25E0941F04B /* UnknownFieldSet.swift */; };
-		AE81F558F938C1BDAAE6E7C06E7C2FA8 /* CodedOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EFA862B2D076E69DDC41C593F833BF /* CodedOutputStream.swift */; };
-		B4D44E6D227E8C1FD4095AEC018A3F12 /* Google.Protobuf.Duration.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187713866722185F744ABC85EC8BD3C /* Google.Protobuf.Duration.proto.swift */; };
-		B883C66A36B78A4852D157D2A67F3FA6 /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5467E09B1B0AE7C57F1BC53876A5E4 /* VehicleManager.swift */; };
-		BB98B880E383B3883D2D388D6B9D7B0E /* Google.Protobuf.Any.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D654A78847A8244B671396B3F062C5 /* Google.Protobuf.Any.proto.swift */; };
-		BD8DF1B1BA953E4B3656B6093E88E988 /* ConcreateExtensionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B151B4C31AEDC072B79F945CA5797C /* ConcreateExtensionField.swift */; };
-		C9FB95A9516634DED6CA67EC3079CC2D /* Google.Protobuf.SourceContext.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496D608B48C398C439DED01D1971015C /* Google.Protobuf.SourceContext.proto.swift */; };
+		A183CD2E44DF6D899096BA6B1AD57767 /* Google.Protobuf.Api.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633D59F7AE2A62D1FDB548855AFDB344 /* Google.Protobuf.Api.proto.swift */; };
+		A1EE749EA508C19E2BDCEDF43D0DC7BC /* CodedInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B3AB5247F4BA39A9F7434F9B723B82 /* CodedInputStream.swift */; };
+		A5E95017F381D9695E0019FFCD20F831 /* ExtendableMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B5E47E431DB590CDC7F85EA9DB0B80 /* ExtendableMessage.swift */; };
+		A72BD91D0F29E2389C0B886EE49F75E0 /* Google.Protobuf.Wrappers.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE517E355306A6C2DFEA581A86B81B2B /* Google.Protobuf.Wrappers.proto.swift */; };
+		A83680CBFA59EC04429EBC62ED61B1DD /* ExtensionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC71634BAE9F521164CAF8CC5BEA51C3 /* ExtensionRegistry.swift */; };
+		A9BA2DA672518B8DA6C5BB271DFFEFF8 /* UnknownFieldSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50430AFDF9BBCC24864534E44DA6531D /* UnknownFieldSet.swift */; };
+		AE81F558F938C1BDAAE6E7C06E7C2FA8 /* CodedOutputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09208B434F1E5DEA06014C343B020CE1 /* CodedOutputStream.swift */; };
+		B4D44E6D227E8C1FD4095AEC018A3F12 /* Google.Protobuf.Duration.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62CF9CD016EB6657D8CF410DC0B7DEA /* Google.Protobuf.Duration.proto.swift */; };
+		B883C66A36B78A4852D157D2A67F3FA6 /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC53E72497AA6AD2C7B62ADECF4CBD19 /* VehicleManager.swift */; };
+		BB98B880E383B3883D2D388D6B9D7B0E /* Google.Protobuf.Any.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A790C3EEBB672C7EBF0423D7314DA3F3 /* Google.Protobuf.Any.proto.swift */; };
+		BD8DF1B1BA953E4B3656B6093E88E988 /* ConcreateExtensionField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220D17D8A36880BA7584A433851CEF2D /* ConcreateExtensionField.swift */; };
+		C9FB95A9516634DED6CA67EC3079CC2D /* Google.Protobuf.SourceContext.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CD9FDA65895FA3F7CEB91361F887B9 /* Google.Protobuf.SourceContext.proto.swift */; };
 		CB9E38E375AD1E7B5CB0AFD8BD702671 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D32806F72BCA84E5BC968BD23C04E5 /* Foundation.framework */; };
 		CF40B6F6BA4CA7A56FC36AD6D1C2B2D8 /* Pods-openxcframework_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F19044AFC07BBE7CB831A2A7359655BD /* Pods-openxcframework_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D1B01237A7BF6953278E1182D93EF358 /* GeneratedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF25D9188F1B96B803D377982031A4 /* GeneratedMessage.swift */; };
-		D779809EDD7E7D141E6153168593CFC6 /* Google.Protobuf.Struct.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C735FF2D81234AC893B8E4B022BAEF /* Google.Protobuf.Struct.proto.swift */; };
-		D988DB2D74708FB1595D3F7A879B9763 /* Google.Protobuf.SwiftDescriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498853C02C1999549E8188F25CA64FA /* Google.Protobuf.SwiftDescriptor.proto.swift */; };
+		D1B01237A7BF6953278E1182D93EF358 /* GeneratedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D105F8AB79D95E157E5F3CF1A8F35C /* GeneratedMessage.swift */; };
+		D779809EDD7E7D141E6153168593CFC6 /* Google.Protobuf.Struct.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D573A615D6A2738A3CC5F719008CE /* Google.Protobuf.Struct.proto.swift */; };
+		D988DB2D74708FB1595D3F7A879B9763 /* Google.Protobuf.SwiftDescriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFF96D07BC03E003EB3854DB1139154 /* Google.Protobuf.SwiftDescriptor.proto.swift */; };
 		DCADBE9360749C9B397D098ADC778463 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F859125C77C7472BE5A175A944D9BA73 /* ExternalAccessory.framework */; };
-		DE5B47DDADA6BE693B7F406481277BB5 /* Google.Protobuf.FieldMask.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AF749F04EF91955AEF7619A98D1D5E /* Google.Protobuf.FieldMask.proto.swift */; };
+		DE5B47DDADA6BE693B7F406481277BB5 /* Google.Protobuf.FieldMask.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CF2ECC81F9F70803E805AE16FDFE38 /* Google.Protobuf.FieldMask.proto.swift */; };
 		DEFE688C4D1739E793D57D866129F7CB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D32806F72BCA84E5BC968BD23C04E5 /* Foundation.framework */; };
-		E327C7DA9A61D0C93DFDD1E07C40BC74 /* Google.Protobuf.Descriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A1FD9B0F121DE50102FBDF176CBB7 /* Google.Protobuf.Descriptor.proto.swift */; };
-		F256F5AF45CBFA8562D3ED34788728FC /* OpenXCClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDBF5D7DE36D71A4F68D0C797C2F4AA /* OpenXCClasses.swift */; };
-		F3A0D0AB0255D17E5A94A4B84F9F4B4D /* TraceFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BE8F047397655AE7CA2C9844BE5A58 /* TraceFileManager.swift */; };
-		FEC6FF3E0C6918276008A6C4CB5E32D7 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CB0CA00A3A0B772C9B43E612B5E09C /* Measurement.swift */; };
+		E327C7DA9A61D0C93DFDD1E07C40BC74 /* Google.Protobuf.Descriptor.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F60F55D2758929B7E3A8C8509989A3 /* Google.Protobuf.Descriptor.proto.swift */; };
+		F256F5AF45CBFA8562D3ED34788728FC /* OpenXCClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35A35F5776E703B9895CD6BA246EC06 /* OpenXCClasses.swift */; };
+		F3A0D0AB0255D17E5A94A4B84F9F4B4D /* TraceFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C3871C263FA2F1FE4CF318D73B9B8 /* TraceFileManager.swift */; };
+		FEC6FF3E0C6918276008A6C4CB5E32D7 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9028499B15C18EFE924D9F169BCDFC /* Measurement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,88 +113,91 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		02EFA862B2D076E69DDC41C593F833BF /* CodedOutputStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodedOutputStream.swift; path = Source/CodedOutputStream.swift; sourceTree = "<group>"; };
+		03B5E47E431DB590CDC7F85EA9DB0B80 /* ExtendableMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtendableMessage.swift; path = Source/ExtendableMessage.swift; sourceTree = "<group>"; };
+		07FEDF34BE7FADC934A191DA6A3199FD /* ProtocolBuffers-Swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ProtocolBuffers-Swift.modulemap"; sourceTree = "<group>"; };
+		09208B434F1E5DEA06014C343B020CE1 /* CodedOutputStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodedOutputStream.swift; path = Source/CodedOutputStream.swift; sourceTree = "<group>"; };
 		0CCD3789D8FA09E8D2F93DB044915705 /* Pods-openxcframework_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Example-Info.plist"; sourceTree = "<group>"; };
-		108368DBECA71F84EAB347FEA7F63695 /* AppCenter.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.xcconfig; sourceTree = "<group>"; };
-		12D654A78847A8244B671396B3F062C5 /* Google.Protobuf.Any.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Any.proto.swift; path = Source/Google.Protobuf.Any.proto.swift; sourceTree = "<group>"; };
-		161E4F89A8668F7DEFE8CA8F3A1AF773 /* Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = openxcframework/Utilities.swift; sourceTree = "<group>"; };
+		0F3F70A9C19DF33B145146C3A789EEAD /* Message.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Message.swift; path = openxcframework/Message.swift; sourceTree = "<group>"; };
+		0FBEE2D6B3FDA98E5A6D8C51BE60EE18 /* Google.Protobuf.Timestamp.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Timestamp.proto.swift; path = Source/Google.Protobuf.Timestamp.proto.swift; sourceTree = "<group>"; };
+		1DFF96D07BC03E003EB3854DB1139154 /* Google.Protobuf.SwiftDescriptor.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.SwiftDescriptor.proto.swift; path = Source/Google.Protobuf.SwiftDescriptor.proto.swift; sourceTree = "<group>"; };
 		2188810360A1A5BD7EFEBE1AA94D2535 /* Pods-openxcframework_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-openxcframework_Tests-dummy.m"; sourceTree = "<group>"; };
+		220D17D8A36880BA7584A433851CEF2D /* ConcreateExtensionField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConcreateExtensionField.swift; path = Source/ConcreateExtensionField.swift; sourceTree = "<group>"; };
 		242BE1268323CD97945FE8DE98E15BCA /* Pods-openxcframework_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-openxcframework_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		276A1FD9B0F121DE50102FBDF176CBB7 /* Google.Protobuf.Descriptor.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Descriptor.proto.swift; path = Source/Google.Protobuf.Descriptor.proto.swift; sourceTree = "<group>"; };
-		290C9CD35F9EEF53613C9B1A9D2A8AC4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		2EBF25D9188F1B96B803D377982031A4 /* GeneratedMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GeneratedMessage.swift; path = Source/GeneratedMessage.swift; sourceTree = "<group>"; };
-		2F7C2F566862AD431E820023113AFC7B /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterCrashes.framework; path = "AppCenter-SDK-Apple/iOS/AppCenterCrashes.framework"; sourceTree = "<group>"; };
-		3187713866722185F744ABC85EC8BD3C /* Google.Protobuf.Duration.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Duration.proto.swift; path = Source/Google.Protobuf.Duration.proto.swift; sourceTree = "<group>"; };
+		353D573A615D6A2738A3CC5F719008CE /* Google.Protobuf.Struct.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Struct.proto.swift; path = Source/Google.Protobuf.Struct.proto.swift; sourceTree = "<group>"; };
+		3570038E02556B3ED03A3929B6927BA1 /* openxcframework.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = openxcframework.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		380A9FD3E2048F9712A8F3A38A20E300 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
-		3E5467E09B1B0AE7C57F1BC53876A5E4 /* VehicleManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VehicleManager.swift; path = openxcframework/VehicleManager.swift; sourceTree = "<group>"; };
-		3E78D39D2CCB3876659BBBCB1CF64CDD /* CAN.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CAN.swift; path = openxcframework/CAN.swift; sourceTree = "<group>"; };
+		3F4649DDC0E25653B4B1A9DB0FD1B614 /* VehicleMessageUnit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VehicleMessageUnit.swift; path = openxcframework/VehicleMessageUnit.swift; sourceTree = "<group>"; };
+		3FEC37F157AFD39EF30952662C999943 /* Field.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Field.swift; path = Source/Field.swift; sourceTree = "<group>"; };
 		41CAE6A73EF3497366681451970E07EA /* Pods-openxcframework_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-openxcframework_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		42C735FF2D81234AC893B8E4B022BAEF /* Google.Protobuf.Struct.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Struct.proto.swift; path = Source/Google.Protobuf.Struct.proto.swift; sourceTree = "<group>"; };
-		4437C15C9F1248831257C94E039C190C /* ExtendableMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtendableMessage.swift; path = Source/ExtendableMessage.swift; sourceTree = "<group>"; };
-		496D608B48C398C439DED01D1971015C /* Google.Protobuf.SourceContext.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.SourceContext.proto.swift; path = Source/Google.Protobuf.SourceContext.proto.swift; sourceTree = "<group>"; };
-		4BDACB3F1DBEE925C0E37F36B3968508 /* openxcframework-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "openxcframework-dummy.m"; sourceTree = "<group>"; };
-		4CA72CD173A5871C17F658F282C830E3 /* ProtocolBuffers-Swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-Swift-umbrella.h"; sourceTree = "<group>"; };
+		43B3AB5247F4BA39A9F7434F9B723B82 /* CodedInputStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodedInputStream.swift; path = Source/CodedInputStream.swift; sourceTree = "<group>"; };
+		48D1155425E395C854C42E6D0BA3EAB3 /* RingBuffer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RingBuffer.swift; path = Source/RingBuffer.swift; sourceTree = "<group>"; };
 		4E24A6CB4A757F4A9FE1C9FCA466B758 /* Pods_openxcframework_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openxcframework_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E9C12ECA3BEC0EC7EB7C9569B26DBE0 /* ProtocolBuffers-Swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ProtocolBuffers-Swift-dummy.m"; sourceTree = "<group>"; };
+		4F5A423200805D6F6E81F2C787F42E0B /* openxcframework-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "openxcframework-prefix.pch"; sourceTree = "<group>"; };
 		5012BF48D71EF494F051D957D70A3C9D /* ProtocolBuffers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ProtocolBuffers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50430AFDF9BBCC24864534E44DA6531D /* UnknownFieldSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UnknownFieldSet.swift; path = Source/UnknownFieldSet.swift; sourceTree = "<group>"; };
 		5331ABDA72F26375E8CE90EC09B6F429 /* Pods-openxcframework_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-openxcframework_Example-dummy.m"; sourceTree = "<group>"; };
+		5B10C30D0C2175D569766D0B549D5362 /* ProtocolBuffers-Swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-Swift-prefix.pch"; sourceTree = "<group>"; };
 		5BE8D52BF9F7137B995A4B01EBA5DD4D /* Pods_openxcframework_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openxcframework_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C0C6ADCE78A4578283CBCB838B7485E /* AbstractMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AbstractMessage.swift; path = Source/AbstractMessage.swift; sourceTree = "<group>"; };
-		5EFD22D48900BCA5A87670598A332D5B /* BluetoothManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BluetoothManager.swift; path = openxcframework/BluetoothManager.swift; sourceTree = "<group>"; };
 		5F59A699A0D05FC9304EF9AE02F8568D /* Pods-openxcframework_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-openxcframework_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		6085B3350AB98D8DE365CFDEA49560B0 /* TargetAction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TargetAction.swift; path = openxcframework/TargetAction.swift; sourceTree = "<group>"; };
-		610FE6C06DABDB101CBD6F0ACF7593EE /* Google.Protobuf.Api.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Api.proto.swift; path = Source/Google.Protobuf.Api.proto.swift; sourceTree = "<group>"; };
-		6156F71C336E9185AFEF53155EDED03A /* WireFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WireFormat.swift; path = Source/WireFormat.swift; sourceTree = "<group>"; };
-		622FEA614FBAE220D25D955C41C1529D /* CodedInputStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CodedInputStream.swift; path = Source/CodedInputStream.swift; sourceTree = "<group>"; };
-		64CB0CA00A3A0B772C9B43E612B5E09C /* Measurement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Measurement.swift; path = openxcframework/Measurement.swift; sourceTree = "<group>"; };
-		6D4903F7C19BE7A3E3CE7BB6984D273C /* VehicleMessageUnit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VehicleMessageUnit.swift; path = openxcframework/VehicleMessageUnit.swift; sourceTree = "<group>"; };
+		6048E8976B6F6EE99FA4B5FA95756916 /* Diagnostic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Diagnostic.swift; path = openxcframework/Diagnostic.swift; sourceTree = "<group>"; };
+		633D59F7AE2A62D1FDB548855AFDB344 /* Google.Protobuf.Api.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Api.proto.swift; path = Source/Google.Protobuf.Api.proto.swift; sourceTree = "<group>"; };
+		69CD9FDA65895FA3F7CEB91361F887B9 /* Google.Protobuf.SourceContext.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.SourceContext.proto.swift; path = Source/Google.Protobuf.SourceContext.proto.swift; sourceTree = "<group>"; };
+		6A9AC171B516088665DD282B518A9D52 /* ProtocolBuffers-Swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-Swift-umbrella.h"; sourceTree = "<group>"; };
+		6AB39DDD75B842734B9D1D99057C7A7A /* CAN.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CAN.swift; path = openxcframework/CAN.swift; sourceTree = "<group>"; };
 		70536956E19C921D63CC319D7FD8B054 /* Pods-openxcframework_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-openxcframework_Example.release.xcconfig"; sourceTree = "<group>"; };
-		731768A8EBB0D23612AFBE229C9D2292 /* ProtocolBuffers-Swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "ProtocolBuffers-Swift.modulemap"; sourceTree = "<group>"; };
 		7331C5F298F9F32F9445047E3CBD8C58 /* Pods-openxcframework_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-openxcframework_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		73BC6DB12A68804361E431D80C109798 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		73CB6F4DE51629807245C97614FED393 /* openXCiOSFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = openXCiOSFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		75AF749F04EF91955AEF7619A98D1D5E /* Google.Protobuf.FieldMask.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.FieldMask.proto.swift; path = Source/Google.Protobuf.FieldMask.proto.swift; sourceTree = "<group>"; };
-		7D320A9E26158567F1ADD8458AFE0322 /* ProtocolBuffers-Swift-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ProtocolBuffers-Swift-Info.plist"; sourceTree = "<group>"; };
-		7DBE6F206FADC4B39CB42695E22399F5 /* Google.Protobuf.Wrappers.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Wrappers.proto.swift; path = Source/Google.Protobuf.Wrappers.proto.swift; sourceTree = "<group>"; };
-		808450F4292535917860988085D5B01B /* NetworkDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkDataManager.swift; path = openxcframework/NetworkDataManager.swift; sourceTree = "<group>"; };
-		84677D2DD07FF687D67C12E722BB9995 /* openxcframework.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = openxcframework.modulemap; sourceTree = "<group>"; };
-		93D3114F77BB0A800FCD77E3AF9742ED /* Google.Protobuf.Type.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Type.proto.swift; path = Source/Google.Protobuf.Type.proto.swift; sourceTree = "<group>"; };
-		97B06B60691F43BF3589A25E0941F04B /* UnknownFieldSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UnknownFieldSet.swift; path = Source/UnknownFieldSet.swift; sourceTree = "<group>"; };
-		9A0765E9D66D765149DCDD0EEE8F5ABA /* openxcframework-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "openxcframework-Info.plist"; sourceTree = "<group>"; };
+		7F11EC29073AA66A55DCA2EFEDADD9BA /* ProtocolBuffers-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ProtocolBuffers-Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		7F54F510DB96D1C4A52603718AC92574 /* Command.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Command.swift; path = openxcframework/Command.swift; sourceTree = "<group>"; };
+		7F93EF18869975A8F603F53A0175A5A2 /* AppCenter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.release.xcconfig; sourceTree = "<group>"; };
+		7FD2EE85D5301C808E436B93AF1F09BF /* Google.Protobuf.Empty.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Empty.proto.swift; path = Source/Google.Protobuf.Empty.proto.swift; sourceTree = "<group>"; };
+		84ECD7A6E013399130F70C5D2C675C5B /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenter.framework; path = "AppCenter-SDK-Apple/iOS/AppCenter.framework"; sourceTree = "<group>"; };
+		965CE4D40B235F4D1203E641B6CE496B /* Openxc.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Openxc.proto.swift; path = openxcframework/Openxc.proto.swift; sourceTree = "<group>"; };
+		9A63C684260DBD48AAF97EF9938D637A /* ProtocolBuffers-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ProtocolBuffers-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		9D9028499B15C18EFE924D9F169BCDFC /* Measurement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Measurement.swift; path = openxcframework/Measurement.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A06779CEF78828E7E0B9CEDD78C5B046 /* Pods-openxcframework_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-openxcframework_Tests.modulemap"; sourceTree = "<group>"; };
-		A1D9204E10631BC55131D4767AD20AE8 /* Google.Protobuf.Empty.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Empty.proto.swift; path = Source/Google.Protobuf.Empty.proto.swift; sourceTree = "<group>"; };
-		A5105D1E492B54F867DF661F0C25781D /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenter.framework; path = "AppCenter-SDK-Apple/iOS/AppCenter.framework"; sourceTree = "<group>"; };
-		A6994B4431E04EFCA1457043BB9071FE /* ProtocolBuffers-Swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ProtocolBuffers-Swift-prefix.pch"; sourceTree = "<group>"; };
+		A35A35F5776E703B9895CD6BA246EC06 /* OpenXCClasses.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OpenXCClasses.swift; path = openxcframework/OpenXCClasses.swift; sourceTree = "<group>"; };
+		A6C762BCC03A1B947D3F59B7792F962D /* openxcframework-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "openxcframework-Info.plist"; sourceTree = "<group>"; };
+		A6D449CC90E11AA83CF7E890EBB18A1B /* ProtocolBuffers-Swift-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ProtocolBuffers-Swift-Info.plist"; sourceTree = "<group>"; };
+		A790C3EEBB672C7EBF0423D7314DA3F3 /* Google.Protobuf.Any.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Any.proto.swift; path = Source/Google.Protobuf.Any.proto.swift; sourceTree = "<group>"; };
 		A81BD01229C43A778191B2CC347BA165 /* Pods-openxcframework_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-openxcframework_Example.modulemap"; sourceTree = "<group>"; };
 		A8C7675714E6F5233382997EE27FAA0A /* Pods-openxcframework_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-openxcframework_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		AA8354D21F34B5E0B305260AD0BF5AD9 /* ExtensionRegistry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionRegistry.swift; path = Source/ExtensionRegistry.swift; sourceTree = "<group>"; };
+		B3D105F8AB79D95E157E5F3CF1A8F35C /* GeneratedMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GeneratedMessage.swift; path = Source/GeneratedMessage.swift; sourceTree = "<group>"; };
 		B46719222A6502AE56F86EA92CACC305 /* Pods-openxcframework_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		BD275CEF55FE00059B1AA561A2B091D0 /* ProtocolBuffers-Swift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ProtocolBuffers-Swift.xcconfig"; sourceTree = "<group>"; };
-		BEFB731E88BDB42B1FD8CA1F497A150E /* Field.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Field.swift; path = Source/Field.swift; sourceTree = "<group>"; };
-		C172CEE7AE8992E3871D62DC28D10C8C /* openxcframework-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "openxcframework-prefix.pch"; sourceTree = "<group>"; };
-		C1DA518EE042BB562DF4535541FE2ADA /* Message.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Message.swift; path = openxcframework/Message.swift; sourceTree = "<group>"; };
+		B88D8298C46A80617C56DA0FFC76D012 /* openxcframework-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "openxcframework-umbrella.h"; sourceTree = "<group>"; };
+		BE999A27B63374B910DC7358EBD62261 /* BluetoothManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BluetoothManager.swift; path = openxcframework/BluetoothManager.swift; sourceTree = "<group>"; };
 		C37523B616010949815515E9CF94E82C /* Pods-openxcframework_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		C3F1F9D8697BE929B722932C3A780E05 /* Command.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Command.swift; path = openxcframework/Command.swift; sourceTree = "<group>"; };
-		C4206EB00040BDD3F566D0C434269F97 /* AppCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterAnalytics.framework; path = "AppCenter-SDK-Apple/iOS/AppCenterAnalytics.framework"; sourceTree = "<group>"; };
-		C498853C02C1999549E8188F25CA64FA /* Google.Protobuf.SwiftDescriptor.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.SwiftDescriptor.proto.swift; path = Source/Google.Protobuf.SwiftDescriptor.proto.swift; sourceTree = "<group>"; };
-		C60FF4713AE43F1C5AF2192BBA7F5A6A /* RingBuffer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RingBuffer.swift; path = Source/RingBuffer.swift; sourceTree = "<group>"; };
+		C41FB4564D3DD52E8D63E9564B2E4003 /* openxcframework-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "openxcframework-dummy.m"; sourceTree = "<group>"; };
+		C5CB0794326FDB85B410D9A145405BF8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		C61674B6E951970071B18C1CBF0D1F11 /* Pods-openxcframework_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Tests-Info.plist"; sourceTree = "<group>"; };
-		CB6F38A52A97ECE1F2D244F7DE95795B /* openxcframework.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = openxcframework.xcconfig; sourceTree = "<group>"; };
-		CDDBF5D7DE36D71A4F68D0C797C2F4AA /* OpenXCClasses.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OpenXCClasses.swift; path = openxcframework/OpenXCClasses.swift; sourceTree = "<group>"; };
+		C9A3122584BBAAE226F1B38CBAD18BCA /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterCrashes.framework; path = "AppCenter-SDK-Apple/iOS/AppCenterCrashes.framework"; sourceTree = "<group>"; };
+		C9BED9595D3713D76E010E534E15018B /* AppCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.debug.xcconfig; sourceTree = "<group>"; };
+		CC71634BAE9F521164CAF8CC5BEA51C3 /* ExtensionRegistry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionRegistry.swift; path = Source/ExtensionRegistry.swift; sourceTree = "<group>"; };
+		CCF1CE444DC08D64CF411DEFB0E55E63 /* NetworkDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkDataManager.swift; path = openxcframework/NetworkDataManager.swift; sourceTree = "<group>"; };
+		D249292BC5055D44BA5D1E5809D1029B /* ProtocolBuffers-Swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ProtocolBuffers-Swift-dummy.m"; sourceTree = "<group>"; };
 		D25795DD8D971DE703E5FC0BD979F67D /* Pods-openxcframework_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-openxcframework_Tests-umbrella.h"; sourceTree = "<group>"; };
-		D3B151B4C31AEDC072B79F945CA5797C /* ConcreateExtensionField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConcreateExtensionField.swift; path = Source/ConcreateExtensionField.swift; sourceTree = "<group>"; };
-		DB76C7449106B6E376BD0803981D20F1 /* Google.Protobuf.Timestamp.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Timestamp.proto.swift; path = Source/Google.Protobuf.Timestamp.proto.swift; sourceTree = "<group>"; };
-		DD6CE6BAAE4F2734074172734677D537 /* openxcframework-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "openxcframework-umbrella.h"; sourceTree = "<group>"; };
-		DDAB1B17790B3A22E22EB1DDE63B1B2C /* Openxc.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Openxc.proto.swift; path = openxcframework/Openxc.proto.swift; sourceTree = "<group>"; };
-		E0F60E41013C6C48DC917A3991A8B400 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D47C3871C263FA2F1FE4CF318D73B9B8 /* TraceFileManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TraceFileManager.swift; path = openxcframework/TraceFileManager.swift; sourceTree = "<group>"; };
+		D4F60F55D2758929B7E3A8C8509989A3 /* Google.Protobuf.Descriptor.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Descriptor.proto.swift; path = Source/Google.Protobuf.Descriptor.proto.swift; sourceTree = "<group>"; };
+		D62CF9CD016EB6657D8CF410DC0B7DEA /* Google.Protobuf.Duration.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Duration.proto.swift; path = Source/Google.Protobuf.Duration.proto.swift; sourceTree = "<group>"; };
+		D87115ADED080804F55F44E8A5F9F829 /* AppCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterAnalytics.framework; path = "AppCenter-SDK-Apple/iOS/AppCenterAnalytics.framework"; sourceTree = "<group>"; };
+		E04F2F03A809EFE6B1B974E41A075462 /* AbstractMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AbstractMessage.swift; path = Source/AbstractMessage.swift; sourceTree = "<group>"; };
+		E2CF2ECC81F9F70803E805AE16FDFE38 /* Google.Protobuf.FieldMask.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.FieldMask.proto.swift; path = Source/Google.Protobuf.FieldMask.proto.swift; sourceTree = "<group>"; };
+		E3586D74317A78C833474B7DDA9F97F0 /* openxcframework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = openxcframework.release.xcconfig; sourceTree = "<group>"; };
 		E8D32806F72BCA84E5BC968BD23C04E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		E9BE8F047397655AE7CA2C9844BE5A58 /* TraceFileManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TraceFileManager.swift; path = openxcframework/TraceFileManager.swift; sourceTree = "<group>"; };
+		EECCB64ACFEF1EDF7A2E4682703C8CDC /* openxcframework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = openxcframework.debug.xcconfig; sourceTree = "<group>"; };
 		EF30D613298E6B261849B4206CEE7B5C /* ProtocolBuffers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ProtocolBuffers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19044AFC07BBE7CB831A2A7359655BD /* Pods-openxcframework_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-openxcframework_Example-umbrella.h"; sourceTree = "<group>"; };
-		F46C31E80AC05ECFA3035503964CC52E /* openxcframework.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = openxcframework.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F3DEEDE8AF8A393385919EA5C23BBD89 /* Google.Protobuf.Type.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Type.proto.swift; path = Source/Google.Protobuf.Type.proto.swift; sourceTree = "<group>"; };
+		F6D60D2AD90A3B11ACF8606A82764F82 /* WireFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WireFormat.swift; path = Source/WireFormat.swift; sourceTree = "<group>"; };
 		F859125C77C7472BE5A175A944D9BA73 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/ExternalAccessory.framework; sourceTree = DEVELOPER_DIR; };
 		F94D413AF18ADF087457090F9BC90E47 /* Pods-openxcframework_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-openxcframework_Example-frameworks.sh"; sourceTree = "<group>"; };
-		FAEBBDE380662C9D87B53AF358D29203 /* Diagnostic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Diagnostic.swift; path = openxcframework/Diagnostic.swift; sourceTree = "<group>"; };
+		FB40492BB3EDB0955BB2573E65F5CCC5 /* TargetAction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TargetAction.swift; path = openxcframework/TargetAction.swift; sourceTree = "<group>"; };
+		FC53E72497AA6AD2C7B62ADECF4CBD19 /* VehicleManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VehicleManager.swift; path = openxcframework/VehicleManager.swift; sourceTree = "<group>"; };
+		FCBCA76DF2F8F3C3DFEFA652382F1078 /* Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = openxcframework/Utilities.swift; sourceTree = "<group>"; };
+		FE517E355306A6C2DFEA581A86B81B2B /* Google.Protobuf.Wrappers.proto.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Google.Protobuf.Wrappers.proto.swift; path = Source/Google.Protobuf.Wrappers.proto.swift; sourceTree = "<group>"; };
+		FFA84590E4FF97258DCDB7D1E6D669D2 /* openxcframework.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = openxcframework.modulemap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,70 +250,135 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1C9F3360DC9BEDB920C6E0D538FDD082 /* Pod */ = {
+		15B6D24AA36BD6950AD38F233B36C1FA /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
-				290C9CD35F9EEF53613C9B1A9D2A8AC4 /* LICENSE */,
-				F46C31E80AC05ECFA3035503964CC52E /* openxcframework.podspec */,
-				E0F60E41013C6C48DC917A3991A8B400 /* README.md */,
+				34D82171AAE4FC7936CF3B1CC6BFB232 /* Frameworks */,
 			);
-			name = Pod;
+			name = Analytics;
 			sourceTree = "<group>";
 		};
 		20EEEDC9468D383C17B78ABF7ED4629D /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E292F62657680EDF3237F8D476089CD1 /* openxcframework */,
+				45E35575E7108C1EF47A9EAED988AB55 /* openxcframework */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		2A2CCDE21A5955ABCE05D2369EF10E0B /* Core */ = {
+		273F4E3DF440D22DCFCC3D9CE672DF87 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				83ACD69358613CBA06269B6C0D812E35 /* Frameworks */,
+				C5CB0794326FDB85B410D9A145405BF8 /* LICENSE */,
+				3570038E02556B3ED03A3929B6927BA1 /* openxcframework.podspec */,
+				73BC6DB12A68804361E431D80C109798 /* README.md */,
 			);
-			name = Core;
+			name = Pod;
 			sourceTree = "<group>";
 		};
-		3B422A88FB7781789FA6F73ADD551096 /* Frameworks */ = {
+		34D82171AAE4FC7936CF3B1CC6BFB232 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2F7C2F566862AD431E820023113AFC7B /* AppCenterCrashes.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		483CB8A7548039DC61EA8E59352BAFC5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C4206EB00040BDD3F566D0C434269F97 /* AppCenterAnalytics.framework */,
+				D87115ADED080804F55F44E8A5F9F829 /* AppCenterAnalytics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6FE9E15BCA73665CEF903A53A44AE100 /* Crashes */ = {
+		45E35575E7108C1EF47A9EAED988AB55 /* openxcframework */ = {
 			isa = PBXGroup;
 			children = (
-				3B422A88FB7781789FA6F73ADD551096 /* Frameworks */,
+				BE999A27B63374B910DC7358EBD62261 /* BluetoothManager.swift */,
+				6AB39DDD75B842734B9D1D99057C7A7A /* CAN.swift */,
+				7F54F510DB96D1C4A52603718AC92574 /* Command.swift */,
+				6048E8976B6F6EE99FA4B5FA95756916 /* Diagnostic.swift */,
+				9D9028499B15C18EFE924D9F169BCDFC /* Measurement.swift */,
+				0F3F70A9C19DF33B145146C3A789EEAD /* Message.swift */,
+				CCF1CE444DC08D64CF411DEFB0E55E63 /* NetworkDataManager.swift */,
+				965CE4D40B235F4D1203E641B6CE496B /* Openxc.proto.swift */,
+				A35A35F5776E703B9895CD6BA246EC06 /* OpenXCClasses.swift */,
+				FB40492BB3EDB0955BB2573E65F5CCC5 /* TargetAction.swift */,
+				D47C3871C263FA2F1FE4CF318D73B9B8 /* TraceFileManager.swift */,
+				FCBCA76DF2F8F3C3DFEFA652382F1078 /* Utilities.swift */,
+				FC53E72497AA6AD2C7B62ADECF4CBD19 /* VehicleManager.swift */,
+				3F4649DDC0E25653B4B1A9DB0FD1B614 /* VehicleMessageUnit.swift */,
+				273F4E3DF440D22DCFCC3D9CE672DF87 /* Pod */,
+				61FE47319E0A2441942D8312ABB928AE /* Support Files */,
+			);
+			name = openxcframework;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		48C7DEBFA7D3172874FB84309F9F428F /* Crashes */ = {
+			isa = PBXGroup;
+			children = (
+				7EF61926BF43F604D92290F204163AFB /* Frameworks */,
 			);
 			name = Crashes;
 			sourceTree = "<group>";
 		};
-		7E34A097AE08684466E8383579CD69D8 /* Analytics */ = {
+		61FE47319E0A2441942D8312ABB928AE /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				483CB8A7548039DC61EA8E59352BAFC5 /* Frameworks */,
+				FFA84590E4FF97258DCDB7D1E6D669D2 /* openxcframework.modulemap */,
+				C41FB4564D3DD52E8D63E9564B2E4003 /* openxcframework-dummy.m */,
+				A6C762BCC03A1B947D3F59B7792F962D /* openxcframework-Info.plist */,
+				4F5A423200805D6F6E81F2C787F42E0B /* openxcframework-prefix.pch */,
+				B88D8298C46A80617C56DA0FFC76D012 /* openxcframework-umbrella.h */,
+				EECCB64ACFEF1EDF7A2E4682703C8CDC /* openxcframework.debug.xcconfig */,
+				E3586D74317A78C833474B7DDA9F97F0 /* openxcframework.release.xcconfig */,
 			);
-			name = Analytics;
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/openxcframework";
 			sourceTree = "<group>";
 		};
-		83ACD69358613CBA06269B6C0D812E35 /* Frameworks */ = {
+		7EF61926BF43F604D92290F204163AFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A5105D1E492B54F867DF661F0C25781D /* AppCenter.framework */,
+				C9A3122584BBAAE226F1B38CBAD18BCA /* AppCenterCrashes.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7F82AE58F21B103CAF53E5BE88A6EFD8 /* AppCenter */ = {
+			isa = PBXGroup;
+			children = (
+				15B6D24AA36BD6950AD38F233B36C1FA /* Analytics */,
+				A08E9EB1291243A4D627E6C5D84C7DE9 /* Core */,
+				48C7DEBFA7D3172874FB84309F9F428F /* Crashes */,
+				CD20638D1FA5B3A270564AF961EC68E8 /* Support Files */,
+			);
+			path = AppCenter;
+			sourceTree = "<group>";
+		};
+		8C695E62C31E180516652F0E899199DE /* ProtocolBuffers-Swift */ = {
+			isa = PBXGroup;
+			children = (
+				E04F2F03A809EFE6B1B974E41A075462 /* AbstractMessage.swift */,
+				43B3AB5247F4BA39A9F7434F9B723B82 /* CodedInputStream.swift */,
+				09208B434F1E5DEA06014C343B020CE1 /* CodedOutputStream.swift */,
+				220D17D8A36880BA7584A433851CEF2D /* ConcreateExtensionField.swift */,
+				03B5E47E431DB590CDC7F85EA9DB0B80 /* ExtendableMessage.swift */,
+				CC71634BAE9F521164CAF8CC5BEA51C3 /* ExtensionRegistry.swift */,
+				3FEC37F157AFD39EF30952662C999943 /* Field.swift */,
+				B3D105F8AB79D95E157E5F3CF1A8F35C /* GeneratedMessage.swift */,
+				A790C3EEBB672C7EBF0423D7314DA3F3 /* Google.Protobuf.Any.proto.swift */,
+				633D59F7AE2A62D1FDB548855AFDB344 /* Google.Protobuf.Api.proto.swift */,
+				D4F60F55D2758929B7E3A8C8509989A3 /* Google.Protobuf.Descriptor.proto.swift */,
+				D62CF9CD016EB6657D8CF410DC0B7DEA /* Google.Protobuf.Duration.proto.swift */,
+				7FD2EE85D5301C808E436B93AF1F09BF /* Google.Protobuf.Empty.proto.swift */,
+				E2CF2ECC81F9F70803E805AE16FDFE38 /* Google.Protobuf.FieldMask.proto.swift */,
+				69CD9FDA65895FA3F7CEB91361F887B9 /* Google.Protobuf.SourceContext.proto.swift */,
+				353D573A615D6A2738A3CC5F719008CE /* Google.Protobuf.Struct.proto.swift */,
+				1DFF96D07BC03E003EB3854DB1139154 /* Google.Protobuf.SwiftDescriptor.proto.swift */,
+				0FBEE2D6B3FDA98E5A6D8C51BE60EE18 /* Google.Protobuf.Timestamp.proto.swift */,
+				F3DEEDE8AF8A393385919EA5C23BBD89 /* Google.Protobuf.Type.proto.swift */,
+				FE517E355306A6C2DFEA581A86B81B2B /* Google.Protobuf.Wrappers.proto.swift */,
+				48D1155425E395C854C42E6D0BA3EAB3 /* RingBuffer.swift */,
+				50430AFDF9BBCC24864534E44DA6531D /* UnknownFieldSet.swift */,
+				F6D60D2AD90A3B11ACF8606A82764F82 /* WireFormat.swift */,
+				ADF3050B33CF7B24AD46CD47B33F9DB3 /* Support Files */,
+			);
+			path = "ProtocolBuffers-Swift";
 			sourceTree = "<group>";
 		};
 		8E7D0582A1C980A1AEC4A85D9C67EAA8 /* Pods-openxcframework_Example */ = {
@@ -333,52 +401,18 @@
 		98047D6229E23BD25B3FA358B6583A75 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A237609B17171CE0897919795F5D6DDF /* AppCenter */,
-				A1AD6DA8A96B937E7C7EED6D8B578DB3 /* ProtocolBuffers-Swift */,
+				7F82AE58F21B103CAF53E5BE88A6EFD8 /* AppCenter */,
+				8C695E62C31E180516652F0E899199DE /* ProtocolBuffers-Swift */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		A1AD6DA8A96B937E7C7EED6D8B578DB3 /* ProtocolBuffers-Swift */ = {
+		A08E9EB1291243A4D627E6C5D84C7DE9 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				5C0C6ADCE78A4578283CBCB838B7485E /* AbstractMessage.swift */,
-				622FEA614FBAE220D25D955C41C1529D /* CodedInputStream.swift */,
-				02EFA862B2D076E69DDC41C593F833BF /* CodedOutputStream.swift */,
-				D3B151B4C31AEDC072B79F945CA5797C /* ConcreateExtensionField.swift */,
-				4437C15C9F1248831257C94E039C190C /* ExtendableMessage.swift */,
-				AA8354D21F34B5E0B305260AD0BF5AD9 /* ExtensionRegistry.swift */,
-				BEFB731E88BDB42B1FD8CA1F497A150E /* Field.swift */,
-				2EBF25D9188F1B96B803D377982031A4 /* GeneratedMessage.swift */,
-				12D654A78847A8244B671396B3F062C5 /* Google.Protobuf.Any.proto.swift */,
-				610FE6C06DABDB101CBD6F0ACF7593EE /* Google.Protobuf.Api.proto.swift */,
-				276A1FD9B0F121DE50102FBDF176CBB7 /* Google.Protobuf.Descriptor.proto.swift */,
-				3187713866722185F744ABC85EC8BD3C /* Google.Protobuf.Duration.proto.swift */,
-				A1D9204E10631BC55131D4767AD20AE8 /* Google.Protobuf.Empty.proto.swift */,
-				75AF749F04EF91955AEF7619A98D1D5E /* Google.Protobuf.FieldMask.proto.swift */,
-				496D608B48C398C439DED01D1971015C /* Google.Protobuf.SourceContext.proto.swift */,
-				42C735FF2D81234AC893B8E4B022BAEF /* Google.Protobuf.Struct.proto.swift */,
-				C498853C02C1999549E8188F25CA64FA /* Google.Protobuf.SwiftDescriptor.proto.swift */,
-				DB76C7449106B6E376BD0803981D20F1 /* Google.Protobuf.Timestamp.proto.swift */,
-				93D3114F77BB0A800FCD77E3AF9742ED /* Google.Protobuf.Type.proto.swift */,
-				7DBE6F206FADC4B39CB42695E22399F5 /* Google.Protobuf.Wrappers.proto.swift */,
-				C60FF4713AE43F1C5AF2192BBA7F5A6A /* RingBuffer.swift */,
-				97B06B60691F43BF3589A25E0941F04B /* UnknownFieldSet.swift */,
-				6156F71C336E9185AFEF53155EDED03A /* WireFormat.swift */,
-				E2991AC7E35664612851C6AE8D011590 /* Support Files */,
+				CFE0377738F7FC6B53B6423D9E3D51A6 /* Frameworks */,
 			);
-			path = "ProtocolBuffers-Swift";
-			sourceTree = "<group>";
-		};
-		A237609B17171CE0897919795F5D6DDF /* AppCenter */ = {
-			isa = PBXGroup;
-			children = (
-				7E34A097AE08684466E8383579CD69D8 /* Analytics */,
-				2A2CCDE21A5955ABCE05D2369EF10E0B /* Core */,
-				6FE9E15BCA73665CEF903A53A44AE100 /* Crashes */,
-				AFB440FA09F51EA7E958E98D6E187FA3 /* Support Files */,
-			);
-			path = AppCenter;
+			name = Core;
 			sourceTree = "<group>";
 		};
 		AA1EBE234D722CDEFE42D32EA63FC15E /* iOS */ = {
@@ -391,13 +425,19 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		AFB440FA09F51EA7E958E98D6E187FA3 /* Support Files */ = {
+		ADF3050B33CF7B24AD46CD47B33F9DB3 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				108368DBECA71F84EAB347FEA7F63695 /* AppCenter.xcconfig */,
+				07FEDF34BE7FADC934A191DA6A3199FD /* ProtocolBuffers-Swift.modulemap */,
+				D249292BC5055D44BA5D1E5809D1029B /* ProtocolBuffers-Swift-dummy.m */,
+				A6D449CC90E11AA83CF7E890EBB18A1B /* ProtocolBuffers-Swift-Info.plist */,
+				5B10C30D0C2175D569766D0B549D5362 /* ProtocolBuffers-Swift-prefix.pch */,
+				6A9AC171B516088665DD282B518A9D52 /* ProtocolBuffers-Swift-umbrella.h */,
+				7F11EC29073AA66A55DCA2EFEDADD9BA /* ProtocolBuffers-Swift.debug.xcconfig */,
+				9A63C684260DBD48AAF97EF9938D637A /* ProtocolBuffers-Swift.release.xcconfig */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/AppCenter";
+			path = "../Target Support Files/ProtocolBuffers-Swift";
 			sourceTree = "<group>";
 		};
 		B780B9DEBE1820ACED757C86BA9ED8C0 /* Pods-openxcframework_Tests */ = {
@@ -416,6 +456,16 @@
 			path = "Target Support Files/Pods-openxcframework_Tests";
 			sourceTree = "<group>";
 		};
+		CD20638D1FA5B3A270564AF961EC68E8 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9BED9595D3713D76E010E534E15018B /* AppCenter.debug.xcconfig */,
+				7F93EF18869975A8F603F53A0175A5A2 /* AppCenter.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/AppCenter";
+			sourceTree = "<group>";
+		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +478,14 @@
 			);
 			sourceTree = "<group>";
 		};
+		CFE0377738F7FC6B53B6423D9E3D51A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84ECD7A6E013399130F70C5D2C675C5B /* AppCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DF303FAA3967C5A5CB08A0A2EB78DE65 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,44 +495,6 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		E292F62657680EDF3237F8D476089CD1 /* openxcframework */ = {
-			isa = PBXGroup;
-			children = (
-				5EFD22D48900BCA5A87670598A332D5B /* BluetoothManager.swift */,
-				3E78D39D2CCB3876659BBBCB1CF64CDD /* CAN.swift */,
-				C3F1F9D8697BE929B722932C3A780E05 /* Command.swift */,
-				FAEBBDE380662C9D87B53AF358D29203 /* Diagnostic.swift */,
-				64CB0CA00A3A0B772C9B43E612B5E09C /* Measurement.swift */,
-				C1DA518EE042BB562DF4535541FE2ADA /* Message.swift */,
-				808450F4292535917860988085D5B01B /* NetworkDataManager.swift */,
-				DDAB1B17790B3A22E22EB1DDE63B1B2C /* Openxc.proto.swift */,
-				CDDBF5D7DE36D71A4F68D0C797C2F4AA /* OpenXCClasses.swift */,
-				6085B3350AB98D8DE365CFDEA49560B0 /* TargetAction.swift */,
-				E9BE8F047397655AE7CA2C9844BE5A58 /* TraceFileManager.swift */,
-				161E4F89A8668F7DEFE8CA8F3A1AF773 /* Utilities.swift */,
-				3E5467E09B1B0AE7C57F1BC53876A5E4 /* VehicleManager.swift */,
-				6D4903F7C19BE7A3E3CE7BB6984D273C /* VehicleMessageUnit.swift */,
-				1C9F3360DC9BEDB920C6E0D538FDD082 /* Pod */,
-				F21866ADB3CAC27C063EA09716FBD5CD /* Support Files */,
-			);
-			name = openxcframework;
-			path = ../..;
-			sourceTree = "<group>";
-		};
-		E2991AC7E35664612851C6AE8D011590 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				731768A8EBB0D23612AFBE229C9D2292 /* ProtocolBuffers-Swift.modulemap */,
-				BD275CEF55FE00059B1AA561A2B091D0 /* ProtocolBuffers-Swift.xcconfig */,
-				4E9C12ECA3BEC0EC7EB7C9569B26DBE0 /* ProtocolBuffers-Swift-dummy.m */,
-				7D320A9E26158567F1ADD8458AFE0322 /* ProtocolBuffers-Swift-Info.plist */,
-				A6994B4431E04EFCA1457043BB9071FE /* ProtocolBuffers-Swift-prefix.pch */,
-				4CA72CD173A5871C17F658F282C830E3 /* ProtocolBuffers-Swift-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/ProtocolBuffers-Swift";
-			sourceTree = "<group>";
-		};
 		E4B2391B2E9AD8C64769881068508417 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,20 +502,6 @@
 				AA1EBE234D722CDEFE42D32EA63FC15E /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F21866ADB3CAC27C063EA09716FBD5CD /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				84677D2DD07FF687D67C12E722BB9995 /* openxcframework.modulemap */,
-				CB6F38A52A97ECE1F2D244F7DE95795B /* openxcframework.xcconfig */,
-				4BDACB3F1DBEE925C0E37F36B3968508 /* openxcframework-dummy.m */,
-				9A0765E9D66D765149DCDD0EEE8F5ABA /* openxcframework-Info.plist */,
-				C172CEE7AE8992E3871D62DC28D10C8C /* openxcframework-prefix.pch */,
-				DD6CE6BAAE4F2734074172734677D537 /* openxcframework-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/openxcframework";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -781,6 +787,52 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		023ECA49C6E88F09654CBB0D32C12F51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F93EF18869975A8F603F53A0175A5A2 /* AppCenter.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0AABDF86B732A50D8175745087E61770 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A63C684260DBD48AAF97EF9938D637A /* ProtocolBuffers-Swift.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift.modulemap";
+				PRODUCT_MODULE_NAME = ProtocolBuffers;
+				PRODUCT_NAME = ProtocolBuffers;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		131356BE54884448CA49C07BEDF4BB2A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -845,32 +897,36 @@
 			};
 			name = Debug;
 		};
-		15EB5D80579D2ACED973FB555C3FEC25 /* Debug */ = {
+		2E32AC11B7F33C2560391946848D6072 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 108368DBECA71F84EAB347FEA7F63695 /* AppCenter.xcconfig */;
+			baseConfigurationReference = 7F11EC29073AA66A55DCA2EFEDADD9BA /* ProtocolBuffers-Swift.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift.modulemap";
+				PRODUCT_MODULE_NAME = ProtocolBuffers;
+				PRODUCT_NAME = ProtocolBuffers;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		19F1A0BB678F31697F589E05B3D085BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 108368DBECA71F84EAB347FEA7F63695 /* AppCenter.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
 		};
 		30D1132B9C76F39308FF0C03D1FBEB51 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -905,6 +961,38 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		3DA2978AFF7419F625326AC81968D0CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3586D74317A78C833474B7DDA9F97F0 /* openxcframework.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/openxcframework/openxcframework-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/openxcframework/openxcframework-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/openxcframework/openxcframework.modulemap";
+				PRODUCT_MODULE_NAME = openXCiOSFramework;
+				PRODUCT_NAME = openXCiOSFramework;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		47614AB89912A5AABABC298D42AF3D3E /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -976,6 +1064,37 @@
 			};
 			name = Release;
 		};
+		5CFF62A5826B8E663D4B4BA1E7089A79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EECCB64ACFEF1EDF7A2E4682703C8CDC /* openxcframework.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/openxcframework/openxcframework-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/openxcframework/openxcframework-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/openxcframework/openxcframework.modulemap";
+				PRODUCT_MODULE_NAME = openXCiOSFramework;
+				PRODUCT_NAME = openXCiOSFramework;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		869594A6F7D0A77954C8F19FBCDF5B3E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7331C5F298F9F32F9445047E3CBD8C58 /* Pods-openxcframework_Example.debug.xcconfig */;
@@ -1010,99 +1129,18 @@
 			};
 			name = Debug;
 		};
-		964B60715EE5D1C2F5D5242950CD55CD /* Debug */ = {
+		8AFA17B3B2643E93B2A6F261CF75E18C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD275CEF55FE00059B1AA561A2B091D0 /* ProtocolBuffers-Swift.xcconfig */;
+			baseConfigurationReference = C9BED9595D3713D76E010E534E15018B /* AppCenter.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift.modulemap";
-				PRODUCT_MODULE_NAME = ProtocolBuffers;
-				PRODUCT_NAME = ProtocolBuffers;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		A233C06FDAAB5484CBF59F5888BBC726 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB6F38A52A97ECE1F2D244F7DE95795B /* openxcframework.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/openxcframework/openxcframework-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/openxcframework/openxcframework-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/openxcframework/openxcframework.modulemap";
-				PRODUCT_MODULE_NAME = openXCiOSFramework;
-				PRODUCT_NAME = openXCiOSFramework;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		BEB9EB6FD90CB52A99CBC5FAF0BB9BB3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD275CEF55FE00059B1AA561A2B091D0 /* ProtocolBuffers-Swift.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ProtocolBuffers-Swift/ProtocolBuffers-Swift.modulemap";
-				PRODUCT_MODULE_NAME = ProtocolBuffers;
-				PRODUCT_NAME = ProtocolBuffers;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		F090CD07A80273D5A73C8EA19224ADDB /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1163,38 +1201,6 @@
 			};
 			name = Release;
 		};
-		F1B2AA3D84F6B2E98D712AD3E85C92F3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB6F38A52A97ECE1F2D244F7DE95795B /* openxcframework.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/openxcframework/openxcframework-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/openxcframework/openxcframework-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/openxcframework/openxcframework.modulemap";
-				PRODUCT_MODULE_NAME = openXCiOSFramework;
-				PRODUCT_NAME = openXCiOSFramework;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1219,8 +1225,8 @@
 		52F4A4C67E4009A7B3E3A3C62BC879C3 /* Build configuration list for PBXNativeTarget "ProtocolBuffers-Swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				964B60715EE5D1C2F5D5242950CD55CD /* Debug */,
-				BEB9EB6FD90CB52A99CBC5FAF0BB9BB3 /* Release */,
+				2E32AC11B7F33C2560391946848D6072 /* Debug */,
+				0AABDF86B732A50D8175745087E61770 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1228,8 +1234,8 @@
 		82498F3447B5639A8DB0A1E8C7419784 /* Build configuration list for PBXNativeTarget "openxcframework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A233C06FDAAB5484CBF59F5888BBC726 /* Debug */,
-				F1B2AA3D84F6B2E98D712AD3E85C92F3 /* Release */,
+				5CFF62A5826B8E663D4B4BA1E7089A79 /* Debug */,
+				3DA2978AFF7419F625326AC81968D0CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1246,8 +1252,8 @@
 		D0944D0DEFF9CDF0CBE6D4A41B195020 /* Build configuration list for PBXAggregateTarget "AppCenter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				15EB5D80579D2ACED973FB555C3FEC25 /* Debug */,
-				19F1A0BB678F31697F589E05B3D085BD /* Release */,
+				8AFA17B3B2643E93B2A6F261CF75E18C /* Debug */,
+				023ECA49C6E88F09654CBB0D32C12F51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
