@@ -1,15 +1,21 @@
 # OpenXC iOS App Demo Changelog
 
+## v6.1.0
+
+* Feature: Alert Message to user for BLE power drop and network drop.
+* UI: Payload hex input field changed to 8 different boxes with 2 character per box in sandCan view.
+* Improvement: Support for iOS 13.
+
 ## v6.0.0
 
-* Enhancement: Updated to Protobuf 3
+* Enhancement: Updated to Protobuf3
 * Feature: Upload trace data to URL
 * UI: Minor UI layout changes
 * Fix: Set defaults for missing signal values in dashboard
 
 ## v5.0.0
 
-* Feature: App Center SDK Integration for crash Annalytics.
+* Feature: App Center SDK Integration for crash Analytics.
 * Feature: Split trace button to split trace file into multiple file.
 
 ## v4.0.0
@@ -18,16 +24,16 @@
 * Improvement: Support for Xcode 10.2.
 * Improvement: Support for Swift 5.
 * Improvement: Support for the protobuf master branch.
-* Improvement: Openxc library is now available in cocoapod.
-* Enhancement: Disable tracefile sink wihile playing from trace file and vice versa.
+* Improvement: OpenXC library is now available in cocoa pod.
+* Enhancement: Disable trace file sink while playing from trace file and vice versa.
 
 ## v3.0.0
 
-* Feature: Hockey App SDK Integration for crash Annalytics.
+* Feature: Hockey App SDK Integration for crash Analytics.
 * UI: Custom command UI added in Commands Page.
 * UI: Settings screen cosmetic changes.
 * UI: Disconnect Button on status page.
-* Enhancement: Timestamp added in tracefile.
+* Enhancement: Timestamp added in trace file.
 * Enhancement: Alert message if the device bluetooth is off.
 * Enhancement: Alert messages on every page if trying to do some operation on C5 BLE if its disconnected state.
 * Feature: Adding feature to send commands to VI if its connected

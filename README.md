@@ -15,8 +15,8 @@ OpenXC iOS framework for use with the C5 BLE device. See also the [openxc-ios-ap
 * V6.0.0
 
 ## Supported versions:
-* iOS - up to 12.0
-* XCode - up to 10.2
+* iOS - up to 13.3
+* XCode - up to 11.4
 * Swift - Swift5
 
 Note: TravisCI build run will work only till XCode 10.2 -iOS 12.0 (https://github.com/travis-ci/travis-ci/issues/7031) but the framework supports XCode 10.2 and iOS 12
