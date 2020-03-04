@@ -85,7 +85,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
             case dataField7:
                 dataField8.becomeFirstResponder()
             case dataField8:
-                dataField8.becomeFirstResponder()
+                dataField8.resignFirstResponder()
             default:
                 break
             }
