@@ -256,6 +256,18 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         lastReq.text = "bus:"+String(cmd.bus)+" id:0x"+idField.text!+" payload:0x"+String(cmd.data)
         
     }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return (string.containsValidCharacter)
+    }
 
 }
   
+extension String {
+
+var containsValidCharacter: Bool {
+    guard self != "" else { return true }
+    let hexSet = CharacterSet(charactersIn: "1234567890ABCDEFabcdef")
+    let newSet = CharacterSet(charactersIn: self)
+    return hexSet.isSuperset(of: newSet)
+  }
+}
