@@ -84,7 +84,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     @objc func textFieldDidChange(textField: UITextField){
         let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -110,25 +110,25 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
                 break
             }
         }
-        if  text?.count == 0 {
+        if  text!.count > 2 {
             textField.text = ""
             switch textField{
             case dataField1:
-                dataField1.becomeFirstResponder()
+                checkMaxLength(textField: dataField1 , maxLength: 2)
             case dataField2:
-                dataField2.becomeFirstResponder()
+                checkMaxLength(textField: dataField2 , maxLength: 2)
             case dataField3:
-                dataField3.becomeFirstResponder()
+                checkMaxLength(textField: dataField3 , maxLength: 2)
             case dataField4:
-                dataField4.becomeFirstResponder()
+                checkMaxLength(textField: dataField4 , maxLength: 2)
             case dataField5:
-                dataField5.becomeFirstResponder()
+                checkMaxLength(textField: dataField5 , maxLength: 2)
             case dataField6:
-                dataField6.becomeFirstResponder()
+                checkMaxLength(textField: dataField6 , maxLength: 2)
             case dataField7:
-                dataField7.becomeFirstResponder()
+                checkMaxLength(textField: dataField7 , maxLength: 2)
             case dataField8:
-                dataField8.becomeFirstResponder()
+                checkMaxLength(textField: dataField8 , maxLength: 2)
             default:
                 break
             }
@@ -137,6 +137,11 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
 
         }
         
+    }
+    private func checkMaxLength(textField: UITextField!, maxLength: Int) {
+        if (textField.text!.count > maxLength) {
+            textField.deleteBackward()
+        }
     }
     // text view delegate to clear keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
