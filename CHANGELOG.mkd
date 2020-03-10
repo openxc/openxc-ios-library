@@ -3,7 +3,7 @@
 ## v6.1.0
 
 * Feature: Alert Message to user for BLE power drop and network drop.
-* UI: Payload hex input field changed to 8 different boxes with 2 character per box in sandCan view.
+* UI: Payload hex input field changed to 8 different boxes with 2 character per box in sendCan view.
 * Improvement: Support for iOS 13.
 
 ## v6.0.0
