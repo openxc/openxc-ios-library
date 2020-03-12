@@ -150,9 +150,9 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
     }
     func  checkPayloadEmptyField() -> Bool {
         if ((dataField1.text != "") && (dataField2.text != "") && (dataField3.text != "") && (dataField4.text != "") &&
-            (dataField5.text != "") && (dataField6.text != "") && (dataField7.text != "")) { //&& (dataField8.text != "")
+            (dataField5.text != "") && (dataField6.text != "") && (dataField7.text != "") && (dataField8.text != "")) { //
           let str = dataField1.text! + dataField2.text! +  dataField3.text! + dataField4.text!
-          let str1 = dataField5.text! + dataField6.text! + dataField7.text! //+ dataField8.text!
+          let str1 = dataField5.text! + dataField6.text! + dataField7.text! + dataField8.text!
           payloadhex = str + str1
          print (payloadhex as Any)
             return true
@@ -170,15 +170,6 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
             
             AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)
         }
-        
-        dataField1.text = ""
-        dataField2.text = ""
-        dataField3.text = ""
-        dataField4.text = ""
-        dataField5.text = ""
-        dataField6.text = ""
-        dataField7.text = ""
-        dataField8.text = ""
        
     }
     
@@ -211,7 +202,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
                 lastReq.text = "Invalid command : need a message_id"
                 return
             }
-            if let midInt = Int(midtrim,radix:16) as NSInteger? { //Int(midtrim,radix:16) as NSInteger?
+            if let midInt = Int(midtrim,radix:16) as NSInteger? { 
                 cmd.id = midInt
             } else {
                 lastReq.text = "Invalid command : message_id should be hex number (with no leading 0x)"
@@ -234,7 +225,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
                 lastReq.text = "Invalid command : need a payload"
                 return
             }
-            if Int(payldtrim,radix:16) as NSInteger? != nil {  //!=nil   Int(payldtrim,radix:16) as NSInteger?
+            if Int(payldtrim,radix:16) as NSInteger? == nil {  //!=nil   Int(payldtrim,radix:16) as NSInteger?
                 cmd.data = payloadhex! as NSString                //dataField.text as String?
                 if (cmd.data.length % 2) == 1 {
                     cmd.data = "0" + payloadhex as NSString      //dataField.text! as NSString
