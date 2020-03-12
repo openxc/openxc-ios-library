@@ -40,7 +40,6 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         vm.addDiagnosticTarget([1,2015,1], target: self, action: DiagViewController.new_diag_rsp)
         vm.setManagerCallbackTarget(self, action: DiagViewController.manager_status_updates)
     
-        
     }
     func manager_status_updates(_ rsp:NSDictionary) {
         // extract the status message
@@ -252,6 +251,7 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
             requestBtn.isEnabled = false
         }
     }
-    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return (string.containsValidCharacter)
+    }
 }
-
