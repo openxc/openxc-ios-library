@@ -50,6 +50,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         self.dataField7.delegate = self
         self.dataField8.delegate = self
         
+        idField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
         dataField1.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
         dataField2.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
         dataField3.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
@@ -111,7 +112,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
             }
         }
         if  text!.count > 2 {
-            textField.text = ""
+           
             switch textField{
             case dataField1:
                 checkMaxLength(textField: dataField1 , maxLength: 2)
@@ -133,6 +134,9 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
                 break
             }
         }
+        if  text!.count > 3 {
+            checkMaxLength(textField: idField , maxLength: 3)
+        }
         else{
 
         }
@@ -150,7 +154,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
     }
     func  checkPayloadEmptyField() -> Bool {
         if ((dataField1.text != "") && (dataField2.text != "") && (dataField3.text != "") && (dataField4.text != "") &&
-            (dataField5.text != "") && (dataField6.text != "") && (dataField7.text != "") && (dataField8.text != "")) { //
+            (dataField5.text != "") && (dataField6.text != "") && (dataField7.text != "") && (dataField8.text != "")) { 
           let str = dataField1.text! + dataField2.text! +  dataField3.text! + dataField4.text!
           let str1 = dataField5.text! + dataField6.text! + dataField7.text! + dataField8.text!
           payloadhex = str + str1
@@ -257,7 +261,7 @@ extension String {
 
 var containsValidCharacter: Bool {
     guard self != "" else { return true }
-    let hexSet = CharacterSet(charactersIn: "1234567890ABCDEFabcdef")
+    let hexSet = CharacterSet(charactersIn: "1234567890ABCDEF")
     let newSet = CharacterSet(charactersIn: self)
     return hexSet.isSuperset(of: newSet)
   }
