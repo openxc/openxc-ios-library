@@ -28,8 +28,8 @@ branches:
 #- pod repo update
 #- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
 # stages:
-# - name: lint
-# if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
+- name: lint
+if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
 # - name: compile
 # if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
 # - name: test
