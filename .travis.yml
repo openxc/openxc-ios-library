@@ -8,10 +8,21 @@ osx_image: xcode10.2
 xcode_project:  Example/openxcframework.xcworkspace
 xcode_scheme: openxc-ios-framework
 xcode_sdk: iphonesimulator12.0
+os: osx
 
 branches:
 - master
 - next
+
+stages:
+- name: lint
+if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
+- name: compile
+if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
+- name: test
+if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
+- name: deploy
+if: branch =~ ^\d+\.\d+\.\d+$
 
 
 #script:
@@ -29,5 +40,10 @@ script:
 - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
 #- pod lib lint --allow-warnings
 # -- set -o pipefail &&
+
+- stage: Deploy to cocoapods
+script: | 
+pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
+
 
 
