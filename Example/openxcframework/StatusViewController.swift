@@ -55,7 +55,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.disconnectBtn.isHidden = true
         self.splitTraceBtn.isHidden = true
         self.startStopBtn.isHidden = true
-   
+
         // change tab bar text colors
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for:UIControl.State())
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for:.selected)
@@ -69,13 +69,13 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // setup the status callback, and the command response callback
         vm.setManagerCallbackTarget(self, action: StatusViewController.manager_status_updates)
-        //vm.setCanDefaultTarget(self, action: StatusViewController.handle_cmd_response)
         
         // setup the status callback, and the command response callback
-        //cm.setManagerCallbackTarget(self, action: StatusViewController.manager_status_updates)
         vm.setCommandDefaultTarget(self, action: StatusViewController.handle_cmd_response)
         // turn on debug output
         vm.setManagerDebug(true)
+
+
     }
     override func viewDidAppear(_ animated: Bool) {
         //  let name = UserDefaults.standard.value(forKey: "networkAdress") as? NSString
@@ -87,7 +87,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }else{
             self.splitTraceBtn.isHidden = true
             self.startStopBtn.isHidden = true
-            //self.startStopBtn.isSelected = true
         }
          let traceDisableLoopOn = UserDefaults.standard.bool(forKey: "disableTraceLoopOn")
         if (traceDisableLoopOn ){
@@ -102,10 +101,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     DispatchQueue.main.async {
                         self.disconnectBtn.isHidden = false
                         self.NetworkImg.isHidden = true
-                        // self.searchBtn.isEnabled = true
-                        //self.actConLab.text = "---"
-                        //self.msgRvcdLab.text = "---"
-                        //self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
+                       
                     }
                 }
                 else
@@ -216,12 +212,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         } else{
             
-            //            self.searchBtn.isEnabled = true
-            //            self.NetworkImg.isHidden = true
-            //            self.actConLab.text = "---"
-            //            self.msgRvcdLab.text = "---"
-            //            self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControlState())
-            
         }
         
         // check to see if a trace input file has been set up
@@ -300,6 +290,13 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
     }
+    @objc func powerDrop(){
+        AlertHandling.sharedInstance.showToast(controller: self, message: "BLE Power Droped", seconds: 3)
+    }
+    @objc func networkDrop(){
+        AlertHandling.sharedInstance.showToast(controller: self, message: "Network Connection Droped", seconds: 3)
+    }
+    
     // this function is called when the scan button is hit
     @IBAction func searchHit(_ sender: UIButton) {
         
@@ -326,14 +323,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.vm.setProtobufMode(true)
             }
             
-            // check to see if a trace input file has been set up
-            //if UserDefaults.standard.bool(forKey: "traceInputOn") {
-            // if let name = UserDefaults.standard.value(forKey: "traceInputFilename") as? NSString {
-            //  vm.enableTraceFileSource(name)
-            // self.searchBtn.isEnabled = false
-            
-            // }
-            // }
             
             
             // check to see if a trace output file has been configured
@@ -382,10 +371,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 DispatchQueue.main.async {
                     self.actConLab.text = "❓"
                     self.searchBtn.setTitle("SCANNING",for:UIControl.State())
-                    //                    let alertController = UIAlertController(title: "", message:
-                    //                        "Please check the BLE power is on ", preferredStyle: UIAlertControllerStyle.alert)
-                    //                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-                    //                    self.present(alertController, animated: true, completion: nil)
                 }
                 
             })
@@ -441,10 +426,29 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
             }
         }
-        
+        if msg==VehicleManagerStatusMessage.networkDISCONNECTED {
+            if(!vm.isTraceFileConnected){
+                if (UserDefaults.standard.bool(forKey: "networkDropChange")){
+                    networkDrop()
+                }
+                DispatchQueue.main.async {
+                    self.actConLab.text = ""
+                    self.verLab.text = "---"
+                    self.devidLab.text = "---"
+                    self.platformLab.text = "---"
+                    self.msgRvcdLab.text = "---"
+                    self.searchBtn.setTitle("WIFI NOT CONNECTED",for:UIControl.State())
+                    self.searchBtn.isEnabled = false
+                }
+            }
+        }
         // update the UI showing disconnected VI
         if msg==VehicleManagerStatusMessage.c5DISCONNECTED {
             if(!vm.isTraceFileConnected){
+                if (UserDefaults.standard.bool(forKey: "powerDropChange")){
+                powerDrop()
+                }
+                
                 DispatchQueue.main.async {
                     self.actConLab.text = "---"
                     self.msgRvcdLab.text = "---"
@@ -490,13 +494,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    //    if  UserDefaults.standard.bool(forKey: "throughputOn"){
-    //    if bm.isBleConnected{
-    //    //print(UserDefaults.standard.bool(forKey: "throughputOn"))
-    //    vm.setThroughput(true)
-    //    troughputLoop = Timer.scheduledTimer(timeInterval: 5.0, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
-    //    }
-    //    }
     // this function handles all command responses
     func handle_cmd_response(_ rsp:NSDictionary) {
         
@@ -507,8 +504,10 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // update the UI depending on the command type- version,device_id works for JSON mode, not in protobuf - TODO
         
         var cvc:CommandsViewController?
-        let vcCount = self.tabBarController?.viewControllers?.count
-        cvc = self.tabBarController?.viewControllers?[vcCount!-1] as! CommandsViewController?
+            DispatchQueue.main.async {
+               let vcCount = self.tabBarController?.viewControllers?.count
+                      cvc = self.tabBarController?.viewControllers?[vcCount!-1] as! CommandsViewController?
+           }
         
         if cr.command_response.isEqual(to: "version") || cr.command_response.isEqual(to: ".version") {
             DispatchQueue.main.async {
@@ -548,11 +547,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if (startStopBtn.isSelected) {
             startStopBtn.isSelected = false
             tfm.traceFilesinkEnabled = false
-//            if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
-//                if !vm.isTraceFileConnected == true{
-//                    tfm.enableTraceFileSink(name)
-//                }
-//            }
+            
         } else {
             startStopBtn.isSelected = true
              tfm.traceFilesinkEnabled = true

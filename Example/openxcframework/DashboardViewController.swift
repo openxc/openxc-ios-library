@@ -65,6 +65,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // set default measurement target
         vm.setMeasurementDefaultTarget(self, action: DashboardViewController.default_measurement_change)
+        vm.setManagerCallbackTarget(self, action: DashboardViewController.manager_status_updates)
         
         locationManager.delegate=self;
         locationManager.desiredAccuracy=kCLLocationAccuracyBest;
@@ -72,7 +73,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         locationManager.requestWhenInUseAuthorization()
         
         self.sendTraceURLData()
+        
+    
     }
+    
     @objc func sendTraceURLData() {
         if UserDefaults.standard.bool(forKey: "uploadTaraceOn") {
             if let urlname = (UserDefaults.standard.value(forKey: "traceURLname") as? String) {
@@ -142,7 +146,21 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func manager_status_updates(_ rsp:NSDictionary) {
+        // extract the status message
+        let status = rsp.object(forKey: "status") as! Int
+        let msg = VehicleManagerStatusMessage(rawValue: status)
+        if msg==VehicleManagerStatusMessage.c5DISCONNECTED {
+            if (UserDefaults.standard.bool(forKey: "powerDropChange")){
+                powerDrop()
+            }
+        }
+        if (msg==VehicleManagerStatusMessage.networkDISCONNECTED) {
+            if (UserDefaults.standard.bool(forKey: "networkDropChange")){
+                networkDrop()
+            }
+        }
+    }
     
     
     func default_measurement_change(_ rsp:NSDictionary) {
@@ -368,9 +386,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
-    
+    @objc func powerDrop(){
+        AlertHandling.sharedInstance.showToast(controller: self, message: "BLE Power Droped", seconds: 3)
+    }
+    @objc func networkDrop(){
+         AlertHandling.sharedInstance.showToast(controller: self, message: "Network Connection Droped", seconds: 3)
+    }
 }
-
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionPort(_ input: AVAudioSession.Port) -> String {

@@ -1,8 +1,8 @@
 {
   "name": "openxcframework",
-  "version": "4.0.0",
+  "version": "6.0.0",
   "summary": "A short description of openxcframework.",
-  "swift_version": "5.0",
+  "swift_versions": "5.0",
   "homepage": "https://github.com/openxc/openxc-ios-library",
   "license": {
     "type": "MIT",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/openxc/openxc-ios-library.git",
-    "tag": "4.0.0"
+    "tag": "6.0.0"
   },
   "platforms": {
     "ios": "9.3"
@@ -30,5 +30,6 @@
     "ExternalAccessory",
     "CoreBluetooth",
     "Foundation"
-  ]
+  ],
+  "swift_version": "5.0"
 }
