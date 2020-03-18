@@ -46,8 +46,4 @@ script:
 
 
 
-# script: | 
-# - pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
-
-
 
