@@ -39,8 +39,39 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         // set custom target for specific Diagnostic request
         vm.addDiagnosticTarget([1,2015,1], target: self, action: DiagViewController.new_diag_rsp)
         vm.setManagerCallbackTarget(self, action: DiagViewController.manager_status_updates)
+        
+        idField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
+        modeField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
+        pidField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
     
     }
+    
+    @objc func textFieldDidChange(textField: UITextField){
+          let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+          if  text!.count > 3 {
+              switch textField{
+              case idField:
+                  checkMaxLength(textField: idField , maxLength: 3)
+              case modeField:
+                  checkMaxLength(textField: modeField , maxLength: 3)
+                 
+              default:
+                  break
+              }
+          }
+        if  text!.count > 4 {
+             checkMaxLength(textField: pidField , maxLength: 4)
+        }
+          else{
+
+          }
+          
+      }
+    private func checkMaxLength(textField: UITextField!, maxLength: Int) {
+           if (textField.text!.count > maxLength) {
+               textField.deleteBackward()
+           }
+       }
     func manager_status_updates(_ rsp:NSDictionary) {
         // extract the status message
         let status = rsp.object(forKey: "status") as! Int
