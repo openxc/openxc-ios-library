@@ -41,8 +41,8 @@ script:
 - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
 #- pod lib lint --allow-warnings
 # -- set -o pipefail &&
-# pod trunk push -verbose
-- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
+- pod lib lint openxcframework.podspec --allow-warnings
+- pod trunk push openxcframework.podspec -verbose | ruby -e 'ARGF.each{print "." }'
 
 
 
