@@ -9,7 +9,8 @@
 Pod::Spec.new do |s|
   s.name             = 'openxcframework'
   s.version          = '6.1.0'
-  s.summary          = 'A short description of openxcframework.'
+  s.summary          = 'OpenXC™ is a combination of open source hardware & software that 
+                        lets you extend your vehicle with custom applications & pluggable modules.'
   s.swift_version    = '5.0'
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
