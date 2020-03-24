@@ -8,10 +8,13 @@ osx_image: xcode10.2
 xcode_project:  Example/openxcframework.xcworkspace
 xcode_scheme: openxc-ios-framework
 xcode_sdk: iphonesimulator12.0
+os: osx
 
 branches:
 - master
 - next
+
+
 
 
 #script:
@@ -23,11 +26,24 @@ branches:
 # before_install:
 #- gem install cocoapods # Since Travis is not always on latest version
 #- pod repo update
-#- pod install --project-directory=Example
+#- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
+# stages:
+# - name: lint
+# if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
+# - name: compile
+# if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
+# - name: test
+# if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
+# - name: deploy
+# if: branch =~ ^\d+\.\d+\.\d+$
 
 script:
 - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
 #- pod lib lint --allow-warnings
 # -- set -o pipefail &&
+- pod lib lint  --allow-warnings
+- pod trunk push openxcframework.podspec -verbose | ruby -e 'ARGF.each{print "." }'
+
+
 
 
