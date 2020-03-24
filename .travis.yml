@@ -43,7 +43,7 @@ script:
 # -- set -o pipefail &&
 
 - pod lib lint  --allow-warnings
-- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }' --allow-warnings
+- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
 
 
 
