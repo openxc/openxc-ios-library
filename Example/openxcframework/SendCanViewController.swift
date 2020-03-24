@@ -38,6 +38,8 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         vm = VehicleManager.sharedInstance
         bm = BluetoothManager.sharedInstance
         
+        // set default CAN target
+        vm.setCanDefaultTarget(self, action: SendCanViewController.default_sendcan_rsp)
         
         self.dataField1.delegate = self
         self.dataField2.delegate = self
@@ -48,6 +50,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         self.dataField7.delegate = self
         self.dataField8.delegate = self
         
+        idField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
         dataField1.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
         dataField2.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
         dataField3.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
@@ -59,12 +62,30 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         
     
     }
-    
+    func default_sendcan_rsp(_ rsp:NSDictionary) {
+        // extract the CAN message
+        let vr = rsp.object(forKey: "vehiclemessage") as! VehicleCanResponse
+        print(rsp)
+        // create CAN key from measurement message
+        let key = String(format:"%x-%x",vr.bus,vr.id)
+        let val = "0x"+(vr.data as String)
+        print(key)
+        print(val)
+        
+        // save the CAN key and can message in the dictionary
+        //canDict.setObject(vr, forKey:key as NSCopying)
+        
+        // update the table
+        DispatchQueue.main.async {
+            //self.canTable.reloadData()
+        }
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     @objc func textFieldDidChange(textField: UITextField){
         let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -85,38 +106,46 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
             case dataField7:
                 dataField8.becomeFirstResponder()
             case dataField8:
-                dataField8.becomeFirstResponder()
+                dataField8.resignFirstResponder()
             default:
                 break
             }
         }
-        if  text?.count == 0 {
-            textField.text = ""
+        if  text!.count > 2 {
+           
             switch textField{
             case dataField1:
-                dataField1.becomeFirstResponder()
+                checkMaxLength(textField: dataField1 , maxLength: 2)
             case dataField2:
-                dataField2.becomeFirstResponder()
+                checkMaxLength(textField: dataField2 , maxLength: 2)
             case dataField3:
-                dataField3.becomeFirstResponder()
+                checkMaxLength(textField: dataField3 , maxLength: 2)
             case dataField4:
-                dataField4.becomeFirstResponder()
+                checkMaxLength(textField: dataField4 , maxLength: 2)
             case dataField5:
-                dataField5.becomeFirstResponder()
+                checkMaxLength(textField: dataField5 , maxLength: 2)
             case dataField6:
-                dataField6.becomeFirstResponder()
+                checkMaxLength(textField: dataField6 , maxLength: 2)
             case dataField7:
-                dataField7.becomeFirstResponder()
+                checkMaxLength(textField: dataField7 , maxLength: 2)
             case dataField8:
-                dataField8.becomeFirstResponder()
+                checkMaxLength(textField: dataField8 , maxLength: 2)
             default:
                 break
             }
+        }
+        if  text!.count > 3 {
+            checkMaxLength(textField: idField , maxLength: 3)
         }
         else{
 
         }
         
+    }
+    private func checkMaxLength(textField: UITextField!, maxLength: Int) {
+        if (textField.text!.count > maxLength) {
+            textField.deleteBackward()
+        }
     }
     // text view delegate to clear keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -125,7 +154,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
     }
     func  checkPayloadEmptyField() -> Bool {
         if ((dataField1.text != "") && (dataField2.text != "") && (dataField3.text != "") && (dataField4.text != "") &&
-            (dataField5.text != "") && (dataField6.text != "") && (dataField7.text != "") && (dataField8.text != "")) {
+            (dataField5.text != "") && (dataField6.text != "") && (dataField7.text != "") && (dataField8.text != "")) { 
           let str = dataField1.text! + dataField2.text! +  dataField3.text! + dataField4.text!
           let str1 = dataField5.text! + dataField6.text! + dataField7.text! + dataField8.text!
           payloadhex = str + str1
@@ -145,17 +174,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
             
             AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)
         }
-        
-        dataField1.text = ""
-        dataField2.text = ""
-        dataField3.text = ""
-        dataField4.text = ""
-        dataField5.text = ""
-        dataField6.text = ""
-        dataField7.text = ""
-        dataField8.text = ""
        
-        
     }
     
     // CAN send button hit
@@ -187,7 +206,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
                 lastReq.text = "Invalid command : need a message_id"
                 return
             }
-            if let midInt = Int(midtrim,radix:16) as NSInteger? {
+            if let midInt = Int(midtrim,radix:16) as NSInteger? { 
                 cmd.id = midInt
             } else {
                 lastReq.text = "Invalid command : message_id should be hex number (with no leading 0x)"
@@ -210,7 +229,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
                 lastReq.text = "Invalid command : need a payload"
                 return
             }
-            if (Int(payldtrim,radix:16) as NSInteger?) != nil {
+            if Int(payldtrim,radix:16) as NSInteger? == nil {  //!=nil   Int(payldtrim,radix:16) as NSInteger?
                 cmd.data = payloadhex! as NSString                //dataField.text as String?
                 if (cmd.data.length % 2) == 1 {
                     cmd.data = "0" + payloadhex as NSString      //dataField.text! as NSString
@@ -232,9 +251,18 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         lastReq.text = "bus:"+String(cmd.bus)+" id:0x"+idField.text!+" payload:0x"+String(cmd.data)
         
     }
-    
-    
-    
-    
-}
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return (string.containsValidCharacter)
+    }
 
+}
+  
+extension String {
+
+var containsValidCharacter: Bool {
+    guard self != "" else { return true }
+    let hexSet = CharacterSet(charactersIn: "1234567890ABCDEFabcdef")
+    let newSet = CharacterSet(charactersIn: self)
+    return hexSet.isSuperset(of: newSet)
+  }
+}
