@@ -162,7 +162,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
             return true
       }else{
           let alertController = UIAlertController(title: "", message:
-              "Please enter 2 charecter data for all the field ", preferredStyle: UIAlertController.Style.alert)
+              "Please enter 2 character data for all the field ", preferredStyle: UIAlertController.Style.alert)
           alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
           self.present(alertController, animated: true, completion: nil)
             return false
