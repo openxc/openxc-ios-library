@@ -737,9 +737,10 @@ open class VehicleManager: NSObject {
     
     
     // build the command json
-    let cmd = "{\"bus\":\(cmd.bus),\"id\":\(cmd.id),\"data\":\"\(cmd.data)\"}"
+    let cmdjson : NSMutableString = ""
+    cmdjson.append("{\"bus\":\(cmd.bus),\"id\":\(cmd.id),\"data\":\"\(cmd.data)\"}\0")
     // append to tx buffer
-    BLETxDataBuffer.add(cmd.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
+    BLETxDataBuffer.add(cmdjson.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)!)
     
     // trigger a BLE data send
     BluetoothManager.sharedInstance.BLESendFunction()

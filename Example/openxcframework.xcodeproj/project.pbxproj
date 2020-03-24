@@ -14,7 +14,6 @@
 		7D06DA1B225DE872003C8DF3 /* BluetoothManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA17225DE872003C8DF3 /* BluetoothManagerTest.swift */; };
 		7D06DA1C225DE872003C8DF3 /* VehicleManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA18225DE872003C8DF3 /* VehicleManagerTest.swift */; };
 		7D3ECA0423C729AE0058B84F /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3ECA0323C729AE0058B84F /* NotificationViewController.swift */; };
-		7D3EE7BF22E0540D0098F6E5 /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EE7BE22E0540D0098F6E5 /* ProtocolBuffers.framework */; };
 		7D4C63B82239247700A04A53 /* nouns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C63A62239247600A04A53 /* nouns.txt */; };
 		7D4C63B92239247700A04A53 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63A72239247600A04A53 /* StatusViewController.swift */; };
 		7D4C63BA2239247700A04A53 /* CanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63A82239247600A04A53 /* CanViewController.swift */; };
@@ -33,7 +32,8 @@
 		7D4C63C82239247700A04A53 /* SendCanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B62239247700A04A53 /* SendCanViewController.swift */; };
 		7D4C63C92239247700A04A53 /* modalSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B72239247700A04A53 /* modalSettingsView.swift */; };
 		7D4C63CB2239247E00A04A53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C63CA2239247E00A04A53 /* Main.storyboard */; };
-		E4991AAB1A6D90CBBFA5B995 /* Pods_openxcframework_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13F41EC055B4944E464ADF6D /* Pods_openxcframework_Example.framework */; };
+		7DC37E68240E765C0074CBCC /* Pods_openxcframework_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13F41EC055B4944E464ADF6D /* Pods_openxcframework_Example.framework */; };
+		7DC37E6B240E765E0074CBCC /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EE7BE22E0540D0098F6E5 /* ProtocolBuffers.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,8 +94,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D3EE7BF22E0540D0098F6E5 /* ProtocolBuffers.framework in Frameworks */,
-				E4991AAB1A6D90CBBFA5B995 /* Pods_openxcframework_Example.framework in Frameworks */,
+				7DC37E6B240E765E0074CBCC /* ProtocolBuffers.framework in Frameworks */,
+				7DC37E68240E765C0074CBCC /* Pods_openxcframework_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
