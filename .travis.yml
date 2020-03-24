@@ -24,8 +24,8 @@ branches:
 # cache: cocoapods
 # podfile: Example/Podfile
 # before_install:
-#- gem install cocoapods # Since Travis is not always on latest version
-#- pod repo update
+- gem install cocoapods # Since Travis is not always on latest version
+- pod repo update
 #- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
 # stages:
 # - name: lint
@@ -41,8 +41,9 @@ script:
 - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
 #- pod lib lint --allow-warnings
 # -- set -o pipefail &&
+
 - pod lib lint  --allow-warnings
-- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
+- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }' --allow-warnings
 
 
 
