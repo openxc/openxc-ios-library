@@ -229,14 +229,9 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
                 lastReq.text = "Invalid command : need a payload"
                 return
             }
-            if Int(payldtrim,radix:16) as NSInteger? == nil {  //!=nil   Int(payldtrim,radix:16) as NSInteger?
-                cmd.data = payloadhex! as NSString                //dataField.text as String?
-                if (cmd.data.length % 2) == 1 {
-                    cmd.data = "0" + payloadhex as NSString      //dataField.text! as NSString
-                }
-            } else {
-                lastReq.text = "Invalid command : payload should be hex number (with no leading 0x)"
-                return
+            cmd.data = payloadhex! as NSString                //dataField.text as String?
+            if (cmd.data.length % 2) == 1 {
+                cmd.data = "0" + payloadhex as NSString      //dataField.text! as NSString
             }
         } else {
             lastReq.text = "Invalid command : need a payload"
