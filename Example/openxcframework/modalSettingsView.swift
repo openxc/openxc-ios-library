@@ -41,7 +41,7 @@ class modalSettingsView: UIViewController, UITextFieldDelegate {
     
     // show 'about' view
     @IBAction func aboutHit(_ sender: AnyObject) {
-        
+        aboutView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         mainView.addSubview(aboutView)
     }
     
@@ -57,5 +57,9 @@ class modalSettingsView: UIViewController, UITextFieldDelegate {
         
         aboutView.removeFromSuperview()
     }
-    
+    // 'back' hit, clear all view and show initial menu view
+    @IBAction func notificationBtnClick(_ sender: AnyObject) {
+        
+        
+    }
 }

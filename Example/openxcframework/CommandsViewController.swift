@@ -72,7 +72,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         // vm.setCommandDefaultTarget(self, action: CommandsViewController.handle_cmd_response)
         vm.setCommandDefaultTarget(self, action: CommandsViewController.handle_cmd_response)
         //vm.cmdObj?.setCommandDefaultTarget(self, action: CommandsViewController.handle_cmd_response)
-        
+        vm.setManagerCallbackTarget(self, action: CommandsViewController.manager_status_updates)
         selectedRowInPicker = pickerView.selectedRow(inComponent: 0)
         
         //populateCommandResponseLabel(rowNum: selectedRowInPicker)
@@ -84,13 +84,26 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         isJsonFormat = vm.jsonMode
         
+        
     }
-    
+    func manager_status_updates(_ rsp:NSDictionary) {
+        // extract the status message
+        let status = rsp.object(forKey: "status") as! Int
+        let msg = VehicleManagerStatusMessage(rawValue: status)
+        if msg==VehicleManagerStatusMessage.c5DISCONNECTED {
+            if (UserDefaults.standard.bool(forKey: "powerDropChange")){
+                powerDrop()
+            }
+        }
+    }
+    @objc func powerDrop(){
+        AlertHandling.sharedInstance.showToast(controller: self, message: "BLE Power Droped", seconds: 3)
+    }
     override func viewDidAppear(_ animated: Bool) {
+        //Receive notification for the power drop
+        
         if(!bm.isBleConnected){
-            
             AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)
-            
         }
     }
     // MARK: Commands Function

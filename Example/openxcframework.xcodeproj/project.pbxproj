@@ -13,7 +13,7 @@
 		7D06DA1A225DE872003C8DF3 /* TraceFileManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA16225DE872003C8DF3 /* TraceFileManagerTest.swift */; };
 		7D06DA1B225DE872003C8DF3 /* BluetoothManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA17225DE872003C8DF3 /* BluetoothManagerTest.swift */; };
 		7D06DA1C225DE872003C8DF3 /* VehicleManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA18225DE872003C8DF3 /* VehicleManagerTest.swift */; };
-		7D3EE7BF22E0540D0098F6E5 /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EE7BE22E0540D0098F6E5 /* ProtocolBuffers.framework */; };
+		7D3ECA0423C729AE0058B84F /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3ECA0323C729AE0058B84F /* NotificationViewController.swift */; };
 		7D4C63B82239247700A04A53 /* nouns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C63A62239247600A04A53 /* nouns.txt */; };
 		7D4C63B92239247700A04A53 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63A72239247600A04A53 /* StatusViewController.swift */; };
 		7D4C63BA2239247700A04A53 /* CanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63A82239247600A04A53 /* CanViewController.swift */; };
@@ -32,7 +32,8 @@
 		7D4C63C82239247700A04A53 /* SendCanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B62239247700A04A53 /* SendCanViewController.swift */; };
 		7D4C63C92239247700A04A53 /* modalSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B72239247700A04A53 /* modalSettingsView.swift */; };
 		7D4C63CB2239247E00A04A53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C63CA2239247E00A04A53 /* Main.storyboard */; };
-		E4991AAB1A6D90CBBFA5B995 /* Pods_openxcframework_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13F41EC055B4944E464ADF6D /* Pods_openxcframework_Example.framework */; };
+		7DC37E68240E765C0074CBCC /* Pods_openxcframework_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13F41EC055B4944E464ADF6D /* Pods_openxcframework_Example.framework */; };
+		7DC37E6B240E765E0074CBCC /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EE7BE22E0540D0098F6E5 /* ProtocolBuffers.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,12 +57,13 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* openxcframework_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openxcframework_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		79087BEA6A8530B9EA606A35 /* openxcframework.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = openxcframework.podspec; path = ../openxcframework.podspec; sourceTree = "<group>"; };
+		79087BEA6A8530B9EA606A35 /* openxcframework.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = openxcframework.podspec; path = ../openxcframework.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7D06DA14225DE871003C8DF3 /* openxcframework_Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openxcframework_Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		7D06DA15225DE872003C8DF3 /* NetworkManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManagerTest.swift; sourceTree = "<group>"; };
 		7D06DA16225DE872003C8DF3 /* TraceFileManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceFileManagerTest.swift; sourceTree = "<group>"; };
 		7D06DA17225DE872003C8DF3 /* BluetoothManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManagerTest.swift; sourceTree = "<group>"; };
 		7D06DA18225DE872003C8DF3 /* VehicleManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleManagerTest.swift; sourceTree = "<group>"; };
+		7D3ECA0323C729AE0058B84F /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		7D3EE7BE22E0540D0098F6E5 /* ProtocolBuffers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtocolBuffers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D4C63A52239247500A04A53 /* openxcframework_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openxcframework_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		7D4C63A62239247600A04A53 /* nouns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nouns.txt; sourceTree = "<group>"; };
@@ -92,8 +94,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D3EE7BF22E0540D0098F6E5 /* ProtocolBuffers.framework in Frameworks */,
-				E4991AAB1A6D90CBBFA5B995 /* Pods_openxcframework_Example.framework in Frameworks */,
+				7DC37E6B240E765E0074CBCC /* ProtocolBuffers.framework in Frameworks */,
+				7DC37E68240E765C0074CBCC /* Pods_openxcframework_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +147,7 @@
 				7D4C63AF2239247600A04A53 /* RecordingSourceController.swift */,
 				7D4C63B62239247700A04A53 /* SendCanViewController.swift */,
 				7D4C63A72239247600A04A53 /* StatusViewController.swift */,
+				7D3ECA0323C729AE0058B84F /* NotificationViewController.swift */,
 				7D4C63B52239247700A04A53 /* Utility.swift */,
 				7D4C63AA2239247600A04A53 /* Assets.xcassets */,
 				7D4C63CA2239247E00A04A53 /* Main.storyboard */,
@@ -394,6 +397,7 @@
 				7D4C63C02239247700A04A53 /* DiagViewController.swift in Sources */,
 				7D4C63C92239247700A04A53 /* modalSettingsView.swift in Sources */,
 				7D4C63C52239247700A04A53 /* AlertHandling.swift in Sources */,
+				7D3ECA0423C729AE0058B84F /* NotificationViewController.swift in Sources */,
 				7D4C63C42239247700A04A53 /* AppDelegate.swift in Sources */,
 				7D4C63B92239247700A04A53 /* StatusViewController.swift in Sources */,
 				7D4C63C82239247700A04A53 /* SendCanViewController.swift in Sources */,

@@ -38,10 +38,53 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         vm.setDiagnosticDefaultTarget(self, action: DiagViewController.default_diag_rsp)
         // set custom target for specific Diagnostic request
         vm.addDiagnosticTarget([1,2015,1], target: self, action: DiagViewController.new_diag_rsp)
+        vm.setManagerCallbackTarget(self, action: DiagViewController.manager_status_updates)
         
-        
+        idField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
+        modeField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
+        pidField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
+    
     }
     
+    @objc func textFieldDidChange(textField: UITextField){
+          let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+          if  text!.count > 3 {
+              switch textField{
+              case idField:
+                  checkMaxLength(textField: idField , maxLength: 3)
+              case modeField:
+                  checkMaxLength(textField: modeField , maxLength: 3)
+                 
+              default:
+                  break
+              }
+          }
+        if  text!.count > 4 {
+             checkMaxLength(textField: pidField , maxLength: 4)
+        }
+          else{
+
+          }
+          
+      }
+    private func checkMaxLength(textField: UITextField!, maxLength: Int) {
+           if (textField.text!.count > maxLength) {
+               textField.deleteBackward()
+           }
+       }
+    func manager_status_updates(_ rsp:NSDictionary) {
+        // extract the status message
+        let status = rsp.object(forKey: "status") as! Int
+        let msg = VehicleManagerStatusMessage(rawValue: status)
+        if msg==VehicleManagerStatusMessage.c5DISCONNECTED {
+            if (UserDefaults.standard.bool(forKey: "powerDropChange")){
+                powerDrop()
+            }
+        }
+    }
+    @objc func powerDrop(){
+        AlertHandling.sharedInstance.showToast(controller: self, message: "BLE Power Droped", seconds: 3)
+    }
     // method for custom taregt - specific diagnostic request
     func new_diag_rsp(_ rsp:NSDictionary) {
         print("in new diag response")
@@ -53,8 +96,8 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         if(!bm.isBleConnected){
-            
             AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)
         }
     }
@@ -239,6 +282,7 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
             requestBtn.isEnabled = false
         }
     }
-    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return (string.containsValidCharacter)
+    }
 }
-

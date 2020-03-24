@@ -9,14 +9,14 @@
 This framework is part of the OpenXC project. This iOS framework contains the tools required to read vehicle data from the vehicle's CAN bus through the OpenXC vehicle interface in any iOS application.
 
 
-OpenXC iOS framework for use with the C5 BLE device. See also the [openxc-ios-app-demo](https://github.com/openxc/openxc-ios-app-demo). To run the example project, clone the repo, and run `pod install` from the Example directory first.
+OpenXC iOS framework for use with the C5 BLE device. To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## OpenXC-iOS-Library-Version
 * V6.0.0
 
 ## Supported versions:
-* iOS - up to 12.0
-* XCode - up to 10.2
+* iOS - up to 13.3
+* XCode - up to 11.4
 * Swift - Swift5
 
 Note: TravisCI build run will work only till XCode 10.2 -iOS 12.0 (https://github.com/travis-ci/travis-ci/issues/7031) but the framework supports XCode 10.2 and iOS 12
