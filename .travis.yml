@@ -43,8 +43,8 @@ script:
 #- pod lib lint --allow-warnings
 # -- set -o pipefail &&
 
-- pod lib lint  --allow-warnings
-- pod trunk push --allow-warnings -verbose | ruby -e 'ARGF.each{print "." }'
+- pod spec lint openxcframework.podspec  --allow-warnings
+- pod trunk push openxcframework.podspec --allow-warnings -verbose | ruby -e 'ARGF.each{print "." }'
 
 
 
