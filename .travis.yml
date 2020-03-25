@@ -26,6 +26,7 @@ branches:
 # before_install:
 - gem install cocoapods # Since Travis is not always on latest version
 - pod repo update
+- ENV['COCOAPODS_TRUNK_TOKEN'] = sh "grep -s password ~/.netrc | awk '{print $2}'"
 #- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
 # stages:
 # - name: lint
