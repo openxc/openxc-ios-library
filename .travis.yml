@@ -26,6 +26,7 @@ branches:
 # before_install:
 - gem install cocoapods # Since Travis is not always on latest version
 - pod repo update
+- ENV['COCOAPODS_TRUNK_TOKEN'] = sh "grep -s password ~/.netrc | awk '{print $2}'"
 #- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
 # stages:
 # - name: lint
@@ -42,8 +43,8 @@ script:
 #- pod lib lint --allow-warnings
 # -- set -o pipefail &&
 
-- pod lib lint  --allow-warnings
-- pod trunk push --allow-warnings -verbose | ruby -e 'ARGF.each{print "." }'
+- pod spec lint openxcframework.podspec  --allow-warnings
+- pod trunk push openxcframework.podspec --allow-warnings -verbose | ruby -e 'ARGF.each{print "." }'
 
 
 
