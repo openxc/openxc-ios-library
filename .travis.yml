@@ -14,25 +14,19 @@ branches:
 - master
 - next
 
-
-
-
-#script:
-#- xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator9.3 ONLY_ACTIVE_ARCH=NO | xcpretty
-
-
 # cache: cocoapods
 # podfile: Example/Podfile
 # before_install:
+# - name: deploy
+#   if: branch =~ ^\d+\.\d+\.\d+$
+# -- set -o pipefail &&
+
+- ENV['COCOAPODS_TRUNK_TOKEN'] = sh "grep -s password ~/.netrc | awk '{print $2}'"
 - gem install cocoapods # Since Travis is not always on latest version
 - pod repo update
-- ENV['COCOAPODS_TRUNK_TOKEN'] = sh "grep -s password ~/.netrc | awk '{print $2}'"
-- name: deploy
-  if: branch =~ ^\d+\.\d+\.\d+$
+
 script:
 - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
-
-# -- set -o pipefail &&
 - pod spec lint openxcframework.podspec  --allow-warnings
 - pod trunk push openxcframework.podspec --allow-warnings -verbose | ruby -e 'ARGF.each{print "." }'
 
