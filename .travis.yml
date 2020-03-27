@@ -32,7 +32,7 @@ jobs:
     - cd Example/
     - pod install
     - cd ../
-    - | pod trunk push --verbose | ruby -e 'ARGF.each{ print "." }'
+    - pod trunk push --verbose | ruby -e 'ARGF.each{ print "." }'
     
 #- pod spec lint openxcframework.podspec  --allow-warnings
 #- pod trunk push openxcframework.podspec --allow-warnings -verbose | ruby -e 'ARGF.each{print "." }'
