@@ -6,7 +6,7 @@ language: swift
 osx_image: xcode10.2
 xcode_project:  Example/openxcframework.xcworkspace
 xcode_scheme: openxc-ios-framework
-xcode_sdk: iphonesimulator12.0
+xcode_sdk: iphonesimulator12.2
 os: osx
 
 stages:
@@ -22,7 +22,7 @@ stages:
 
 # - stage: build
   script:
-  - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
+  - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.2 ONLY_ACTIVE_ARCH=NO | xcpretty
     
 - stage: deploy
   script: |
