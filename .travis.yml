@@ -10,10 +10,6 @@ xcode_scheme: openxc-ios-framework
 xcode_sdk: iphonesimulator12.0
 os: osx
 
-branches:
-- master
-- next
-
 - gem install cocoapods # Since Travis is not always on latest version
 - pod repo update
 
