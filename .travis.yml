@@ -17,32 +17,30 @@ before_script:
 - pod install
 - cd ../
 
-jobs:
-  include:
-  - stage: setup
-
 stages:
 - name: setup
 - name: build
 - name: deploy
   if: branch = master
+  
+jobs:
+  include:
+  - stage: setup
+    script:
+    - echo "DOES IT EVEN WORK\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    - gem install cocoapods
+    - pod repo update
+    - cd Example/
+    - pod install ProtocolBuffers-Swift
+    - cd ../
 
-- stage: setup
-  script:
-  - echo "DOES IT EVEN WORK\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
-
-- stage: build
-  script:
-  - gem install cocoapods
-  - pod repo update
-  - cd Example/
-  - pod install ProtocolBuffers-Swift
-  - cd ../
-  - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.2 ONLY_ACTIVE_ARCH=NO | xcpretty
+  - stage: build
+    script:
+    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.2 ONLY_ACTIVE_ARCH=NO | xcpretty
     
-- stage: deploy
-  script: |
-    pod trunk push --verbose | ruby -e 'ARGF.each{ print "." }'
+  - stage: deploy
+    script: |
+      pod trunk push --verbose | ruby -e 'ARGF.each{ print "." }'
     
 #- pod spec lint openxcframework.podspec  --allow-warnings
 #- pod trunk push openxcframework.podspec --allow-warnings -verbose | ruby -e 'ARGF.each{print "." }'
