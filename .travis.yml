@@ -15,10 +15,9 @@ stages:
 - name: deploy
   if: branch = master
 
-
 - stage: setup
   script:
-  - gem install cocoapods # Since Travis is not always on latest version
+  - gem install cocoapods
   - pod repo update
 
 - stage: build
