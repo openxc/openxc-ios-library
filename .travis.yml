@@ -27,11 +27,10 @@ jobs:
   include:
   - stage: setup
     script:
-    - echo "DOES IT EVEN WORK\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
     - gem install cocoapods
     - pod repo update
     - cd Example/
-    - pod install ProtocolBuffers-Swift
+    - pod install
     - cd ../
 
   - stage: build
