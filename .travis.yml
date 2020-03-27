@@ -28,7 +28,7 @@ branches:
 - pod repo update
 - ENV['COCOAPODS_TRUNK_TOKEN'] = sh "grep -s password ~/.netrc | awk '{print $2}'"
 - name: deploy
-- if: branch =~ ^\d+\.\d+\.\d+$
+  if: branch =~ ^\d+\.\d+\.\d+$
 script:
 - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
 
