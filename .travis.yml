@@ -17,6 +17,10 @@ before_script:
 - pod install ProtocolBuffers-Swift
 - cd ../
 
+jobs:
+  include:
+  - stage: setup
+
 stages:
 - name: setup
 - name: build
