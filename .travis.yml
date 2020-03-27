@@ -20,6 +20,7 @@ stages:
   script:
   - gem install cocoapods
   - pod repo update
+  - cd Example/
   - pod install
 
 - stage: build
