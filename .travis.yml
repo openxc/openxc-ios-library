@@ -10,6 +10,13 @@ xcode_sdk: iphonesimulator12.2
 os: osx
 podfile: Example/
 
+before_script:
+- gem install cocoapods
+- pod repo update
+- cd Example/
+- pod install
+- cd ../
+
 stages:
 - name: setup
 - name: build
