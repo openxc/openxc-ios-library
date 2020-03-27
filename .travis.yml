@@ -14,7 +14,7 @@ before_script:
 - gem install cocoapods
 - pod repo update
 - cd Example/
-- pod install ProtocolBuffers-Swift
+- pod install
 - cd ../
 
 jobs:
