@@ -18,13 +18,15 @@ stages:
 
 - stage: setup
   script:
+  - echo "DOES IT EVEN WORK\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+
+- stage: build
+  script:
   - gem install cocoapods
   - pod repo update
   - cd Example/
   - pod install
-
-- stage: build
-  script:
+  - cd ../
   - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.2 ONLY_ACTIVE_ARCH=NO | xcpretty
     
 - stage: deploy
