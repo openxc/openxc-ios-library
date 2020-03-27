@@ -5,7 +5,7 @@
 language: swift
 osx_image: xcode10.2
 xcode_project:  Example/openxcframework.xcodeproj
-xcode_scheme: openxc-ios-framework
+xcode_scheme: openxcframework-Example
 xcode_sdk: iphonesimulator12.2
 os: osx
 
