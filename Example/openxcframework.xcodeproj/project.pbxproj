@@ -10,7 +10,6 @@
 		1495E404AE243D9A2AAD1886 /* Pods_openxcframework_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C5174A9B5F4FA48061C6CB /* Pods_openxcframework_Tests.framework */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		6E2901A624324C4C00E114AC /* Pods_openxcframework_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2901A524324C4C00E114AC /* Pods_openxcframework_Tests.framework */; };
-		6E2901A724324C4C00E114AC /* Pods_openxcframework_Tests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2901A524324C4C00E114AC /* Pods_openxcframework_Tests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D06DA19225DE872003C8DF3 /* NetworkManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA15225DE872003C8DF3 /* NetworkManagerTest.swift */; };
 		7D06DA1A225DE872003C8DF3 /* TraceFileManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA16225DE872003C8DF3 /* TraceFileManagerTest.swift */; };
 		7D06DA1B225DE872003C8DF3 /* BluetoothManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA17225DE872003C8DF3 /* BluetoothManagerTest.swift */; };
@@ -47,20 +46,6 @@
 			remoteInfo = openxcframework;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		6E2901A824324C4C00E114AC /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6E2901A724324C4C00E114AC /* Pods_openxcframework_Tests.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		081A0F364536344AAAFB65E7 /* Pods_openxcframework_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openxcframework_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,7 +237,6 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				0667E95ADD5C258DEEEB8E09 /* [CP] Embed Pods Frameworks */,
-				6E2901A824324C4C00E114AC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
