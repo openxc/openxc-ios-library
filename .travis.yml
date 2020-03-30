@@ -3,7 +3,7 @@
 # * https://github.com/supermarin/xcpretty#usage
 
 language: swift
-osx_image: xcode10.2
+osx_image: xcode11.3
 xcode_workspace:  Example/openxcframework.xcworkspace
 xcode_scheme: openxcframework-Example
 xcode_sdk: iphonesimulator12.2
