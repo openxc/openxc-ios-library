@@ -1,16 +1,10 @@
-# references:
-# * https://www.objc.io/issues/6-build-tools/travis-ci/
-# * https://github.com/supermarin/xcpretty#usage
-
 language: swift
-osx_image: xcode11.3
+osx_image: xcode10.2
 xcode_workspace:  Example/openxcframework.xcworkspace
 xcode_scheme: openxcframework-Example
-xcode_sdk: iphonesimulator13.2
-xcode_destination: platform=iOS Simulator,OS=13.2,name=iPhone X
+xcode_sdk: iphonesimulator12.2
 os: osx
 podfile: Example/
-
 stages:
 - name: build
 - name: deploy
@@ -22,11 +16,9 @@ jobs:
     - gem install cocoapods
     - pod repo update
     - cd Example/
-    - pod deintegrate
     - pod install
-    - cd ../
-    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme Pods-openxcframework_Tests -sdk iphonesimulator13.2 ONLY_ACTIVE_ARCH=NO
-    
+    - xcodebuild test -enableCodeCoverage YES -workspace openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.2 ONLY_ACTIVE_ARCH=NO
+
   - stage: deploy
     script:
     - gem install cocoapods
@@ -38,7 +30,3 @@ jobs:
     
 #- pod spec lint openxcframework.podspec  --allow-warnings
 #- pod trunk push openxcframework.podspec --allow-warnings -verbose | ruby -e 'ARGF.each{print "." }'
-
-
-
-
