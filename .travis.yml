@@ -6,7 +6,7 @@ language: swift
 osx_image: xcode11.3
 xcode_workspace:  Example/openxcframework.xcworkspace
 xcode_scheme: openxcframework-Example
-xcode_sdk: iphonesimulator12.2
+xcode_sdk: iphonesimulator13.2
 os: osx
 podfile: Example/
 
