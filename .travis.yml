@@ -24,7 +24,7 @@ jobs:
     - pod deintegrate
     - pod install
     - cd ../
-    - xcodebuild -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator13.2 ONLY_ACTIVE_ARCH=NO
+    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework_Tests -sdk iphonesimulator13.2 ONLY_ACTIVE_ARCH=NO
     
   - stage: deploy
     script:
