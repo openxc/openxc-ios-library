@@ -14,8 +14,10 @@ jobs:
   - stage: build
     script:
     - gem install cocoapods
+    - gem install cocoapods-deintegrate
     - pod repo update
     - cd Example/
+    - pod deintegrate
     - pod install
     - xcodebuild test -enableCodeCoverage YES -workspace openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.2 ONLY_ACTIVE_ARCH=NO
 
