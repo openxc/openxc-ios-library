@@ -6,6 +6,8 @@ podfile: Example/
 stages:
 - name: ios-13-build
 - name: ios-12-build
+- name: ios-11-build
+- name: ios-10-build
 - name: deploy
   if: branch = master
   
@@ -31,6 +33,28 @@ jobs:
     - pod install
     - cd ../
     - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=12.0,name=iPhone X"
+
+  - stage: ios-11-build
+    osx_image: xcode9.4
+    script:
+    - gem install cocoapods
+    - pod repo update
+    - cd Example/
+    - pod deintegrate
+    - pod install
+    - cd ../
+    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=11.0,name=iPhone X"
+
+  - stage: ios-10-build
+    osx_image: xcode8.3
+    script:
+    - gem install cocoapods
+    - pod repo update
+    - cd Example/
+    - pod deintegrate
+    - pod install
+    - cd ../
+    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=10.0,name=iPhone SE"
 
   - stage: deploy
     script:
