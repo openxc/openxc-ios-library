@@ -4,13 +4,13 @@ xcode_scheme: openxcframework-Example
 os: osx
 podfile: Example/
 stages:
-- name: build11-3
-- name: build10-2
+- name: ios-13-build
+- name: ios-12-build
 - name: deploy
   if: branch = master
   
 jobs:
-  - stage: build11-3
+  - stage: ios-13-build
     osx_image: xcode11.3
     script:
     - gem install cocoapods
@@ -19,13 +19,10 @@ jobs:
     - pod deintegrate
     - pod install
     - cd ../
-    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=10.0,name=iPhone SE"
-    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=11.0,name=iPhone X"
-    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=12.0,name=iPhone X"
     - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=13.0,name=iPhone 11 Pro"
 
-  - stage: build10-2
-    osx_image: xcode10.2
+  - stage: ios-12-build
+    osx_image: xcode10.3
     script:
     - gem install cocoapods
     - pod repo update
@@ -33,11 +30,7 @@ jobs:
     - pod deintegrate
     - pod install
     - cd ../
-    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=10.0,name=iPhone SE"
-    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=11.0,name=iPhone X"
     - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=12.0,name=iPhone X"
-    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=13.0,name=iPhone 11 Pro"
-
 
   - stage: deploy
     script:
