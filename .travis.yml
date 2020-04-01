@@ -4,15 +4,12 @@ xcode_scheme: openxcframework-Example
 os: osx
 podfile: Example/
 stages:
-- name: ios-13-build
-- name: ios-12-build
-- name: ios-11-build
-- name: ios-10-build
+- name: run-builds
 - name: deploy
   if: branch = master
   
 jobs:
-  - stage: ios-13-build
+  - stage: run-builds
     osx_image: xcode11.3
     script:
     - gem install cocoapods
@@ -23,7 +20,7 @@ jobs:
     - cd ../
     - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=13.0,name=iPhone 11 Pro"
 
-  - stage: ios-12-build
+  - stage: run-builds
     osx_image: xcode10.3
     script:
     - gem install cocoapods
@@ -34,7 +31,7 @@ jobs:
     - cd ../
     - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=12.0,name=iPhone X"
 
-  - stage: ios-11-build
+  - stage: run-builds
     osx_image: xcode9.4
     script:
     - gem install cocoapods
@@ -45,7 +42,7 @@ jobs:
     - cd ../
     - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=11.0,name=iPhone X"
 
-  - stage: ios-10-build
+  - stage: run-builds
     osx_image: xcode8.3
     script:
     - gem install cocoapods
