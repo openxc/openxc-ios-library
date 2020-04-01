@@ -1,17 +1,16 @@
 language: swift
-osx_image: xcode10.2
 xcode_workspace:  Example/openxcframework.xcworkspace
 xcode_scheme: openxcframework-Example
-xcode_sdk: iphonesimulator12.2
+osx_image: xcode11.3
 os: osx
 podfile: Example/
 stages:
-- name: build
+- name: run-builds
 - name: deploy
   if: branch = master
   
 jobs:
-  - stage: build
+  - stage: run-builds
     script:
     - gem install cocoapods
     - pod repo update
@@ -19,7 +18,17 @@ jobs:
     - pod deintegrate
     - pod install
     - cd ../
-    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.2 ONLY_ACTIVE_ARCH=YES
+    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=13.0,name=iPhone 11 Pro"
+
+  - stage: run-builds
+    script:
+    - gem install cocoapods
+    - pod repo update
+    - cd Example/
+    - pod deintegrate
+    - pod install
+    - cd ../
+    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=12.0,name=iPhone X"
 
   - stage: deploy
     script:
