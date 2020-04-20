@@ -78,11 +78,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @objc func sendTraceURLData() {
-        if UserDefaults.standard.bool(forKey: "uploadTaraceOn") {
+        if UserDefaults.standard.bool(forKey: "uploadTaraceOn")  && dashDict.allKeys.count>0 {
             if let urlname = (UserDefaults.standard.value(forKey: "traceURLname") as? String) {
-                if dashDict.allKeys.count>0{
+                
                     vm.sendTraceURLData(urlName:urlname,rspdict: dashDict,isdrrsp:false)
-                }
             }
         }
         
@@ -150,15 +149,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // extract the status message
         let status = rsp.object(forKey: "status") as! Int
         let msg = VehicleManagerStatusMessage(rawValue: status)
-        if msg==VehicleManagerStatusMessage.c5DISCONNECTED {
-            if (UserDefaults.standard.bool(forKey: "powerDropChange")){
+        if (msg==VehicleManagerStatusMessage.c5DISCONNECTED) && UserDefaults.standard.bool(forKey: "powerDropChange") {
                 powerDrop()
-            }
         }
-        if (msg==VehicleManagerStatusMessage.networkDISCONNECTED) {
-            if (UserDefaults.standard.bool(forKey: "networkDropChange")){
+        if (msg==VehicleManagerStatusMessage.networkDISCONNECTED) && UserDefaults.standard.bool(forKey: "networkDropChange") {
+            
                 networkDrop()
-            }
         }
     }
     
@@ -195,15 +191,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // save the name key and value in the dictionary
         dashDict.setObject(val, forKey:name)
         
-        
         // update the table
         DispatchQueue.main.async {
             self.dashTable.reloadData()
-        }
-        if vr.isEvented {
-            
-        } else {
-            
         }
     }
     
@@ -228,9 +218,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // grab the value based on the name key
         let v = dashDict.object(forKey: k)
         
-        //let valueMeasurement  = vmu.getMesurementUnit(key: k, value: v as AnyObject)
-        
-        //print(valueMeasurement)
         // main text in table is the measurement name
         cell!.textLabel?.text = k
         cell!.textLabel?.font = UIFont(name:"Arial", size: 13.0)
@@ -257,7 +244,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             if nvr != 0.0{
                 let valueMeasure1 = String(format:"%.2f",nvr)
                 let valueMeasure = vmu.getMesurementUnit(key: k, value: valueMeasure1 as AnyObject)
-                cell!.detailTextLabel?.text = (valueMeasure as! String)//(valueMeasurement as AnyObject).description
+                cell!.detailTextLabel?.text = (valueMeasure as! String)
             }
             else{
                 cell!.detailTextLabel?.text = (v as AnyObject).description
@@ -361,8 +348,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 request.httpBody = jsonData
                 
                 // TODO: ToDo - Change NSURLConnection to NSURLSession
-                //dweetConn = NSURLConnection(request: request as URLRequest, delegate: self, startImmediately:true)
-                //[[[URLSession, sharedSession] dataTaskWithRequest:request] resume]
                 let task = session.dataTask(with: request)
                 task.resume()
             }

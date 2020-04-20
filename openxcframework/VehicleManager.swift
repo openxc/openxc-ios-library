@@ -1,18 +1,15 @@
-//
+
 //  VehicleManager.swift
 //  openXCSwift
-//
 //  Created by Tim Buick on 2016-06-16.
 //  Copyright (c) 2016 Ford Motor Company Licensed under the BSD license.
 //  Vrsion 0.9.2
-//
-
 import Foundation
 import CoreBluetooth
 import ProtocolBuffers
 
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
@@ -25,7 +22,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
@@ -53,26 +50,12 @@ public enum VehicleManagerStatusMessage: Int {
 // This enum is outside of the main class for ease of use in the client app. It allows
 // for referencing the enum without the class hierarchy in front of it. Ie. the enums
 // can be accessed directly as .C5DETECTED for example
-
-
 // public enum VehicleManagerConnectionState
 // values reported in public variable connectionState
-/*public enum VehicleManagerConnectionState: Int {
-  case notConnected=0           // not connected to any C5 VI
-  case scanning=1               // VM is allocation and scanning for nearby VIs
-  case connectionInProgress=2   // connection in progress (connecting/searching for services)
-  case connected=3              // connection established (but not ready to receive btle writes)
-  case operational=4            // C5 VI operational (notify enabled and writes accepted)
-}*/
 // This enum is outside of the main class for ease of use in the client app. It allows
 // for referencing the enum without the class hierarchy in front of it. Ie. the enums
 // can be accessed directly as .C5DETECTED for example
-
-
-
 open class VehicleManager: NSObject {
-
-
   // MARK: Singleton Init
   // This signleton init allows mutiple controllers to access the same instantiation
   // of the VehicleManager. There is only a single instantiation of the VehicleManager
@@ -97,7 +80,6 @@ open class VehicleManager: NSObject {
   // data buffer for receiving raw BTLE data
   public var RxDataBuffer: NSMutableData! = NSMutableData()
   public var tempDataBuffer: NSMutableData! = NSMutableData()
-  //public var tempDataArray : Array<Any> = Array()
   
   // data buffer for storing vehicle messages to send to BTLE
   //Ranjan changed fileprivate to public due to travis fail
@@ -184,14 +166,6 @@ open class VehicleManager: NSObject {
       print("")
     }
   }
-  
-  
-  // change the auto connect config for the VM
-  //open func setAutoconnect(_ on:Bool) {
-    //autoConnectPeripheral = on
-  //}
-  
-  
   // change the data format for the VM
   open func setProtobufMode(_ on:Bool) {
 
@@ -212,14 +186,6 @@ open class VehicleManager: NSObject {
       throughputEnabled = false
     }
   }
-  // return the latest message received for a given measurement string name
-//  open func getLatest(_ key:NSString) -> VehicleMeasurementResponse {
-//    if let entry = latestVehicleMeasurements[key] {
-//      return entry as! VehicleMeasurementResponse
-//    }
-//    return VehicleMeasurementResponse()
-//  }
-
   open func getLatest(_ key:NSString) -> VehicleMeasurementResponse? {
     return latestVehicleMeasurements[key]
   }
@@ -249,7 +215,10 @@ open class VehicleManager: NSObject {
     vmlog("in sendCommand:target")
     
     // if we have a trace input file, ignore this request!
-    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return ""}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {
+        return ""
+        
+    }
     
     // save the callback in order, so we know which to call when responses are received
     BLETxSendToken += 1
@@ -270,7 +239,10 @@ open class VehicleManager: NSObject {
     vmlog("in sendCommand")
     
     // if we have a trace input file, ignore this request!
-    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {
+        return
+        
+    }
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
@@ -301,7 +273,10 @@ open class VehicleManager: NSObject {
     vmlog("in sendDiagReq:cmd")
     
     // if we have a trace input file, ignore this request!
-    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return ""}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {
+        return ""
+        
+    }
     
     // save the callback in order, so we know which to call when responses are received
     BLETxSendToken += 1
@@ -322,7 +297,10 @@ open class VehicleManager: NSObject {
     vmlog("in sendDiagReq")
     
     // if we have a trace input file, ignore this request!
-    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {
+        return
+        
+    }
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
@@ -445,7 +423,10 @@ open class VehicleManager: NSObject {
     vmlog("in sendCanReq")
     
     // if we have a trace input file, ignore this request!
-    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {return}
+    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {
+        return
+        
+    }
     
     // common can send method
     sendCanCommon(cmd)
@@ -464,9 +445,18 @@ open class VehicleManager: NSObject {
     if !jsonMode {
       // in protobuf mode, build the command message
       let cbuild = ControlCommand.Builder()
-      if cmd.command == .version {_ = cbuild.setType(.version)}
-      if cmd.command == .device_id {_ = cbuild.setType(.deviceId)}
-      if cmd.command == .platform {_ = cbuild.setType(.platform)}
+      if cmd.command == .version {
+        _ = cbuild.setType(.version)
+        
+        }
+      if cmd.command == .device_id {
+        _ = cbuild.setType(.deviceId)
+        
+        }
+      if cmd.command == .platform {
+        _ = cbuild.setType(.platform)
+        
+        }
       if cmd.command == .passthrough {
         let cbuild2 = PassthroughModeControlCommand.Builder()
         _ = cbuild2.setBus(Int32(cmd.bus))
@@ -483,8 +473,14 @@ open class VehicleManager: NSObject {
       }
       if cmd.command == .payload_format {
         let cbuild2 = PayloadFormatCommand.Builder()
-        if cmd.format == "json" {_ = cbuild2.setFormat(.json)}
-        if cmd.format == "protobuf" {_ = cbuild2.setFormat(.protobuf)}
+        if cmd.format == "json" {
+            _ = cbuild2.setFormat(.json)
+            
+        }
+        if cmd.format == "protobuf" {
+            _ = cbuild2.setFormat(.protobuf)
+            
+        }
         _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
         _ = cbuild.setType(.payloadFormat)
       }
@@ -509,7 +505,10 @@ open class VehicleManager: NSObject {
         _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
         _ = cbuild.setType(.rtcConfiguration)
       }
-      if cmd.command == .sd_mount_status {_ = cbuild.setType(.sdMountStatus)}
+      if cmd.command == .sd_mount_status {
+        _ = cbuild.setType(.sdMountStatus)
+        
+        }
       
       let mbuild = VehicleMessage.Builder()
       _ = mbuild.setType(.controlCommand)
@@ -840,25 +839,29 @@ open class VehicleManager: NSObject {
     
     rsp.name = name
     
-    if msg.simpleMessage.value.hasStringValue {rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
-    if msg.simpleMessage.value.hasBooleanValue {rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
-    if msg.simpleMessage.value.hasNumericValue {rsp.value = msg.simpleMessage.value.numericValue as AnyObject}
+    if msg.simpleMessage.value.hasStringValue {
+        rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
+    if msg.simpleMessage.value.hasBooleanValue {
+        rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
+    if msg.simpleMessage.value.hasNumericValue {
+        rsp.value = msg.simpleMessage.value.numericValue as AnyObject}
     if msg.simpleMessage.hasEvent {
       rsp.isEvented = true
-      if msg.simpleMessage.event.hasStringValue {rsp.event = msg.simpleMessage.event.stringValue as AnyObject}
-      if msg.simpleMessage.event.hasBooleanValue {rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
-      if msg.simpleMessage.event.hasNumericValue {rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
+      if msg.simpleMessage.event.hasStringValue {
+        rsp.event = msg.simpleMessage.event.stringValue as AnyObject}
+      if msg.simpleMessage.event.hasBooleanValue {
+        rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
+      if msg.simpleMessage.event.hasNumericValue {
+        rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
     }
     
     // capture this message into the dictionary of latest messages
-    // latestVehicleMeasurements.setValue(rsp, forKey:name as String)
     latestVehicleMeasurements[name] = rsp
     
     // look for a specific callback for this measurement name
     var found=false
     for key in measurementCallbacks.keys {
       let act = measurementCallbacks[key]
-      // if act!.returnKey() as String == name {
       if act!.returnKey() == name {
         found=true
         act!.performAction(["vehiclemessage":rsp] as NSDictionary)
@@ -883,9 +886,6 @@ open class VehicleManager: NSObject {
         rsp.command_response = name.lowercased() as NSString
         rsp.message = msg.commandResponse.message as NSString
         rsp.status = msg.commandResponse.status
-    
-    
-    
 
     // First see if the default command callback is defined. If it is
     // then that takes priority. This will be the most likely use case,
@@ -916,11 +916,8 @@ open class VehicleManager: NSObject {
     rsp.mode = Int(msg.diagnosticResponse.mode)
     if msg.diagnosticResponse.hasPid {
         rsp.pid = Int(msg.diagnosticResponse.pid)
-        
     }
     rsp.success = msg.diagnosticResponse.success
-    //   if msg.diagnosticResponse.hasPayload {rsp.payload = String(data:msg.diagnosticResponse.payload as Data,encoding: String.Encoding.utf8)! as NSString}
-    //   if msg.diagnosticResponse.hasPayload {rsp.payload = (String(data:msg.diagnosticResponse.payload as Data,encoding: String.Encoding.utf8)! as NSString) as String}
     if msg.diagnosticResponse.hasValue {
         rsp.value = Int(msg.diagnosticResponse.value)
         
@@ -1096,42 +1093,6 @@ open class VehicleManager: NSObject {
         
       }
 
-      ///////
-      // TODO: for debug, remove later
-      //// fake out a CAN msg on every msg received!!
-      /*
-       if false {
-       let rsp : VehicleCanResponse = VehicleCanResponse()
-       rsp.timestamp = timestamp
-       rsp.bus = Int(arc4random_uniform(2) + 1)
-       rsp.id = Int(arc4random_uniform(20) + 2015)
-       rsp.data = String(format:"%x",Int(arc4random_uniform(100000)+1))
-       
-       vmlog("CAN bus:\(rsp.bus) id:\(rsp.id) payload:\(rsp.data)")
-       
-       
-       let tupple = "\(String(rsp.bus))-\(String(rsp.id))"
-       
-       var found=false
-       for key in canCallbacks.keys {
-       let act = canCallbacks[key]
-       if act!.returnKey() == tupple {
-       found=true
-       act!.performAction(["vehiclemessage":rsp] as NSDictionary)
-       }
-       }
-       if !found {
-       if let act = defaultCanCallback {
-       act.performAction(["vehiclemessage":rsp] as NSDictionary)
-       }
-       }
-       
-       }
-       */
-      //////////////////////////////////////////////
-      
-      
-      
       // if trace file output is enabled, create a string from the message
       // and send it to the trace file writer
         vmlog(TraceFileManager.sharedInstance.traceFilesinkEnabled)
@@ -1359,17 +1320,6 @@ open class VehicleManager: NSObject {
     if let payloadX = json["payload"] as? NSString {
       payload = payloadX
       print("payload : \(payload)")
-      //
-      //            var payload : Data?
-      //            if let payloadX = json["payload"] as? NSString {
-      //
-      //                payload = payloadX.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)
-      //                print("payload : \(payload)")
-      
-      //            var payload : [UInt8] = []
-      //            if let payloadX = json["payload"] as? String {
-      //                payload = Array(payloadX.utf8)
-      //                print("payload : \(payload)")
       
     }
     var value : NSInteger?
@@ -1411,21 +1361,7 @@ open class VehicleManager: NSObject {
     } else {
       tupple.append("X")
     }
-    
-    // TODO: debug printouts, maybe remove
-    if value != nil {
-      if pid != nil {
-        //vmlog("diag rsp msg:\(bus) id:\(id) mode:\(mode) pid:\(pid) success:\(success) value:\(value)")
-      } else {
-        //vmlog("diag rsp msg:\(bus) id:\(id) mode:\(mode) success:\(success) value:\(value)")
-      }
-    } else {
-      if pid != nil {
-        //vmlog("diag rsp msg:\(bus) id:\(id) mode:\(mode) pid:\(pid) success:\(success) payload:\(payload)")
-      } else {
-        //vmlog("diag rsp msg:\(bus) id:\(id) mode:\(mode) success:\(success) value:\(payload)")
-      }
-    }
+
     ////////////////////////////
     
     // look for a specific callback for this diag response based on tupple created above
@@ -1445,7 +1381,7 @@ open class VehicleManager: NSObject {
 
     }
   }
-  // TODO: ToDo - Uncomment the code when when there will be a server URL and test the code
+  // Uncomment the code when when there will be a server URL and test the code
 
   //Send data using trace URL
     @objc public func sendTraceURLData(urlName:String,rspdict:NSMutableDictionary,isdrrsp:Bool) {

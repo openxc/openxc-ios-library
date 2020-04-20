@@ -12,13 +12,6 @@ open class AlertHandling : NSObject {
     
     static let _sharedInstance = AlertHandling()
     public var alert:UIAlertController?
-    
-    //    fileprivate init(){
-    //    }
-    //
-    //   open class var sharedInstance:AlertHandling{
-    //        return _sharedInstance
-    //    }
     // Initialization
     static public let sharedInstance: AlertHandling = {
         let instance = AlertHandling()
@@ -47,13 +40,13 @@ open class AlertHandling : NSObject {
         return UIAlertAction(title: title, style: style, handler: handler)
     }
     func showToast(controller: UIViewController, message : String, seconds: Double){
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.view.backgroundColor = .black
-        alert.view.alpha = 0.2
-        alert.view.layer.cornerRadius = 15
-        controller.present(alert, animated: true)
+        let alert1 = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert1.view.backgroundColor = .black
+        alert1.view.alpha = 0.2
+        alert1.view.layer.cornerRadius = 15
+        controller.present(alert1, animated: true)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
-            alert.dismiss(animated: true)
+            alert1.dismiss(animated: true)
         }
     }
 }

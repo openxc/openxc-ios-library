@@ -26,31 +26,4 @@ class VehicleManagerTest: XCTestCase {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
   }
-//    func testScanVi{
-//        VehicleManager.sharedInstance.scan { (success) in
-//            if(!success){
-//            self.scanValueIs = sucessValueIs
-//            }else{
-//                self.scanValueIs = success
-//            }
-//        }
-//        XCTAssert(scanValueIs)
-//    }
-    //    func testdiscoveredVI(){
-    //        let value =VehicleManager.sharedInstance.discoveredVI()
-    //
-    //        XCTAssert(value == "OPENXC-VI-6C9B")
-    //    }
-
-    //Vehicle manager Command Request test method
-//    func testSendCommand(){
-//
-//     let value = VehicleManager.sharedInstance.sendCommand(<#T##cmd: VehicleCommandRequest##VehicleCommandRequest#>, target: <#T##T#>, action: <#T##(T) -> (NSDictionary) -> ()#>)
-//    XCTAssert(value == "")
-//     }
-    //Vehicle manager Diagnostic Request test method
-//    func testSendDiagReq(){
-//    let value = VehicleManager.sharedInstance.sendDiagReq(<#T##cmd: VehicleDiagnosticRequest##VehicleDiagnosticRequest#>, target: <#T##T#>, cmdaction: <#T##(T) -> (NSDictionary) -> ()#>)
-//    XCTAssert(value == "")
-//     }
 }

@@ -27,7 +27,7 @@ open class VehicleMessageUnit: NSObject {
         let measurementType = key
         var measurmentUnit : String = ""
         switch measurementType {
-        case acceleratorPedal:
+        case acceleratorPedal,fuelLevel:
             measurmentUnit = stringValue + " %"
             return measurmentUnit
         case enginespeed:
@@ -36,20 +36,11 @@ open class VehicleMessageUnit: NSObject {
         case fuelConsumed:
             measurmentUnit = stringValue + " L"
             return measurmentUnit
-        case fuelLevel:
-            measurmentUnit = stringValue + " %"
-            return measurmentUnit
-        case latitude:
-            measurmentUnit = stringValue + " °"
-            return measurmentUnit
-        case longitude:
+        case latitude,longitude,steeringWheelAngle:
             measurmentUnit = stringValue + " °"
             return measurmentUnit
         case odometer:
             measurmentUnit = stringValue + " km"
-            return measurmentUnit
-        case steeringWheelAngle:
-            measurmentUnit = stringValue + " °"
             return measurmentUnit
         case torqueTransmission:
             measurmentUnit = stringValue + " Nm"

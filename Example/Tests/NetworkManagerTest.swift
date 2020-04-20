@@ -27,15 +27,5 @@ class NetworkManagerTest: XCTestCase {
     }
   
    //Test the Socket network connection
-  
-   /*func testSocketConnection() {
-   NetworkData.sharedInstance.connect(ip:"0.0.0.0", portvalue: 50001, completionHandler: { (success) in
-   
-   self.valueIs = true
-   })
-   
-   XCTAssert(valueIs)
-   }*/
-
     
 }

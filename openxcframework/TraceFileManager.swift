@@ -142,8 +142,8 @@ open class TraceFileManager: NSObject {
   open func enableTraceFileSource(_ filename:NSString, speed:NSInteger?=nil) -> Bool {
     
     // only allow a reasonable range of values for speed, not too fast or slow
-    if speed != nil {
-      if (speed)! < 50 || (speed)! > 1000 {return false}
+    if speed != nil && (speed)! < 50 || (speed)! > 1000 {
+        return false
     }
     
     // check for file sharing in the bundle
