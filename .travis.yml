@@ -1,51 +1,43 @@
-# references:
-# * https://www.objc.io/issues/6-build-tools/travis-ci/
-# * https://github.com/supermarin/xcpretty#usage
-
-
 language: swift
-osx_image: xcode10.2
-xcode_project:  Example/openxcframework.xcworkspace
-xcode_scheme: openxc-ios-framework
-xcode_sdk: iphonesimulator12.0
+xcode_workspace:  Example/openxcframework.xcworkspace
+xcode_scheme: openxcframework-Example
+osx_image: xcode11.3
 os: osx
+podfile: Example/
+stages:
+- name: run-builds
+- name: deploy
+  if: branch = master
+  
+jobs:
+  - stage: run-builds
+    script:
+    - gem install cocoapods
+    - pod repo update
+    - cd Example/
+    - pod deintegrate
+    - pod install
+    - cd ../
+    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=13.0,name=iPhone 11 Pro"
 
-branches:
-- master
-- next
+  - stage: run-builds
+    script:
+    - gem install cocoapods
+    - pod repo update
+    - cd Example/
+    - pod deintegrate
+    - pod install
+    - cd ../
+    - xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=12.0,name=iPhone X"
 
-
-
-
-#script:
-#- xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator9.3 ONLY_ACTIVE_ARCH=NO | xcpretty
-
-
-# cache: cocoapods
-# podfile: Example/Podfile
-# before_install:
-- gem install cocoapods # Since Travis is not always on latest version
-- pod repo update
-- ENV['COCOAPODS_TRUNK_TOKEN'] = sh "grep -s password ~/.netrc | awk '{print $2}'"
-#- pod trunk push -verbose | ruby -e 'ARGF.each{print "." }'
-# stages:
-# - name: lint
-# if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
-# - name: compile
-# if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
-# - name: test
-# if: branch = master OR branch =~ ^\d+\.\d+\.\d+$
-# - name: deploy
-# if: branch =~ ^\d+\.\d+\.\d+$
-
-script:
-- xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator12.0 ONLY_ACTIVE_ARCH=NO | xcpretty
-#- pod lib lint --allow-warnings
-# -- set -o pipefail &&
-
-- pod spec lint openxcframework.podspec  --allow-warnings
-- pod trunk push openxcframework.podspec --allow-warnings -verbose | ruby -e 'ARGF.each{print "." }'
-
-
-
-
+  - stage: deploy
+    script:
+    - gem install cocoapods
+    - pod repo update
+    - cd Example/
+    - pod install
+    - cd ../
+    - pod trunk push --verbose | ruby -e 'ARGF.each{ print "." }'
+    
+#- pod spec lint openxcframework.podspec  --allow-warnings
+#- pod trunk push openxcframework.podspec --allow-warnings -verbose | ruby -e 'ARGF.each{print "." }'

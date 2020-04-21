@@ -118,7 +118,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         }
         else if  vehicleInterface == "Network" {
             if let hostName = (UserDefaults.standard.value(forKey: "networkHostName")  as? String){
-                networkDataHost.text = hostName//(UserDefaults.standard.value(forKey: "networkHostName")  as! String)
+                networkDataHost.text = hostName
                 networkDataPort.text = (UserDefaults.standard.value(forKey: "networkPortName")  as! String)
                 
             }
@@ -129,7 +129,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             
         else if vehicleInterface == "Pre-recorded Tracefile" {
             if let tracefile = (UserDefaults.standard.value(forKey: "traceInputFilename")  as? String){
-                playname.text = tracefile//(UserDefaults.standard.value(forKey: "traceInputFilename")  as! String)
+                playname.text = tracefile
             }
             disableTraceLoopSwitch.isUserInteractionEnabled = true
             interfaceValue = vehicleInterface
@@ -334,7 +334,6 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
                 titleLabel.text = interfaceValue
                 UserDefaults.standard.set("Bluetooth", forKey:"vehicleInterface")
             }
-            //titleLabel.text = interfaceValue
             
             tfm.disableTraceFileSource()
             NM.disconnectConnection()
@@ -342,7 +341,6 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             networkDataPort.text = ""
             networkDataHost.text = ""
             playname.text = ""
-            //disableTraceLoopSwitch.isUserInteractionEnabled = false
             
         }
         
@@ -419,7 +417,6 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
     // MARK: UI Function
     
     func handle_cmd_response(_ rsp:NSDictionary) {
-        // self.hideActivityIndicator()
         // extract the command response message
         let cr = rsp.object(forKey: "vehiclemessage") as! VehicleCommandResponse
         
@@ -443,11 +440,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         if textField.tag == 101{
             textField.resignFirstResponder()
             UserDefaults.standard.set(playname.text, forKey:"traceInputFilename")
-            //if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
             tfm.enableTraceFileSource(playname.text! as NSString)
-            
-            //}
-            
         }
         if textField.tag == 102{
             if (textField.text != ""){
@@ -478,9 +471,6 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
     }
     //ranjan added code for Network data
     func networkDataFetch(hostName:String,PortName:String)  {
-        // networkData.text = name as String
-        
-        //let ip  = hostName
         let port  = Int(PortName)
         if(hostName != "" && PortName != ""){
             NetworkDataManager.sharedInstance.connect(ip:hostName, portvalue: port!, completionHandler: { (success) in
@@ -488,7 +478,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
                 if(success){
                     UserDefaults.standard.set(hostName, forKey:"networkHostName")
                     UserDefaults.standard.set(PortName, forKey:"networkPortName")
-                    //self.callBack()
+                    
                 }else{
                     let alertController = UIAlertController(title: "", message:
                         "error ocured in connection", preferredStyle: UIAlertController.Style.alert)
@@ -502,7 +492,6 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         
         
     }
-    
     
     //ranjan added code for Network data
     // trace file output file name changed, save it in nsuserdefaults
@@ -539,10 +528,6 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
      */
     
 }

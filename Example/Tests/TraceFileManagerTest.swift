@@ -35,7 +35,6 @@ class TraceFileManagerTest: XCTestCase {
     super.tearDown()
   }
     func testTraceOutput(){
-      let value = measurmentObj.traceOutput()
       XCTAssert(true)
     }
   func testValueisBool() {
@@ -46,7 +45,7 @@ class TraceFileManagerTest: XCTestCase {
   //Vehicle manager Trace file sink test method
   func testEnableTraceFileSink() {
     let value = TraceFileManager.sharedInstance.enableTraceFileSink(self.traceFileSinkPath)
-    if let fs : Bool? = Bundle.main.infoDictionary?["UIFileSharingEnabled"] as? Bool{
+    if let fs : Bool = Bundle.main.infoDictionary?["UIFileSharingEnabled"] as? Bool{
       XCTAssert(!value)
     }else{
       XCTAssert(value)
@@ -56,7 +55,7 @@ class TraceFileManagerTest: XCTestCase {
   //Vehicle manager trace filr source  test method
   func testEnableTraceFileSource() {
     let value = TraceFileManager.sharedInstance.enableTraceFileSource( self.traceFileSourcePath, speed:60)
-    if let fs : Bool? = Bundle.main.infoDictionary?["UIFileSharingEnabled"] as? Bool{
+    if let fs : Bool = Bundle.main.infoDictionary?["UIFileSharingEnabled"] as? Bool{
       XCTAssert(!value )
     }else{
       XCTAssert(value )

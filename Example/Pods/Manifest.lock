@@ -1,13 +1,13 @@
 PODS:
-  - AppCenter (3.0.0):
-    - AppCenter/Analytics (= 3.0.0)
-    - AppCenter/Crashes (= 3.0.0)
-  - AppCenter/Analytics (3.0.0):
+  - AppCenter (3.1.0):
+    - AppCenter/Analytics (= 3.1.0)
+    - AppCenter/Crashes (= 3.1.0)
+  - AppCenter/Analytics (3.1.0):
     - AppCenter/Core
-  - AppCenter/Core (3.0.0)
-  - AppCenter/Crashes (3.0.0):
+  - AppCenter/Core (3.1.0)
+  - AppCenter/Crashes (3.1.0):
     - AppCenter/Core
-  - openxcframework (6.0.0):
+  - openxcframework (6.2.0):
     - ProtocolBuffers-Swift
   - ProtocolBuffers-Swift (4.0.6)
 
@@ -25,10 +25,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AppCenter: 7a0bbe928d07467ac8b2d7f6f2a675872a6471d8
-  openxcframework: ed7c78110f2ab4ef1dd4e9eb1ea09a37bf81b83b
+  AppCenter: a1c30c47b7882a04a615ffa5ab26c007326436d8
+  openxcframework: b9d5d25aa9d3094fdc749114f888c5c2b6f8e90a
   ProtocolBuffers-Swift: 09b5cfcc641ab512d6aaa1d2cc3879a40432052c
 
 PODFILE CHECKSUM: f2d0fa3f68cab83a814e453755d9a4d8bf474222
 
-COCOAPODS: 1.9.0.beta.3
+COCOAPODS: 1.8.4
