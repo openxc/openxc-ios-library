@@ -52,9 +52,6 @@ public enum VehicleManagerStatusMessage: Int {
 // can be accessed directly as .C5DETECTED for example
 // public enum VehicleManagerConnectionState
 // values reported in public variable connectionState
-// This enum is outside of the main class for ease of use in the client app. It allows
-// for referencing the enum without the class hierarchy in front of it. Ie. the enums
-// can be accessed directly as .C5DETECTED for example
 open class VehicleManager: NSObject {
   // MARK: Singleton Init
   // This signleton init allows mutiple controllers to access the same instantiation
@@ -127,14 +124,9 @@ open class VehicleManager: NSObject {
 
  //Iphone device blutooth is on/fff status
   open var isDeviceBluetoothIsOn :Bool = false
-
-  
   var callbackHandler: ((Bool) -> ())?  = nil
-  
-
     //Connected to Ble simulator
    // open var isBleConnected: Bool = false
-
     //Connected to tracefile simulator
     open var isTraceFileConnected: Bool = false
 
@@ -1381,7 +1373,7 @@ open class VehicleManager: NSObject {
 
     }
   }
-  // Uncomment the code when when there will be a server URL and test the code
+  // Uncomment the code when there will be a server URL and test the code
 
   //Send data using trace URL
     @objc public func sendTraceURLData(urlName:String,rspdict:NSMutableDictionary,isdrrsp:Bool) {
