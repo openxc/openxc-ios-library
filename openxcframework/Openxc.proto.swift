@@ -5,10 +5,8 @@
 
 import Foundation
 import ProtocolBuffers
-
-
 public struct OpenxcRoot {
-    public static let `default` = OpenxcRoot()
+    public static let defaultValue = OpenxcRoot()
     public var extensionRegistry:ExtensionRegistry
 
     init() {
@@ -16,6 +14,7 @@ public struct OpenxcRoot {
         registerAllExtensions(registry: extensionRegistry)
     }
     public func registerAllExtensions(registry: ExtensionRegistry) {
+        print(registry)
     }
 }
 
@@ -37,11 +36,7 @@ final public class VehicleMessage : GeneratedMessage {
         fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
         return fieldCheck
     }
-
-
-
-        //Enum type declaration start 
-
+        //Enum type declaration start
         public enum ProtoType:Int32, GeneratedEnum {
             case unused = 0
             case can = 1
@@ -85,7 +80,7 @@ final public class VehicleMessage : GeneratedMessage {
             public var hashValue:Int {
                 return self.rawValue.hashValue
             }
-            public static func ==(lhs:ProtoType, rhs:ProtoType) -> Bool {
+            public static func == (lhs:ProtoType, rhs:ProtoType) -> Bool {
                 return lhs.hashValue == rhs.hashValue
             }
         }
@@ -870,7 +865,7 @@ final public class CanMessage : GeneratedMessage {
             public var hashValue:Int {
                 return self.rawValue.hashValue
             }
-            public static func ==(lhs:FrameFormat, rhs:FrameFormat) -> Bool {
+            public static func == (lhs:FrameFormat, rhs:FrameFormat) -> Bool {
                 return lhs.hashValue == rhs.hashValue
             }
         }
@@ -1331,7 +1326,7 @@ final public class ControlCommand : GeneratedMessage {
             public var hashValue:Int {
                 return self.rawValue.hashValue
             }
-            public static func ==(lhs:ProtoType, rhs:ProtoType) -> Bool {
+            public static func == (lhs:ProtoType, rhs:ProtoType) -> Bool {
                 return lhs.hashValue == rhs.hashValue
             }
         }
@@ -2248,7 +2243,7 @@ final public class DiagnosticControlCommand : GeneratedMessage {
             public var hashValue:Int {
                 return self.rawValue.hashValue
             }
-            public static func ==(lhs:Action, rhs:Action) -> Bool {
+            public static func == (lhs:Action, rhs:Action) -> Bool {
                 return lhs.hashValue == rhs.hashValue
             }
         }
@@ -3138,7 +3133,7 @@ final public class PayloadFormatCommand : GeneratedMessage {
             public var hashValue:Int {
                 return self.rawValue.hashValue
             }
-            public static func ==(lhs:PayloadFormat, rhs:PayloadFormat) -> Bool {
+            public static func == (lhs:PayloadFormat, rhs:PayloadFormat) -> Bool {
                 return lhs.hashValue == rhs.hashValue
             }
         }
@@ -3624,7 +3619,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
                 public var hashValue:Int {
                     return self.rawValue.hashValue
                 }
-                public static func ==(lhs:NetworkType, rhs:NetworkType) -> Bool {
+                public static func == (lhs:NetworkType, rhs:NetworkType) -> Bool {
                     return lhs.hashValue == rhs.hashValue
                 }
             }
@@ -3933,7 +3928,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
             public var hashValue:Int {
                 return self.rawValue.hashValue
             }
-            public static func ==(lhs:OperatorSelectMode, rhs:OperatorSelectMode) -> Bool {
+            public static func == (lhs:OperatorSelectMode, rhs:OperatorSelectMode) -> Bool {
                 return lhs.hashValue == rhs.hashValue
             }
         }
@@ -5775,19 +5770,19 @@ final public class DiagnosticRequest : GeneratedMessage {
 
         public enum DecodedType:Int32, GeneratedEnum {
             case unused = 0
-            case `none` = 1
+            case none = 1
             case obd2 = 2
             public func toString() -> String {
                 switch self {
                 case .unused: return "UNUSED"
-                case .`none`: return "NONE"
+                case .none: return "NONE"
                 case .obd2: return "OBD2"
                 }
             }
             public static func fromString(_ str:String) throws -> DiagnosticRequest.DecodedType {
                 switch str {
                 case "UNUSED":    return .unused
-                case "NONE":    return .`none`
+                case "NONE":    return .none
                 case "OBD2":    return .obd2
                 default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
                 }
@@ -5797,14 +5792,14 @@ final public class DiagnosticRequest : GeneratedMessage {
             private func getDescription() -> String { 
                 switch self {
                 case .unused: return ".unused"
-                case .`none`: return ".`none`"
+                case .none: return ".none"
                 case .obd2: return ".obd2"
                 }
             }
             public var hashValue:Int {
                 return self.rawValue.hashValue
             }
-            public static func ==(lhs:DecodedType, rhs:DecodedType) -> Bool {
+            public static func == (lhs:DecodedType, rhs:DecodedType) -> Bool {
                 return lhs.hashValue == rhs.hashValue
             }
         }
@@ -7065,13 +7060,13 @@ final public class DynamicField : GeneratedMessage {
 
         public enum ProtoType:Int32, GeneratedEnum {
             case unused = 0
-            case `String` = 1
+            case String = 1
             case num = 2
             case bool = 3
             public func toString() -> String {
                 switch self {
                 case .unused: return "UNUSED"
-                case .`String`: return "STRING"
+                case .String: return "STRING"
                 case .num: return "NUM"
                 case .bool: return "BOOL"
                 }
@@ -7079,7 +7074,7 @@ final public class DynamicField : GeneratedMessage {
             public static func fromString(_ str:String) throws -> DynamicField.ProtoType {
                 switch str {
                 case "UNUSED":    return .unused
-                case "STRING":    return .`String`
+                case "STRING":    return .String
                 case "NUM":    return .num
                 case "BOOL":    return .bool
                 default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
@@ -7090,7 +7085,7 @@ final public class DynamicField : GeneratedMessage {
             private func getDescription() -> String { 
                 switch self {
                 case .unused: return ".unused"
-                case .`String`: return ".`String`"
+                case .String: return ".String"
                 case .num: return ".num"
                 case .bool: return ".bool"
                 }
@@ -7098,7 +7093,7 @@ final public class DynamicField : GeneratedMessage {
             public var hashValue:Int {
                 return self.rawValue.hashValue
             }
-            public static func ==(lhs:ProtoType, rhs:ProtoType) -> Bool {
+            public static func == (lhs:ProtoType, rhs:ProtoType) -> Bool {
                 return lhs.hashValue == rhs.hashValue
             }
         }
@@ -7880,7 +7875,7 @@ extension VehicleMessage: GeneratedMessageProtocol {
         return try VehicleMessage.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> VehicleMessage {
-        return try VehicleMessage.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try VehicleMessage.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> VehicleMessage {
         return try VehicleMessage.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -7979,7 +7974,7 @@ extension CanMessage: GeneratedMessageProtocol {
         return try CanMessage.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> CanMessage {
-        return try CanMessage.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try CanMessage.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> CanMessage {
         return try CanMessage.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8057,7 +8052,7 @@ extension ControlCommand: GeneratedMessageProtocol {
         return try ControlCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> ControlCommand {
-        return try ControlCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try ControlCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> ControlCommand {
         return try ControlCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8163,7 +8158,7 @@ extension DiagnosticControlCommand: GeneratedMessageProtocol {
         return try DiagnosticControlCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> DiagnosticControlCommand {
-        return try DiagnosticControlCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try DiagnosticControlCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> DiagnosticControlCommand {
         return try DiagnosticControlCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8227,7 +8222,7 @@ extension PassthroughModeControlCommand: GeneratedMessageProtocol {
         return try PassthroughModeControlCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> PassthroughModeControlCommand {
-        return try PassthroughModeControlCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try PassthroughModeControlCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> PassthroughModeControlCommand {
         return try PassthroughModeControlCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8291,7 +8286,7 @@ extension AcceptanceFilterBypassCommand: GeneratedMessageProtocol {
         return try AcceptanceFilterBypassCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> AcceptanceFilterBypassCommand {
-        return try AcceptanceFilterBypassCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try AcceptanceFilterBypassCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> AcceptanceFilterBypassCommand {
         return try AcceptanceFilterBypassCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8355,7 +8350,7 @@ extension PayloadFormatCommand: GeneratedMessageProtocol {
         return try PayloadFormatCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> PayloadFormatCommand {
-        return try PayloadFormatCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try PayloadFormatCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> PayloadFormatCommand {
         return try PayloadFormatCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8412,7 +8407,7 @@ extension PredefinedObd2RequestsCommand: GeneratedMessageProtocol {
         return try PredefinedObd2RequestsCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> PredefinedObd2RequestsCommand {
-        return try PredefinedObd2RequestsCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try PredefinedObd2RequestsCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> PredefinedObd2RequestsCommand {
         return try PredefinedObd2RequestsCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8469,7 +8464,7 @@ extension NetworkOperatorSettings: GeneratedMessageProtocol {
         return try NetworkOperatorSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> NetworkOperatorSettings {
-        return try NetworkOperatorSettings.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try NetworkOperatorSettings.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> NetworkOperatorSettings {
         return try NetworkOperatorSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8507,7 +8502,7 @@ extension NetworkOperatorSettings.NetworkDescriptor: GeneratedMessageProtocol {
         return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> NetworkOperatorSettings.NetworkDescriptor {
-        return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> NetworkOperatorSettings.NetworkDescriptor {
         return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8604,7 +8599,7 @@ extension NetworkDataSettings: GeneratedMessageProtocol {
         return try NetworkDataSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> NetworkDataSettings {
-        return try NetworkDataSettings.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try NetworkDataSettings.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> NetworkDataSettings {
         return try NetworkDataSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8661,7 +8656,7 @@ extension ServerConnectSettings: GeneratedMessageProtocol {
         return try ServerConnectSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> ServerConnectSettings {
-        return try ServerConnectSettings.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try ServerConnectSettings.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> ServerConnectSettings {
         return try ServerConnectSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8725,7 +8720,7 @@ extension ModemConfigurationCommand: GeneratedMessageProtocol {
         return try ModemConfigurationCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> ModemConfigurationCommand {
-        return try ModemConfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try ModemConfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> ModemConfigurationCommand {
         return try ModemConfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8796,7 +8791,7 @@ extension RtcconfigurationCommand: GeneratedMessageProtocol {
         return try RtcconfigurationCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> RtcconfigurationCommand {
-        return try RtcconfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try RtcconfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> RtcconfigurationCommand {
         return try RtcconfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8853,7 +8848,7 @@ extension CommandResponse: GeneratedMessageProtocol {
         return try CommandResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> CommandResponse {
-        return try CommandResponse.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try CommandResponse.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> CommandResponse {
         return try CommandResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -8924,7 +8919,7 @@ extension DiagnosticRequest: GeneratedMessageProtocol {
         return try DiagnosticRequest.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> DiagnosticRequest {
-        return try DiagnosticRequest.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try DiagnosticRequest.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> DiagnosticRequest {
         return try DiagnosticRequest.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -9037,7 +9032,7 @@ extension DiagnosticResponse: GeneratedMessageProtocol {
         return try DiagnosticResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> DiagnosticResponse {
-        return try DiagnosticResponse.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try DiagnosticResponse.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> DiagnosticResponse {
         return try DiagnosticResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -9143,7 +9138,7 @@ extension DynamicField: GeneratedMessageProtocol {
         return try DynamicField.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> DynamicField {
-        return try DynamicField.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try DynamicField.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> DynamicField {
         return try DynamicField.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
@@ -9221,7 +9216,7 @@ extension SimpleMessage: GeneratedMessageProtocol {
         return try SimpleMessage.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
     public class func parseFrom(data: Data) throws -> SimpleMessage {
-        return try SimpleMessage.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.default.extensionRegistry).build()
+        return try SimpleMessage.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
     }
     public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> SimpleMessage {
         return try SimpleMessage.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()

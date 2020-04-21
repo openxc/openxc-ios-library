@@ -38,27 +38,15 @@ class NotificationViewController: UIViewController {
     }
     @IBAction func powerDropChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey:"powerDropChange")
-        if sender.isOn {
-        }else{
-            
-        }
     }
     @IBAction func networkDropChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey:"networkDropChange")
-        if sender.isOn {
-        }else{
-            
-        }
     }
 
     /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
     */
 
 }

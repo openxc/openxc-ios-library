@@ -116,7 +116,10 @@ open class Command: NSObject {
         vmlog("in sendCommand:target")
         
         // if we have a trace input file, ignore this request!
-        if (traceFilesourceEnabled) {return ""}
+        if (traceFilesourceEnabled) {
+            return ""
+            
+        }
         
         // save the callback in order, so we know which to call when responses are received
         BLETxSendToken += 1
@@ -137,7 +140,10 @@ open class Command: NSObject {
         vmlog("in sendCommand")
         
         // if we have a trace input file, ignore this request!
-        if (traceFilesourceEnabled) {return}
+        if (traceFilesourceEnabled) {
+            return
+            
+        }
         
         // we still need to keep a spot for the callback in the ordered list, so
         // nothing gets out of sync. Assign the callback to the null callback method.
@@ -170,15 +176,23 @@ open class Command: NSObject {
     
     // common function for sending a VehicleCommandRequest
     fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
-        vmlog("in sendCommandCommon")
         
         if !self.vm.jsonMode {
 
             // in protobuf mode, build the command message
             let cbuild = ControlCommand.Builder()
-            if cmd.command == .version {_ = cbuild.setType(.version)}
-            if cmd.command == .device_id {_ = cbuild.setType(.deviceId)}
-            if cmd.command == .platform {_ = cbuild.setType(.platform)}
+            if cmd.command == .version {
+                _ = cbuild.setType(.version)
+                
+            }
+            if cmd.command == .device_id {
+                _ = cbuild.setType(.deviceId)
+                
+            }
+            if cmd.command == .platform {
+                _ = cbuild.setType(.platform)
+                
+            }
             if cmd.command == .passthrough {
                 let cbuild2 = PassthroughModeControlCommand.Builder()
                 _ = cbuild2.setBus(Int32(cmd.bus))
@@ -195,8 +209,14 @@ open class Command: NSObject {
             }
             if cmd.command == .payload_format {
                 let cbuild2 = PayloadFormatCommand.Builder()
-                if cmd.format == "json" {_ = cbuild2.setFormat(.json)}
-                if cmd.format == "protobuf" {_ = cbuild2.setFormat(.protobuf)}
+                if cmd.format == "json" {
+                    _ = cbuild2.setFormat(.json)
+                    
+                }
+                if cmd.format == "protobuf" {
+                    _ = cbuild2.setFormat(.protobuf)
+                    
+                }
                 _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
                 _ = cbuild.setType(.payloadFormat)
             }
@@ -221,7 +241,10 @@ open class Command: NSObject {
                 _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
                 _ = cbuild.setType(.rtcConfiguration)
             }
-            if cmd.command == .sd_mount_status {_ = cbuild.setType(.sdMountStatus)}
+            if cmd.command == .sd_mount_status {
+                _ = cbuild.setType(.sdMountStatus)
+                
+            }
             
             let mbuild = VehicleMessage.Builder()
             _ = mbuild.setType(.controlCommand)
@@ -312,7 +335,10 @@ open class Command: NSObject {
   open func customCommand(jsonString:String) {
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {return}
+    if (traceFilesourceEnabled) {
+        return
+        
+    }
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
@@ -333,13 +359,10 @@ open class Command: NSObject {
     self.vm.BLETxDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
     
     print("BLETxDataBuffer.count...",self.vm.BLETxDataBuffer.count)
-    print("BLETxDataBuffer...",self.vm.BLETxDataBuffer)
-    
-    self.vm.BLETxDataBuffer = self.vm.BLETxDataBuffer
+    print("BLETxDataBuffer...",self.vm.BLETxDataBuffer as Any)
     
     // trigger a BLE data send
     BluetoothManager.sharedInstance.BLESendFunction()
-   // BLESendFunction()
   }
 
 }

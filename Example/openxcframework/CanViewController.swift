@@ -56,7 +56,6 @@ class CanViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         // create CAN key from measurement message
         let key = String(format:"%x-%x",vr.bus,vr.id)
-        let val = "0x"+(vr.data as String)
         
         // save the CAN key and can message in the dictionary
         canDict.setObject(vr, forKey:key as NSCopying)
