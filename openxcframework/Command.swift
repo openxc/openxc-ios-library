@@ -64,8 +64,6 @@ open class Command: NSObject {
         let instance = Command()
         return instance
     }()
-    fileprivate override init() {
-    }
     
     // config variable determining whether trace input is used instead of BTLE data
     fileprivate var traceFilesourceEnabled: Bool = false

@@ -61,8 +61,6 @@ open class VehicleManager: NSObject {
     let instance = VehicleManager()
     return instance
   }()
-  fileprivate override init() {
-  }
 
 
   // config for outputting debug messages to console
@@ -70,7 +68,6 @@ open class VehicleManager: NSObject {
     
   // config for protobuf vs json BLE mode, defaults to JSON
   public var jsonMode : Bool = true
-  
   // optional variable holding callback for VehicleManager status updates
    var managerCallback: TargetAction?
   
@@ -526,7 +523,8 @@ open class VehicleManager: NSObject {
         BluetoothManager.sharedInstance.BLESendFunction()
 
       } catch {
-        print("cmd msg build failed")
+        print("command message failed")
+        
       }
       
       return
@@ -629,7 +627,7 @@ open class VehicleManager: NSObject {
         BluetoothManager.sharedInstance.BLESendFunction()
         
       } catch {
-        print("cmd msg build failed")
+        print("command build failed")
       }
       
       return

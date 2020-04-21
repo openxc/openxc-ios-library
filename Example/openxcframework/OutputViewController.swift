@@ -29,14 +29,11 @@ class OutputViewController: UIViewController {
         UserDefaults.standard.set(sender.isOn, forKey:"overwriteGPSOn")
         if sender.isOn {
             overwriteGPSswitch.isOn = true
-            self.getVechilegpsData()
         } else {
             overwriteGPSswitch.isOn = false
         }
     }
-    func getVechilegpsData(){
-        
-    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

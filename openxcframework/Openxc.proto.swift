@@ -5,6 +5,8 @@
 
 import Foundation
 import ProtocolBuffers
+
+let errMsg = "Conversion failed."
 public struct OpenxcRoot {
     public static let defaultValue = OpenxcRoot()
     public var extensionRegistry:ExtensionRegistry
@@ -62,7 +64,7 @@ final public class VehicleMessage : GeneratedMessage {
                 case "DIAGNOSTIC":    return .diagnostic
                 case "CONTROL_COMMAND":    return .controlCommand
                 case "COMMAND_RESPONSE":    return .commandResponse
-                default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
                 }
             }
             public var debugDescription:String { return getDescription() }
@@ -850,7 +852,7 @@ final public class CanMessage : GeneratedMessage {
                 case "UNUSED":    return .unused
                 case "STANDARD":    return .standard
                 case "EXTENDED":    return .extended
-                default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
                 }
             }
             public var debugDescription:String { return getDescription() }
@@ -1302,7 +1304,7 @@ final public class ControlCommand : GeneratedMessage {
                 case "RTC_CONFIGURATION":    return .rtcConfiguration
                 case "SD_MOUNT_STATUS":    return .sdMountStatus
                 case "PLATFORM":    return .platform
-                default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
                 }
             }
             public var debugDescription:String { return getDescription() }
@@ -2228,7 +2230,7 @@ final public class DiagnosticControlCommand : GeneratedMessage {
                 case "UNUSED":    return .unused
                 case "ADD":    return .add
                 case "CANCEL":    return .cancel
-                default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
                 }
             }
             public var debugDescription:String { return getDescription() }
@@ -3117,7 +3119,7 @@ final public class PayloadFormatCommand : GeneratedMessage {
                 case "JSON":    return .json
                 case "PROTOBUF":    return .protobuf
                 case "MESSAGEPACK":    return .messagepack
-                default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
                 }
             }
             public var debugDescription:String { return getDescription() }
@@ -3605,7 +3607,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
                     switch str {
                     case "GSM":    return .gsm
                     case "UTRAN":    return .utran
-                    default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                    default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
                     }
                 }
                 public var debugDescription:String { return getDescription() }
@@ -3911,7 +3913,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
                 case "DEREGISTER":    return .deregister
                 case "SET_ONLY":    return .setOnly
                 case "MANUAL_AUTOMATIC":    return .manualAutomatic
-                default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
                 }
             }
             public var debugDescription:String { return getDescription() }
@@ -5784,7 +5786,7 @@ final public class DiagnosticRequest : GeneratedMessage {
                 case "UNUSED":    return .unused
                 case "NONE":    return .none
                 case "OBD2":    return .obd2
-                default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
                 }
             }
             public var debugDescription:String { return getDescription() }
@@ -7077,7 +7079,7 @@ final public class DynamicField : GeneratedMessage {
                 case "STRING":    return .String
                 case "NUM":    return .num
                 case "BOOL":    return .bool
-                default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
                 }
             }
             public var debugDescription:String { return getDescription() }

@@ -42,9 +42,6 @@ open class TraceFileManager: NSObject {
     return TraceFileManager()
     
   }()
-  fileprivate override init() {
-    
-  }
   // private debug log function gated by the debug setting
   fileprivate func vmlog(_ strings:Any...) {
     if managerDebug {
