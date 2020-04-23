@@ -7,6 +7,8 @@ import Foundation
 import ProtocolBuffers
 
 let errMsg = "Conversion failed."
+let errMsgJSON = "Invalid JSON data"
+let msgUnused = ".unused"
 public struct OpenxcRoot {
     public static let defaultValue = OpenxcRoot()
     public var extensionRegistry:ExtensionRegistry
@@ -48,7 +50,7 @@ final public class VehicleMessage : GeneratedMessage {
             case commandResponse = 5
             public func toString() -> String {
                 switch self {
-                case .unused: return "UNUSED"
+                case .unused: return msgUnused
                 case .can: return "CAN"
                 case .simple: return "SIMPLE"
                 case .diagnostic: return "DIAGNOSTIC"
@@ -71,7 +73,7 @@ final public class VehicleMessage : GeneratedMessage {
             public var description:String { return getDescription() }
             private func getDescription() -> String { 
                 switch self {
-                case .unused: return ".unused"
+                case .unused: return msgUnused
                 case .can: return ".can"
                 case .simple: return ".simple"
                 case .diagnostic: return ".diagnostic"
@@ -106,8 +108,6 @@ final public class VehicleMessage : GeneratedMessage {
 
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasType {
@@ -382,7 +382,12 @@ final public class VehicleMessage : GeneratedMessage {
                 canMessageBuilder_ = CanMessage.Builder()
                 builderResult.canMessage = canMessageBuilder_.getMessage()
                 if canMessage != nil {
-                    try! canMessageBuilder_.mergeFrom(other: canMessage)
+                    do{
+                    try canMessageBuilder_.mergeFrom(other: canMessage)
+                    }catch let error {
+                        print("Error: \(error)")
+                        
+                    }
                 }
             }
             return canMessageBuilder_
@@ -436,7 +441,13 @@ final public class VehicleMessage : GeneratedMessage {
                 simpleMessageBuilder_ = SimpleMessage.Builder()
                 builderResult.simpleMessage = simpleMessageBuilder_.getMessage()
                 if simpleMessage != nil {
-                    try! simpleMessageBuilder_.mergeFrom(other: simpleMessage)
+                    do{
+                         try simpleMessageBuilder_.mergeFrom(other: simpleMessage)
+                        
+                    }catch let error {
+                        
+                       print("Error: \(error)")
+                    }
                 }
             }
             return simpleMessageBuilder_
@@ -490,9 +501,13 @@ final public class VehicleMessage : GeneratedMessage {
                 diagnosticResponseBuilder_ = DiagnosticResponse.Builder()
                 builderResult.diagnosticResponse = diagnosticResponseBuilder_.getMessage()
                 if diagnosticResponse != nil {
-                    try! diagnosticResponseBuilder_.mergeFrom(other: diagnosticResponse)
-                }
+                    do {
+                    try diagnosticResponseBuilder_.mergeFrom(other: diagnosticResponse)
+                    }catch let error{
+                        print("Error: \(error)")
+                    }
             }
+        }
             return diagnosticResponseBuilder_
         }
         @discardableResult
@@ -544,7 +559,12 @@ final public class VehicleMessage : GeneratedMessage {
                 controlCommandBuilder_ = ControlCommand.Builder()
                 builderResult.controlCommand = controlCommandBuilder_.getMessage()
                 if controlCommand != nil {
-                    try! controlCommandBuilder_.mergeFrom(other: controlCommand)
+                    do{
+                         try controlCommandBuilder_.mergeFrom(other: controlCommand)
+                    }catch let error{
+                        print("Error: \(error)")
+                    }
+                   
                 }
             }
             return controlCommandBuilder_
@@ -598,7 +618,13 @@ final public class VehicleMessage : GeneratedMessage {
                 commandResponseBuilder_ = CommandResponse.Builder()
                 builderResult.commandResponse = commandResponseBuilder_.getMessage()
                 if commandResponse != nil {
-                    try! commandResponseBuilder_.mergeFrom(other: commandResponse)
+                    do{
+                        try commandResponseBuilder_.mergeFrom(other: commandResponse)
+                        
+                    }catch let error{
+                        print("Error: \(error)")
+                    }
+                    
                 }
             }
             return commandResponseBuilder_
@@ -808,7 +834,7 @@ final public class VehicleMessage : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> VehicleMessage.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try VehicleMessage.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -859,7 +885,7 @@ final public class CanMessage : GeneratedMessage {
             public var description:String { return getDescription() }
             private func getDescription() -> String { 
                 switch self {
-                case .unused: return ".unused"
+                case .unused: return msgUnused
                 case .standard: return ".standard"
                 case .extended: return ".extended"
                 }
@@ -887,8 +913,6 @@ final public class CanMessage : GeneratedMessage {
     public fileprivate(set) var hasFrameFormat:Bool = false
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasBus {
@@ -1229,7 +1253,7 @@ final public class CanMessage : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> CanMessage.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try CanMessage.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -1311,7 +1335,7 @@ final public class ControlCommand : GeneratedMessage {
             public var description:String { return getDescription() }
             private func getDescription() -> String { 
                 switch self {
-                case .unused: return ".unused"
+                case .unused: return msgUnused
                 case .version: return ".version"
                 case .deviceId: return ".deviceId"
                 case .diagnostic: return ".diagnostic"
@@ -1354,8 +1378,7 @@ final public class ControlCommand : GeneratedMessage {
     required public init() {
         super.init()
     }
-    override public func isInitialized() throws {
-    }
+  
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasType {
             try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
@@ -1660,7 +1683,12 @@ final public class ControlCommand : GeneratedMessage {
                 diagnosticRequestBuilder_ = DiagnosticControlCommand.Builder()
                 builderResult.diagnosticRequest = diagnosticRequestBuilder_.getMessage()
                 if diagnosticRequest != nil {
-                    try! diagnosticRequestBuilder_.mergeFrom(other: diagnosticRequest)
+                    do{
+                         try diagnosticRequestBuilder_.mergeFrom(other: diagnosticRequest)
+                    }catch let error{
+                        print("Error: \(error)")
+                    }
+                   
                 }
             }
             return diagnosticRequestBuilder_
@@ -1714,7 +1742,12 @@ final public class ControlCommand : GeneratedMessage {
                 passthroughModeRequestBuilder_ = PassthroughModeControlCommand.Builder()
                 builderResult.passthroughModeRequest = passthroughModeRequestBuilder_.getMessage()
                 if passthroughModeRequest != nil {
-                    try! passthroughModeRequestBuilder_.mergeFrom(other: passthroughModeRequest)
+                    do{
+                        try passthroughModeRequestBuilder_.mergeFrom(other: passthroughModeRequest)
+                    }catch let error{
+                         print("Error: \(error)")
+                    }
+                    
                 }
             }
             return passthroughModeRequestBuilder_
@@ -1768,7 +1801,11 @@ final public class ControlCommand : GeneratedMessage {
                 acceptanceFilterBypassCommandBuilder_ = AcceptanceFilterBypassCommand.Builder()
                 builderResult.acceptanceFilterBypassCommand = acceptanceFilterBypassCommandBuilder_.getMessage()
                 if acceptanceFilterBypassCommand != nil {
-                    try! acceptanceFilterBypassCommandBuilder_.mergeFrom(other: acceptanceFilterBypassCommand)
+                    do{
+                    try acceptanceFilterBypassCommandBuilder_.mergeFrom(other: acceptanceFilterBypassCommand)
+                    }catch let error{
+                         print("Error: \(error)")
+                    }
                 }
             }
             return acceptanceFilterBypassCommandBuilder_
@@ -1822,7 +1859,11 @@ final public class ControlCommand : GeneratedMessage {
                 payloadFormatCommandBuilder_ = PayloadFormatCommand.Builder()
                 builderResult.payloadFormatCommand = payloadFormatCommandBuilder_.getMessage()
                 if payloadFormatCommand != nil {
-                    try! payloadFormatCommandBuilder_.mergeFrom(other: payloadFormatCommand)
+                    do{
+                    try payloadFormatCommandBuilder_.mergeFrom(other: payloadFormatCommand)
+                    }catch let error{
+                         print("Error: \(error)")
+                    }
                 }
             }
             return payloadFormatCommandBuilder_
@@ -1876,7 +1917,11 @@ final public class ControlCommand : GeneratedMessage {
                 predefinedObd2RequestsCommandBuilder_ = PredefinedObd2RequestsCommand.Builder()
                 builderResult.predefinedObd2RequestsCommand = predefinedObd2RequestsCommandBuilder_.getMessage()
                 if predefinedObd2RequestsCommand != nil {
-                    try! predefinedObd2RequestsCommandBuilder_.mergeFrom(other: predefinedObd2RequestsCommand)
+                    do{
+                    try predefinedObd2RequestsCommandBuilder_.mergeFrom(other: predefinedObd2RequestsCommand)
+                    }catch{
+                         print("Error: \(error)")
+                    }
                 }
             }
             return predefinedObd2RequestsCommandBuilder_
@@ -1930,7 +1975,11 @@ final public class ControlCommand : GeneratedMessage {
                 modemConfigurationCommandBuilder_ = ModemConfigurationCommand.Builder()
                 builderResult.modemConfigurationCommand = modemConfigurationCommandBuilder_.getMessage()
                 if modemConfigurationCommand != nil {
-                    try! modemConfigurationCommandBuilder_.mergeFrom(other: modemConfigurationCommand)
+                    do{
+                    try modemConfigurationCommandBuilder_.mergeFrom(other: modemConfigurationCommand)
+                    }catch let error{
+                         print("Error: \(error)")
+                    }
                 }
             }
             return modemConfigurationCommandBuilder_
@@ -1984,7 +2033,11 @@ final public class ControlCommand : GeneratedMessage {
                 rtcConfigurationCommandBuilder_ = RtcconfigurationCommand.Builder()
                 builderResult.rtcConfigurationCommand = rtcConfigurationCommandBuilder_.getMessage()
                 if rtcConfigurationCommand != nil {
-                    try! rtcConfigurationCommandBuilder_.mergeFrom(other: rtcConfigurationCommand)
+                    do{
+                    try rtcConfigurationCommandBuilder_.mergeFrom(other: rtcConfigurationCommand)
+                    }catch{
+                         print("Error: \(error)")
+                    }
                 }
             }
             return rtcConfigurationCommandBuilder_
@@ -2188,7 +2241,7 @@ final public class ControlCommand : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> ControlCommand.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try ControlCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -2237,7 +2290,7 @@ final public class DiagnosticControlCommand : GeneratedMessage {
             public var description:String { return getDescription() }
             private func getDescription() -> String { 
                 switch self {
-                case .unused: return ".unused"
+                case .unused: return msgUnused
                 case .add: return ".add"
                 case .cancel: return ".cancel"
                 }
@@ -2258,8 +2311,6 @@ final public class DiagnosticControlCommand : GeneratedMessage {
     public fileprivate(set) var hasAction:Bool = false
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasRequest {
@@ -2402,7 +2453,12 @@ final public class DiagnosticControlCommand : GeneratedMessage {
                 requestBuilder_ = DiagnosticRequest.Builder()
                 builderResult.request = requestBuilder_.getMessage()
                 if request != nil {
-                    try! requestBuilder_.mergeFrom(other: request)
+                    do{
+                        try requestBuilder_.mergeFrom(other: request)
+                    }catch let error{
+                         print("Error: \(error)")
+                    }
+                   
                 }
             }
             return requestBuilder_
@@ -2541,7 +2597,7 @@ final public class DiagnosticControlCommand : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DiagnosticControlCommand.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try DiagnosticControlCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -2572,8 +2628,7 @@ final public class PassthroughModeControlCommand : GeneratedMessage {
     required public init() {
         super.init()
     }
-    override public func isInitialized() throws {
-    }
+
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasBus {
             try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
@@ -2808,7 +2863,7 @@ final public class PassthroughModeControlCommand : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> PassthroughModeControlCommand.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try PassthroughModeControlCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -2839,8 +2894,7 @@ final public class AcceptanceFilterBypassCommand : GeneratedMessage {
     required public init() {
         super.init()
     }
-    override public func isInitialized() throws {
-    }
+  
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasBus {
             try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
@@ -3075,7 +3129,7 @@ final public class AcceptanceFilterBypassCommand : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> AcceptanceFilterBypassCommand.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try AcceptanceFilterBypassCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -3126,7 +3180,7 @@ final public class PayloadFormatCommand : GeneratedMessage {
             public var description:String { return getDescription() }
             private func getDescription() -> String { 
                 switch self {
-                case .unused: return ".unused"
+                case .unused: return msgUnused
                 case .json: return ".json"
                 case .protobuf: return ".protobuf"
                 case .messagepack: return ".messagepack"
@@ -3147,8 +3201,7 @@ final public class PayloadFormatCommand : GeneratedMessage {
     required public init() {
         super.init()
     }
-    override public func isInitialized() throws {
-    }
+   
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasFormat {
             try codedOutputStream.writeEnum(fieldNumber: 1, value:format.rawValue)
@@ -3337,7 +3390,7 @@ final public class PayloadFormatCommand : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> PayloadFormatCommand.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try PayloadFormatCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -3364,8 +3417,7 @@ final public class PredefinedObd2RequestsCommand : GeneratedMessage {
     required public init() {
         super.init()
     }
-    override public func isInitialized() throws {
-    }
+
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasEnabled {
             try codedOutputStream.writeBool(fieldNumber: 1, value:enabled)
@@ -3549,7 +3601,7 @@ final public class PredefinedObd2RequestsCommand : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> PredefinedObd2RequestsCommand.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try PredefinedObd2RequestsCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -3636,8 +3688,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
         required public init() {
             super.init()
         }
-        override public func isInitialized() throws {
-        }
+    
         override public func writeTo(codedOutputStream: CodedOutputStream) throws {
             if hasPlmn {
                 try codedOutputStream.writeUInt32(fieldNumber: 1, value:plmn)
@@ -3877,7 +3928,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
             override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> NetworkOperatorSettings.NetworkDescriptor.Builder {
                 let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
                 guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                  throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
                 }
                 return try NetworkOperatorSettings.NetworkDescriptor.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
@@ -3946,8 +3997,6 @@ final public class NetworkOperatorSettings : GeneratedMessage {
     public fileprivate(set) var hasNetworkDescriptor:Bool = false
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasAllowDataRoaming {
@@ -4155,7 +4204,11 @@ final public class NetworkOperatorSettings : GeneratedMessage {
                 networkDescriptorBuilder_ = NetworkOperatorSettings.NetworkDescriptor.Builder()
                 builderResult.networkDescriptor = networkDescriptorBuilder_.getMessage()
                 if networkDescriptor != nil {
-                    try! networkDescriptorBuilder_.mergeFrom(other: networkDescriptor)
+                    do{
+                    try networkDescriptorBuilder_.mergeFrom(other: networkDescriptor)
+                    }catch let error{
+                        print("Error: \(error)")
+                    }
                 }
             }
             return networkDescriptorBuilder_
@@ -4278,7 +4331,7 @@ final public class NetworkOperatorSettings : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> NetworkOperatorSettings.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try NetworkOperatorSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -4305,8 +4358,7 @@ final public class NetworkDataSettings : GeneratedMessage {
     required public init() {
         super.init()
     }
-    override public func isInitialized() throws {
-    }
+
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasApn {
             try codedOutputStream.writeString(fieldNumber: 1, value:apn)
@@ -4490,7 +4542,7 @@ final public class NetworkDataSettings : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> NetworkDataSettings.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try NetworkDataSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -4520,8 +4572,6 @@ final public class ServerConnectSettings : GeneratedMessage {
 
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasHost {
@@ -4757,7 +4807,7 @@ final public class ServerConnectSettings : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> ServerConnectSettings.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try ServerConnectSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -4788,8 +4838,6 @@ final public class ModemConfigurationCommand : GeneratedMessage {
     public fileprivate(set) var hasServerConnectSettings:Bool = false
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasNetworkOperatorSettings {
@@ -4963,7 +5011,12 @@ final public class ModemConfigurationCommand : GeneratedMessage {
                 networkOperatorSettingsBuilder_ = NetworkOperatorSettings.Builder()
                 builderResult.networkOperatorSettings = networkOperatorSettingsBuilder_.getMessage()
                 if networkOperatorSettings != nil {
-                    try! networkOperatorSettingsBuilder_.mergeFrom(other: networkOperatorSettings)
+                    do{
+                         try networkOperatorSettingsBuilder_.mergeFrom(other: networkOperatorSettings)
+                    }catch let error{
+                       print("Error: \(error)")
+                    }
+                   
                 }
             }
             return networkOperatorSettingsBuilder_
@@ -5017,7 +5070,12 @@ final public class ModemConfigurationCommand : GeneratedMessage {
                 networkDataSettingsBuilder_ = NetworkDataSettings.Builder()
                 builderResult.networkDataSettings = networkDataSettingsBuilder_.getMessage()
                 if networkDataSettings != nil {
-                    try! networkDataSettingsBuilder_.mergeFrom(other: networkDataSettings)
+                    do{
+                        try networkDataSettingsBuilder_.mergeFrom(other: networkDataSettings)
+                    }catch let error{
+                        print("Error: \(error)")
+                    }
+                   
                 }
             }
             return networkDataSettingsBuilder_
@@ -5071,7 +5129,12 @@ final public class ModemConfigurationCommand : GeneratedMessage {
                 serverConnectSettingsBuilder_ = ServerConnectSettings.Builder()
                 builderResult.serverConnectSettings = serverConnectSettingsBuilder_.getMessage()
                 if serverConnectSettings != nil {
-                    try! serverConnectSettingsBuilder_.mergeFrom(other: serverConnectSettings)
+                    do{
+                         try serverConnectSettingsBuilder_.mergeFrom(other: serverConnectSettings)
+                    }catch let error{
+                        print("Error: \(error)")
+                    }
+                   
                 }
             }
             return serverConnectSettingsBuilder_
@@ -5201,7 +5264,7 @@ final public class ModemConfigurationCommand : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> ModemConfigurationCommand.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try ModemConfigurationCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -5227,8 +5290,6 @@ final public class RtcconfigurationCommand : GeneratedMessage {
 
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasUnixTime {
@@ -5415,7 +5476,7 @@ final public class RtcconfigurationCommand : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> RtcconfigurationCommand.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try RtcconfigurationCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -5448,8 +5509,6 @@ final public class CommandResponse : GeneratedMessage {
 
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasType {
@@ -5737,7 +5796,7 @@ final public class CommandResponse : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> CommandResponse.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try CommandResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -5793,7 +5852,7 @@ final public class DiagnosticRequest : GeneratedMessage {
             public var description:String { return getDescription() }
             private func getDescription() -> String { 
                 switch self {
-                case .unused: return ".unused"
+                case .unused: return msgUnused
                 case .none: return ".none"
                 case .obd2: return ".obd2"
                 }
@@ -5838,8 +5897,6 @@ final public class DiagnosticRequest : GeneratedMessage {
     public fileprivate(set) var hasDecodedType:Bool = false
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasBus {
@@ -6433,7 +6490,7 @@ final public class DiagnosticRequest : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DiagnosticRequest.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try DiagnosticRequest.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -6489,8 +6546,6 @@ final public class DiagnosticResponse : GeneratedMessage {
 
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasBus {
@@ -7032,7 +7087,7 @@ final public class DiagnosticResponse : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DiagnosticResponse.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try DiagnosticResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -7086,7 +7141,7 @@ final public class DynamicField : GeneratedMessage {
             public var description:String { return getDescription() }
             private func getDescription() -> String { 
                 switch self {
-                case .unused: return ".unused"
+                case .unused: return msgUnused
                 case .String: return ".String"
                 case .num: return ".num"
                 case .bool: return ".bool"
@@ -7115,8 +7170,6 @@ final public class DynamicField : GeneratedMessage {
 
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasType {
@@ -7455,7 +7508,7 @@ final public class DynamicField : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DynamicField.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try DynamicField.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
@@ -7487,8 +7540,6 @@ final public class SimpleMessage : GeneratedMessage {
     public fileprivate(set) var hasEvent:Bool = false
     required public init() {
         super.init()
-    }
-    override public func isInitialized() throws {
     }
     override public func writeTo(codedOutputStream: CodedOutputStream) throws {
         if hasName {
@@ -7679,7 +7730,12 @@ final public class SimpleMessage : GeneratedMessage {
                 valueBuilder_ = DynamicField.Builder()
                 builderResult.value = valueBuilder_.getMessage()
                 if value != nil {
-                    try! valueBuilder_.mergeFrom(other: value)
+                    do{
+                        try valueBuilder_.mergeFrom(other: value)
+                    }catch let error{
+                        print("Error: \(error)")
+                    }
+                    
                 }
             }
             return valueBuilder_
@@ -7733,7 +7789,12 @@ final public class SimpleMessage : GeneratedMessage {
                 eventBuilder_ = DynamicField.Builder()
                 builderResult.event = eventBuilder_.getMessage()
                 if event != nil {
-                    try! eventBuilder_.mergeFrom(other: event)
+                    do{
+                        try eventBuilder_.mergeFrom(other: event)
+                    }catch let error{
+                        print("Error: \(error)")
+                    }
+                    
                 }
             }
             return eventBuilder_
@@ -7857,7 +7918,7 @@ final public class SimpleMessage : GeneratedMessage {
         override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> SimpleMessage.Builder {
             let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
             guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
             }
             return try SimpleMessage.Builder.decodeToBuilder(jsonMap:jsDataCast)
         }
