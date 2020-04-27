@@ -137,7 +137,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             self.devidLab.text = "---"
                             self.platformLab.text = "---"
                             self.msgRvcdLab.text = "---"
-                            self.searchBtn.setTitle(wifinotConnected,for:UIControl.State())
+                            self.searchBtn.setTitle(wifiNotConnected,for:UIControl.State())
                             self.searchBtn.isEnabled = false
                             let alertController = UIAlertController(title: "", message:
                                 "please check the host adress", preferredStyle: UIAlertController.Style.alert)
@@ -241,7 +241,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         self.devidLab.text = "---"
                         self.platformLab.text = "---"
                         self.msgRvcdLab.text = "---"
-                        self.searchBtn.setTitle(wifinotConnected,for:UIControl.State())
+                        self.searchBtn.setTitle(wifiNotConnected,for:UIControl.State())
                         self.searchBtn.isEnabled = false
                         let alertController = UIAlertController(title: "", message:
                             "error ocured in connection", preferredStyle: UIAlertController.Style.alert)
