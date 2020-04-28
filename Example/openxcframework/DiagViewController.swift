@@ -76,10 +76,8 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         // extract the status message
         let status = rsp.object(forKey: "status") as! Int
         let msg = VehicleManagerStatusMessage(rawValue: status)
-        if msg==VehicleManagerStatusMessage.c5DISCONNECTED {
-            if (UserDefaults.standard.bool(forKey: "powerDropChange")){
+        if (msg==VehicleManagerStatusMessage.c5DISCONNECTED && UserDefaults.standard.bool(forKey: "powerDropChange")) {
                 powerDrop()
-            }
         }
     }
     @objc func powerDrop(){
@@ -236,16 +234,8 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
                 lastReq.text = "Invalid command : pid should be hex number (with no leading 0x)"
                 return
             }
-        } else {
         }
-        if cmd.pid==nil {
-            
-        } else {
-            
-        }
-        
-        
-        
+
         //TODO: add payload in diag request
         
         if let mload = ploadField.text as String? {

@@ -217,17 +217,13 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
       
       // only find the right kinds of the BLE devices (C5 VI)
       if let advName : String = advertisementData["kCBAdvDataLocalName"] as? String {
-        
-        if advName.uppercased().hasPrefix(OpenXCConstants.C5_VI_NAME_PREFIX) {
           // check to see if we already have this one
           // and save the discovered peripheral
-          if foundOpenXCPeripherals[advName] == nil {
+          if foundOpenXCPeripherals[advName] == nil && advName.uppercased().hasPrefix(OpenXCConstants.C5_VI_NAME_PREFIX) {
             vmlog("FOUND:")
             vmlog(peripheral.identifier.uuidString)
             vmlog(advertisementData["kCBAdvDataLocalName"] as Any)
-            
             foundOpenXCPeripherals[advName] = peripheral
-            
             // notify client if the callback is enabled
             if let act = VehicleManager.sharedInstance.managerCallback {
               act.performAction(["status":VehicleManagerStatusMessage.c5DETECTED.rawValue] as NSDictionary)
@@ -235,7 +231,6 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
             
           }
           
-        }
         else{
           if(foundOpenXCPeripherals.count > 0) && autoConnectPeripheral{
             if isDeviceKey(){
@@ -285,11 +280,6 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     vmlog("in centralManager:didFailToConnectPeripheral:")
   }
   
-  
-  /*  open func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) {
-   vmlog("in centralManager:willRestoreState")
-   }
-   */
   
   // Core Bluetooth has disconnected from BLE peripheral
   open func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -411,11 +401,12 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   
   // Core Bluetooth has data received from a characteristic
   open func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-    // vmlog("in peripheral:didUpdateValueForCharacteristic")
     
     // If we have a trace input file enabled, we need to mask any
     // data coming in from BLE. Just ignore the data by returning early.
-    if TraceFileManager.sharedInstance.traceFilesourceEnabled {return}
+    if TraceFileManager.sharedInstance.traceFilesourceEnabled {
+        return
+    }
     
     // grab the data from the characteristic
     let data = characteristic.value!
@@ -581,8 +572,8 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     let arrOfStr = returnData?.split(separator: "\0")
     let value1 = (arrOfStr?.count)!/5
     let value = tempDataBuffer.length/5
-    let result = String(value)
-    let result1 = String(value1) + " msg," + result + " byte/sec." + String(result2) + " Bytes"
+    let result3 = String(value)
+    let result1 = String(value1) + " msg," + result3 + " byte/sec." + String(result2) + " Bytes"
     tempDataBuffer.setData(NSMutableData() as Data)
     return result1
   }

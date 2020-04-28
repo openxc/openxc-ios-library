@@ -42,7 +42,8 @@ open class VehicleMeasurementResponse : VehicleBaseMessage {
             let nv = value as! NSNumber
             if nv.isEqual(to: NSNumber(value: true as Bool)) {
                 return true
-            } else if nv.isEqual(to: NSNumber(value: false as Bool)) {
+            }
+            if nv.isEqual(to: NSNumber(value: false as Bool)) {
                 return true
             }
         }

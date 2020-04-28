@@ -1,21 +1,14 @@
-//
-//  StatusViewController.swift
-//  openXCenabler
-//
+
 //  Created by Tim Buick on 2016-08-04.
 //  Copyright (c) 2016 Ford Motor Company Licensed under the BSD license.
-//
 
 import UIKit
 import openXCiOSFramework
 
 // TODO: ToDo - Work on removing the warnings
 
-
 class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    
-    
+
     // UI Labels
     @IBOutlet weak var actConLab: UILabel!
     @IBOutlet weak var msgRvcdLab: UILabel!
@@ -123,11 +116,9 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 vm.setThroughput(false)
             }else{
                 
-                if bm.isBleConnected{
-                    if  UserDefaults.standard.bool(forKey: "throughputOn"){
+                if bm.isBleConnected && UserDefaults.standard.bool(forKey: "throughputOn"){
                         vm.setThroughput(true)
                         troughputLoop = Timer.scheduledTimer(timeInterval: 5.0, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
-                    }
                 }
                 print(UserDefaults.standard.bool(forKey: "throughputOn"))
                 
@@ -326,18 +317,17 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             
             // check to see if a trace output file has been configured
-            if UserDefaults.standard.bool(forKey: "traceOutputOn") {
-               //tfm.traceDisableLoopOn = UserDefaults.standard.bool(forKey: "disableTraceLoopOn")
+            if UserDefaults.standard.bool(forKey: "traceOutputOn") && !vm.isTraceFileConnected == true {
                 if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
-                    if !vm.isTraceFileConnected == true{
                         tfm.enableTraceFileSink(name)
-                    }else{
-                        let alertController = UIAlertController (title: "Setting", message: "Please Disable pre record tracefile in data source", preferredStyle: .alert)
-                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
-                        self.present(alertController, animated: true, completion: nil)
-                    }
                 }
             }
+            else{
+                let alertController = UIAlertController (title: "Setting", message: "Please Disable pre record tracefile in data source", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }
+            
             
             // start the VI scan
             bm.scan(completionHandler:{(success) in
@@ -426,11 +416,9 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
             }
         }
-        if msg==VehicleManagerStatusMessage.networkDISCONNECTED {
-            if(!vm.isTraceFileConnected){
-                if (UserDefaults.standard.bool(forKey: "networkDropChange")){
+        if msg==VehicleManagerStatusMessage.networkDISCONNECTED  && !vm.isTraceFileConnected && UserDefaults.standard.bool(forKey: "networkDropChange") {
                     networkDrop()
-                }
+            
                 DispatchQueue.main.async {
                     self.actConLab.text = ""
                     self.verLab.text = "---"
@@ -440,14 +428,10 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.searchBtn.setTitle("WIFI NOT CONNECTED",for:UIControl.State())
                     self.searchBtn.isEnabled = false
                 }
-            }
         }
         // update the UI showing disconnected VI
-        if msg==VehicleManagerStatusMessage.c5DISCONNECTED {
-            if(!vm.isTraceFileConnected){
-                if (UserDefaults.standard.bool(forKey: "powerDropChange")){
+        if msg==VehicleManagerStatusMessage.c5DISCONNECTED && !vm.isTraceFileConnected && UserDefaults.standard.bool(forKey: "powerDropChange") {
                 powerDrop()
-                }
                 
                 DispatchQueue.main.async {
                     self.actConLab.text = "---"
@@ -463,8 +447,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.averageMessageLab.text = "---"
                     
                 }
-                
-            }
         }
         
         // when we see that notify is on, we can send the command requests
