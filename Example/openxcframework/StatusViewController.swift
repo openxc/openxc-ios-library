@@ -341,14 +341,13 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             return
                         }
                         
-                        if UIApplication.shared.canOpenURL(url!) {
-                            if #available(iOS 10.0, *) {
-                                UIApplication.shared.open(url!, completionHandler: { (success) in
+
+                            if #available(iOS 10.0, *),UIApplication.shared.canOpenURL(url!) {
+                               
                                     print("Settings opened: \(success)") // Prints true
-                                    
-                                })
+                                
                             }
-                        }
+                        
                     }
                     alertController.addAction(settingsAction)
                     let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
