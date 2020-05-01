@@ -371,7 +371,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         UserDefaults.standard.set(sender.isOn, forKey:"throughputOn")
     }
     // disableTraceLoop mode switch changed, save it's value
-    @IBAction func disableTraceLoopswitch(_ sender: UISwitch) {
+    @IBAction func disableTraceLoop(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey:"disableTraceLoopOn")
         if(!sender.isOn){
             tfm.traceFileRestart()
