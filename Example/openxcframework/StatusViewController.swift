@@ -347,8 +347,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                     print("Settings opened: \(success)") // Prints true
                                     
                                 })
-                            } else {
-                                // Fallback on earlier versions
                             }
                         }
                     }
@@ -455,22 +453,22 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                let cm = VehicleCommandRequest()
-                cm.command = .version
-                self.cm.sendCommand(cm)
+                let cmd = VehicleCommandRequest()
+                cmd.command = .version
+                self.cm.sendCommand(cmd)
             }
             
             let delayTime2 = DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: delayTime2) {
-                let cm = VehicleCommandRequest()
-                cm.command = .device_id
-                self.cm.sendCommand(cm)
+                let cmd = VehicleCommandRequest()
+                cmd.command = .device_id
+                self.cm.sendCommand(cmd)
             }
             let delayTime3 = DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: delayTime3) {
-                let cm = VehicleCommandRequest()
-                cm.command = .platform
-                self.cm.sendCommand(cm)
+                let cmd = VehicleCommandRequest()
+                cmd.command = .platform
+                self.cm.sendCommand(cmd)
             }
         }
         
@@ -538,10 +536,9 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
      // this function is called when the slit trace button is hit
     @IBAction func onClickSplit(_ sender: UIButton) {
         tfm.disableTraceFileSink()
-        if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
-            if !vm.isTraceFileConnected == true{
+        if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString ,!vm.isTraceFileConnected == true {
+            
                 tfm.enableTraceFileSink(name)
-            }
         }
     }
     
