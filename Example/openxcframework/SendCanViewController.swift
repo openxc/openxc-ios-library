@@ -187,10 +187,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         }
         
         // if the VM isn't operational, don't send anything
-        if bm.connectionState != VehicleManagerConnectionState.operational {
-            lastReq.text = "Not connected to VI"
-            return
-        }
+        self.checkBluetoothconnection()
         
         // create an empty CAN request
         let cmd = VehicleCanRequest()
@@ -245,6 +242,13 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         // update the last request sent label
         lastReq.text = "bus:"+String(cmd.bus)+" id:0x"+idField.text!+" payload:0x"+String(cmd.data)
         
+    }
+    
+    func checkBluetoothconnection(){
+        if bm.connectionState != VehicleManagerConnectionState.operational {
+                lastReq.text = "Not connected to VI"
+                return
+            }
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return (string.containsValidCharacter)

@@ -25,6 +25,7 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
     var dashDict: NSMutableDictionary!
     var vm: VehicleManager!
     var bm : BluetoothManager!
+    var cmd : VehicleDiagnosticRequest!
     // string array holding last X diag responses
     var rspStrings : [String] = []
     
@@ -175,35 +176,16 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         
-        // if the VM isn't operational, don't send anything
-        if bm.connectionState != VehicleManagerConnectionState.operational {
-            lastReq.text = "Not connected to VI"
-            return
-        }
+        self.blutoothCheck()
         
         // create an empty diag request
-        let cmd = VehicleDiagnosticRequest()
+        cmd = VehicleDiagnosticRequest()
         
         // look at segmented control for bus
         cmd.bus = bussel.selectedSegmentIndex + 1
         
         // check that the msg id field is valid
-        if let mid = idField.text as String? {
-            let midtrim = mid.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            if midtrim=="" {
-                lastReq.text = "Invalid command : need a message_id"
-                return
-            }
-            if let midInt = Int(midtrim,radix:16) as NSInteger? {
-                cmd.message_id = midInt
-            } else {
-                lastReq.text = "Invalid command : message_id should be hex number (with no leading 0x)"
-                return
-            }
-        } else {
-            lastReq.text = "Invalid command : need a message_id"
-            return
-        }
+        self.checkMsgIdField(cmd: cmd)
         // check that the mode field is valid
         if let mode = modeField.text as String? {
             let modetrim = mode.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -237,22 +219,7 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         }
 
         //TODO: add payload in diag request
-        
-        if let mload = ploadField.text as String? {
-            let mloadtrim = mload.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            if mloadtrim=="" {
-                // its optional
-            }
-            if mloadtrim.count%2==0 { //payload must be even length
-                
-                let appendedStr = "0x" + mloadtrim
-                
-                cmd.payload = appendedStr as NSString
-            }
-        } else {
-            lastReq.text = "Invalid command : payload should be even length"
-            return
-        }
+        self.addPayload(cmd: cmd)
         
         // Get the Unix timestamp
         let timestamp = NSDate().timeIntervalSince1970
@@ -271,6 +238,50 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
             lastReq.text = lastReq.text!+" payload:"+ploadField.text!
             requestBtn.isEnabled = false
         }
+    }
+    func addPayload(cmd:VehicleDiagnosticRequest)  {
+         // let cmd = VehicleDiagnosticRequest()
+        if let mload = ploadField.text as String? {
+            let mloadtrim = mload.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            if mloadtrim=="" {
+                // its optional
+            }
+            if mloadtrim.count%2==0 { //payload must be even length
+                
+                let appendedStr = "0x" + mloadtrim
+                
+                cmd.payload = appendedStr as NSString
+            }
+        } else {
+            lastReq.text = "Invalid command : payload should be even length"
+            return
+        }
+    }
+    func checkMsgIdField(cmd:VehicleDiagnosticRequest)  {
+        
+            if let mid = idField.text as String? {
+            let midtrim = mid.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            if midtrim=="" {
+                lastReq.text = "Invalid command : need a message_id"
+                return
+            }
+            if let midInt = Int(midtrim,radix:16) as NSInteger? {
+                cmd.message_id = midInt
+            } else {
+                lastReq.text = "Invalid command : message_id should be hex number (with no leading 0x)"
+                return
+            }
+        } else {
+            lastReq.text = "Invalid command : need a message_id"
+            return
+        }
+    }
+    func blutoothCheck()  {
+         // if the VM isn't operational, don't send anything
+               if bm.connectionState != VehicleManagerConnectionState.operational {
+                   lastReq.text = "Not connected to VI"
+                   return
+               }
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return (string.containsValidCharacter)

@@ -201,8 +201,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 return
             }
-        } else{
-            
         }
         
         // check to see if a trace input file has been set up
@@ -297,24 +295,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             // start a timer to update the UI with the total received messages
             timer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(StatusViewController.msgRxdUpdate(_:)), userInfo: nil, repeats: true)
             
-            // check to see if the config is set for autoconnect mode
-            bm.setAutoconnect(false)
-            if UserDefaults.standard.bool(forKey: "autoConnectOn") {
-                bm.setAutoconnect(true)
-            }
-            vm.setThroughput(false)
-            if  UserDefaults.standard.bool(forKey: "throughputOn"){
-                //print(UserDefaults.standard.bool(forKey: "throughputOn"))
-                vm.setThroughput(true)
-                troughputLoop = Timer.scheduledTimer(timeInterval: 5.0, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
-            }
-            // check to see if the config is set for protobuf mode
-            self.vm.setProtobufMode(false)
-            if UserDefaults.standard.bool(forKey: "protobufOn") {
-                self.vm.setProtobufMode(true)
-            }
-            
-            
+           
+            self.updateStatus()
             
             // check to see if a trace output file has been configured
             if UserDefaults.standard.bool(forKey: "traceOutputOn") && !vm.isTraceFileConnected == true {
@@ -334,29 +316,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 // update the UI
                 if(!success){
-                    let alertController = UIAlertController (title: "Setting", message: "Please enable Bluetooth", preferredStyle: .alert)
-                    let url = URL(string: "App-Prefs:root=Bluetooth")
-                    let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
-                        guard URL(string: UIApplication.openSettingsURLString) != nil else {
-                            return
-                        }
-                        
-                        if UIApplication.shared.canOpenURL(url!) {
-                            if #available(iOS 10.0, *) {
-                                UIApplication.shared.open(url!, completionHandler: { (success) in
-                                    print("Settings opened: \(success)") // Prints true
-                                    
-                                })
-                            } else {
-                                // Fallback on earlier versions
-                            }
-                        }
-                    }
-                    alertController.addAction(settingsAction)
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-                    alertController.addAction(cancelAction)
-                    
-                    self.present(alertController, animated: true, completion: nil)
+                    self.updateBleStatus()
                 }
                 DispatchQueue.main.async {
                     self.actConLab.text = "❓"
@@ -367,7 +327,50 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
     }
-    
+    func updateStatus(){
+        // check to see if the config is set for autoconnect mode
+                   bm.setAutoconnect(false)
+                   if UserDefaults.standard.bool(forKey: "autoConnectOn") {
+                       bm.setAutoconnect(true)
+                   }
+                   vm.setThroughput(false)
+                   if  UserDefaults.standard.bool(forKey: "throughputOn"){
+                       //print(UserDefaults.standard.bool(forKey: "throughputOn"))
+                       vm.setThroughput(true)
+                       troughputLoop = Timer.scheduledTimer(timeInterval: 5.0, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
+                   }
+                   // check to see if the config is set for protobuf mode
+                   self.vm.setProtobufMode(false)
+                   if UserDefaults.standard.bool(forKey: "protobufOn") {
+                       self.vm.setProtobufMode(true)
+                   }
+                   
+    }
+    func updateBleStatus(){
+        let alertController = UIAlertController (title: "Setting", message: "Please enable Bluetooth", preferredStyle: .alert)
+                           let url = URL(string: "App-Prefs:root=Bluetooth")
+                           let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+                               guard URL(string: UIApplication.openSettingsURLString) != nil else {
+                                   return
+                               }
+                               
+                               if UIApplication.shared.canOpenURL(url!) {
+                                   if #available(iOS 10.0, *) {
+                                       UIApplication.shared.open(url!, completionHandler: { (success) in
+                                           print("Settings opened: \(success)") // Prints true
+                                           
+                                       })
+                                   } else {
+                                       // Fallback on earlier versions
+                                   }
+                               }
+                           }
+                           alertController.addAction(settingsAction)
+                           let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+                           alertController.addAction(cancelAction)
+                           
+                           self.present(alertController, animated: true, completion: nil)
+    }
     // this function receives all status updates from the VM
     func manager_status_updates(_ rsp:NSDictionary) {
         let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")

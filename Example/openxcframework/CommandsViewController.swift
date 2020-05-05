@@ -293,45 +293,50 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         if cr.command_response.isEqual(to: "version") || cr.command_response.isEqual(to: ".version") {
             versionResp = cr.message as String
         }
-        else if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
+       if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
             deviceIdResp = cr.message as String
         }
         
-        else if cr.command_response.isEqual(to: "passthrough") || cr.command_response.isEqual(to: ".passthrough"){
+        if cr.command_response.isEqual(to: "passthrough") || cr.command_response.isEqual(to: ".passthrough"){
             passthroughResp = String(cr.status)
         }
         
-        else if cr.command_response.isEqual(to: "af_bypass") || cr.command_response.isEqual(to: ".acceptancefilterbypass") {
+         if cr.command_response.isEqual(to: "af_bypass") || cr.command_response.isEqual(to: ".acceptancefilterbypass") {
             accFilterBypassResp = String(cr.status)
         }
+        self.handleCommandResponse(cr: cr)
         
-       else if cr.command_response.isEqual(to: "payload_format") || cr.command_response.isEqual(to: ".payloadformat") {
-            if(cr.status && !vm.jsonMode && !isJsonFormat){
-                    vm.setProtobufMode(false)
-                    UserDefaults.standard.set(false, forKey:"protobufOn")
-                
-            }else{
-                vm.setProtobufMode(true)
-                UserDefaults.standard.set(true, forKey:"protobufOn")
-            }
-            payloadFormatResp = String(cr.status)
-            isJsonFormat = vm.jsonMode
-        }
-        else if cr.command_response.isEqual(to: "platform") || cr.command_response.isEqual(to: ".platform"){
-            platformResp = cr.message as String
-        }
-        else if cr.command_response.isEqual(to: "rtc_configuration") || cr.command_response.isEqual(to: ".rtcconfiguration") {
-            rtcConfigResp = String(cr.status)
-        }
-        else if cr.command_response.isEqual(to: "sd_mount_status") || cr.command_response.isEqual(to: ".sdmountStatus") || cr.command_response.isEqual(to: ".sdMountStatus"){
-            sdCardResp = String(cr.status)
-        }else{
-            customCommandResp = String(cr.message)
-        }
-        // update the label
-        DispatchQueue.main.async {
-            self.populateCommandResponseLabel(rowNum: self.selectedRowInPicker)
-        }
+      
+    }
+    func handleCommandResponse(cr:VehicleCommandResponse){
+        
+        if cr.command_response.isEqual(to: "payload_format") || cr.command_response.isEqual(to: ".payloadformat") {
+                   if(cr.status && !vm.jsonMode && !isJsonFormat){
+                           vm.setProtobufMode(false)
+                           UserDefaults.standard.set(false, forKey:"protobufOn")
+                       
+                   }else{
+                       vm.setProtobufMode(true)
+                       UserDefaults.standard.set(true, forKey:"protobufOn")
+                   }
+                   payloadFormatResp = String(cr.status)
+                   isJsonFormat = vm.jsonMode
+               }
+                if cr.command_response.isEqual(to: "platform") || cr.command_response.isEqual(to: ".platform"){
+                   platformResp = cr.message as String
+               }
+               if cr.command_response.isEqual(to: "rtc_configuration") || cr.command_response.isEqual(to: ".rtcconfiguration") {
+                   rtcConfigResp = String(cr.status)
+               }
+                if cr.command_response.isEqual(to: "sd_mount_status") || cr.command_response.isEqual(to: ".sdmountStatus") || cr.command_response.isEqual(to: ".sdMountStatus"){
+                   sdCardResp = String(cr.status)
+               }else{
+                   customCommandResp = String(cr.message)
+               }
+               // update the label
+               DispatchQueue.main.async {
+                   self.populateCommandResponseLabel(rowNum: self.selectedRowInPicker)
+               }
     }
     
     @objc func sendTraceURLData(rsp:NSDictionary) {

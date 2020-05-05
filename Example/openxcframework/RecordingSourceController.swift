@@ -76,7 +76,12 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         if let name = UserDefaults.standard.value(forKey: "traceURLbasename") as? NSString {
             traceURLname.text = name as String
         }
-        // at first run, get a random dweet name
+        
+        self.checkDweetFile()
+    }
+    
+    func checkDweetFile()  {
+                // at first run, get a random dweet name
         if UserDefaults.standard.string(forKey: "dweetname") == nil {
             let name : NSMutableString = ""
             
@@ -138,7 +143,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
             dweetname.isHidden = false
             dweetnamelabel.isHidden = false
         }
-        
+
     }
     // the trace output enabled switch changed, save it's new value
     // and show or hide the text field for filename accordingly
