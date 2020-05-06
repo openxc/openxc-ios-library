@@ -78,11 +78,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @objc func sendTraceURLData() {
-        if UserDefaults.standard.bool(forKey: "uploadTaraceOn")  && dashDict.allKeys.count>0 {
-            if let urlname = (UserDefaults.standard.value(forKey: "traceURLname") as? String) {
+        if let urlname = (UserDefaults.standard.value(forKey: "traceURLname") as? String), UserDefaults.standard.bool(forKey: "uploadTaraceOn")  && dashDict.allKeys.count>0 {
                 
                     vm.sendTraceURLData(urlName:urlname,rspdict: dashDict,isdrrsp:false)
-            }
         }
         
         
@@ -238,7 +236,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 cell!.detailTextLabel?.text = (valueMeasure as! String)
             }
         } else {
-            // if valueMeasurement is NSNumber {
+           
             let floatvalue = (v as AnyObject).doubleValue
             let nvr = Double(round(10.0*Double(floatvalue!))/10)
             if nvr != 0.0{

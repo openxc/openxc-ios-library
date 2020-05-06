@@ -213,10 +213,9 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   // Core Bluetooth has discovered a BLE peripheral
   open func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
   
-    if openXCPeripheral == nil {
+    if openXCPeripheral == nil, let advName : String = advertisementData["kCBAdvDataLocalName"] as? String {
       
       // only find the right kinds of the BLE devices (C5 VI)
-      if let advName : String = advertisementData["kCBAdvDataLocalName"] as? String {
           // check to see if we already have this one
           // and save the discovered peripheral
           if foundOpenXCPeripherals[advName] == nil && advName.uppercased().hasPrefix(OpenXCConstants.C5_VI_NAME_PREFIX) {
@@ -234,7 +233,7 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
         else{
             self.checkDevice()
         }
-      }
+      
      
     }
   

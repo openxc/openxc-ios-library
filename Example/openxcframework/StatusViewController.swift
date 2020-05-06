@@ -329,6 +329,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 // update the UI
                 if(!success){
                     self.updateBleStatus()
+
                 }
                 DispatchQueue.main.async {
                     self.actConLab.text = "❓"
@@ -446,22 +447,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         // update the UI showing disconnected VI
         if msg==VehicleManagerStatusMessage.c5DISCONNECTED && !vm.isTraceFileConnected && UserDefaults.standard.bool(forKey: "powerDropChange") {
-                powerDrop()
-                
-                DispatchQueue.main.async {
-                    self.actConLab.text = "---"
-                    self.msgRvcdLab.text = "---"
-                    self.verLab.text = "---"
-                    self.devidLab.text = "---"
-                    self.platformLab.text = "---"
-                    self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControl.State())
-                    self.disconnectBtn.isHidden = true
-                    self.splitTraceBtn.isHidden = true
-                    self.startStopBtn.isHidden = true
-                    self.throughputLab.text = "---"
-                    self.averageMessageLab.text = "---"
-                    
-                }
+            self.powerDrop()
+            self.updateUi()
         }
         
         // when we see that notify is on, we can send the command requests
@@ -470,22 +457,22 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             let delayTime = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: delayTime) {
-                let cm = VehicleCommandRequest()
-                cm.command = .version
-                self.cm.sendCommand(cm)
+                let cmd = VehicleCommandRequest()
+                cmd.command = .version
+                self.cm.sendCommand(cmd)
             }
             
             let delayTime2 = DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: delayTime2) {
-                let cm = VehicleCommandRequest()
-                cm.command = .device_id
-                self.cm.sendCommand(cm)
+                let cmd = VehicleCommandRequest()
+                cmd.command = .device_id
+                self.cm.sendCommand(cmd)
             }
             let delayTime3 = DispatchTime.now() + Double(Int64(0.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             DispatchQueue.main.asyncAfter(deadline: delayTime3) {
-                let cm = VehicleCommandRequest()
-                cm.command = .platform
-                self.cm.sendCommand(cm)
+                let cmd = VehicleCommandRequest()
+                cmd.command = .platform
+                self.cm.sendCommand(cmd)
             }
         }
         
@@ -553,10 +540,9 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
      // this function is called when the slit trace button is hit
     @IBAction func onClickSplit(_ sender: UIButton) {
         tfm.disableTraceFileSink()
-        if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
-            if !vm.isTraceFileConnected == true{
+        if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString ,!vm.isTraceFileConnected == true {
+            
                 tfm.enableTraceFileSink(name)
-            }
         }
     }
     
@@ -569,7 +555,26 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // make sure we're not already connected first
         if (bm.isBleConnected) {
             bm.disconnect()
+            self.updateUi()
+           
         }
+    }
+    
+    func updateUi() {
+               DispatchQueue.main.async {
+                       self.actConLab.text = "---"
+                       self.msgRvcdLab.text = "---"
+                       self.verLab.text = "---"
+                       self.devidLab.text = "---"
+                       self.platformLab.text = "---"
+                       self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControl.State())
+                       self.disconnectBtn.isHidden = true
+                       self.splitTraceBtn.isHidden = true
+                       self.startStopBtn.isHidden = true
+                       self.throughputLab.text = "---"
+                       self.averageMessageLab.text = "---"
+                       
+                   }
     }
     // this function is called when the Restart trace button is hit
     @IBAction func restartTraceHit(_ sender: UIButton) {
