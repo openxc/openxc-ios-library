@@ -830,42 +830,46 @@ open class VehicleManager: NSObject {
     
     rsp.name = name
     
-    if msg.simpleMessage.value.hasStringValue {
-        rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
-    if msg.simpleMessage.value.hasBooleanValue {
-        rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
-    if msg.simpleMessage.value.hasNumericValue {
-        rsp.value = msg.simpleMessage.value.numericValue as AnyObject}
-    if msg.simpleMessage.hasEvent {
-      rsp.isEvented = true
-      if msg.simpleMessage.event.hasStringValue {
-        rsp.event = msg.simpleMessage.event.stringValue as AnyObject}
-      if msg.simpleMessage.event.hasBooleanValue {
-        rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
-      if msg.simpleMessage.event.hasNumericValue {
-        rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
-    }
-    
-    // capture this message into the dictionary of latest messages
-    latestVehicleMeasurements[name] = rsp
-    
-    // look for a specific callback for this measurement name
-    var found=false
-    for key in measurementCallbacks.keys {
-      let act = measurementCallbacks[key]
-      if act!.returnKey() == name {
-        found=true
-        act!.performAction(["vehiclemessage":rsp] as NSDictionary)
+      if msg.simpleMessage.value.hasStringValue {
+          rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
+      if msg.simpleMessage.value.hasBooleanValue {
+          rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
+      if msg.simpleMessage.value.hasNumericValue {
+          rsp.value = msg.simpleMessage.value.numericValue as AnyObject}
+      if msg.simpleMessage.hasEvent {
+        rsp.isEvented = true
+        if msg.simpleMessage.event.hasStringValue {
+          rsp.event = msg.simpleMessage.event.stringValue as AnyObject}
+        if msg.simpleMessage.event.hasBooleanValue {
+          rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
+        if msg.simpleMessage.event.hasNumericValue {
+          rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
       }
-    }
-    // otherwise use the default callback if it exists
-    if !found , let act = defaultMeasurementCallback {
-      
-        act.performAction(["vehiclemessage":rsp] as NSDictionary)
+   
     
-    }
     
   }
+    fileprivate func protoSimpleMsgCheck(rsp : VehicleMeasurementResponse, name:NSString){
+        
+        // capture this message into the dictionary of latest messages
+        latestVehicleMeasurements[name] = rsp
+        
+        // look for a specific callback for this measurement name
+        var found=false
+        for key in measurementCallbacks.keys {
+          let act = measurementCallbacks[key]
+          if act!.returnKey() == name {
+            found=true
+            act!.performAction(["vehiclemessage":rsp] as NSDictionary)
+          }
+        }
+        // otherwise use the default callback if it exists
+        if !found , let act = defaultMeasurementCallback {
+          
+            act.performAction(["vehiclemessage":rsp] as NSDictionary)
+        
+        }
+    }
   
    fileprivate func protobufCommandResponse(msg : VehicleMessage){
 

@@ -428,22 +428,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         // update the UI showing disconnected VI
         if msg==VehicleManagerStatusMessage.c5DISCONNECTED && !vm.isTraceFileConnected && UserDefaults.standard.bool(forKey: "powerDropChange") {
-                powerDrop()
-                
-                DispatchQueue.main.async {
-                    self.actConLab.text = "---"
-                    self.msgRvcdLab.text = "---"
-                    self.verLab.text = "---"
-                    self.devidLab.text = "---"
-                    self.platformLab.text = "---"
-                    self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControl.State())
-                    self.disconnectBtn.isHidden = true
-                    self.splitTraceBtn.isHidden = true
-                    self.startStopBtn.isHidden = true
-                    self.throughputLab.text = "---"
-                    self.averageMessageLab.text = "---"
-                    
-                }
+            self.powerDrop()
+            self.updateUi()
         }
         
         // when we see that notify is on, we can send the command requests
@@ -550,7 +536,26 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // make sure we're not already connected first
         if (bm.isBleConnected) {
             bm.disconnect()
+            self.updateUi()
+           
         }
+    }
+    
+    func updateUi() {
+               DispatchQueue.main.async {
+                       self.actConLab.text = "---"
+                       self.msgRvcdLab.text = "---"
+                       self.verLab.text = "---"
+                       self.devidLab.text = "---"
+                       self.platformLab.text = "---"
+                       self.searchBtn.setTitle("SEARCH FOR BLE VI",for:UIControl.State())
+                       self.disconnectBtn.isHidden = true
+                       self.splitTraceBtn.isHidden = true
+                       self.startStopBtn.isHidden = true
+                       self.throughputLab.text = "---"
+                       self.averageMessageLab.text = "---"
+                       
+                   }
     }
     // this function is called when the Restart trace button is hit
     @IBAction func restartTraceHit(_ sender: UIButton) {
