@@ -806,11 +806,10 @@ open class VehicleManager: NSObject {
         
       }
       
-      if (!decoded) {
+      if (!decoded) , let act = managerCallback {
         // should never get here!
-        if let act = managerCallback {
           act.performAction(["status":VehicleManagerStatusMessage.ble_RX_DATA_PARSE_ERROR.rawValue] as NSMutableDictionary)
-        }
+        
       }
     } catch {
       //self.jsonMode = true
@@ -831,42 +830,46 @@ open class VehicleManager: NSObject {
     
     rsp.name = name
     
-    if msg.simpleMessage.value.hasStringValue {
-        rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
-    if msg.simpleMessage.value.hasBooleanValue {
-        rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
-    if msg.simpleMessage.value.hasNumericValue {
-        rsp.value = msg.simpleMessage.value.numericValue as AnyObject}
-    if msg.simpleMessage.hasEvent {
-      rsp.isEvented = true
-      if msg.simpleMessage.event.hasStringValue {
-        rsp.event = msg.simpleMessage.event.stringValue as AnyObject}
-      if msg.simpleMessage.event.hasBooleanValue {
-        rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
-      if msg.simpleMessage.event.hasNumericValue {
-        rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
-    }
-    
-    // capture this message into the dictionary of latest messages
-    latestVehicleMeasurements[name] = rsp
-    
-    // look for a specific callback for this measurement name
-    var found=false
-    for key in measurementCallbacks.keys {
-      let act = measurementCallbacks[key]
-      if act!.returnKey() == name {
-        found=true
-        act!.performAction(["vehiclemessage":rsp] as NSDictionary)
+      if msg.simpleMessage.value.hasStringValue {
+          rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
+      if msg.simpleMessage.value.hasBooleanValue {
+          rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
+      if msg.simpleMessage.value.hasNumericValue {
+          rsp.value = msg.simpleMessage.value.numericValue as AnyObject}
+      if msg.simpleMessage.hasEvent {
+        rsp.isEvented = true
+        if msg.simpleMessage.event.hasStringValue {
+          rsp.event = msg.simpleMessage.event.stringValue as AnyObject}
+        if msg.simpleMessage.event.hasBooleanValue {
+          rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
+        if msg.simpleMessage.event.hasNumericValue {
+          rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
       }
-    }
-    // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultMeasurementCallback {
-        act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
-    }
+   
+    
     
   }
+    fileprivate func protoSimpleMsgCheck(rsp : VehicleMeasurementResponse, name:NSString){
+        
+        // capture this message into the dictionary of latest messages
+        latestVehicleMeasurements[name] = rsp
+        
+        // look for a specific callback for this measurement name
+        var found=false
+        for key in measurementCallbacks.keys {
+          let act = measurementCallbacks[key]
+          if act!.returnKey() == name {
+            found=true
+            act!.performAction(["vehiclemessage":rsp] as NSDictionary)
+          }
+        }
+        // otherwise use the default callback if it exists
+        if !found , let act = defaultMeasurementCallback {
+          
+            act.performAction(["vehiclemessage":rsp] as NSDictionary)
+        
+        }
+    }
   
    fileprivate func protobufCommandResponse(msg : VehicleMessage){
 
@@ -929,15 +932,14 @@ open class VehicleManager: NSObject {
     }
     
     // TODO: debug printouts, maybe remove
-    if rsp.value != nil {
-      if rsp.pid != nil {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ?? 0) success:\(rsp.success) value:\(rsp.value ?? 0)")
-      } else {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.value ?? 0)")
-      }
+    if rsp.value != nil && rsp.pid != nil  {
+        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ) success:\(rsp.success) value:\(rsp.value )")
+     
+        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.value )")
+
     } else {
       if rsp.pid != nil {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ?? 0) success:\(rsp.success) payload:\(rsp.payload)")
+        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ) success:\(rsp.success) payload:\(rsp.payload)")
       } else {
         vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.payload)")
       }
@@ -954,10 +956,9 @@ open class VehicleManager: NSObject {
       }
     }
     // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultDiagCallback {
+    if !found ,let act = defaultDiagCallback {
+        
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
     }
   }
   
@@ -988,10 +989,10 @@ open class VehicleManager: NSObject {
       }
     }
     // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultCanCallback {
+    if !found , let act = defaultCanCallback {
+     
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
+     
     }
   }
   
@@ -1143,10 +1144,10 @@ open class VehicleManager: NSObject {
       }
     }
     // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultMeasurementCallback {
+    if !found, let act = defaultMeasurementCallback {
+    
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
+      
     }
   }
   
@@ -1180,10 +1181,10 @@ open class VehicleManager: NSObject {
       }
     }
     // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultMeasurementCallback {
+    if !found,let act = defaultMeasurementCallback {
+      
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
+      
     }
   }
   
@@ -1277,11 +1278,11 @@ open class VehicleManager: NSObject {
         }
       }
       // otherwise use the default callback if it exists
-      if !found {
-        if let act = defaultCanCallback {
+      if !found , let act = defaultCanCallback{
+        
           act.performAction(["vehiclemessage":rsp] as NSDictionary)
 
-        }
+        
       }
       
     } else {
@@ -1331,11 +1332,11 @@ open class VehicleManager: NSObject {
     rsp.value = value!
     
      //Adde for NRC fix
-    if(!success){
+    if(!success) ,let nrcX = json["negative_response_code"] as? NSInteger{
       //success false, parse negative response code. For DID commands.
-      if let nrcX = json["negative_response_code"] as? NSInteger{
+      
         rsp.negative_response_code = nrcX
-      }
+      
     }
     
     // build the key that identifies this diagnostic response
@@ -1366,10 +1367,9 @@ open class VehicleManager: NSObject {
       }
     }
     // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultDiagCallback {
+    if !found ,let act = defaultDiagCallback{
+      
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
 
     }
   }

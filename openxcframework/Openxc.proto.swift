@@ -141,30 +141,30 @@ final public class VehicleMessage : GeneratedMessage {
         if (hasType) {
             serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
         }
-        if hasCanMessage {
-            if let varSizecanMessage = canMessage?.computeMessageSize(fieldNumber: 2) {
+        if hasCanMessage,let varSizecanMessage = canMessage?.computeMessageSize(fieldNumber: 2) {
+            
                 serialize_size += varSizecanMessage
-            }
+            
         }
-        if hasSimpleMessage {
-            if let varSizesimpleMessage = simpleMessage?.computeMessageSize(fieldNumber: 3) {
+        if hasSimpleMessage,let varSizesimpleMessage = simpleMessage?.computeMessageSize(fieldNumber: 3) {
+           
                 serialize_size += varSizesimpleMessage
-            }
+            
         }
-        if hasDiagnosticResponse {
-            if let varSizediagnosticResponse = diagnosticResponse?.computeMessageSize(fieldNumber: 4) {
+        if hasDiagnosticResponse,let varSizediagnosticResponse = diagnosticResponse?.computeMessageSize(fieldNumber: 4) {
+            
                 serialize_size += varSizediagnosticResponse
-            }
+            
         }
-        if hasControlCommand {
-            if let varSizecontrolCommand = controlCommand?.computeMessageSize(fieldNumber: 5) {
+        if hasControlCommand,let varSizecontrolCommand = controlCommand?.computeMessageSize(fieldNumber: 5) {
+           
                 serialize_size += varSizecontrolCommand
-            }
+           
         }
-        if hasCommandResponse {
-            if let varSizecommandResponse = commandResponse?.computeMessageSize(fieldNumber: 6) {
+        if hasCommandResponse,let varSizecommandResponse = commandResponse?.computeMessageSize(fieldNumber: 6) {
+            
                 serialize_size += varSizecommandResponse
-            }
+           
         }
         if hasTimestamp {
             serialize_size += timestamp.computeUInt64Size(fieldNumber: 7)
@@ -275,30 +275,30 @@ final public class VehicleMessage : GeneratedMessage {
             if hasType {
                  hashCode = (hashCode &* 31) &+ type.hashValue
             }
-            if hasCanMessage {
-                if let hashValuecanMessage = canMessage?.hashValue {
+            if hasCanMessage,let hashValuecanMessage = canMessage?.hashValue {
+              
                     hashCode = (hashCode &* 31) &+ hashValuecanMessage
-                }
+                
             }
-            if hasSimpleMessage {
-                if let hashValuesimpleMessage = simpleMessage?.hashValue {
+            if hasSimpleMessage,let hashValuesimpleMessage = simpleMessage?.hashValue {
+                
                     hashCode = (hashCode &* 31) &+ hashValuesimpleMessage
-                }
+               
             }
-            if hasDiagnosticResponse {
-                if let hashValuediagnosticResponse = diagnosticResponse?.hashValue {
+            if hasDiagnosticResponse,let hashValuediagnosticResponse = diagnosticResponse?.hashValue {
+                
                     hashCode = (hashCode &* 31) &+ hashValuediagnosticResponse
-                }
+               
             }
-            if hasControlCommand {
-                if let hashValuecontrolCommand = controlCommand?.hashValue {
+            if hasControlCommand,let hashValuecontrolCommand = controlCommand?.hashValue {
+             
                     hashCode = (hashCode &* 31) &+ hashValuecontrolCommand
-                }
+                
             }
-            if hasCommandResponse {
-                if let hashValuecommandResponse = commandResponse?.hashValue {
+            if hasCommandResponse,let hashValuecommandResponse = commandResponse?.hashValue {
+                
                     hashCode = (hashCode &* 31) &+ hashValuecommandResponse
-                }
+                
             }
             if hasTimestamp {
                 hashCode = (hashCode &* 31) &+ timestamp.hashValue
@@ -1391,40 +1391,40 @@ final public class ControlCommand : GeneratedMessage {
         if (hasType) {
             serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
         }
-        if hasDiagnosticRequest {
-            if let varSizediagnosticRequest = diagnosticRequest?.computeMessageSize(fieldNumber: 2) {
+        if hasDiagnosticRequest,let varSizediagnosticRequest = diagnosticRequest?.computeMessageSize(fieldNumber: 2) {
+          
                 serialize_size += varSizediagnosticRequest
-            }
+         
         }
-        if hasPassthroughModeRequest {
-            if let varSizepassthroughModeRequest = passthroughModeRequest?.computeMessageSize(fieldNumber: 3) {
+        if hasPassthroughModeRequest,let varSizepassthroughModeRequest = passthroughModeRequest?.computeMessageSize(fieldNumber: 3) {
+            
                 serialize_size += varSizepassthroughModeRequest
-            }
+        
         }
-        if hasAcceptanceFilterBypassCommand {
-            if let varSizeacceptanceFilterBypassCommand = acceptanceFilterBypassCommand?.computeMessageSize(fieldNumber: 4) {
+        if hasAcceptanceFilterBypassCommand,let varSizeacceptanceFilterBypassCommand = acceptanceFilterBypassCommand?.computeMessageSize(fieldNumber: 4) {
+           
                 serialize_size += varSizeacceptanceFilterBypassCommand
-            }
+          
         }
-        if hasPayloadFormatCommand {
-            if let varSizepayloadFormatCommand = payloadFormatCommand?.computeMessageSize(fieldNumber: 5) {
+        if hasPayloadFormatCommand,let varSizepayloadFormatCommand = payloadFormatCommand?.computeMessageSize(fieldNumber: 5) {
+            
                 serialize_size += varSizepayloadFormatCommand
-            }
+         
         }
-        if hasPredefinedObd2RequestsCommand {
-            if let varSizepredefinedObd2RequestsCommand = predefinedObd2RequestsCommand?.computeMessageSize(fieldNumber: 6) {
+        if hasPredefinedObd2RequestsCommand,let varSizepredefinedObd2RequestsCommand = predefinedObd2RequestsCommand?.computeMessageSize(fieldNumber: 6) {
+          
                 serialize_size += varSizepredefinedObd2RequestsCommand
-            }
+          
         }
-        if hasModemConfigurationCommand {
-            if let varSizemodemConfigurationCommand = modemConfigurationCommand?.computeMessageSize(fieldNumber: 7) {
+        if hasModemConfigurationCommand,let varSizemodemConfigurationCommand = modemConfigurationCommand?.computeMessageSize(fieldNumber: 7) {
+           
                 serialize_size += varSizemodemConfigurationCommand
-            }
+         
         }
-        if hasRtcConfigurationCommand {
-            if let varSizertcConfigurationCommand = rtcConfigurationCommand?.computeMessageSize(fieldNumber: 8) {
+        if hasRtcConfigurationCommand,let varSizertcConfigurationCommand = rtcConfigurationCommand?.computeMessageSize(fieldNumber: 8) {
+    
                 serialize_size += varSizertcConfigurationCommand
-            }
+         
         }
         serialize_size += unknownFields.serializedSize()
         memoizedSerializedSize = serialize_size
@@ -1546,40 +1546,40 @@ final public class ControlCommand : GeneratedMessage {
             if hasType {
                  hashCode = (hashCode &* 31) &+ type.hashValue
             }
-            if hasDiagnosticRequest {
-                if let hashValuediagnosticRequest = diagnosticRequest?.hashValue {
+            if hasDiagnosticRequest,let hashValuediagnosticRequest = diagnosticRequest?.hashValue {
+               
                     hashCode = (hashCode &* 31) &+ hashValuediagnosticRequest
-                }
+                
             }
-            if hasPassthroughModeRequest {
-                if let hashValuepassthroughModeRequest = passthroughModeRequest?.hashValue {
+            if hasPassthroughModeRequest,let hashValuepassthroughModeRequest = passthroughModeRequest?.hashValue {
+                
                     hashCode = (hashCode &* 31) &+ hashValuepassthroughModeRequest
-                }
+
             }
-            if hasAcceptanceFilterBypassCommand {
-                if let hashValueacceptanceFilterBypassCommand = acceptanceFilterBypassCommand?.hashValue {
+            if hasAcceptanceFilterBypassCommand,let hashValueacceptanceFilterBypassCommand = acceptanceFilterBypassCommand?.hashValue {
+    
                     hashCode = (hashCode &* 31) &+ hashValueacceptanceFilterBypassCommand
-                }
+
             }
-            if hasPayloadFormatCommand {
-                if let hashValuepayloadFormatCommand = payloadFormatCommand?.hashValue {
+            if hasPayloadFormatCommand,let hashValuepayloadFormatCommand = payloadFormatCommand?.hashValue {
+            
                     hashCode = (hashCode &* 31) &+ hashValuepayloadFormatCommand
-                }
+
             }
-            if hasPredefinedObd2RequestsCommand {
-                if let hashValuepredefinedObd2RequestsCommand = predefinedObd2RequestsCommand?.hashValue {
+            if hasPredefinedObd2RequestsCommand,let hashValuepredefinedObd2RequestsCommand = predefinedObd2RequestsCommand?.hashValue {
+            
                     hashCode = (hashCode &* 31) &+ hashValuepredefinedObd2RequestsCommand
-                }
+                
             }
-            if hasModemConfigurationCommand {
-                if let hashValuemodemConfigurationCommand = modemConfigurationCommand?.hashValue {
+            if hasModemConfigurationCommand,let hashValuemodemConfigurationCommand = modemConfigurationCommand?.hashValue{
+                
                     hashCode = (hashCode &* 31) &+ hashValuemodemConfigurationCommand
-                }
+                
             }
-            if hasRtcConfigurationCommand {
-                if let hashValuertcConfigurationCommand = rtcConfigurationCommand?.hashValue {
+            if hasRtcConfigurationCommand,let hashValuertcConfigurationCommand = rtcConfigurationCommand?.hashValue {
+                
                     hashCode = (hashCode &* 31) &+ hashValuertcConfigurationCommand
-                }
+                
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -2275,10 +2275,9 @@ final public class DiagnosticControlCommand : GeneratedMessage {
         }
 
         serialize_size = 0
-        if hasRequest {
-            if let varSizerequest = request?.computeMessageSize(fieldNumber: 1) {
+        if hasRequest,let varSizerequest = request?.computeMessageSize(fieldNumber: 1) {
+            
                 serialize_size += varSizerequest
-            }
         }
         if (hasAction) {
             serialize_size += action.rawValue.computeEnumSize(fieldNumber: 2)
@@ -2340,10 +2339,10 @@ final public class DiagnosticControlCommand : GeneratedMessage {
     override public var hashValue:Int {
         get {
             var hashCode:Int = 7
-            if hasRequest {
-                if let hashValuerequest = request?.hashValue {
+            if hasRequest,let hashValuerequest = request?.hashValue {
+                
                     hashCode = (hashCode &* 31) &+ hashValuerequest
-                }
+            
             }
             if hasAction {
                  hashCode = (hashCode &* 31) &+ action.hashValue
@@ -3972,10 +3971,10 @@ final public class NetworkOperatorSettings : GeneratedMessage {
         if (hasOperatorSelectMode) {
             serialize_size += operatorSelectMode.rawValue.computeEnumSize(fieldNumber: 2)
         }
-        if hasNetworkDescriptor {
-            if let varSizenetworkDescriptor = networkDescriptor?.computeMessageSize(fieldNumber: 3) {
+        if hasNetworkDescriptor,let varSizenetworkDescriptor = networkDescriptor?.computeMessageSize(fieldNumber: 3) {
+           
                 serialize_size += varSizenetworkDescriptor
-            }
+            
         }
         serialize_size += unknownFields.serializedSize()
         memoizedSerializedSize = serialize_size
@@ -4046,10 +4045,10 @@ final public class NetworkOperatorSettings : GeneratedMessage {
             if hasOperatorSelectMode {
                  hashCode = (hashCode &* 31) &+ operatorSelectMode.hashValue
             }
-            if hasNetworkDescriptor {
-                if let hashValuenetworkDescriptor = networkDescriptor?.hashValue {
+            if hasNetworkDescriptor,let hashValuenetworkDescriptor = networkDescriptor?.hashValue  {
+                
                     hashCode = (hashCode &* 31) &+ hashValuenetworkDescriptor
-                }
+                
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -4808,20 +4807,20 @@ final public class ModemConfigurationCommand : GeneratedMessage {
         }
 
         serialize_size = 0
-        if hasNetworkOperatorSettings {
-            if let varSizenetworkOperatorSettings = networkOperatorSettings?.computeMessageSize(fieldNumber: 1) {
+        if hasNetworkOperatorSettings,let varSizenetworkOperatorSettings = networkOperatorSettings?.computeMessageSize(fieldNumber: 1) {
+          
                 serialize_size += varSizenetworkOperatorSettings
-            }
+            
         }
-        if hasNetworkDataSettings {
-            if let varSizenetworkDataSettings = networkDataSettings?.computeMessageSize(fieldNumber: 2) {
+        if hasNetworkDataSettings,let varSizenetworkDataSettings = networkDataSettings?.computeMessageSize(fieldNumber: 2) {
+           
                 serialize_size += varSizenetworkDataSettings
-            }
+          
         }
-        if hasServerConnectSettings {
-            if let varSizeserverConnectSettings = serverConnectSettings?.computeMessageSize(fieldNumber: 3) {
+        if hasServerConnectSettings,let varSizeserverConnectSettings = serverConnectSettings?.computeMessageSize(fieldNumber: 3)  {
+          
                 serialize_size += varSizeserverConnectSettings
-            }
+            
         }
         serialize_size += unknownFields.serializedSize()
         memoizedSerializedSize = serialize_size
@@ -4894,20 +4893,20 @@ final public class ModemConfigurationCommand : GeneratedMessage {
     override public var hashValue:Int {
         get {
             var hashCode:Int = 7
-            if hasNetworkOperatorSettings {
-                if let hashValuenetworkOperatorSettings = networkOperatorSettings?.hashValue {
+            if hasNetworkOperatorSettings,let hashValuenetworkOperatorSettings = networkOperatorSettings?.hashValue {
+              
                     hashCode = (hashCode &* 31) &+ hashValuenetworkOperatorSettings
-                }
+        
             }
-            if hasNetworkDataSettings {
-                if let hashValuenetworkDataSettings = networkDataSettings?.hashValue {
+            if hasNetworkDataSettings,let hashValuenetworkDataSettings = networkDataSettings?.hashValue  {
+              
                     hashCode = (hashCode &* 31) &+ hashValuenetworkDataSettings
-                }
+ 
             }
-            if hasServerConnectSettings {
-                if let hashValueserverConnectSettings = serverConnectSettings?.hashValue {
+            if hasServerConnectSettings,let hashValueserverConnectSettings = serverConnectSettings?.hashValue {
+               
                     hashCode = (hashCode &* 31) &+ hashValueserverConnectSettings
-                }
+            
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -7510,15 +7509,15 @@ final public class SimpleMessage : GeneratedMessage {
         if hasName {
             serialize_size += name.computeStringSize(fieldNumber: 1)
         }
-        if hasValue {
-            if let varSizevalue = value?.computeMessageSize(fieldNumber: 2) {
+        if hasValue,let varSizevalue = value?.computeMessageSize(fieldNumber: 2)  {
+        
                 serialize_size += varSizevalue
-            }
+            
         }
-        if hasEvent {
-            if let varSizeevent = event?.computeMessageSize(fieldNumber: 3) {
+        if hasEvent,let varSizeevent = event?.computeMessageSize(fieldNumber: 3) {
+            
                 serialize_size += varSizeevent
-            }
+            
         }
         serialize_size += unknownFields.serializedSize()
         memoizedSerializedSize = serialize_size
@@ -7590,15 +7589,15 @@ final public class SimpleMessage : GeneratedMessage {
             if hasName {
                 hashCode = (hashCode &* 31) &+ name.hashValue
             }
-            if hasValue {
-                if let hashValuevalue = value?.hashValue {
+            if hasValue,let hashValuevalue = value?.hashValue  {
+               
                     hashCode = (hashCode &* 31) &+ hashValuevalue
-                }
+                
             }
-            if hasEvent {
-                if let hashValueevent = event?.hashValue {
+            if hasEvent,let hashValueevent = event?.hashValue {
+             
                     hashCode = (hashCode &* 31) &+ hashValueevent
-                }
+              
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
