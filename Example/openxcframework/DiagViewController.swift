@@ -176,7 +176,7 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         
-        self.blutoothCheck()
+        self.bluetoothCheck()
         
         // create an empty diag request
         cmd = VehicleDiagnosticRequest()
@@ -276,7 +276,7 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
             return
         }
     }
-    func blutoothCheck()  {
+    func bluetoothCheck()  {
          // if the VM isn't operational, don't send anything
                if bm.connectionState != VehicleManagerConnectionState.operational {
                    lastReq.text = "Not connected to VI"
