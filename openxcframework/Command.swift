@@ -64,8 +64,6 @@ open class Command: NSObject {
         let instance = Command()
         return instance
     }()
-    fileprivate override init() {
-    }
     
     // config variable determining whether trace input is used instead of BTLE data
     fileprivate var traceFilesourceEnabled: Bool = false
@@ -175,103 +173,107 @@ open class Command: NSObject {
     }
     
     // common function for sending a VehicleCommandRequest
+    func protobufSendCommand(cmd:VehicleCommandRequest){
+        // in protobuf mode, build the command message
+        let cbuild = ControlCommand.Builder()
+        if cmd.command == .version {
+            _ = cbuild.setType(.version)
+            
+        }
+        if cmd.command == .device_id {
+            _ = cbuild.setType(.deviceId)
+            
+        }
+        if cmd.command == .platform {
+            _ = cbuild.setType(.platform)
+            
+        }
+        if cmd.command == .passthrough {
+            let cbuild2 = PassthroughModeControlCommand.Builder()
+            _ = cbuild2.setBus(Int32(cmd.bus))
+            _ = cbuild2.setEnabled(cmd.enabled)
+            _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
+            _ = cbuild.setType(.passthrough)
+        }
+        if cmd.command == .af_bypass {
+            let cbuild2 = AcceptanceFilterBypassCommand.Builder()
+            _ = cbuild2.setBus(Int32(cmd.bus))
+            _ = cbuild2.setBypass(cmd.bypass)
+            _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
+            _ = cbuild.setType(.acceptanceFilterBypass)
+        }
+        if cmd.command == .payload_format {
+            let cbuild2 = PayloadFormatCommand.Builder()
+            if cmd.format == "json" {
+                _ = cbuild2.setFormat(.json)
+                
+            }
+            if cmd.format == "protobuf" {
+                _ = cbuild2.setFormat(.protobuf)
+                
+            }
+            _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
+            _ = cbuild.setType(.payloadFormat)
+        }
+        if cmd.command == .predefined_odb2 {
+            let cbuild2 = PredefinedObd2RequestsCommand.Builder()
+            _ = cbuild2.setEnabled(cmd.enabled)
+            _ = cbuild.setPredefinedObd2RequestsCommand(cbuild2.buildPartial())
+            _ = cbuild.setType(.predefinedObd2Requests)
+        }
+        if cmd.command == .modem_configuration {
+            _ = cbuild.setType(.modemConfiguration)
+            let cbuild2 = ModemConfigurationCommand.Builder()
+            let srv = ServerConnectSettings.Builder()
+            _ = srv.setHost(cmd.server_host as String)
+            _ = srv.setPort(UInt32(cmd.server_port))
+            _ = cbuild2.setServerConnectSettings(srv.buildPartial())
+            _ = cbuild.setModemConfigurationCommand(cbuild2.buildPartial())
+        }
+        if cmd.command == .rtc_configuration {
+            let cbuild2 = RtcconfigurationCommand.Builder()
+            _ = cbuild2.setUnixTime(UInt32(cmd.unix_time))
+            _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
+            _ = cbuild.setType(.rtcConfiguration)
+        }
+        if cmd.command == .sd_mount_status {
+            _ = cbuild.setType(.sdMountStatus)
+            
+        }
+        let mbuild = VehicleMessage.Builder()
+                   _ = mbuild.setType(.controlCommand)
+                   
+                   do {
+                       let cmsg = try cbuild.build()
+                       _ = mbuild.setControlCommand(cmsg)
+                       let mmsg = try mbuild.build()
+                       print (mmsg)
+                       
+                       
+                       let cdata = mmsg.data()
+                       let cdata2 = NSMutableData()
+                       let prepend : [UInt8] = [UInt8(cdata.count)]
+                       cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
+                       cdata2.append(cdata)
+                       print(cdata2)
+                       
+                       // append to tx buffer
+                      self.vm.BLETxDataBuffer.add(cdata2)
+                       
+                       // trigger a BLE data send
+                       BluetoothManager.sharedInstance.BLESendFunction()
+                       
+                   } catch {
+                       print("cmd msg build failed")
+                   }
+    }
     fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
         
         if !self.vm.jsonMode {
 
-            // in protobuf mode, build the command message
-            let cbuild = ControlCommand.Builder()
-            if cmd.command == .version {
-                _ = cbuild.setType(.version)
-                
-            }
-            if cmd.command == .device_id {
-                _ = cbuild.setType(.deviceId)
-                
-            }
-            if cmd.command == .platform {
-                _ = cbuild.setType(.platform)
-                
-            }
-            if cmd.command == .passthrough {
-                let cbuild2 = PassthroughModeControlCommand.Builder()
-                _ = cbuild2.setBus(Int32(cmd.bus))
-                _ = cbuild2.setEnabled(cmd.enabled)
-                _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
-                _ = cbuild.setType(.passthrough)
-            }
-            if cmd.command == .af_bypass {
-                let cbuild2 = AcceptanceFilterBypassCommand.Builder()
-                _ = cbuild2.setBus(Int32(cmd.bus))
-                _ = cbuild2.setBypass(cmd.bypass)
-                _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
-                _ = cbuild.setType(.acceptanceFilterBypass)
-            }
-            if cmd.command == .payload_format {
-                let cbuild2 = PayloadFormatCommand.Builder()
-                if cmd.format == "json" {
-                    _ = cbuild2.setFormat(.json)
-                    
-                }
-                if cmd.format == "protobuf" {
-                    _ = cbuild2.setFormat(.protobuf)
-                    
-                }
-                _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
-                _ = cbuild.setType(.payloadFormat)
-            }
-            if cmd.command == .predefined_odb2 {
-                let cbuild2 = PredefinedObd2RequestsCommand.Builder()
-                _ = cbuild2.setEnabled(cmd.enabled)
-                _ = cbuild.setPredefinedObd2RequestsCommand(cbuild2.buildPartial())
-                _ = cbuild.setType(.predefinedObd2Requests)
-            }
-            if cmd.command == .modem_configuration {
-                _ = cbuild.setType(.modemConfiguration)
-                let cbuild2 = ModemConfigurationCommand.Builder()
-                let srv = ServerConnectSettings.Builder()
-                _ = srv.setHost(cmd.server_host as String)
-                _ = srv.setPort(UInt32(cmd.server_port))
-                _ = cbuild2.setServerConnectSettings(srv.buildPartial())
-                _ = cbuild.setModemConfigurationCommand(cbuild2.buildPartial())
-            }
-            if cmd.command == .rtc_configuration {
-                let cbuild2 = RtcconfigurationCommand.Builder()
-                _ = cbuild2.setUnixTime(UInt32(cmd.unix_time))
-                _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
-                _ = cbuild.setType(.rtcConfiguration)
-            }
-            if cmd.command == .sd_mount_status {
-                _ = cbuild.setType(.sdMountStatus)
-                
-            }
-            
-            let mbuild = VehicleMessage.Builder()
-            _ = mbuild.setType(.controlCommand)
-            
-            do {
-                let cmsg = try cbuild.build()
-                _ = mbuild.setControlCommand(cmsg)
-                let mmsg = try mbuild.build()
-                print (mmsg)
-                
-                
-                let cdata = mmsg.data()
-                let cdata2 = NSMutableData()
-                let prepend : [UInt8] = [UInt8(cdata.count)]
-                cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
-                cdata2.append(cdata)
-                print(cdata2)
-                
-                // append to tx buffer
-               self.vm.BLETxDataBuffer.add(cdata2)
-                
-                // trigger a BLE data send
-                BluetoothManager.sharedInstance.BLESendFunction()
-                
-            } catch {
-                print("cmd msg build failed")
-            }
+
+            self.protobufSendCommand(cmd: cmd)
+           
             
             return
         }

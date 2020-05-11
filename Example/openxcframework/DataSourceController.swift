@@ -127,7 +127,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             
         }
             
-        else if vehicleInterface == "Pre-recorded Tracefile" {
+        else if vehicleInterface == prerecordTrace {
             if let tracefile = (UserDefaults.standard.value(forKey: "traceInputFilename")  as? String){
                 playname.text = tracefile
             }
@@ -209,7 +209,8 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         networkBtn.isSelected = false
         tracefileBtn.isSelected = true
         noneBtn.isSelected = false
-        interfaceValue = "Pre-recorded Tracefile"
+        //declare in utility file "Pre-recorded Tracefile"
+        interfaceValue = prerecordTrace
         PopupView.removeFromSuperview()
         self.setValueVehicleInterface()
         }else{
@@ -235,7 +236,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             networkBtn.isSelected = false
             tracefileBtn.isSelected = false
             noneBtn.isSelected = false
-        }else if  (interfaceValue == "Pre-recorded Tracefile") {
+        }else if  (interfaceValue == prerecordTrace) {
             bluetoothBtn.isSelected = false
             networkBtn.isSelected = false
             tracefileBtn.isSelected = true
@@ -281,7 +282,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             playname.text = ""
             
         }
-        else if  (interfaceValue == "Pre-recorded Tracefile") {
+        else if  (interfaceValue == prerecordTrace) {
             playname.isUserInteractionEnabled = true
             
             networkDataHost.backgroundColor = UIColor.lightGray
@@ -370,7 +371,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         UserDefaults.standard.set(sender.isOn, forKey:"throughputOn")
     }
     // disableTraceLoop mode switch changed, save it's value
-    @IBAction func disableTraceLoopswitch(_ sender: UISwitch) {
+    @IBAction func disableTraceLoop(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey:"disableTraceLoopOn")
         if(!sender.isOn){
             tfm.traceFileRestart()
@@ -519,11 +520,6 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         }
     }
     
-    // show 'sources' view
-    @IBAction func srcHit(_ sender: AnyObject) {
-        
-        
-    }
     /*
      // MARK: - Navigation
      

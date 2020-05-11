@@ -42,9 +42,6 @@ open class TraceFileManager: NSObject {
     return TraceFileManager()
     
   }()
-  fileprivate override init() {
-    
-  }
   // private debug log function gated by the debug setting
   fileprivate func vmlog(_ strings:Any...) {
     if managerDebug {
@@ -180,22 +177,8 @@ open class TraceFileManager: NSObject {
           vmlog("can't open filehandle")
           return false
         }
-        
-        // create a timer to handle reading from the trace input filehandle
-        // if speed parameter exists
-        if speed != nil {
-          let spdf:Double = Double(speed!) / 1000.0
-          traceFilesourceTimer = Timer.scheduledTimer(timeInterval: spdf, target: self, selector: #selector(traceFileReader), userInfo: nil, repeats: true)
-        } else {
-          // if it doesn't exist, we're tracking the time held in the
-          // trace file
-          traceFilesourceTimeTracking = true
-          traceFilesourceLastMsgTime = 0
-          traceFilesourceLastActualTime = 0
-          // call the timer as fast as possible, the data parser will sleep to delay the
-          // messages when necessary
-          traceFilesourceTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(traceFileReader), userInfo: nil, repeats: true)
-        }
+        self.checkFile(speed: speed)
+  
         
         return true
         
@@ -205,7 +188,23 @@ open class TraceFileManager: NSObject {
     return false
     
   }
-  
+    func checkFile(speed:NSInteger?=nil){
+        // create a timer to handle reading from the trace input filehandle
+          // if speed parameter exists
+          if speed != nil {
+            let spdf:Double = Double(speed!) / 1000.0
+            traceFilesourceTimer = Timer.scheduledTimer(timeInterval: spdf, target: self, selector: #selector(traceFileReader), userInfo: nil, repeats: true)
+          } else {
+            // if it doesn't exist, we're tracking the time held in the
+            // trace file
+            traceFilesourceTimeTracking = true
+            traceFilesourceLastMsgTime = 0
+            traceFilesourceLastActualTime = 0
+            // call the timer as fast as possible, the data parser will sleep to delay the
+            // messages when necessary
+            traceFilesourceTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(traceFileReader), userInfo: nil, repeats: true)
+          }
+    }
   
   // turn off trace file input
   open func disableTraceFileSource() {

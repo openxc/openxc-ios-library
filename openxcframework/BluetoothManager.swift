@@ -231,21 +231,25 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
           }
           
         else{
-          if(foundOpenXCPeripherals.count > 0) && autoConnectPeripheral{
-            if isDeviceKey(){
-              connect(UserDefaults.standard.string(forKey:"LastConnectedBle"))
-              return
-            }else{
-              connect()
-              return
-            }
-          }
+            self.checkDevice()
         }
       
      
     }
   
   }
+    func checkDevice(){
+        
+        if(foundOpenXCPeripherals.count > 0) && autoConnectPeripheral{
+                 if isDeviceKey(){
+                   connect(UserDefaults.standard.string(forKey:"LastConnectedBle"))
+                   return
+                 }else{
+                   connect()
+                   return
+                 }
+               }
+    }
 
   func isDeviceKey() -> Bool {
     for (theKey,_) in foundOpenXCPeripherals{

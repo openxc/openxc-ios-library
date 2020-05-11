@@ -112,12 +112,10 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         if(bm.isBleConnected){
             
-            if (sRow == 8 ){
-                
-                if !vm.jsonMode{
+            if (sRow == 8 && !vm.jsonMode ){
+  
                     AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage: errorMsgcustomCommand)
-                    return
-                }
+                
                 if(customCommandTF.text == nil||customCommandTF.text == ""){
                     AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage: errorMsgforText)
                     return
@@ -138,7 +136,8 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
                     AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage: errorMsgCustomCommand)
                 }
                 
-            }else{
+            }else
+            {
                 self.sendCommandWithValue(sRow: sRow)
             }
             
@@ -146,7 +145,6 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             
             AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage: errorMsgBLE)
         }
-        
     }
     func validJson(strValue:String) -> Bool {
         
@@ -201,55 +199,37 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         let vcm = VehicleCommandRequest()
         switch sRow {
         case 0:
-            //responseLab.text = ""
-            
             vcm.command = .version
             self.cm.sendCommand(vcm)
-            // activity indicator
             
             showActivityIndicator()
             break
         case 1:
-            //responseLab.text = ""
-            //let cm = VehicleCommandRequest()
             vcm.command = .device_id
             self.cm.sendCommand(vcm)
-            // activity indicator
             
             showActivityIndicator()
             break
         case 2:
             
-            
-            //let cm = VehicleCommandRequest()
-            
             // look at segmented control for bus
             vcm.bus = busSeg.selectedSegmentIndex + 1
-            
+            vcm.enabled = false
             if enabSeg.selectedSegmentIndex==0 {
                 vcm.enabled = true
-            } else {
-                vcm.enabled = false
             }
-            
             vcm.command = .passthrough
             self.cm.sendCommand(vcm)
-            // activity indicator
-            
             showActivityIndicator()
             
             break
         case 3:
-            
-            //let cm = VehicleCommandRequest()
             // look at segmented control for bus
             vcm.bus = busSeg.selectedSegmentIndex + 1
+            vcm.bypass = false
             if bypassSeg.selectedSegmentIndex==0 {
                 vcm.bypass = true
-            } else {
-                vcm.bypass = false
             }
-            
             vcm.command = .af_bypass
             self.cm.sendCommand(vcm)
             showActivityIndicator()
@@ -257,21 +237,16 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         case 4:
             
             //let cm = VehicleCommandRequest()
-            
+            vcm.format = "protobuf"
             if pFormatSeg.selectedSegmentIndex==0 {
                 vcm.format = "json"
-            } else {
-                vcm.format = "protobuf"
             }
+             self.cm.sendCommand(vcm)
             vcm.command = .payload_format
             if !vm.jsonMode && pFormatSeg.selectedSegmentIndex==0{
                 self.cm.sendCommand(vcm)
-                showActivityIndicator()
             }
-            if vm.jsonMode && pFormatSeg.selectedSegmentIndex==1{
-                self.cm.sendCommand(vcm)
                 showActivityIndicator()
-            }
             break
         case 5:
             //let cm = VehicleCommandRequest()
@@ -304,7 +279,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             break
         }
     }
-    // this function handles all command responses
+
     // this function handles all command responses
     func handle_cmd_response(_ rsp:NSDictionary) {
         if UserDefaults.standard.bool(forKey: "uploadTaraceOn") {
@@ -318,7 +293,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         if cr.command_response.isEqual(to: "version") || cr.command_response.isEqual(to: ".version") {
             versionResp = cr.message as String
         }
-        if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
+       if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
             deviceIdResp = cr.message as String
         }
         
@@ -326,40 +301,42 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             passthroughResp = String(cr.status)
         }
         
-        if cr.command_response.isEqual(to: "af_bypass") || cr.command_response.isEqual(to: ".acceptancefilterbypass") {
+         if cr.command_response.isEqual(to: "af_bypass") || cr.command_response.isEqual(to: ".acceptancefilterbypass") {
             accFilterBypassResp = String(cr.status)
         }
+        self.handleCommandResponse(cr: cr)
+        
+      
+    }
+    func handleCommandResponse(cr:VehicleCommandResponse){
         
         if cr.command_response.isEqual(to: "payload_format") || cr.command_response.isEqual(to: ".payloadformat") {
-            if(cr.status){
-                if !vm.jsonMode && !isJsonFormat{
-                    vm.setProtobufMode(false)
-                    UserDefaults.standard.set(false, forKey:"protobufOn")
-                }
-                if vm.jsonMode && isJsonFormat{
-                    vm.setProtobufMode(true)
-                    UserDefaults.standard.set(true, forKey:"protobufOn")
-                    payloadFormatResp = String(cr.status)
-                }
-            }
-            payloadFormatResp = String(cr.status)
-            isJsonFormat = vm.jsonMode
-        }
-        if cr.command_response.isEqual(to: "platform") || cr.command_response.isEqual(to: ".platform"){
-            platformResp = cr.message as String
-        }
-        if cr.command_response.isEqual(to: "rtc_configuration") || cr.command_response.isEqual(to: ".rtcconfiguration") {
-            rtcConfigResp = String(cr.status)
-        }
-        if cr.command_response.isEqual(to: "sd_mount_status") || cr.command_response.isEqual(to: ".sdmountStatus") || cr.command_response.isEqual(to: ".sdMountStatus"){
-            sdCardResp = String(cr.status)
-        }else{
-            customCommandResp = String(cr.message)
-        }
-        // update the label
-        DispatchQueue.main.async {
-            self.populateCommandResponseLabel(rowNum: self.selectedRowInPicker)
-        }
+                   if(cr.status && !vm.jsonMode && !isJsonFormat){
+                           vm.setProtobufMode(false)
+                           UserDefaults.standard.set(false, forKey:"protobufOn")
+                       
+                   }else{
+                       vm.setProtobufMode(true)
+                       UserDefaults.standard.set(true, forKey:"protobufOn")
+                   }
+                   payloadFormatResp = String(cr.status)
+                   isJsonFormat = vm.jsonMode
+               }
+                if cr.command_response.isEqual(to: "platform") || cr.command_response.isEqual(to: ".platform"){
+                   platformResp = cr.message as String
+               }
+               if cr.command_response.isEqual(to: "rtc_configuration") || cr.command_response.isEqual(to: ".rtcconfiguration") {
+                   rtcConfigResp = String(cr.status)
+               }
+                if cr.command_response.isEqual(to: "sd_mount_status") || cr.command_response.isEqual(to: ".sdmountStatus") || cr.command_response.isEqual(to: ".sdMountStatus"){
+                   sdCardResp = String(cr.status)
+               }else{
+                   customCommandResp = String(cr.message)
+               }
+               // update the label
+               DispatchQueue.main.async {
+                   self.populateCommandResponseLabel(rowNum: self.selectedRowInPicker)
+               }
     }
     
     @objc func sendTraceURLData(rsp:NSDictionary) {

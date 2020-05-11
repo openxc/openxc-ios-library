@@ -61,8 +61,6 @@ open class VehicleManager: NSObject {
     let instance = VehicleManager()
     return instance
   }()
-  fileprivate override init() {
-  }
 
 
   // config for outputting debug messages to console
@@ -70,7 +68,6 @@ open class VehicleManager: NSObject {
     
   // config for protobuf vs json BLE mode, defaults to JSON
   public var jsonMode : Bool = true
-  
   // optional variable holding callback for VehicleManager status updates
    var managerCallback: TargetAction?
   
@@ -436,46 +433,9 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the command message
-      let cbuild = ControlCommand.Builder()
-      if cmd.command == .version {
-        _ = cbuild.setType(.version)
-        
-        }
-      if cmd.command == .device_id {
-        _ = cbuild.setType(.deviceId)
-        
-        }
-      if cmd.command == .platform {
-        _ = cbuild.setType(.platform)
-        
-        }
-      if cmd.command == .passthrough {
-        let cbuild2 = PassthroughModeControlCommand.Builder()
-        _ = cbuild2.setBus(Int32(cmd.bus))
-        _ = cbuild2.setEnabled(cmd.enabled)
-        _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
-        _ = cbuild.setType(.passthrough)
-      }
-      if cmd.command == .af_bypass {
-        let cbuild2 = AcceptanceFilterBypassCommand.Builder()
-        _ = cbuild2.setBus(Int32(cmd.bus))
-        _ = cbuild2.setBypass(cmd.bypass)
-        _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
-        _ = cbuild.setType(.acceptanceFilterBypass)
-      }
-      if cmd.command == .payload_format {
-        let cbuild2 = PayloadFormatCommand.Builder()
-        if cmd.format == "json" {
-            _ = cbuild2.setFormat(.json)
-            
-        }
-        if cmd.format == "protobuf" {
-            _ = cbuild2.setFormat(.protobuf)
-            
-        }
-        _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
-        _ = cbuild.setType(.payloadFormat)
-      }
+        let cbuild = ControlCommand.Builder()
+        self.protobufCommandRequest(cmd)
+      
       if cmd.command == .predefined_odb2 {
         let cbuild2 = PredefinedObd2RequestsCommand.Builder()
         _ = cbuild2.setEnabled(cmd.enabled)
@@ -526,60 +486,134 @@ open class VehicleManager: NSObject {
         BluetoothManager.sharedInstance.BLESendFunction()
 
       } catch {
-        print("cmd msg build failed")
+        print("command message failed")
+        
       }
       
       return
     }
     
     // we're in json mode
-    var cmdstr = ""
-    // decode the command type and build the command depending on the command
-
-    if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\"}\0"
-    }
-    else if cmd.command == .passthrough {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"bus\":\(cmd.bus),\"enabled\":\(cmd.enabled)}\0"
-    }
-    else if cmd.command == .af_bypass {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"bus\":\(cmd.bus),\"bypass\":\(cmd.bypass)}\0"
-    }
-    else if cmd.command == .payload_format {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"format\":\"\(cmd.format)\"}\0"
-    }
-    else if cmd.command == .predefined_odb2 {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"enabled\":\(cmd.enabled)}\0"
-    }
-    else if cmd.command == .modem_configuration {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"server\":{\"host\":\"\(cmd.server_host)\",\"port\":\(cmd.server_port)}}\0"
-    }
-    else if cmd.command == .rtc_configuration {
-      // build the command json
-      let timeInterval = Date().timeIntervalSince1970
-      cmd.unix_time = NSInteger(timeInterval);
-      print("timestamp is..",cmd.unix_time)
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"unix_time\":\"\(cmd.unix_time)\"}\0"
-    } else {
-      // unknown command!
-      return
-      
-    }
+    self.jsonCommandRequest(cmd)
     
-    // append to tx buffer
-    BLETxDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
-    
-    // trigger a BLE data send
-    BluetoothManager.sharedInstance.BLESendFunction()
+   
     
   }
-  
+    fileprivate func protobufCommandRequest(_ cmd:VehicleCommandRequest){
+        let cbuild = ControlCommand.Builder()
+         if cmd.command == .version {
+           _ = cbuild.setType(.version)
+           
+           }
+         if cmd.command == .device_id {
+           _ = cbuild.setType(.deviceId)
+           
+           }
+         if cmd.command == .platform {
+           _ = cbuild.setType(.platform)
+           
+           }
+         if cmd.command == .passthrough {
+           let cbuild2 = PassthroughModeControlCommand.Builder()
+           _ = cbuild2.setBus(Int32(cmd.bus))
+           _ = cbuild2.setEnabled(cmd.enabled)
+           _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
+           _ = cbuild.setType(.passthrough)
+         }
+         if cmd.command == .af_bypass {
+           let cbuild2 = AcceptanceFilterBypassCommand.Builder()
+           _ = cbuild2.setBus(Int32(cmd.bus))
+           _ = cbuild2.setBypass(cmd.bypass)
+           _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
+           _ = cbuild.setType(.acceptanceFilterBypass)
+         }
+        if cmd.command == .payload_format {
+          let cbuild2 = PayloadFormatCommand.Builder()
+          if cmd.format == "json" {
+              _ = cbuild2.setFormat(.json)
+              
+          }
+          if cmd.format == "protobuf" {
+              _ = cbuild2.setFormat(.protobuf)
+              
+          }
+          _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
+          _ = cbuild.setType(.payloadFormat)
+        }
+        
+        let mbuild = VehicleMessage.Builder()
+            _ = mbuild.setType(.controlCommand)
+        do {
+          let cmsg = try cbuild.build()
+          _ = mbuild.setControlCommand(cmsg)
+          let mmsg = try mbuild.build()
+          //print (mmsg)
+          
+          
+          let cdata = mmsg.data()
+          let cdata2 = NSMutableData()
+          let prepend : [UInt8] = [UInt8(cdata.count)]
+          cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
+          cdata2.append(cdata)
+          //print(cdata2)
+          
+          // append to tx buffer
+          BLETxDataBuffer.add(cdata2)
+          
+          // trigger a BLE data send
+          BluetoothManager.sharedInstance.BLESendFunction()
+
+        } catch {
+          print("command message failed")
+          
+        }
+    }
+    fileprivate func jsonCommandRequest(_ cmd:VehicleCommandRequest){
+        var cmdstr = ""
+        // decode the command type and build the command depending on the command
+
+        if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\"}\0"
+        }
+        else if cmd.command == .passthrough {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"bus\":\(cmd.bus),\"enabled\":\(cmd.enabled)}\0"
+        }
+        else if cmd.command == .af_bypass {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"bus\":\(cmd.bus),\"bypass\":\(cmd.bypass)}\0"
+        }
+        else if cmd.command == .payload_format {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"format\":\"\(cmd.format)\"}\0"
+        }
+        else if cmd.command == .predefined_odb2 {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"enabled\":\(cmd.enabled)}\0"
+        }
+        else if cmd.command == .modem_configuration {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"server\":{\"host\":\"\(cmd.server_host)\",\"port\":\(cmd.server_port)}}\0"
+        }
+        else if cmd.command == .rtc_configuration {
+          // build the command json
+          let timeInterval = Date().timeIntervalSince1970
+          cmd.unix_time = NSInteger(timeInterval);
+          print("timestamp is..",cmd.unix_time)
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"unix_time\":\"\(cmd.unix_time)\"}\0"
+        } else {
+          // unknown command!
+          return
+          
+        }
+        // append to tx buffer
+           BLETxDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
+           
+           // trigger a BLE data send
+           BluetoothManager.sharedInstance.BLESendFunction()
+    }
+    
   
   // common function for sending a VehicleDiagnosticRequest
   fileprivate func sendDiagCommon(_ cmd:VehicleDiagnosticRequest) {
@@ -629,7 +663,7 @@ open class VehicleManager: NSObject {
         BluetoothManager.sharedInstance.BLESendFunction()
         
       } catch {
-        print("cmd msg build failed")
+        print("command build failed")
       }
       
       return
@@ -829,7 +863,11 @@ open class VehicleManager: NSObject {
     //rsp.name = msg.simpleMessage.name as NSString
     
     rsp.name = name
+    self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
     
+  }
+    fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg : VehicleMessage){
+        
       if msg.simpleMessage.value.hasStringValue {
           rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
       if msg.simpleMessage.value.hasBooleanValue {
@@ -845,9 +883,7 @@ open class VehicleManager: NSObject {
         if msg.simpleMessage.event.hasNumericValue {
           rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
       }
-   
-    
-    
+
   }
     fileprivate func protoSimpleMsgCheck(rsp : VehicleMeasurementResponse, name:NSString){
         
@@ -932,16 +968,11 @@ open class VehicleManager: NSObject {
     }
     
     // TODO: debug printouts, maybe remove
-    if rsp.value != nil && rsp.pid != nil  {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ) success:\(rsp.success) value:\(rsp.value )")
-     
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.value )")
-
-    } else {
+    if rsp.value != nil {
       if rsp.pid != nil {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ) success:\(rsp.success) payload:\(rsp.payload)")
+        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ?? 0) success:\(rsp.success) value:\(rsp.value ?? 0)")
       } else {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.payload)")
+        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.value ?? 0)")
       }
     }
     ////////////////////////////
@@ -1019,27 +1050,7 @@ open class VehicleManager: NSObject {
       
       
       // insert a delay if we're reading from a tracefile
-      // and we're tracking the timestamps in the file to
-      // decide when to send the next message
-      if TraceFileManager.sharedInstance.traceFilesourceTimeTracking {
-        let msTimeNow = Int(Date.timeIntervalSinceReferenceDate*1000)
-        if TraceFileManager.sharedInstance.traceFilesourceLastMsgTime == 0 {
-          // first time
-          TraceFileManager.sharedInstance.traceFilesourceLastMsgTime = timestamp
-          TraceFileManager.sharedInstance.traceFilesourceLastActualTime = msTimeNow
-
-        }
-        let msgDelta = timestamp - TraceFileManager.sharedInstance.traceFilesourceLastMsgTime
-        let actualDelta = msTimeNow - TraceFileManager.sharedInstance.traceFilesourceLastActualTime
-        let deltaDelta : Double = (Double(msgDelta) - Double(actualDelta))/1000.0
-        if deltaDelta > 0 {
-          Thread.sleep(forTimeInterval: deltaDelta)
-        }
-
-        TraceFileManager.sharedInstance.traceFilesourceLastMsgTime = timestamp
-        TraceFileManager.sharedInstance.traceFilesourceLastActualTime = msTimeNow
-
-      }
+        self.traceFileDelay(timestamp:timestamp)
       
       // evented measurement rsp
       ///////////////////
@@ -1112,6 +1123,29 @@ open class VehicleManager: NSObject {
     }
   }
   
+    func traceFileDelay(timestamp:NSInteger){
+        // and we're tracking the timestamps in the file to
+        // decide when to send the next message
+        if TraceFileManager.sharedInstance.traceFilesourceTimeTracking {
+          let msTimeNow = Int(Date.timeIntervalSinceReferenceDate*1000)
+          if TraceFileManager.sharedInstance.traceFilesourceLastMsgTime == 0 {
+            // first time
+            TraceFileManager.sharedInstance.traceFilesourceLastMsgTime = timestamp
+            TraceFileManager.sharedInstance.traceFilesourceLastActualTime = msTimeNow
+
+          }
+          let msgDelta = timestamp - TraceFileManager.sharedInstance.traceFilesourceLastMsgTime
+          let actualDelta = msTimeNow - TraceFileManager.sharedInstance.traceFilesourceLastActualTime
+          let deltaDelta : Double = (Double(msgDelta) - Double(actualDelta))/1000.0
+          if deltaDelta > 0 {
+            Thread.sleep(forTimeInterval: deltaDelta)
+          }
+
+          TraceFileManager.sharedInstance.traceFilesourceLastMsgTime = timestamp
+          TraceFileManager.sharedInstance.traceFilesourceLastActualTime = msTimeNow
+
+        }
+    }
   // evented measurement rsp
   ///////////////////
   // evented measuerment messages will have an "event" key
@@ -1332,12 +1366,8 @@ open class VehicleManager: NSObject {
     rsp.value = value!
     
      //Adde for NRC fix
-    if(!success) ,let nrcX = json["negative_response_code"] as? NSInteger{
-      //success false, parse negative response code. For DID commands.
-      
-        rsp.negative_response_code = nrcX
-      
-    }
+    self.nrcFix(success:success,json: json,rsp:rsp)
+
     
     // build the key that identifies this diagnostic response
     // bus-id-mode-[X or pid]
@@ -1374,7 +1404,14 @@ open class VehicleManager: NSObject {
     }
   }
   // Uncomment the code when there will be a server URL and test the code
-
+    func nrcFix(success:Bool,json:[String:AnyObject],rsp:VehicleDiagnosticResponse){
+        if(!success){
+          //success false, parse negative response code. For DID commands.
+          if let nrcX = json["negative_response_code"] as? NSInteger{
+            rsp.negative_response_code = nrcX
+          }
+        }
+    }
   //Send data using trace URL
     @objc public func sendTraceURLData(urlName:String,rspdict:NSMutableDictionary,isdrrsp:Bool) {
 

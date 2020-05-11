@@ -116,58 +116,8 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
             }
             self.callbackHandler!(true)
             
-            if(aStream == outputstream)
-            {
-                print("output:hasBytesAvailable\n")
-            }
-            if aStream == inputstream
-            {
-                var buffer = [UInt8](repeating:0, count:20)
-                while (self.inputstream!.hasBytesAvailable)
-                {
-                    let len = inputstream!.read(&buffer, maxLength: buffer.count)
-                    
-                    // If read bytes are less than 0 -> error
-                    if len < 0
-                    {
-                        let error = self.inputstream!.streamError
-                        print("Input stream has less than 0 bytes\(error!)")
-                        //closeNetworkCommunication()
-                    }
-                        
-                        // If read bytes equal 0 -> close connection
-                    else if len == 0
-                    {
-                        print("Input stream has 0 bytes")
-                        // closeNetworkCommunication()
-                    }
-                    
-                    if(len > 0)
-                        //here it will check it out for the data sending from the server if it is greater than 0 means if there is a data means it will write
-                    {
-                        let messageFromServer = NSString(bytes: &buffer, length: buffer.count, encoding: String.Encoding.utf8.rawValue)
-                        let  msgdata = Data(bytes:buffer)
-                        
-                        print("\(msgdata)")
-                        if msgdata.count > 0 {
-                            VehicleManager.sharedInstance.RxDataBuffer.append(msgdata)
-                            VehicleManager.sharedInstance.RxDataParser(0x00)
-                        }
-                        
-                        if messageFromServer == nil
-                        {
-                            print("Network hasbeen closed")
-                          
-                            }
-                            
-                        else
-                        {
-                            print("MessageFromServer = \(String(describing: messageFromServer))")
-                            
-                        }
-                    }
-                }
-            }
+         
+            self.checkDataBytes(aStream: aStream)
             
             break
             
@@ -176,5 +126,43 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
             
         }
         
+    }
+    
+    func checkDataBytes(aStream: Stream)  {
+        if aStream == inputstream
+                   {
+                       var buffer = [UInt8](repeating:0, count:20)
+                       while (self.inputstream!.hasBytesAvailable)
+                       {
+                           let len = inputstream!.read(&buffer, maxLength: buffer.count)
+                           
+                           // If read bytes are less than 0 -> error
+                           if len < 0
+                           {
+                               let error = self.inputstream!.streamError
+                               print("Input stream has less than 0 bytes\(error!)")
+                               //closeNetworkCommunication()
+                           }
+                           
+                           if(len > 0)
+                               //here it will check it out for the data sending from the server if it is greater than 0 means if there is a data means it will write
+                           {
+                               let messageFromServer = NSString(bytes: &buffer, length: buffer.count, encoding: String.Encoding.utf8.rawValue)
+                               let  msgdata = Data(bytes:buffer)
+                               
+                               print("\(msgdata)")
+                               if msgdata.count > 0 {
+                                   VehicleManager.sharedInstance.RxDataBuffer.append(msgdata)
+                                   VehicleManager.sharedInstance.RxDataParser(0x00)
+                               }
+                                   
+                               else
+                               {
+                                   print("MessageFromServer = \(String(describing: messageFromServer))")
+                                   
+                               }
+                           }
+                       }
+                   }
     }
 }

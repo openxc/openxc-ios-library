@@ -29,7 +29,6 @@ class modalSettingsView: UIViewController, UITextFieldDelegate {
         
         appVersion.text = versionNumberString
         
-        
     }
     
     
@@ -38,28 +37,15 @@ class modalSettingsView: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
     // show 'about' view
     @IBAction func aboutHit(_ sender: AnyObject) {
         aboutView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         mainView.addSubview(aboutView)
     }
     
-    // show 'record' view
-    @IBAction func recHit(_ sender: AnyObject) {
-        
-        
-    }
-    
-    
     // 'back' hit, clear all view and show initial menu view
     @IBAction func backHit(_ sender: AnyObject) {
         
         aboutView.removeFromSuperview()
-    }
-    // 'back' hit, clear all view and show initial menu view
-    @IBAction func notificationBtnClick(_ sender: AnyObject) {
-        
-        
     }
 }
