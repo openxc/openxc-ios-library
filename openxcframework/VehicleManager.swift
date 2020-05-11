@@ -494,7 +494,7 @@ open class VehicleManager: NSObject {
     }
     
     // we're in json mode
-    self.jsonCommandrequest(cmd)
+    self.jsonCommandRequest(cmd)
     
    
     
@@ -568,7 +568,7 @@ open class VehicleManager: NSObject {
           
         }
     }
-    fileprivate func jsonCommandrequest(_ cmd:VehicleCommandRequest){
+    fileprivate func jsonCommandRequest(_ cmd:VehicleCommandRequest){
         var cmdstr = ""
         // decode the command type and build the command depending on the command
 
