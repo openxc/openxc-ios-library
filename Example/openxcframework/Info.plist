@@ -46,5 +46,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To fetch vehicle location OpenXC needs to cget the location</string>
 </dict>
 </plist>

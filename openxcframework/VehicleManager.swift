@@ -681,7 +681,7 @@ open class VehicleManager: NSObject {
       cmdjson.append(",\"frequency\":\(cmd.frequency)")
     }
     
-    print("payload : \(cmd.payload)")
+    
     
     if !cmd.payload.isEqual(to: "") {
       
@@ -1036,7 +1036,7 @@ open class VehicleManager: NSObject {
       
       // decode json
       let json = try JSONSerialization.jsonObject(with: data_chunk as Data, options: .mutableContainers) as! [String:AnyObject]
-      //print(json)
+        print("After json decoding \(json)" as Any)
       // every message will have a timestamp
       
       //Ranjan:  Added NSNumber in timestamp to parse as it is in number format then convert nsnumber to integer as per requirment.
@@ -1086,11 +1086,15 @@ open class VehicleManager: NSObject {
         ///////////////////
         // both diagnostic response and CAN response messages have an "id" key
       else if let id = json["id"] as? NSInteger {
-        
+        print("JSON ID = \(id) "as Any)
         self.canMessagersp(json: json as [String:AnyObject],timestamp: timestamp,id:id)
         
       } else {
         // what the heck is it??
+        
+        if let id = json["message_id"] as? NSInteger {
+            self.diagMultiframeMessagersp(json: json as [String : AnyObject], timestamp: timestamp, id: id)
+        }
         if let act = managerCallback {
           act.performAction(["status":VehicleManagerStatusMessage.ble_RX_DATA_PARSE_ERROR.rawValue] as NSMutableDictionary)
         }
@@ -1265,6 +1269,87 @@ open class VehicleManager: NSObject {
   }
   
   // diag rsp or CAN message
+    
+    fileprivate func diagMultiframeMessagersp(json:[String:AnyObject],timestamp:NSInteger,id:NSInteger){
+        print("Multi Frame rsp\(json)")
+        
+        let success = json["success"] as? Bool
+        // extract other keys from message
+        var bus : NSInteger = 0
+        if let busX = json["bus"] as? NSInteger {
+          bus = busX
+        }
+        var mode : NSInteger = 0
+        if let modeX = json["mode"] as? NSInteger {
+          mode = modeX
+        }
+        var pid : NSInteger?
+        if let pidX = json["pid"] as? NSInteger {
+          pid = pidX
+        }
+        
+
+        var payload : NSString = ""
+        if let payloadX = json["payload"] as? NSString {
+          payload = payloadX
+          print("payload : \(payload)")
+          
+        }
+        var value : NSInteger?
+        if let valueX = json["value"] as? NSInteger {
+          value = valueX
+        }
+        
+        // build diag response message
+        let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
+        rsp.timestamp = timestamp
+        rsp.bus = bus
+        rsp.message_id = id
+        rsp.mode = mode
+        rsp.pid = pid!
+        rsp.success = success!
+        rsp.payload = payload
+        rsp.value = value!
+        
+         //Adde for NRC fix
+        self.nrcFix(success:success!,json: json,rsp:rsp)
+
+        
+        // build the key that identifies this diagnostic response
+        // bus-id-mode-[X or pid]
+        let tupple : NSMutableString = ""
+        var newid = 0
+        if(self.lastReqMsg_id == 2015) { //exception for 7df
+          newid = self.lastReqMsg_id
+        } else {
+          newid=id-8
+        }
+        tupple.append("\(String(bus))-\(String(newid))-\(String(mode))-")
+        if pid != nil {
+          tupple.append(String(describing: pid))
+        } else {
+          tupple.append("X")
+        }
+
+        ////////////////////////////
+        
+        // look for a specific callback for this diag response based on tupple created above
+        var found=false
+        for key in diagCallbacks.keys {
+          let act = diagCallbacks[key]
+          if act!.returnKey() == tupple {
+            found=true
+            act!.performAction(["vehiclemessage":rsp] as NSDictionary)
+          }
+        }
+        // otherwise use the default callback if it exists
+        if !found ,let act = defaultDiagCallback{
+          
+            act.performAction(["vehiclemessage":rsp] as NSDictionary)
+
+        }
+        
+        }
   ///////////////////
   // both diagnostic response and CAN response messages have an "id" key
   fileprivate func canMessagersp(json:[String:AnyObject],timestamp:NSInteger,id:NSInteger){
