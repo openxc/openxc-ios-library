@@ -311,15 +311,15 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.updateStatus()
             
             // check to see if a trace output file has been configured
-            if UserDefaults.standard.bool(forKey: "traceOutputOn") && !vm.isTraceFileConnected == true {
+            if UserDefaults.standard.bool(forKey: "traceOutputOn") && !vm.isTraceFileConnected {
                 if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
-                        tfm.enableTraceFileSink(name)
+                        let value = tfm.enableTraceFileSink(name)
+                    print(value)
+                }else{
+                    let alertController = UIAlertController (title: "Setting", message: "Please Disable pre record tracefile in data source", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
                 }
-            }
-            else{
-                let alertController = UIAlertController (title: "Setting", message: "Please Disable pre record tracefile in data source", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
-                self.present(alertController, animated: true, completion: nil)
             }
             
             

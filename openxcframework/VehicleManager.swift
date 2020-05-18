@@ -83,6 +83,7 @@ open class VehicleManager: NSObject {
   fileprivate var BLETxWriteCount: Int = 0
   // BTLE transmit token increment variable
   fileprivate var BLETxSendToken: Int = 0
+  fileprivate var multiFramePayload : String = ""
   
   // ordered list for storing callbacks for in progress vehicle commands
   fileprivate var BLETxCommandCallback = [TargetAction]()
@@ -1093,7 +1094,7 @@ open class VehicleManager: NSObject {
         // what the heck is it??
         
         if let id = json["message_id"] as? NSInteger {
-            self.diagMultiframeMessagersp(json: json as [String : AnyObject], timestamp: timestamp, id: id)
+            self.diagSingleFrameMessagersp(json: json as [String : AnyObject], timestamp: timestamp, id: id)
         }
         if let act = managerCallback {
           act.performAction(["status":VehicleManagerStatusMessage.ble_RX_DATA_PARSE_ERROR.rawValue] as NSMutableDictionary)
@@ -1270,9 +1271,16 @@ open class VehicleManager: NSObject {
   
   // diag rsp or CAN message
     
-    fileprivate func diagMultiframeMessagersp(json:[String:AnyObject],timestamp:NSInteger,id:NSInteger){
-        print("Multi Frame rsp\(json)")
-        
+    fileprivate func diagSingleFrameMessagersp(json:[String:AnyObject],timestamp:NSInteger,id:NSInteger){
+        print("single Frame rsp\(json)")
+        let frame = json["frame"] as?  NSInteger
+        if (frame != -1){
+        if let payloadX = json["payload"] as? String,frame == 0   {
+                multiFramePayload = payloadX
+                print("payload : \(multiFramePayload)")
+            return
+                }
+        }else{
         let success = json["success"] as? Bool
         // extract other keys from message
         var bus : NSInteger = 0
@@ -1289,9 +1297,9 @@ open class VehicleManager: NSObject {
         }
         
 
-        var payload : NSString = ""
-        if let payloadX = json["payload"] as? NSString {
-          payload = payloadX
+        var payload : String = ""
+        if let payloadX = json["payload"] as? String {
+          payload = multiFramePayload  + payloadX
           print("payload : \(payload)")
           
         }
@@ -1350,6 +1358,9 @@ open class VehicleManager: NSObject {
         }
         
         }
+    }
+    
+    
   ///////////////////
   // both diagnostic response and CAN response messages have an "id" key
   fileprivate func canMessagersp(json:[String:AnyObject],timestamp:NSInteger,id:NSInteger){
@@ -1428,8 +1439,8 @@ open class VehicleManager: NSObject {
     }
     
 
-    var payload : NSString = ""
-    if let payloadX = json["payload"] as? NSString {
+    var payload : String = ""
+    if let payloadX = json["payload"] as? String {
       payload = payloadX
       print("payload : \(payload)")
       
