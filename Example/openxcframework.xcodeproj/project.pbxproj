@@ -573,6 +573,7 @@
 				INFOPLIST_FILE = openxcframework/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 6.0.1;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ford.openxc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -596,6 +597,7 @@
 				INFOPLIST_FILE = openxcframework/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 6.0.1;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ford.openxc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
