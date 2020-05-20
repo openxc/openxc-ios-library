@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.0.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -31,6 +31,8 @@
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>To fetch vehicle data OpenXC needs to connect over bluetooth</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To fetch vehicle location OpenXC needs to cget the location</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -46,7 +48,5 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To fetch vehicle location OpenXC needs to cget the location</string>
 </dict>
 </plist>
