@@ -69,8 +69,8 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         // create CAN key from measurement message
         let key = String(format:"%x-%x",vr.bus,vr.id)
         let val = "0x"+(vr.data as String)
-        print(key)
-        print(val)
+//        print(key)
+//        print(val)
         
         // save the CAN key and can message in the dictionary
         //canDict.setObject(vr, forKey:key as NSCopying)
@@ -158,7 +158,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
           let str = dataField1.text! + dataField2.text! +  dataField3.text! + dataField4.text!
           let str1 = dataField5.text! + dataField6.text! + dataField7.text! + dataField8.text!
           payloadhex = str + str1
-         print (payloadhex as Any)
+        // print (payloadhex as Any)
             return true
       }else{
           let alertController = UIAlertController(title: "", message:

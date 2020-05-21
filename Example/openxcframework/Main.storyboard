@@ -1127,7 +1127,6 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="recHit:" destination="BHx-Nq-eLz" eventType="touchUpInside" id="YZx-au-HJN"/>
                                             <segue destination="ubb-Oq-AZH" kind="presentation" id="qiz-0B-6Pt"/>
                                         </connections>
                                     </button>
@@ -1146,7 +1145,6 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="notificationBtnClick:" destination="BHx-Nq-eLz" eventType="touchUpInside" id="nfN-on-tYl"/>
                                             <segue destination="KdS-XV-G5J" kind="presentation" id="TdU-4F-IBO"/>
                                         </connections>
                                     </button>
