@@ -10,16 +10,16 @@ import UIKit
 
 class OutputViewController: UIViewController {
     
-    @IBOutlet weak var overwriteGPSswitch: UISwitch!
+    @IBOutlet weak var overwriteGPSSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let overwriteOn =  UserDefaults.standard.bool(forKey: "overwriteGPSOn")
-        print(overwriteOn)
         if overwriteOn == true{
-            overwriteGPSswitch.isOn = true
+            overwriteGPSSwitch.isOn = true
         }
-        // Do any additional setup after loading the view.
+    
     }
     // close modal view
     @IBAction func hideHit(_ sender: AnyObject) {
@@ -28,22 +28,14 @@ class OutputViewController: UIViewController {
     @IBAction func overwriteGPSChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey:"overwriteGPSOn")
         if sender.isOn {
-            overwriteGPSswitch.isOn = true
+            overwriteGPSSwitch.isOn = true
         } else {
-            overwriteGPSswitch.isOn = false
+            overwriteGPSSwitch.isOn = false
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     */
     
 }

@@ -166,7 +166,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" smartQuotesType="no"/>
                                 <connections>
-                                    <outlet property="delegate" destination="uM8-tL-Gmf" id="aCL-Dv-EgT"/>
+                                    <outlet property="delegate" destination="uM8-tL-Gmf" id="P0B-R7-h9H"/>
                                 </connections>
                             </textField>
                         </subviews>
@@ -218,19 +218,19 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Commands" id="SHw-dL-Jbp"/>
                     <connections>
-                        <outlet property="acitivityInd" destination="X2N-n1-PMH" id="BtQ-LP-rmU"/>
+                        <outlet property="acitivityIndicator" destination="X2N-n1-PMH" id="S51-xB-ktA"/>
                         <outlet property="busLabel" destination="3vU-lg-Vdj" id="TpB-Tg-tja"/>
                         <outlet property="busSeg" destination="ouf-Un-Rfc" id="Co2-EF-y4v"/>
                         <outlet property="bypassLabel" destination="oMt-Yk-nYQ" id="oNE-oR-cL4"/>
                         <outlet property="bypassSeg" destination="J1r-B2-hYF" id="VVn-E7-K5W"/>
-                        <outlet property="customCommandTF" destination="6Qi-2l-lYc" id="kRD-nC-clp"/>
-                        <outlet property="enabSeg" destination="gCF-t9-4Xx" id="44L-16-qGT"/>
-                        <outlet property="enabledLabel" destination="sxb-kJ-vsJ" id="NvK-fV-Cmt"/>
+                        <outlet property="customCommandTextField" destination="6Qi-2l-lYc" id="lfT-ub-ElO"/>
+                        <outlet property="enabledLabel" destination="sxb-kJ-vsJ" id="EVf-Fy-AXj"/>
+                        <outlet property="enabledSeg" destination="gCF-t9-4Xx" id="48L-c6-KQh"/>
                         <outlet property="formatLabel" destination="eHj-Gx-9Sh" id="UwF-aw-zsU"/>
-                        <outlet property="pFormatSeg" destination="l1W-i0-7OC" id="67C-0V-jUK"/>
+                        <outlet property="payloadFormatSeg" destination="l1W-i0-7OC" id="kuy-my-biK"/>
                         <outlet property="pickerView" destination="q5T-EL-zrt" id="cfO-zJ-Xbw"/>
                         <outlet property="responseLab" destination="iF4-6p-1el" id="72c-qf-CLl"/>
-                        <outlet property="sendCmndButton" destination="gea-uE-17r" id="hNj-O6-ixO"/>
+                        <outlet property="sendCommandButton" destination="gea-uE-17r" id="MhD-up-5gu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQg-9w-V0L" userLabel="First Responder" sceneMemberID="firstResponder"/>

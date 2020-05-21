@@ -11,11 +11,10 @@ import openXCiOSFramework
 
 class SendCanViewController: UIViewController, UITextFieldDelegate {
     
-    // UI outlets
-    @IBOutlet weak var bussel: UISegmentedControl!
+    @IBOutlet weak var busSegment: UISegmentedControl!
     @IBOutlet weak var idField: UITextField!
+    
     //Payload hex 8 boxes text field outlet
-   // @IBOutlet weak var dataField: UITextField!
     @IBOutlet weak var dataField1: UITextField!
     @IBOutlet weak var dataField2: UITextField!
     @IBOutlet weak var dataField3: UITextField!
@@ -25,9 +24,9 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var dataField7: UITextField!
     @IBOutlet weak var dataField8: UITextField!
 
-    @IBOutlet weak var lastReq: UILabel!
+    @IBOutlet weak var lastRequest: UILabel!
     
-    var payloadhex:String!
+    var payloadHex:String!
     
     var vm: VehicleManager!
     var bm: BluetoothManager!
@@ -39,7 +38,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         bm = BluetoothManager.sharedInstance
         
         // set default CAN target
-        vm.setCanDefaultTarget(self, action: SendCanViewController.default_sendcan_rsp)
+        vm.setCanDefaultTarget(self, action: SendCanViewController.defaultSendcanResponse)
         
         self.dataField1.delegate = self
         self.dataField2.delegate = self
@@ -62,15 +61,15 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         
     
     }
-    func default_sendcan_rsp(_ rsp:NSDictionary) {
+    func defaultSendcanResponse(_ rsp:NSDictionary) {
         // extract the CAN message
         let vr = rsp.object(forKey: "vehiclemessage") as! VehicleCanResponse
         print(rsp)
         // create CAN key from measurement message
         let key = String(format:"%x-%x",vr.bus,vr.id)
         let val = "0x"+(vr.data as String)
-//        print(key)
-//        print(val)
+        print(key)
+        print(val)
         
         // save the CAN key and can message in the dictionary
         //canDict.setObject(vr, forKey:key as NSCopying)
@@ -157,7 +156,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
             (dataField5.text != "") && (dataField6.text != "") && (dataField7.text != "") && (dataField8.text != "")) { 
           let str = dataField1.text! + dataField2.text! +  dataField3.text! + dataField4.text!
           let str1 = dataField5.text! + dataField6.text! + dataField7.text! + dataField8.text!
-          payloadhex = str + str1
+          payloadHex = str + str1
         // print (payloadhex as Any)
             return true
       }else{
@@ -172,7 +171,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         if(!bm.isBleConnected){
             
-            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)
+            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage:errorMsgBLE)
         }
        
     }
@@ -193,24 +192,24 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         let cmd = VehicleCanRequest()
         
         // look at segmented control for bus
-        cmd.bus = bussel.selectedSegmentIndex + 1
+        cmd.bus = busSegment.selectedSegmentIndex + 1
         
         
         // check that the msg id field is valid
         if let mid = idField.text as String? {
             let midtrim = mid.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             if midtrim=="" {
-                lastReq.text = "Invalid command : need a message_id"
+                lastRequest.text = "Invalid command : need a message_id"
                 return
             }
             if let midInt = Int(midtrim,radix:16) as NSInteger? { 
                 cmd.id = midInt
             } else {
-                lastReq.text = "Invalid command : message_id should be hex number (with no leading 0x)"
+                lastRequest.text = "Invalid command : message_id should be hex number (with no leading 0x)"
                 return
             }
         } else {
-            lastReq.text = "Invalid command : need a message_id"
+            lastRequest.text = "Invalid command : need a message_id"
             return
         }
         
@@ -220,18 +219,18 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
                 return
             }
         
-        if let payld = payloadhex  {              //dataField.text as String?
+        if let payld = payloadHex  {              //dataField.text as String?
             let payldtrim = payld.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             if payldtrim=="" {
-                lastReq.text = "Invalid command : need a payload"
+                lastRequest.text = "Invalid command : need a payload"
                 return
             }
-            cmd.data = payloadhex! as NSString                //dataField.text as String?
+            cmd.data = payloadHex! as NSString                //dataField.text as String?
             if (cmd.data.length % 2) == 1 {
-                cmd.data = "0" + payloadhex as NSString      //dataField.text! as NSString
+                cmd.data = "0" + payloadHex as NSString      //dataField.text! as NSString
             }
         } else {
-            lastReq.text = "Invalid command : need a payload"
+            lastRequest.text = "Invalid command : need a payload"
             return
         }
         
@@ -240,13 +239,13 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         vm.sendCanReq(cmd)
         
         // update the last request sent label
-        lastReq.text = "bus:"+String(cmd.bus)+" id:0x"+idField.text!+" payload:0x"+String(cmd.data)
+        lastRequest.text = "bus:"+String(cmd.bus)+" id:0x"+idField.text!+" payload:0x"+String(cmd.data)
         
     }
     
     func checkBluetoothConnection(){
         if bm.connectionState != VehicleManagerConnectionState.operational {
-                lastReq.text = "Not connected to VI"
+                lastRequest.text = "Not connected to VI"
                 return
             }
     }

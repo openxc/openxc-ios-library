@@ -10,18 +10,13 @@ import UIKit
 import openXCiOSFramework
 
 
-class modalSettingsView: UIViewController, UITextFieldDelegate {
+class ModalSettingsView: UIViewController, UITextFieldDelegate {
     
     // UI outlets
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var aboutView: UIView!
-    @IBOutlet weak var recView: UIView!
-    @IBOutlet weak var srcView: UIView!
-    
     @IBOutlet weak var appVersion: UILabel!
-    
-    
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -8,11 +8,11 @@
 
 import Foundation
 
-public var errorMSG: String = "Error"
-public var prerecordTrace: String = "Pre-recorded Tracefile"
-public var wifiNotConnected: String = "WIFI NOT CONNECTED"
-public var errorMsgBLE: String = "BLE is not connected to the Device. "
-public var errorMsgCustomCommand: String = "it is not a valid json. "
-public var errorMsgforText: String = "you need to enter the value. "
-public var errorMsgcustomCommand: String = "Change to json mode for custom command. "
+public var errorMsg: String = "Error"
+public var preRecordTrace: String = "Pre-recorded tracefile"
+public var wifiNotConnected: String = "WIFI not connected."
+public var errorMsgBLE: String = "BLE is not connected to the device. "
+public var errorMsgCustomCommand: String = "It is not a valid json. "
+public var errorMsgText: String = "You need to enter the value. "
+public var errorMsgCustomCommandProto: String = "Change to json mode for custom command. "
 

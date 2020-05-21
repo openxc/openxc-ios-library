@@ -21,16 +21,15 @@
 		7D4C63BC2239247700A04A53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C63AA2239247600A04A53 /* Assets.xcassets */; };
 		7D4C63BD2239247700A04A53 /* adjectives.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C63AB2239247600A04A53 /* adjectives.txt */; };
 		7D4C63BE2239247700A04A53 /* CommandsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63AC2239247600A04A53 /* CommandsViewController.swift */; };
-		7D4C63C02239247700A04A53 /* DiagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63AE2239247600A04A53 /* DiagViewController.swift */; };
+		7D4C63C02239247700A04A53 /* DiagnosticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63AE2239247600A04A53 /* DiagnosticViewController.swift */; };
 		7D4C63C12239247700A04A53 /* RecordingSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63AF2239247600A04A53 /* RecordingSourceController.swift */; };
 		7D4C63C22239247700A04A53 /* OutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B02239247600A04A53 /* OutputViewController.swift */; };
-		7D4C63C32239247700A04A53 /* OpenXcTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B12239247600A04A53 /* OpenXcTabbarView.swift */; };
 		7D4C63C42239247700A04A53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B22239247600A04A53 /* AppDelegate.swift */; };
 		7D4C63C52239247700A04A53 /* AlertHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B32239247600A04A53 /* AlertHandling.swift */; };
 		7D4C63C62239247700A04A53 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B42239247700A04A53 /* DashboardViewController.swift */; };
 		7D4C63C72239247700A04A53 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B52239247700A04A53 /* Utility.swift */; };
 		7D4C63C82239247700A04A53 /* SendCanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B62239247700A04A53 /* SendCanViewController.swift */; };
-		7D4C63C92239247700A04A53 /* modalSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B72239247700A04A53 /* modalSettingsView.swift */; };
+		7D4C63C92239247700A04A53 /* ModalSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B72239247700A04A53 /* ModalSettingsView.swift */; };
 		7D4C63CB2239247E00A04A53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C63CA2239247E00A04A53 /* Main.storyboard */; };
 		7DC37E6B240E765E0074CBCC /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EE7BE22E0540D0098F6E5 /* ProtocolBuffers.framework */; };
 		BEB29CC5678B6E4083210FDD /* Pods_openxcframework_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081A0F364536344AAAFB65E7 /* Pods_openxcframework_Example.framework */; };
@@ -75,16 +74,15 @@
 		7D4C63AA2239247600A04A53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D4C63AB2239247600A04A53 /* adjectives.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = adjectives.txt; sourceTree = "<group>"; };
 		7D4C63AC2239247600A04A53 /* CommandsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandsViewController.swift; sourceTree = "<group>"; };
-		7D4C63AE2239247600A04A53 /* DiagViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagViewController.swift; sourceTree = "<group>"; };
+		7D4C63AE2239247600A04A53 /* DiagnosticViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagnosticViewController.swift; sourceTree = "<group>"; };
 		7D4C63AF2239247600A04A53 /* RecordingSourceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingSourceController.swift; sourceTree = "<group>"; };
 		7D4C63B02239247600A04A53 /* OutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputViewController.swift; sourceTree = "<group>"; };
-		7D4C63B12239247600A04A53 /* OpenXcTabbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenXcTabbarView.swift; sourceTree = "<group>"; };
 		7D4C63B22239247600A04A53 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D4C63B32239247600A04A53 /* AlertHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHandling.swift; sourceTree = "<group>"; };
 		7D4C63B42239247700A04A53 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		7D4C63B52239247700A04A53 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		7D4C63B62239247700A04A53 /* SendCanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendCanViewController.swift; sourceTree = "<group>"; };
-		7D4C63B72239247700A04A53 /* modalSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = modalSettingsView.swift; sourceTree = "<group>"; };
+		7D4C63B72239247700A04A53 /* ModalSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalSettingsView.swift; sourceTree = "<group>"; };
 		7D4C63CA2239247E00A04A53 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F1C5174A9B5F4FA48061C6CB /* Pods_openxcframework_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openxcframework_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -140,9 +138,8 @@
 				7D4C63AC2239247600A04A53 /* CommandsViewController.swift */,
 				7D4C63B42239247700A04A53 /* DashboardViewController.swift */,
 				7D4C63A92239247600A04A53 /* DataSourceController.swift */,
-				7D4C63AE2239247600A04A53 /* DiagViewController.swift */,
-				7D4C63B72239247700A04A53 /* modalSettingsView.swift */,
-				7D4C63B12239247600A04A53 /* OpenXcTabbarView.swift */,
+				7D4C63AE2239247600A04A53 /* DiagnosticViewController.swift */,
+				7D4C63B72239247700A04A53 /* ModalSettingsView.swift */,
 				7D4C63B02239247600A04A53 /* OutputViewController.swift */,
 				7D4C63AF2239247600A04A53 /* RecordingSourceController.swift */,
 				7D4C63B62239247700A04A53 /* SendCanViewController.swift */,
@@ -402,15 +399,14 @@
 			files = (
 				7D4C63C22239247700A04A53 /* OutputViewController.swift in Sources */,
 				7D4C63BE2239247700A04A53 /* CommandsViewController.swift in Sources */,
-				7D4C63C02239247700A04A53 /* DiagViewController.swift in Sources */,
-				7D4C63C92239247700A04A53 /* modalSettingsView.swift in Sources */,
+				7D4C63C02239247700A04A53 /* DiagnosticViewController.swift in Sources */,
+				7D4C63C92239247700A04A53 /* ModalSettingsView.swift in Sources */,
 				7D4C63C52239247700A04A53 /* AlertHandling.swift in Sources */,
 				7D3ECA0423C729AE0058B84F /* NotificationViewController.swift in Sources */,
 				7D4C63C42239247700A04A53 /* AppDelegate.swift in Sources */,
 				7D4C63B92239247700A04A53 /* StatusViewController.swift in Sources */,
 				7D4C63C82239247700A04A53 /* SendCanViewController.swift in Sources */,
 				7D4C63BA2239247700A04A53 /* CanViewController.swift in Sources */,
-				7D4C63C32239247700A04A53 /* OpenXcTabbarView.swift in Sources */,
 				7D4C63C72239247700A04A53 /* Utility.swift in Sources */,
 				7D4C63C62239247700A04A53 /* DashboardViewController.swift in Sources */,
 				7D4C63C12239247700A04A53 /* RecordingSourceController.swift in Sources */,
