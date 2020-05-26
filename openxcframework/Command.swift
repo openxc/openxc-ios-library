@@ -48,7 +48,7 @@ open class VehicleCommandResponse : VehicleBaseMessage {
     open var message : NSString = ""
     open var status : Bool = false
     override func traceOutput() -> NSString {
-        return "{\"timestamp\":\(timestamp),\"command_response\":\"\(command_response)\",\"message\":\"\(message)\",\"status\":\(status)}" as NSString
+        return "{\"timestamp\":\(timeStamp),\"command_response\":\"\(command_response)\",\"message\":\"\(message)\",\"status\":\(status)}" as NSString
     }
 }
 
@@ -66,16 +66,16 @@ open class Command: NSObject {
     }()
     
     // config variable determining whether trace input is used instead of BTLE data
-    fileprivate var traceFilesourceEnabled: Bool = false
+    fileprivate var traceFileSourceEnabled: Bool = false
 
     // BTLE transmit token increment variable
-    fileprivate var BLETxSendToken: Int = 0
+    fileprivate var bleTransmitSendToken: Int = 0
 
     // ordered list for storing callbacks for in progress vehicle commands
-    fileprivate var BLETxCommandCallback = [TargetAction]()
+    fileprivate var bleTransmitCommandCallback = [TargetAction]()
 
     // mirrored ordered list for storing command token for in progress vehicle commands
-    fileprivate var BLETxCommandToken = [String]()
+    fileprivate var bleTransmitCommandToken = [String]()
 
     // config for protobuf vs json BLE mode, defaults to JSON
    // fileprivate var jsonMode : Bool = true
@@ -85,7 +85,7 @@ open class Command: NSObject {
     fileprivate var managerDebug : Bool = false
 
     // data buffer for storing vehicle messages to send to BTLE
-    fileprivate var BLETxDataBuffer: NSMutableArray! = NSMutableArray()
+    fileprivate var bleTransmitDataBuffer: NSMutableArray! = NSMutableArray()
     
     var vm = VehicleManager.sharedInstance
 
@@ -114,17 +114,17 @@ open class Command: NSObject {
         vmlog("in sendCommand:target")
         
         // if we have a trace input file, ignore this request!
-        if (traceFilesourceEnabled) {
+        if (traceFileSourceEnabled) {
             return ""
             
         }
         
         // save the callback in order, so we know which to call when responses are received
-        BLETxSendToken += 1
-        let key : String = String(BLETxSendToken)
+        bleTransmitSendToken += 1
+        let key : String = String(bleTransmitSendToken)
         let act : TargetAction = TargetActionWrapper(key:key as NSString, target: target, action: action)
-        BLETxCommandCallback.append(act)
-        BLETxCommandToken.append(key)
+        bleTransmitCommandCallback.append(act)
+        bleTransmitCommandToken.append(key)
         
         // common command send method
         sendCommandCommon(cmd)
@@ -138,18 +138,18 @@ open class Command: NSObject {
         vmlog("in sendCommand")
         
         // if we have a trace input file, ignore this request!
-        if (traceFilesourceEnabled) {
+        if (traceFileSourceEnabled) {
             return
             
         }
         
         // we still need to keep a spot for the callback in the ordered list, so
         // nothing gets out of sync. Assign the callback to the null callback method.
-        BLETxSendToken += 1
-        let key : String = String(BLETxSendToken)
+        bleTransmitSendToken += 1
+        let key : String = String(bleTransmitSendToken)
         let act : TargetAction = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
-        BLETxCommandCallback.append(act)
-        BLETxCommandToken.append(key)
+        bleTransmitCommandCallback.append(act)
+        bleTransmitCommandToken.append(key)
         
         // common command send method
         sendCommandCommon(cmd)
@@ -258,10 +258,10 @@ open class Command: NSObject {
                        print(cdata2)
                        
                        // append to tx buffer
-                      self.vm.BLETxDataBuffer.add(cdata2)
+                      self.vm.bleTransmitDataBuffer.add(cdata2)
                        
                        // trigger a BLE data send
-                       BluetoothManager.sharedInstance.BLESendFunction()
+                       BluetoothManager.sharedInstance.bleSendFunction()
                        
                    } catch {
                        print("cmd msg build failed")
@@ -321,15 +321,15 @@ open class Command: NSObject {
         }
         
         // append to tx buffer
-        BLETxDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
+        bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
         
-        print("BLETxDataBuffer.count...",BLETxDataBuffer.count)
-        print("BLETxDataBuffer...",BLETxDataBuffer)
+        print("BLETxDataBuffer.count...",bleTransmitDataBuffer.count)
+        print("BLETxDataBuffer...",bleTransmitDataBuffer as Any)
         
-        self.vm.BLETxDataBuffer = BLETxDataBuffer
+        self.vm.bleTransmitDataBuffer = bleTransmitDataBuffer
         
         // trigger a BLE data send
-        BluetoothManager.sharedInstance.BLESendFunction()
+        BluetoothManager.sharedInstance.bleSendFunction()
         //BLESendFunction()
         
     }
@@ -337,18 +337,18 @@ open class Command: NSObject {
   open func customCommand(jsonString:String) {
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {
+    if (traceFileSourceEnabled) {
         return
         
     }
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
-    BLETxSendToken += 1
-    let key : String = String(BLETxSendToken)
+    bleTransmitSendToken += 1
+    let key : String = String(bleTransmitSendToken)
     let act : TargetAction = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
-    BLETxCommandCallback.append(act)
-    BLETxCommandToken.append(key)
+    bleTransmitCommandCallback.append(act)
+    bleTransmitCommandToken.append(key)
     // we're in json mode
     //var cmdstr = ""
     // build the command json
@@ -358,13 +358,13 @@ open class Command: NSObject {
     var cmdstr = ""
     print("cmdStr..",jsonString + "\0")
     cmdstr = jsonString + "\0"
-    self.vm.BLETxDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
+    self.vm.bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
     
-    print("BLETxDataBuffer.count...",self.vm.BLETxDataBuffer.count)
-    print("BLETxDataBuffer...",self.vm.BLETxDataBuffer as Any)
+    print("BLETxDataBuffer.count...",self.vm.bleTransmitDataBuffer.count)
+    print("BLETxDataBuffer...",self.vm.bleTransmitDataBuffer as Any)
     
     // trigger a BLE data send
-    BluetoothManager.sharedInstance.BLESendFunction()
+    BluetoothManager.sharedInstance.bleSendFunction()
   }
 
 }

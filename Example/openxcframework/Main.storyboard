@@ -153,7 +153,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="sendCmnd" destination="uM8-tL-Gmf" eventType="touchUpInside" id="VYs-EI-6tu"/>
+                                    <action selector="sendCommand" destination="uM8-tL-Gmf" eventType="touchUpInside" id="jGc-M2-mKh"/>
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="X2N-n1-PMH">
@@ -218,7 +218,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Commands" id="SHw-dL-Jbp"/>
                     <connections>
-                        <outlet property="acitivityIndicator" destination="X2N-n1-PMH" id="S51-xB-ktA"/>
+                        <outlet property="acitivityIndicator" destination="X2N-n1-PMH" id="m2C-Qu-Ncc"/>
                         <outlet property="busLabel" destination="3vU-lg-Vdj" id="TpB-Tg-tja"/>
                         <outlet property="busSeg" destination="ouf-Un-Rfc" id="Co2-EF-y4v"/>
                         <outlet property="bypassLabel" destination="oMt-Yk-nYQ" id="oNE-oR-cL4"/>
@@ -324,7 +324,7 @@
                                 <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8a9-sK-hBj" userLabel="msgRcvdLab">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8a9-sK-hBj" userLabel="AveragemsgRcvdLab">
                                 <rect key="frame" x="172" y="123" width="190" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="wfJ-nT-lFy"/>
@@ -378,7 +378,7 @@
                                 <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEW-VZ-SbC" userLabel="devidLab">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEW-VZ-SbC" userLabel="ThroughPutLab">
                                 <rect key="frame" x="170" y="243" width="190" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="HeO-UX-BGQ"/>
@@ -398,7 +398,7 @@
                                 <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xi9-ZS-hYJ" userLabel="devidLab">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xi9-ZS-hYJ" userLabel="PlatFormLab">
                                 <rect key="frame" x="170" y="218" width="190" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="Rjh-zn-sR3"/>
@@ -576,20 +576,20 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="NetworkImg" destination="qIm-dJ-9e6" id="FI8-eF-XGm"/>
-                        <outlet property="actConLab" destination="twl-J0-AhF" id="Wcj-SL-8bT"/>
-                        <outlet property="averageMessageLab" destination="8a9-sK-hBj" id="vCz-y0-6l3"/>
-                        <outlet property="devidLab" destination="XOY-Ud-hZJ" id="DGt-jK-6T7"/>
-                        <outlet property="disconnectBtn" destination="ceN-pV-EP6" id="6rm-Qn-LnQ"/>
-                        <outlet property="msgRvcdLab" destination="vmt-cZ-dyk" id="wNj-04-A8Y"/>
-                        <outlet property="peripheralTable" destination="nMN-Fz-g6C" id="8vC-vC-oIH"/>
-                        <outlet property="platformLab" destination="Xi9-ZS-hYJ" id="tG2-84-yrs"/>
-                        <outlet property="restartTraceBtn" destination="lZD-ZF-Ntt" id="T7G-uk-hDh"/>
-                        <outlet property="searchBtn" destination="pPj-fy-gM3" id="d2X-TH-VKG"/>
-                        <outlet property="splitTraceBtn" destination="k8a-rk-re3" id="XJN-kN-9zx"/>
-                        <outlet property="startStopBtn" destination="gYU-dO-wXU" id="IZH-Bl-BtX"/>
-                        <outlet property="throughputLab" destination="mEW-VZ-SbC" id="kUX-Ft-CAO"/>
-                        <outlet property="verLab" destination="ioC-fU-wIq" id="tW1-a0-pkJ"/>
+                        <outlet property="activeConnectionLabel" destination="twl-J0-AhF" id="eyc-LF-AWS"/>
+                        <outlet property="averageMessageLabel" destination="8a9-sK-hBj" id="4kL-AF-pUa"/>
+                        <outlet property="deviceIdLabel" destination="XOY-Ud-hZJ" id="Mjy-m2-rwq"/>
+                        <outlet property="disConnectButton" destination="ceN-pV-EP6" id="muq-GJ-9kr"/>
+                        <outlet property="messagesReceivedLabel" destination="vmt-cZ-dyk" id="ihL-Fj-691"/>
+                        <outlet property="networkImageView" destination="qIm-dJ-9e6" id="j65-wr-uuY"/>
+                        <outlet property="peripheralTableView" destination="nMN-Fz-g6C" id="9ab-q8-8cJ"/>
+                        <outlet property="platformLabel" destination="Xi9-ZS-hYJ" id="9y3-MP-hvc"/>
+                        <outlet property="restartTraceButton" destination="lZD-ZF-Ntt" id="hMI-cf-rIm"/>
+                        <outlet property="searchButton" destination="pPj-fy-gM3" id="Sva-CP-enQ"/>
+                        <outlet property="splitTraceButton" destination="k8a-rk-re3" id="lPt-3D-2aE"/>
+                        <outlet property="startStopButton" destination="gYU-dO-wXU" id="CCe-zT-kBr"/>
+                        <outlet property="throughPutLabel" destination="mEW-VZ-SbC" id="TrW-Jd-3Qo"/>
+                        <outlet property="versionLabel" destination="ioC-fU-wIq" id="9t4-tP-vQV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -1038,8 +1038,8 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="bussel" destination="Bqi-m5-gjg" id="igO-4o-Erj"/>
-                        <outlet property="dataField1" destination="sWS-Pe-ZG9" id="vfO-po-7gL"/>
+                        <outlet property="busSegment" destination="Bqi-m5-gjg" id="ZO9-iV-R4h"/>
+                        <outlet property="dataField1" destination="sWS-Pe-ZG9" id="G0m-jW-ymm"/>
                         <outlet property="dataField2" destination="bOP-fY-wqS" id="o09-1w-9Ff"/>
                         <outlet property="dataField3" destination="bh5-4w-i70" id="DYl-Qy-KOI"/>
                         <outlet property="dataField4" destination="rab-S4-dmD" id="twF-Nt-bbC"/>
@@ -1048,7 +1048,7 @@
                         <outlet property="dataField7" destination="xZj-Ui-APc" id="zTD-i0-K2u"/>
                         <outlet property="dataField8" destination="gKb-cd-trX" id="R1k-qp-IvL"/>
                         <outlet property="idField" destination="H04-ih-4DQ" id="rO8-mD-RDM"/>
-                        <outlet property="lastReq" destination="vxF-CF-Cam" id="7ZR-x2-vlQ"/>
+                        <outlet property="lastRequest" destination="vxF-CF-Cam" id="mbz-eN-nX8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1kk-8g-TtA" sceneMemberID="firstResponder"/>
@@ -1058,7 +1058,7 @@
         <!--Modal Settings View-->
         <scene sceneID="PRV-DO-7tf">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="BHx-Nq-eLz" customClass="modalSettingsView" customModule="openxcframework_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="BHx-Nq-eLz" customClass="ModalSettingsView" customModule="openxcframework_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LnF-YD-meR"/>
                         <viewControllerLayoutGuide type="bottom" id="wwe-kR-Xsc"/>
@@ -1077,7 +1077,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="hideHit:" destination="BHx-Nq-eLz" eventType="touchUpInside" id="bgO-Dw-5c8"/>
+                                            <action selector="hideHit:" destination="BHx-Nq-eLz" eventType="touchUpInside" id="LfS-La-UWN"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OpenXC Demo App Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3S4-M9-hX9">
@@ -1154,7 +1154,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="aboutHit:" destination="BHx-Nq-eLz" eventType="touchUpInside" id="BtJ-1g-8d6"/>
+                                            <action selector="aboutHit:" destination="BHx-Nq-eLz" eventType="touchUpInside" id="6gd-EF-o5C"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1189,9 +1189,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="aboutView" destination="0ei-5Q-AFg" id="dgk-f2-xPj"/>
-                        <outlet property="appVersion" destination="Aop-VE-GZi" id="5ya-br-8MF"/>
-                        <outlet property="mainView" destination="kBR-dn-mj7" id="GoH-oV-HZH"/>
+                        <outlet property="aboutView" destination="0ei-5Q-AFg" id="cnf-DZ-mQs"/>
+                        <outlet property="appVersion" destination="Aop-VE-GZi" id="Wo4-3x-Ohg"/>
+                        <outlet property="mainView" destination="kBR-dn-mj7" id="183-nu-MZW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yB5-P9-YNC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1208,7 +1208,7 @@
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
-                                <action selector="backHit:" destination="BHx-Nq-eLz" eventType="touchUpInside" id="C33-EW-NIu"/>
+                                <action selector="backHit:" destination="BHx-Nq-eLz" eventType="touchUpInside" id="g70-zm-Rlc"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About OpenXC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vx0-j3-l0L">
@@ -1254,7 +1254,7 @@
         <!--Diag-->
         <scene sceneID="IDH-Cf-pvG">
             <objects>
-                <viewController id="CQw-sU-6eO" userLabel="Diag" customClass="DiagViewController" customModule="openxcframework_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="CQw-sU-6eO" userLabel="Diag" customClass="DiagnosticViewController" customModule="openxcframework_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4sx-1W-u3A"/>
                         <viewControllerLayoutGuide type="bottom" id="JV8-Ru-rNx"/>
@@ -1355,7 +1355,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="CQw-sU-6eO" id="Ini-ac-4Ig"/>
+                                    <outlet property="delegate" destination="CQw-sU-6eO" id="kIw-Di-8Fb"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bie-dK-THp">
@@ -1363,7 +1363,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="CQw-sU-6eO" id="sfz-fd-P9r"/>
+                                    <outlet property="delegate" destination="CQw-sU-6eO" id="K5f-fC-kOU"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="89q-1P-bn8">
@@ -1419,7 +1419,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="sendHit:" destination="CQw-sU-6eO" eventType="touchUpInside" id="Dtp-P1-eK3"/>
+                                    <action selector="sendHit:" destination="CQw-sU-6eO" eventType="touchUpInside" id="dFG-T8-4Ix"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="------" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3f-hI-v8j">
@@ -1486,14 +1486,14 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-15"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="bussel" destination="gwD-3g-6LY" id="8B0-PB-8RU"/>
-                        <outlet property="idField" destination="2QG-KT-cmk" id="oHQ-Ux-lZU"/>
-                        <outlet property="lastReq" destination="o3f-hI-v8j" id="M7y-xE-pet"/>
-                        <outlet property="modeField" destination="Bie-dK-THp" id="MHs-Fs-Qu2"/>
-                        <outlet property="pidField" destination="89q-1P-bn8" id="nOW-87-MXF"/>
-                        <outlet property="ploadField" destination="vzS-ry-byS" id="kgL-10-w1x"/>
-                        <outlet property="requestBtn" destination="rMM-3n-ldU" id="pUn-GH-s9g"/>
-                        <outlet property="rspText" destination="xmU-ma-KT8" id="v4Q-AP-KE0"/>
+                        <outlet property="busSegment" destination="gwD-3g-6LY" id="h7v-39-wkq"/>
+                        <outlet property="idField" destination="2QG-KT-cmk" id="X89-q0-bhu"/>
+                        <outlet property="lastRequest" destination="o3f-hI-v8j" id="Gr2-pO-fbm"/>
+                        <outlet property="modeField" destination="Bie-dK-THp" id="LNv-4d-vsP"/>
+                        <outlet property="payloadField" destination="vzS-ry-byS" id="Ytf-vA-FN3"/>
+                        <outlet property="pidField" destination="89q-1P-bn8" id="fig-GN-2r6"/>
+                        <outlet property="requestButton" destination="rMM-3n-ldU" id="4UQ-nO-rtT"/>
+                        <outlet property="responseText" destination="xmU-ma-KT8" id="awR-dv-Mqo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Qe-XF-ceN" sceneMemberID="firstResponder"/>
@@ -1754,15 +1754,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="DKk-h1-Qro"/>
                     <connections>
-                        <outlet property="apiSourcenamelabel" destination="l4f-2o-p5S" id="W7m-7S-fZj"/>
-                        <outlet property="dweetname" destination="gc8-6y-klU" id="xWa-Qb-Ino"/>
-                        <outlet property="dweetnamelabel" destination="mcU-7m-8Hq" id="25N-6H-FWN"/>
-                        <outlet property="dweetswitch" destination="K94-d9-L1s" id="9kO-hG-CWV"/>
-                        <outlet property="recname" destination="6tc-ZE-M8c" id="e8S-li-V9b"/>
-                        <outlet property="recswitch" destination="fJi-1d-iwc" id="DBJ-gg-nph"/>
-                        <outlet property="tergetURLnamelabel" destination="lHN-0f-nsv" id="6hF-rF-HDm"/>
-                        <outlet property="traceURLname" destination="Hhi-gN-yQP" id="oSX-OD-Tn1"/>
-                        <outlet property="uploadtraceswitch" destination="VSn-sJ-ltf" id="Acz-vn-Xah"/>
+                        <outlet property="apiSourceNameLabel" destination="AHc-rV-ZGu" id="dv8-YK-ZdT"/>
+                        <outlet property="dweetNameField" destination="gc8-6y-klU" id="t5H-Wa-LCg"/>
+                        <outlet property="dweetNameLabel" destination="mcU-7m-8Hq" id="8CN-34-gxD"/>
+                        <outlet property="dweetSwitch" destination="K94-d9-L1s" id="3he-sk-beO"/>
+                        <outlet property="recordingNameField" destination="6tc-ZE-M8c" id="Czg-ev-sAD"/>
+                        <outlet property="recordingSwitch" destination="fJi-1d-iwc" id="eNF-9c-hbg"/>
+                        <outlet property="traceUrlNameField" destination="Hhi-gN-yQP" id="d2w-BL-iXX"/>
+                        <outlet property="uploadTraceSwitch" destination="VSn-sJ-ltf" id="S01-fA-5gm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ivK-fn-F1n" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1830,9 +1829,6 @@
                                 <state key="normal" title="Overwtite Native GPS">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="vehicleInterfaceBtn:" destination="9i4-pc-krT" eventType="touchUpInside" id="K7M-as-QEZ"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overwrite iOS native GPS values with those from vehicle(if available)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wVj-Sk-wq4">
                                 <rect key="frame" x="5" y="96" width="244" height="29"/>
@@ -1869,7 +1865,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="overwriteGPSswitch" destination="LlF-lN-Hcb" id="QBe-we-hmA"/>
+                        <outlet property="overwriteGPSSwitch" destination="LlF-lN-Hcb" id="XJS-Tn-GyJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKT-DW-92T" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2130,7 +2126,7 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="X5E-Da-G6g">
                                         <rect key="frame" x="312" y="137" width="51" height="31"/>
                                         <connections>
-                                            <action selector="disableTraceLoopswitch:" destination="9i4-pc-krT" eventType="touchUpInside" id="cz5-YC-w1D"/>
+                                            <action selector="disableTraceLoop:" destination="9i4-pc-krT" eventType="touchUpInside" id="wnj-IA-pnP"/>
                                         </connections>
                                     </switch>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kHf-Fi-1DM">
@@ -2249,21 +2245,21 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="PopupView" destination="LRQ-Ue-gyR" id="QrA-m4-XMD"/>
-                        <outlet property="bleAutoswitch" destination="xCx-BM-VKd" id="PUs-cT-2Yf"/>
-                        <outlet property="bluetoothBtn" destination="rZu-vk-6bf" id="ukz-Pu-MU8"/>
-                        <outlet property="disableTraceLoopSwitch" destination="X5E-Da-G6g" id="9Is-P3-lqM"/>
-                        <outlet property="locationswitch" destination="kHf-Fi-1DM" id="K5R-Bv-3LU"/>
-                        <outlet property="networkBtn" destination="EoD-mV-EOf" id="oDs-mX-iSf"/>
-                        <outlet property="networkDataHost" destination="aTN-qK-r5Y" id="32m-g6-hfK"/>
-                        <outlet property="networkDataPort" destination="CKb-Ba-sc3" id="8zt-En-bIh"/>
-                        <outlet property="noneBtn" destination="EEp-J6-Q46" id="0A5-d4-PjG"/>
-                        <outlet property="playname" destination="Cfs-hs-ZYf" id="wWN-hj-e2Y"/>
-                        <outlet property="protoswitch" destination="xxv-EJ-IqP" id="dii-WR-LrT"/>
-                        <outlet property="sensorswitch" destination="ILd-eS-jzv" id="Rgw-yz-GwB"/>
-                        <outlet property="throughputswitch" destination="M1e-Go-e8S" id="spG-M4-vvg"/>
+                        <outlet property="TraceFilePlayNameField" destination="Cfs-hs-ZYf" id="OQl-bP-tfe"/>
+                        <outlet property="bleAutoConnectSwitch" destination="xCx-BM-VKd" id="vJ2-G7-gZq"/>
+                        <outlet property="bluetoothButton" destination="rZu-vk-6bf" id="eT7-pb-qVo"/>
+                        <outlet property="disableTraceFilePlayLoopSwitch" destination="X5E-Da-G6g" id="fPP-Mf-HPM"/>
+                        <outlet property="locationSwitch" destination="kHf-Fi-1DM" id="J3F-eL-JK4"/>
+                        <outlet property="networkButton" destination="EoD-mV-EOf" id="ea3-mo-zVg"/>
+                        <outlet property="networkDataHostField" destination="aTN-qK-r5Y" id="Vbv-jj-qxw"/>
+                        <outlet property="networkDataPortField" destination="CKb-Ba-sc3" id="GpU-IB-HlJ"/>
+                        <outlet property="noneButton" destination="EEp-J6-Q46" id="hoQ-4y-Xu1"/>
+                        <outlet property="popupView" destination="LRQ-Ue-gyR" id="yuo-HF-Wio"/>
+                        <outlet property="protobufSwitch" destination="xxv-EJ-IqP" id="Nh5-W8-Ton"/>
+                        <outlet property="sensorSwitch" destination="ILd-eS-jzv" id="bJf-A2-qFn"/>
+                        <outlet property="throughPutSwitch" destination="M1e-Go-e8S" id="Z9v-aO-fOc"/>
                         <outlet property="titleLabel" destination="QR3-W6-LL1" id="hl3-N6-fuX"/>
-                        <outlet property="tracefileBtn" destination="0l8-kI-DIf" id="5XP-VC-KyX"/>
+                        <outlet property="traceFileButton" destination="0l8-kI-DIf" id="Adp-6M-Q5F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tbx-cz-ffs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2278,9 +2274,6 @@
                                     <rect key="frame" x="25" y="70" width="24" height="24"/>
                                     <state key="normal" image="RadioBtn_white_Unchecked"/>
                                     <state key="selected" image="RadioBtn_white_checked"/>
-                                    <connections>
-                                        <action selector="bluetoothBtnAction:" destination="9i4-pc-krT" eventType="touchUpInside" id="bzg-d0-lCX"/>
-                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAc-Aa-bAs">
                                     <rect key="frame" x="65" y="66" width="200" height="33"/>
@@ -2299,9 +2292,6 @@
                                     <rect key="frame" x="25" y="115" width="24" height="24"/>
                                     <state key="normal" image="RadioBtn_white_Unchecked"/>
                                     <state key="selected" image="RadioBtn_white_checked"/>
-                                    <connections>
-                                        <action selector="networkBtnAction:" destination="9i4-pc-krT" eventType="touchUpInside" id="VLz-7x-c32"/>
-                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QNv-5x-LG8">
                                     <rect key="frame" x="65" y="110" width="200" height="33"/>
@@ -2317,9 +2307,6 @@
                                     <rect key="frame" x="25" y="154" width="24" height="24"/>
                                     <state key="normal" image="RadioBtn_white_Unchecked"/>
                                     <state key="selected" image="RadioBtn_white_checked"/>
-                                    <connections>
-                                        <action selector="trscefileBtnAction:" destination="9i4-pc-krT" eventType="touchUpInside" id="1ev-4I-mf3"/>
-                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X8a-vT-y1u">
                                     <rect key="frame" x="65" y="149.5" width="200" height="33"/>
@@ -2335,9 +2322,6 @@
                                     <rect key="frame" x="25" y="199" width="24" height="24"/>
                                     <state key="normal" image="RadioBtn_white_Unchecked"/>
                                     <state key="selected" image="RadioBtn_white_checked"/>
-                                    <connections>
-                                        <action selector="noneBtnAction:" destination="9i4-pc-krT" eventType="touchUpInside" id="Hih-PN-R0f"/>
-                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYC-Eu-VOP">
                                     <rect key="frame" x="65" y="194.5" width="200" height="33"/>
@@ -2533,7 +2517,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="d7V-sw-X5y"/>
+        <segue reference="FLh-Cu-buY"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="RadioBtn_white_Unchecked" width="24" height="24"/>

@@ -11,7 +11,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     // UI Labels
     @IBOutlet weak var activeConnectionLabel: UILabel!
-    @IBOutlet weak var messagesgRecivedLabel: UILabel!
+    @IBOutlet weak var messagesReceivedLabel: UILabel!
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var deviceIdLabel: UILabel!
     @IBOutlet weak var platformLabel: UILabel!
@@ -101,7 +101,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                  self.searchButton.isEnabled = true
                  self.networkImageView.isHidden = true
                  self.activeConnectionLabel.text = "---"
-                 self.messagesgRecivedLabel.text = "---"
+                 self.messagesReceivedLabel.text = "---"
                  self.searchButton.setTitle("SEARCH FOR BLE VI",for:UIControl.State())
              }
     }
@@ -118,7 +118,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                               self.versionLabel.text = "---"
                               self.deviceIdLabel.text = "---"
                               self.platformLabel.text = "---"
-                              self.messagesgRecivedLabel.text = "---"
+                              self.messagesReceivedLabel.text = "---"
                               self.searchButton.setTitle(wifiNotConnected,for:UIControl.State())
                               self.searchButton.isEnabled = false
                               let alertController = UIAlertController(title: "", message:
@@ -200,7 +200,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if name == "None"{
                 DispatchQueue.main.async {
                     self.activeConnectionLabel.text = "---"
-                    self.messagesgRecivedLabel.text = "---"
+                    self.messagesReceivedLabel.text = "---"
                     self.versionLabel.text = "---"
                     self.deviceIdLabel.text = "---"
                     self.platformLabel.text = "---"
@@ -251,7 +251,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         self.versionLabel.text = "---"
                         self.deviceIdLabel.text = "---"
                         self.platformLabel.text = "---"
-                        self.messagesgRecivedLabel.text = "---"
+                        self.messagesReceivedLabel.text = "---"
                         self.searchButton.setTitle(wifiNotConnected,for:UIControl.State())
                         self.searchButton.isEnabled = false
                         let alertController = UIAlertController(title: "", message:
@@ -441,7 +441,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.versionLabel.text = "---"
                     self.deviceIdLabel.text = "---"
                     self.platformLabel.text = "---"
-                    self.messagesgRecivedLabel.text = "---"
+                    self.messagesReceivedLabel.text = "---"
                     self.searchButton.setTitle("WIFI NOT CONNECTED",for:UIControl.State())
                     self.searchButton.isEnabled = false
                 }
@@ -523,7 +523,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if bm.connectionState == VehicleManagerConnectionState.operational || vm.isNetworkConnected || vm.isTraceFileConnected{
             
             DispatchQueue.main.async {
-                self.messagesgRecivedLabel.text = String(self.bm.messageCount)
+                self.messagesReceivedLabel.text = String(self.bm.messageCount)
             }
         }
     }
@@ -531,11 +531,11 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func onClickStartstop(_ sender: UIButton) {
         if (startStopButton.isSelected) {
             startStopButton.isSelected = false
-            tfm.traceFilesinkEnabled = false
+            tfm.traceFileSinkEnabled = false
             
         } else {
             startStopButton.isSelected = true
-             tfm.traceFilesinkEnabled = true
+             tfm.traceFileSinkEnabled = true
         }
     }
      // this function is called when the slit trace button is hit
@@ -565,7 +565,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func updateUi() {
                DispatchQueue.main.async {
                        self.activeConnectionLabel.text = "---"
-                       self.messagesgRecivedLabel.text = "---"
+                       self.messagesReceivedLabel.text = "---"
                        self.versionLabel.text = "---"
                        self.deviceIdLabel.text = "---"
                        self.platformLabel.text = "---"

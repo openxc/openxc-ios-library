@@ -109,7 +109,7 @@ class DiagnosticViewController: UIViewController, UITextFieldDelegate {
         let vr = rsp.object(forKey: "vehiclemessage") as! VehicleDiagnosticResponse
         
         // create the string we want to show in the received messages UI
-        var newTxt = "bus:"+vr.bus.description+" id:0x"+String(format:"%x",vr.message_id)+" mode:0x"+String(format:"%x",vr.mode)+"timestamp"+String(vr.timestamp)
+        var newTxt = "bus:"+vr.bus.description+" id:0x"+String(format:"%x",vr.message_id)+" mode:0x"+String(format:"%x",vr.mode)+"timestamp"+String(vr.timeStamp)
         if vr.pid != 0 {
             newTxt = newTxt+" pid:0x"+String(format:"%x",vr.pid)
         }
@@ -222,7 +222,7 @@ class DiagnosticViewController: UIViewController, UITextFieldDelegate {
         
         // Get the Unix timestamp
         let timestamp = NSDate().timeIntervalSince1970
-        cmd.timestamp = NSInteger(timestamp)
+        cmd.timeStamp = NSInteger(timestamp)
         
         
         // send the diag request
