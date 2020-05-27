@@ -1578,6 +1578,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="248" id="BVL-Yb-gr7"/>
                                             <constraint firstAttribute="height" constant="31" id="UZz-qS-6kF"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="248" id="Zws-Fd-Aaf"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
@@ -1758,8 +1759,9 @@
                         <outlet property="dweetNameField" destination="gc8-6y-klU" id="t5H-Wa-LCg"/>
                         <outlet property="dweetNameLabel" destination="mcU-7m-8Hq" id="8CN-34-gxD"/>
                         <outlet property="dweetSwitch" destination="K94-d9-L1s" id="3he-sk-beO"/>
-                        <outlet property="recordingNameField" destination="6tc-ZE-M8c" id="Czg-ev-sAD"/>
+                        <outlet property="recordingNameField" destination="6tc-ZE-M8c" id="SWE-PI-bmF"/>
                         <outlet property="recordingSwitch" destination="fJi-1d-iwc" id="eNF-9c-hbg"/>
+                        <outlet property="tergetUrlNameLabel" destination="lHN-0f-nsv" id="PdE-7O-Fy6"/>
                         <outlet property="traceUrlNameField" destination="Hhi-gN-yQP" id="d2w-BL-iXX"/>
                         <outlet property="uploadTraceSwitch" destination="VSn-sJ-ltf" id="S01-fA-5gm"/>
                     </connections>
