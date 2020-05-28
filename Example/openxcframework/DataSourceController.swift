@@ -24,7 +24,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
     
     //Tracefile play back switch and textfield
     @IBOutlet weak var playSwitch: UISwitch!
-    @IBOutlet weak var TraceFilePlayNameField: UITextField!
+    @IBOutlet weak var traceFilePlayNameField: UITextField!
     
     @IBOutlet weak var locationSwitch: UISwitch!
     @IBOutlet weak var bleAutoConnectSwitch: UISwitch!
@@ -69,7 +69,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         //networkDataHost.isHidden = true
         
         // watch for changes to trace file input file name field
-        TraceFilePlayNameField.addTarget(self, action: #selector(playFieldDidChange), for: UIControl.Event.editingChanged)
+        traceFilePlayNameField.addTarget(self, action: #selector(playFieldDidChange), for: UIControl.Event.editingChanged)
         // playname.isHidden = true
         
         
@@ -129,7 +129,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             
         else if vehicleInterface == preRecordTrace {
             if let tracefile = (UserDefaults.standard.value(forKey: "traceInputFilename")  as? String){
-                TraceFilePlayNameField.text = tracefile
+                traceFilePlayNameField.text = tracefile
             }
             disableTraceFilePlayLoopSwitch.isUserInteractionEnabled = true
             interfaceValue = vehicleInterface
@@ -160,9 +160,9 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         
         networkDataHostField.resignFirstResponder()
         networkDataPortField.resignFirstResponder()
-        TraceFilePlayNameField.resignFirstResponder()
+        traceFilePlayNameField.resignFirstResponder()
         
-        TraceFilePlayNameField.backgroundColor = UIColor.white
+        traceFilePlayNameField.backgroundColor = UIColor.white
         networkDataHostField.backgroundColor = UIColor.white
         networkDataPortField.backgroundColor = UIColor.white
         
@@ -260,11 +260,11 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         disableTraceFilePlayLoopSwitch.isUserInteractionEnabled = false
         if  (interfaceValue == "None") {
             
-            TraceFilePlayNameField.isUserInteractionEnabled = false
+            traceFilePlayNameField.isUserInteractionEnabled = false
             networkDataHostField.isUserInteractionEnabled = false
             networkDataPortField.isUserInteractionEnabled = false
             
-            TraceFilePlayNameField.backgroundColor = UIColor.lightGray
+            traceFilePlayNameField.backgroundColor = UIColor.lightGray
             networkDataHostField.backgroundColor = UIColor.lightGray
             networkDataPortField.backgroundColor = UIColor.lightGray
             
@@ -279,11 +279,11 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             
             networkDataPortField.text = ""
             networkDataHostField.text = ""
-            TraceFilePlayNameField.text = ""
+            traceFilePlayNameField.text = ""
             
         }
         else if  (interfaceValue == preRecordTrace) {
-            TraceFilePlayNameField.isUserInteractionEnabled = true
+            traceFilePlayNameField.isUserInteractionEnabled = true
             
             networkDataHostField.backgroundColor = UIColor.lightGray
             networkDataPortField.backgroundColor = UIColor.lightGray
@@ -291,7 +291,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             networkDataHostField.isUserInteractionEnabled = false
             networkDataPortField.isUserInteractionEnabled = false
             if let name = UserDefaults.standard.value(forKey: "traceInputFilename") as? NSString {
-                TraceFilePlayNameField.text = name as String
+                traceFilePlayNameField.text = name as String
             }
             UserDefaults.standard.set(interfaceValue, forKey:"vehicleInterface")
             titleLabel.text = interfaceValue
@@ -304,8 +304,8 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             disableTraceFilePlayLoopSwitch.isUserInteractionEnabled = true
         }
         else if  (interfaceValue == "Network") {
-            TraceFilePlayNameField.isUserInteractionEnabled = false
-            TraceFilePlayNameField.backgroundColor = UIColor.lightGray
+            traceFilePlayNameField.isUserInteractionEnabled = false
+            traceFilePlayNameField.backgroundColor = UIColor.lightGray
             networkDataHostField.isUserInteractionEnabled = true
             networkDataPortField.isUserInteractionEnabled = true
             UserDefaults.standard.set(interfaceValue, forKey:"vehicleInterface")
@@ -318,14 +318,14 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
                 bm.disconnect()
             }
             tfm.disableTraceFileSource()
-            TraceFilePlayNameField.text = ""
+            traceFilePlayNameField.text = ""
         }
         else  {
-            TraceFilePlayNameField.isUserInteractionEnabled = false
+            traceFilePlayNameField.isUserInteractionEnabled = false
             networkDataHostField.isUserInteractionEnabled = false
             networkDataPortField.isUserInteractionEnabled = false
             
-            TraceFilePlayNameField.backgroundColor = UIColor.lightGray
+            traceFilePlayNameField.backgroundColor = UIColor.lightGray
             networkDataHostField.backgroundColor = UIColor.lightGray
             networkDataPortField.backgroundColor = UIColor.lightGray
             if  (interfaceValue == "None") {
@@ -341,7 +341,7 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             
             networkDataPortField.text = ""
             networkDataHostField.text = ""
-            TraceFilePlayNameField.text = ""
+            traceFilePlayNameField.text = ""
             
         }
         
@@ -440,8 +440,8 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         
         if textField.tag == 101{
             textField.resignFirstResponder()
-            UserDefaults.standard.set(TraceFilePlayNameField.text, forKey:"traceInputFilename")
-           let value = tfm.enableTraceFileSource(TraceFilePlayNameField.text! as NSString)
+            UserDefaults.standard.set(traceFilePlayNameField.text, forKey:"traceInputFilename")
+           let value = tfm.enableTraceFileSource(traceFilePlayNameField.text! as NSString)
             print(value)
         }
         if textField.tag == 102{

@@ -18,7 +18,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var dweetNameLabel: UILabel!
     @IBOutlet weak var uploadTraceSwitch: UISwitch!
     @IBOutlet weak var traceUrlNameField: UITextField!
-    @IBOutlet weak var tergetUrlNameLabel: UILabel!
+    @IBOutlet weak var targetUrlNameLabel: UILabel!
     @IBOutlet weak var apiSourceNameLabel: UILabel!
     
     var apiSourceName:String!
@@ -50,7 +50,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         traceUrlNameField.addTarget(self, action: #selector(keyboardWillShow), for: UIControl.Event.editingDidBegin)
         traceUrlNameField.addTarget(self, action: #selector(keyboardWillHide), for: UIControl.Event.editingDidEnd)
         traceUrlNameField.isHidden = true
-        tergetUrlNameLabel.isHidden = true
+        targetUrlNameLabel.isHidden = true
         
         //UserDefaults.standard.set(interfaceValue, forKey:"vehicleInterface")
         let value =  UserDefaults.standard.string(forKey: "vehicleInterface")
@@ -62,7 +62,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         if traceOutOn == true {
             uploadTraceSwitch.setOn(true, animated:false)
             traceUrlNameField.isHidden = false
-            tergetUrlNameLabel.isHidden = false
+            targetUrlNameLabel.isHidden = false
         }
         // check saved value of trace output switch
         let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")
@@ -180,10 +180,10 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         UserDefaults.standard.set(sender.isOn, forKey:"uploadTaraceOn")
         if sender.isOn {
             traceUrlNameField.isHidden = false
-            tergetUrlNameLabel.isHidden = false
+            targetUrlNameLabel.isHidden = false
         } else {
             traceUrlNameField.isHidden = true
-            tergetUrlNameLabel.isHidden = true
+            targetUrlNameLabel.isHidden = true
         }
     }
     override func didReceiveMemoryWarning() {

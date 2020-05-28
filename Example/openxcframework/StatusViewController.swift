@@ -23,7 +23,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // scan/connect button
     @IBOutlet weak var searchButton: UIButton!
     // disconnect button
-    @IBOutlet weak var disConnectButton: UIButton!
+    @IBOutlet weak var disconnectButton: UIButton!
     // REstart Trace button
     @IBOutlet weak var restartTraceButton: UIButton!
     // Trace Split button
@@ -45,7 +45,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.disConnectButton.isHidden = true
+        self.disconnectButton.isHidden = true
         self.splitTraceButton.isHidden = true
         self.startStopButton.isHidden = true
 
@@ -90,14 +90,14 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func bluetoothCheck(){
         if (bm.isBleConnected) {
                  DispatchQueue.main.async {
-                     self.disConnectButton.isHidden = false
+                     self.disconnectButton.isHidden = false
                      self.networkImageView.isHidden = true
                     
                  }
              }
              else
              {
-                 self.disConnectButton.isHidden = true
+                 self.disconnectButton.isHidden = true
                  self.searchButton.isEnabled = true
                  self.networkImageView.isHidden = true
                  self.activeConnectionLabel.text = "---"
@@ -415,7 +415,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.startStopButton.isHidden = false
                     self.startStopButton.isSelected = true
                 }
-                self.disConnectButton.isHidden = false
+                self.disconnectButton.isHidden = false
                 self.peripheralTableView.isHidden = true
                 self.activeConnectionLabel.text = "✅"
                 self.networkImageView.isHidden = true
@@ -570,7 +570,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                        self.deviceIdLabel.text = "---"
                        self.platformLabel.text = "---"
                        self.searchButton.setTitle("SEARCH FOR BLE VI",for:UIControl.State())
-                       self.disConnectButton.isHidden = true
+                       self.disconnectButton.isHidden = true
                        self.splitTraceButton.isHidden = true
                        self.startStopButton.isHidden = true
                        self.throughPutLabel.text = "---"

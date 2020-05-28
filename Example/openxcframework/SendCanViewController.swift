@@ -38,7 +38,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         bm = BluetoothManager.sharedInstance
         
         // set default CAN target
-        vm.setCanDefaultTarget(self, action: SendCanViewController.defaultSendcanResponse)
+        vm.setCanDefaultTarget(self, action: SendCanViewController.defaultSendCanResponse)
         
         self.dataField1.delegate = self
         self.dataField2.delegate = self
@@ -61,7 +61,7 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
         
     
     }
-    func defaultSendcanResponse(_ rsp:NSDictionary) {
+    func defaultSendCanResponse(_ rsp:NSDictionary) {
         // extract the CAN message
         let vr = rsp.object(forKey: "vehiclemessage") as! VehicleCanResponse
         print(rsp)
