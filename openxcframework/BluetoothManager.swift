@@ -39,7 +39,7 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   // config for outputting debug messages to console
   fileprivate var managerDebug : Bool = false
   var result: String!
-  var troughputTimer: Timer!
+  var throughputTimer: Timer!
   // optional variable holding callback for VehicleManager status updates
   // fileprivate var managerCallback: TargetAction?
   // dictionary holding last received measurement message for each measurement type
@@ -273,8 +273,6 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     if let act = VehicleManager.sharedInstance.managerCallBack {
       act.performAction(["status":VehicleManagerStatusMessage.c5CONNECTED.rawValue] as NSDictionary)
       isBleConnected = true
-      
-      //self.troughputtimer = Timer.scheduledTimer(timeInterval: 0.5, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
     }
   }
   
