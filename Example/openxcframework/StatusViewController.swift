@@ -16,6 +16,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var deviceIdLabel: UILabel!
     @IBOutlet weak var platformLabel: UILabel!
     @IBOutlet weak var throughPutLabel: UILabel!
+    @IBOutlet weak var vinInfoLabel: UILabel!
     @IBOutlet weak var averageMessageLabel: UILabel!
     @IBOutlet weak var networkImageView: UIImageView!
     
@@ -30,6 +31,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var splitTraceButton: UIButton!
     // Trace Start/stop button
     @IBOutlet weak var startStopButton: UIButton!
+    // Get VIN button
+    @IBOutlet weak var getVinButton: UIButton!
     // table for holding/showing discovered VIs
     @IBOutlet weak var peripheralTableView: UITableView!
     
@@ -415,6 +418,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.startStopButton.isHidden = false
                     self.startStopButton.isSelected = true
                 }
+                self.vinInfoLabel.isHidden = true
+                self.getVinButton.isHidden = false
                 self.disconnectButton.isHidden = false
                 self.peripheralTableView.isHidden = true
                 self.activeConnectionLabel.text = "✅"
@@ -582,6 +587,12 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func restartTraceHit(_ sender: UIButton) {
                 tfm.traceFileRestart()
     }
+    // this function is called when the get vin button is hit
+      @IBAction func getVinButtonHit(_ sender: UIButton) {
+                 // tfm.traceFileRestart()
+        vinInfoLabel.isHidden = false
+        getVinButton.isHidden = true
+      }
     // table view delegate functions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
