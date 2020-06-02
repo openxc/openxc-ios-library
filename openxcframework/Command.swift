@@ -21,6 +21,7 @@ public enum VehicleCommandType: NSString {
     case sd_mount_status
     case rtc_configuration
     case custom_command
+    case get_vin
 }
 
 

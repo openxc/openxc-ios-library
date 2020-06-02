@@ -37,7 +37,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
     @IBOutlet weak var acitivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var customCommandTextField : UITextField!
     
-    let commands = ["Version","Device Id","Passthrough CAN Mode","Acceptance Filter Bypass","Payload Format", "Platform", "RTC Config", "SD Card Status","Custom Command"]
+    let commands = ["Version","Device Id","Passthrough CAN Mode","Acceptance Filter Bypass","Payload Format", "Platform", "RTC Config", "SD Card Status","Custom Command","get_vin"]
     
     var versionResponse: String!
     var deviceIdResponse: String!
@@ -50,6 +50,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
     var customCommandResp: String!
     var isJsonFormat:Bool!
     var selectedRowInPicker: Int!
+    var vinResponse: String!
     
     
     override func viewDidLoad() {
@@ -263,6 +264,12 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             vcm.command = .custom_command
             self.cm.sendCommand(vcm)
             showActivityIndicator()
+            case 9:
+            
+            //let cm = VehicleCommandRequest()
+            vcm.command = .get_vin
+            self.cm.sendCommand(vcm)
+            showActivityIndicator()
             
             break
         default:
@@ -294,6 +301,9 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
          if cr.command_response.isEqual(to: "af_bypass") || cr.command_response.isEqual(to: ".acceptancefilterbypass") {
             acceptanceFilterBypassResponse = String(cr.status)
         }
+        if cr.command_response.isEqual(to: "get_vin") || cr.command_response.isEqual(to: ".get_vin") {
+               versionResponse = cr.message as String
+           }
         self.handleVehicleCommandResponse(cr: cr)
         
       
@@ -429,6 +439,10 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         case 8:
             sendCommandButton.isHidden = false
             responseLab.text = customCommandResp
+            break
+        case 9:
+            sendCommandButton.isHidden = false
+            responseLab.text = vinResponse
             break
         default:
             sendCommandButton.isHidden = true

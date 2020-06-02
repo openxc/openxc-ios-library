@@ -16,7 +16,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var deviceIdLabel: UILabel!
     @IBOutlet weak var platformLabel: UILabel!
     @IBOutlet weak var throughPutLabel: UILabel!
-    @IBOutlet weak var vinInfoLabel: UILabel!
+    @IBOutlet weak var vinLabel: UILabel!
+     @IBOutlet weak var vinInfoDataLabel: UILabel!
     @IBOutlet weak var averageMessageLabel: UILabel!
     @IBOutlet weak var networkImageView: UIImageView!
     
@@ -418,7 +419,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.startStopButton.isHidden = false
                     self.startStopButton.isSelected = true
                 }
-                self.vinInfoLabel.isHidden = true
+                self.vinLabel.isHidden = true
+                self.vinInfoDataLabel.isHidden = false
                 self.getVinButton.isHidden = false
                 self.disconnectButton.isHidden = false
                 self.peripheralTableView.isHidden = true
@@ -520,6 +522,18 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cvc?.platformResponse = String(cr.message)
             
         }
+        if cr.command_response.isEqual(to: "get_vin") || cr.command_response.isEqual(to: ".get_vin") {
+            
+            DispatchQueue.main.async {
+                self.vinInfoDataLabel.text = cr.message as String
+                self.vinLabel.isHidden = false
+                self.vinInfoDataLabel.isHidden = false
+                //self.vinInfoDataLabel.text = "2LMPJ7JR5GBL41923"
+                self.getVinButton.isHidden = true
+            }
+            cvc?.platformResponse = String(cr.message)
+            
+        }
     }
     
     
@@ -580,6 +594,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                        self.startStopButton.isHidden = true
                        self.throughPutLabel.text = "---"
                        self.averageMessageLabel.text = "---"
+                       self.vinInfoDataLabel.text = "---"
                        
                    }
     }
@@ -589,9 +604,11 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     // this function is called when the get vin button is hit
       @IBAction func getVinButtonHit(_ sender: UIButton) {
-                 // tfm.traceFileRestart()
-        vinInfoLabel.isHidden = false
-        getVinButton.isHidden = true
+        
+        let cmd = VehicleCommandRequest()
+        cmd.command = .version
+        self.cm.sendCommand(cmd)
+        
       }
     // table view delegate functions
     

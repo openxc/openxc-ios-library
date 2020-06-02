@@ -369,7 +369,7 @@
                                 <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dve-dC-EaC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dve-dC-EaC">
                                 <rect key="frame" x="20" y="290" width="200" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="iJo-Vx-xxG"/>
@@ -397,7 +397,7 @@
                                 <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGN-3K-233" userLabel="ThroughPutLab">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGN-3K-233" userLabel="vinData">
                                 <rect key="frame" x="169" y="290" width="190" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="PMF-hW-e6a"/>
@@ -633,7 +633,8 @@
                         <outlet property="startStopButton" destination="gYU-dO-wXU" id="CCe-zT-kBr"/>
                         <outlet property="throughPutLabel" destination="mEW-VZ-SbC" id="TrW-Jd-3Qo"/>
                         <outlet property="versionLabel" destination="ioC-fU-wIq" id="9t4-tP-vQV"/>
-                        <outlet property="vinInfoLabel" destination="Dve-dC-EaC" id="SwQ-81-bww"/>
+                        <outlet property="vinInfoDataLabel" destination="WGN-3K-233" id="VLe-H2-xQH"/>
+                        <outlet property="vinLabel" destination="Dve-dC-EaC" id="9QG-Rw-CtO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
