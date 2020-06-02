@@ -13,13 +13,13 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
 
     
   static let sharedNetwork = NetworkDataManager()
-    private var inputstream:  InputStream?
-    private var outputstream: OutputStream?
+    private var inputStream:  InputStream?
+    private var outputStream: OutputStream?
     private var connecting:Bool
     var host: String?
     var port: Int?
     var theData : UInt8!
-    var callbackHandler: ((Bool) -> ())?  = nil
+    var callBackHandler: ((Bool) -> ())?  = nil
     
     // Initialization
     static public let sharedInstance: NetworkDataManager = {
@@ -32,35 +32,35 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
     open func connect(ip:String, portvalue:Int, completionHandler: @escaping (_ success: Bool) -> ()) {
         host = ip
         port = portvalue
-        self.callbackHandler = completionHandler
-        Stream.getStreamsToHost(withName: host!, port: port!,inputStream: &inputstream, outputStream: &outputstream)
+        self.callBackHandler = completionHandler
+        Stream.getStreamsToHost(withName: host!, port: port!,inputStream: &inputStream, outputStream: &outputStream)
         
         //here we are going to calling a delegate function
-        inputstream?.delegate = self
-        outputstream?.delegate = self
+        inputStream?.delegate = self
+        outputStream?.delegate = self
         
-        inputstream?.schedule(in: RunLoop.current, forMode: RunLoop.Mode.default)
-        outputstream?.schedule(in: RunLoop.current, forMode:RunLoop.Mode.default)
+        inputStream?.schedule(in: RunLoop.current, forMode: RunLoop.Mode.default)
+        outputStream?.schedule(in: RunLoop.current, forMode:RunLoop.Mode.default)
         
-        inputstream?.open()
+        inputStream?.open()
         
-        if ((outputstream?.open()) != nil){
+        if ((outputStream?.open()) != nil){
              print("connected")
             
         }else{
             //print("not connected")
             VehicleManager.sharedInstance.isNetworkConnected = false
-            if let act = VehicleManager.sharedInstance.managerCallback {
+            if let act = VehicleManager.sharedInstance.managerCallBack {
                 act.performAction(["status":VehicleManagerStatusMessage.networkDISCONNECTED.rawValue] as NSDictionary)
             }
         }
     }
     
     open func disconnectConnection(){
-        inputstream?.close()
-        outputstream?.close()
+        inputStream?.close()
+        outputStream?.close()
         VehicleManager.sharedInstance.isNetworkConnected = false
-        if let act = VehicleManager.sharedInstance.managerCallback {
+        if let act = VehicleManager.sharedInstance.managerCallBack {
             act.performAction(["status":VehicleManagerStatusMessage.networkDISCONNECTED.rawValue] as NSDictionary)
         }
     }
@@ -71,19 +71,19 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
         {
         case Stream.Event.openCompleted:
             
-            if(aStream == outputstream)
+            if(aStream == outputStream)
             {
                 print("output:OutPutStream opened")
             }
             print("Input = openCompleted")
             break
         case Stream.Event.errorOccurred:
-            if(aStream == outputstream)
+            if(aStream == outputStream)
             {
-                self.callbackHandler!(false)
+                self.callBackHandler!(false)
                 print("output:Error Occurred\n")
                 VehicleManager.sharedInstance.isNetworkConnected = false
-                if let act = VehicleManager.sharedInstance.managerCallback {
+                if let act = VehicleManager.sharedInstance.managerCallBack {
                     act.performAction(["status":VehicleManagerStatusMessage.networkDISCONNECTED.rawValue] as NSDictionary)
                 }
             }
@@ -91,7 +91,7 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
             break
             
         case Stream.Event.endEncountered:
-            if(aStream == outputstream)
+            if(aStream == outputStream)
             {
                 print("output:endEncountered\n")
             }
@@ -99,7 +99,7 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
             break
             
         case Stream.Event.hasSpaceAvailable:
-            if(aStream == outputstream)
+            if(aStream == outputStream)
             {
                 print("output:hasSpaceAvailable\n")
                 //self.callbackHandler!(false)
@@ -111,10 +111,10 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
             
             
             VehicleManager.sharedInstance.isNetworkConnected = true
-            if let act = VehicleManager.sharedInstance.managerCallback {
+            if let act = VehicleManager.sharedInstance.managerCallBack {
                 act.performAction(["status":VehicleManagerStatusMessage.networkCONNECTED.rawValue] as NSDictionary)
             }
-            self.callbackHandler!(true)
+            self.callBackHandler!(true)
             
          
             self.checkDataBytes(aStream: aStream)
@@ -129,17 +129,17 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
     }
     
     func checkDataBytes(aStream: Stream)  {
-        if aStream == inputstream
+        if aStream == inputStream
                    {
                        var buffer = [UInt8](repeating:0, count:20)
-                       while (self.inputstream!.hasBytesAvailable)
+                       while (self.inputStream!.hasBytesAvailable)
                        {
-                           let len = inputstream!.read(&buffer, maxLength: buffer.count)
+                           let len = inputStream!.read(&buffer, maxLength: buffer.count)
                            
                            // If read bytes are less than 0 -> error
                            if len < 0
                            {
-                               let error = self.inputstream!.streamError
+                               let error = self.inputStream!.streamError
                                print("Input stream has less than 0 bytes\(error!)")
                                //closeNetworkCommunication()
                            }

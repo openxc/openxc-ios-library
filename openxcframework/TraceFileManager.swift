@@ -13,28 +13,28 @@ open class TraceFileManager: NSObject {
   static let _sharedInstance = TraceFileManager()
   
   // config variable determining whether trace output is generated
-  open var traceFilesinkEnabled: Bool = false
+  open var traceFileSinkEnabled: Bool = false
   // config variable holding trace output file name
-  fileprivate var traceFilesinkName: NSString = ""
+  fileprivate var traceFileSinkName: NSString = ""
   
   // config variable determining whether trace input is used instead of BTLE data
-  open var traceFilesourceEnabled: Bool = false
+  open var traceFileSourceEnabled: Bool = false
   // config variable holding trace input file name
-  fileprivate var traceFilesourceName: NSString = ""
+  fileprivate var traceFileSourceName: NSString = ""
   // private timer for trace input message send rate
-  fileprivate var traceFilesourceTimer: Timer = Timer()
+  fileprivate var traceFileSourceTimer: Timer = Timer()
   // private file handle to trace input file
-  fileprivate var traceFilesourceHandle: FileHandle?
+  fileprivate var traceFileSourceHandle: FileHandle?
   // private variable holding timestamps when last message received
-  open var traceFilesourceLastMsgTime: NSInteger = 0
-  open var traceFilesourceLastActualTime: NSInteger = 0
+  open var traceFileSourceLastMsgTime: NSInteger = 0
+  open var traceFileSourceLastActualTime: NSInteger = 0
   // this tells us we're tracking the time held in the trace file
-  open var traceFilesourceTimeTracking: Bool = false
+  open var traceFileSourceTimeTracking: Bool = false
   // config for outputting debug messages to console
   fileprivate var managerDebug : Bool = false
   //open var traceDisableLoopOn = false
   // optional variable holding callback for VehicleManager status updates
-  fileprivate var managerCallback: TargetAction?
+  fileprivate var managerCallBack: TargetAction?
   
   // Initialization
   static public let sharedInstance: TraceFileManager = {
@@ -78,20 +78,20 @@ open class TraceFileManager: NSObject {
     }
     
     // save the trace file name
-    traceFilesinkEnabled = true
+    traceFileSinkEnabled = true
     
     // append date to filename
     let d = Date()
     let df = DateFormatter()
     df.dateFormat = "dd-MM-yyyy HH-mm-ss"
     let datedFilename = (filename as String) + "-" + df.string(from: d)
-    traceFilesinkName = datedFilename as NSString
+    traceFileSinkName = datedFilename as NSString
     
     // find the file, and overwrite it if it already exists
     if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory,
                                                      FileManager.SearchPathDomainMask.allDomainsMask, true).first {
       
-      let path = URL(fileURLWithPath: dir).appendingPathComponent(traceFilesinkName as String).path
+      let path = URL(fileURLWithPath: dir).appendingPathComponent(traceFileSinkName as String).path
       
       vmlog("checking for file")
       if FileManager.default.fileExists(atPath: path) {
@@ -120,12 +120,12 @@ open class TraceFileManager: NSObject {
   // turn off trace file output
   open func disableTraceFileSink() {
     
-    traceFilesinkEnabled = false
-    traceFilesourceHandle = nil
-    traceFilesourceTimer.invalidate()
+    traceFileSinkEnabled = false
+    traceFileSourceHandle = nil
+    traceFileSourceTimer.invalidate()
     VehicleManager.sharedInstance.isTraceFileConnected = false
     // notify the client app if the callback is enabled
-    if let act = managerCallback {
+    if let act = managerCallBack {
       act.performAction(["status":VehicleManagerStatusMessage.trace_SOURCE_END.rawValue] as NSMutableDictionary)
     }
     
@@ -168,12 +168,12 @@ open class TraceFileManager: NSObject {
         vmlog("file detected")
         
         // file exists, save file name for trace input
-        traceFilesourceEnabled = true
-        traceFilesourceName = filename
+        traceFileSourceEnabled = true
+        traceFileSourceName = filename
         
         // create a file handle for the trace input
-        traceFilesourceHandle = FileHandle(forReadingAtPath:path)
-        if traceFilesourceHandle == nil {
+        traceFileSourceHandle = FileHandle(forReadingAtPath:path)
+        if traceFileSourceHandle == nil {
           vmlog("can't open filehandle")
           return false
         }
@@ -193,29 +193,29 @@ open class TraceFileManager: NSObject {
           // if speed parameter exists
           if speed != nil {
             let spdf:Double = Double(speed!) / 1000.0
-            traceFilesourceTimer = Timer.scheduledTimer(timeInterval: spdf, target: self, selector: #selector(traceFileReader), userInfo: nil, repeats: true)
+            traceFileSourceTimer = Timer.scheduledTimer(timeInterval: spdf, target: self, selector: #selector(traceFileReader), userInfo: nil, repeats: true)
           } else {
             // if it doesn't exist, we're tracking the time held in the
             // trace file
-            traceFilesourceTimeTracking = true
-            traceFilesourceLastMsgTime = 0
-            traceFilesourceLastActualTime = 0
+            traceFileSourceTimeTracking = true
+            traceFileSourceLastMsgTime = 0
+            traceFileSourceLastActualTime = 0
             // call the timer as fast as possible, the data parser will sleep to delay the
             // messages when necessary
-            traceFilesourceTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(traceFileReader), userInfo: nil, repeats: true)
+            traceFileSourceTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(traceFileReader), userInfo: nil, repeats: true)
           }
     }
   
   // turn off trace file input
   open func disableTraceFileSource() {
     
-    traceFilesourceEnabled = false
-    traceFilesourceHandle = nil
-    traceFilesourceTimer.invalidate()
+    traceFileSourceEnabled = false
+    traceFileSourceHandle = nil
+    traceFileSourceTimer.invalidate()
     VehicleManager.sharedInstance.isTraceFileConnected = false
     BluetoothManager.sharedInstance.connectionState = .notConnected
     // notify the client app if the callback is enabled
-    if let act = managerCallback {
+    if let act = managerCallBack {
       act.performAction(["status":VehicleManagerStatusMessage.trace_SOURCE_END.rawValue] as NSMutableDictionary)
     }
     
@@ -234,7 +234,7 @@ open class TraceFileManager: NSObject {
     // search for the trace output file
     if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory,
                                                      FileManager.SearchPathDomainMask.allDomainsMask, true).first {
-      let path = URL(fileURLWithPath: dir).appendingPathComponent(traceFilesinkName as String)
+      let path = URL(fileURLWithPath: dir).appendingPathComponent(traceFileSinkName as String)
       
       // write the string to the trace output file
       do {
@@ -255,14 +255,14 @@ open class TraceFileManager: NSObject {
       }
       catch {
         // couldn't write to the trace output file
-        if let act = managerCallback {
+        if let act = managerCallBack {
           act.performAction(["status":VehicleManagerStatusMessage.trace_SINK_WRITE_ERROR.rawValue] as NSMutableDictionary)
         }
       }
       
     } else {
       // couldn't find trace output file
-      if let act = managerCallback {
+      if let act = managerCallBack {
         act.performAction(["status":VehicleManagerStatusMessage.trace_SINK_WRITE_ERROR.rawValue] as NSMutableDictionary)
       }
     }
@@ -277,8 +277,8 @@ open class TraceFileManager: NSObject {
   @objc fileprivate dynamic func traceFileReader() {
     //readDataToEndOfFile
     // if the trace file is enabled and open, read 20B
-    if traceFilesourceEnabled && traceFilesourceHandle != nil {
-      let rdData = traceFilesourceHandle!.readData(ofLength: 20)
+    if traceFileSourceEnabled && traceFileSourceHandle != nil {
+      let rdData = traceFileSourceHandle!.readData(ofLength: 20)
       
       // we have read some data, append it to the rx data buffer
       if rdData.count > 0 {
@@ -298,23 +298,23 @@ open class TraceFileManager: NSObject {
             // There was no data read, so we're at the end of the
             // trace input file. Close the input file and timer
             vmlog("traceFilesource EOF")
-            traceFilesourceHandle!.closeFile()
-            traceFilesourceHandle = nil
-            traceFilesourceTimer.invalidate()
+            traceFileSourceHandle!.closeFile()
+            traceFileSourceHandle = nil
+            traceFileSourceTimer.invalidate()
             // notify the client app if the callback is enabled
-            if let act = managerCallback {
+            if let act = managerCallBack {
                 act.performAction(["status":VehicleManagerStatusMessage.trace_SOURCE_END.rawValue] as NSMutableDictionary)
             }
         }else{
-            traceFilesourceTimer.invalidate()
+            traceFileSourceTimer.invalidate()
            self.traceFileRestart()
         }
       }
     }
   }
   open func traceFileRestart() {
-     if (traceFilesourceName != ""){
-       self.enableTraceFileSource(traceFilesourceName)
+     if (traceFileSourceName != ""){
+       self.enableTraceFileSource(traceFileSourceName)
     }
 }
     

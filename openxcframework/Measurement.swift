@@ -23,9 +23,9 @@ open class VehicleMeasurementResponse : VehicleBaseMessage {
     override func traceOutput() -> NSString {
         var out : String = ""
         if value is String {
-            out = "{\"timestamp\":\(timestamp),\"name\":\"\(name)\",\"value\":\"\(value)\""
+            out = "{\"timestamp\":\(timeStamp),\"name\":\"\(name)\",\"value\":\"\(value)\""
         } else {
-            out = "{\"timestamp\":\(timestamp),\"name\":\"\(name)\",\"value\":\(value)"
+            out = "{\"timestamp\":\(timeStamp),\"name\":\"\(name)\",\"value\":\(value)"
         }
         if isEvented {
             if event is String {
