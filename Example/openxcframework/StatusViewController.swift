@@ -52,6 +52,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.disconnectButton.isHidden = true
         self.splitTraceButton.isHidden = true
         self.startStopButton.isHidden = true
+        
 
         // change tab bar text colors
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for:UIControl.State())
@@ -419,7 +420,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.startStopButton.isHidden = false
                     self.startStopButton.isSelected = true
                 }
-                self.vinLabel.isHidden = true
+                self.vinLabel.isHidden = false
                 self.vinInfoDataLabel.isHidden = false
                 self.getVinButton.isHidden = false
                 self.disconnectButton.isHidden = false
@@ -525,11 +526,12 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if cr.command_response.isEqual(to: "get_vin") || cr.command_response.isEqual(to: ".get_vin") {
             
             DispatchQueue.main.async {
+                self.getVinButton.isHidden = true
+                self.vinInfoDataLabel.isHidden = false
                 self.vinInfoDataLabel.text = cr.message as String
                 self.vinLabel.isHidden = false
-                self.vinInfoDataLabel.isHidden = false
                 //self.vinInfoDataLabel.text = "2LMPJ7JR5GBL41923"
-                self.getVinButton.isHidden = true
+                
             }
             cvc?.platformResponse = String(cr.message)
             
@@ -604,7 +606,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     // this function is called when the get vin button is hit
       @IBAction func getVinButtonHit(_ sender: UIButton) {
-        
         let cmd = VehicleCommandRequest()
         cmd.command = .version
         self.cm.sendCommand(cmd)
