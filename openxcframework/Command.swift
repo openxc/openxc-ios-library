@@ -175,7 +175,7 @@ open class Command: NSObject {
     // common function for sending a VehicleCommandRequest
     func protobufSendCommand(cmd:VehicleCommandRequest){
         // in protobuf mode, build the command message
-        let cbuild = ControlCommand.Builder()
+        let cbuild = Openxc.ControlCommand.Builder()
         if cmd.command == .version {
             _ = cbuild.setType(.version)
             
@@ -189,21 +189,21 @@ open class Command: NSObject {
             
         }
         if cmd.command == .passthrough {
-            let cbuild2 = PassthroughModeControlCommand.Builder()
+            let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
             _ = cbuild2.setBus(Int32(cmd.bus))
             _ = cbuild2.setEnabled(cmd.enabled)
             _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
             _ = cbuild.setType(.passthrough)
         }
         if cmd.command == .af_bypass {
-            let cbuild2 = AcceptanceFilterBypassCommand.Builder()
+            let cbuild2 = Openxc.AcceptanceFilterBypassCommand.Builder()
             _ = cbuild2.setBus(Int32(cmd.bus))
             _ = cbuild2.setBypass(cmd.bypass)
             _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
             _ = cbuild.setType(.acceptanceFilterBypass)
         }
         if cmd.command == .payload_format {
-            let cbuild2 = PayloadFormatCommand.Builder()
+            let cbuild2 = Openxc.PayloadFormatCommand.Builder()
             if cmd.format == "json" {
                 _ = cbuild2.setFormat(.json)
                 
@@ -216,22 +216,22 @@ open class Command: NSObject {
             _ = cbuild.setType(.payloadFormat)
         }
         if cmd.command == .predefined_odb2 {
-            let cbuild2 = PredefinedObd2RequestsCommand.Builder()
+            let cbuild2 = Openxc.PredefinedObd2RequestsCommand.Builder()
             _ = cbuild2.setEnabled(cmd.enabled)
             _ = cbuild.setPredefinedObd2RequestsCommand(cbuild2.buildPartial())
             _ = cbuild.setType(.predefinedObd2Requests)
         }
         if cmd.command == .modem_configuration {
             _ = cbuild.setType(.modemConfiguration)
-            let cbuild2 = ModemConfigurationCommand.Builder()
-            let srv = ServerConnectSettings.Builder()
+            let cbuild2 = Openxc.ModemConfigurationCommand.Builder()
+            let srv = Openxc.ServerConnectSettings.Builder()
             _ = srv.setHost(cmd.server_host as String)
             _ = srv.setPort(UInt32(cmd.server_port))
             _ = cbuild2.setServerConnectSettings(srv.buildPartial())
             _ = cbuild.setModemConfigurationCommand(cbuild2.buildPartial())
         }
         if cmd.command == .rtc_configuration {
-            let cbuild2 = RtcconfigurationCommand.Builder()
+            let cbuild2 = Openxc.RtcconfigurationCommand.Builder()
             _ = cbuild2.setUnixTime(UInt32(cmd.unix_time))
             _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
             _ = cbuild.setType(.rtcConfiguration)
@@ -240,7 +240,7 @@ open class Command: NSObject {
             _ = cbuild.setType(.sdMountStatus)
             
         }
-        let mbuild = VehicleMessage.Builder()
+        let mbuild = Openxc.VehicleMessage.Builder()
                    _ = mbuild.setType(.controlCommand)
                    
                    do {

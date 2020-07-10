@@ -434,26 +434,26 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the command message
-        let cbuild = ControlCommand.Builder()
+        let cbuild = Openxc.ControlCommand.Builder()
         self.protobufCommandRequest(cmd)
       
       if cmd.command == .predefined_odb2 {
-        let cbuild2 = PredefinedObd2RequestsCommand.Builder()
+        let cbuild2 = Openxc.PredefinedObd2RequestsCommand.Builder()
         _ = cbuild2.setEnabled(cmd.enabled)
         _ = cbuild.setPredefinedObd2RequestsCommand(cbuild2.buildPartial())
         _ = cbuild.setType(.predefinedObd2Requests)
       }
       if cmd.command == .modem_configuration {
         _ = cbuild.setType(.modemConfiguration)
-        let cbuild2 = ModemConfigurationCommand.Builder()
-        let srv = ServerConnectSettings.Builder()
+        let cbuild2 = Openxc.ModemConfigurationCommand.Builder()
+        let srv = Openxc.ServerConnectSettings.Builder()
         _ = srv.setHost(cmd.server_host as String)
         _ = srv.setPort(UInt32(cmd.server_port))
         _ = cbuild2.setServerConnectSettings(srv.buildPartial())
         _ = cbuild.setModemConfigurationCommand(cbuild2.buildPartial())
       }
       if cmd.command == .rtc_configuration {
-        let cbuild2 = RtcconfigurationCommand.Builder()
+        let cbuild2 = Openxc.RtcconfigurationCommand.Builder()
         _ = cbuild2.setUnixTime(UInt32(cmd.unix_time))
         _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
         _ = cbuild.setType(.rtcConfiguration)
@@ -463,7 +463,7 @@ open class VehicleManager: NSObject {
         
         }
       
-      let mbuild = VehicleMessage.Builder()
+        let mbuild = Openxc.VehicleMessage.Builder()
       _ = mbuild.setType(.controlCommand)
       
       do {
@@ -501,7 +501,7 @@ open class VehicleManager: NSObject {
     
   }
     fileprivate func protobufCommandRequest(_ cmd:VehicleCommandRequest){
-        let cbuild = ControlCommand.Builder()
+        let cbuild = Openxc.ControlCommand.Builder()
          if cmd.command == .version {
            _ = cbuild.setType(.version)
            
@@ -515,21 +515,21 @@ open class VehicleManager: NSObject {
            
            }
          if cmd.command == .passthrough {
-           let cbuild2 = PassthroughModeControlCommand.Builder()
+            let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
            _ = cbuild2.setBus(Int32(cmd.bus))
            _ = cbuild2.setEnabled(cmd.enabled)
            _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
            _ = cbuild.setType(.passthrough)
          }
          if cmd.command == .af_bypass {
-           let cbuild2 = AcceptanceFilterBypassCommand.Builder()
+            let cbuild2 = Openxc.AcceptanceFilterBypassCommand.Builder()
            _ = cbuild2.setBus(Int32(cmd.bus))
            _ = cbuild2.setBypass(cmd.bypass)
            _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
            _ = cbuild.setType(.acceptanceFilterBypass)
          }
         if cmd.command == .payload_format {
-          let cbuild2 = PayloadFormatCommand.Builder()
+            let cbuild2 = Openxc.PayloadFormatCommand.Builder()
           if cmd.format == "json" {
               _ = cbuild2.setFormat(.json)
               
@@ -542,7 +542,7 @@ open class VehicleManager: NSObject {
           _ = cbuild.setType(.payloadFormat)
         }
         
-        let mbuild = VehicleMessage.Builder()
+        let mbuild = Openxc.VehicleMessage.Builder()
             _ = mbuild.setType(.controlCommand)
         do {
           let cmsg = try cbuild.build()
@@ -622,11 +622,11 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build diag message
-      let cbuild = ControlCommand.Builder()
+        let cbuild = Openxc.ControlCommand.Builder()
       _ = cbuild.setType(.diagnostic)
-      let c2build = DiagnosticControlCommand.Builder()
+        let c2build = Openxc.DiagnosticControlCommand.Builder()
       _ = c2build.setAction(.add)
-      let dbuild = DiagnosticRequest.Builder()
+        let dbuild = Openxc.DiagnosticRequest.Builder()
       _ = dbuild.setBus(Int32(cmd.bus))
       _ = dbuild.setMessageId(UInt32(cmd.message_id))
       _ = dbuild.setMode(UInt32(cmd.mode))
@@ -636,7 +636,7 @@ open class VehicleManager: NSObject {
       if cmd.frequency>0 {
         _ =  dbuild.setFrequency(Double(cmd.frequency))
       }
-      let mbuild = VehicleMessage.Builder()
+        let mbuild = Openxc.VehicleMessage.Builder()
       _ = mbuild.setType(.controlCommand)
       
       do {
@@ -716,7 +716,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the CAN message
-      let cbuild = CanMessage.Builder()
+        let cbuild = Openxc.CanMessage.Builder()
       _ = cbuild.setBus(Int32(cmd.bus))
       _ = cbuild.setId(UInt32(cmd.id))
       let data = NSMutableData()
@@ -729,7 +729,7 @@ open class VehicleManager: NSObject {
       }
       _ = cbuild.setData(data as Data)
       
-      let mbuild = VehicleMessage.Builder()
+        let mbuild = Openxc.VehicleMessage.Builder()
       _ = mbuild.setType(.can)
       
       do {
@@ -793,9 +793,9 @@ open class VehicleManager: NSObject {
   
   
   fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
-    var msg : VehicleMessage
+    var msg : Openxc.VehicleMessage
     do {
-      msg = try VehicleMessage.parseFrom(data: data_chunk as Data)
+        msg = try Openxc.VehicleMessage.parseFrom(data: data_chunk as Data)
       //print(msg)
       
       
@@ -854,7 +854,7 @@ open class VehicleManager: NSObject {
 
   }
   
-  fileprivate func protobufMeasurementMessage(msg : VehicleMessage){
+    fileprivate func protobufMeasurementMessage(msg : Openxc.VehicleMessage){
     //let name = msg.simpleMessage.name
     let name = msg.simpleMessage.name as NSString
     
@@ -867,7 +867,7 @@ open class VehicleManager: NSObject {
     self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
     
   }
-    fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg : VehicleMessage){
+    fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg : Openxc.VehicleMessage){
         
       if msg.simpleMessage.value.hasStringValue {
           rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
@@ -908,7 +908,7 @@ open class VehicleManager: NSObject {
         }
     }
   
-   fileprivate func protobufCommandResponse(msg : VehicleMessage){
+    fileprivate func protobufCommandResponse(msg : Openxc.VehicleMessage){
 
     let name = msg.commandResponse.type.description
     // build command response message
@@ -938,7 +938,7 @@ open class VehicleManager: NSObject {
     }
   }
   
-  fileprivate func protobufDignosticMessage(msg : VehicleMessage){
+    fileprivate func protobufDignosticMessage(msg : Openxc.VehicleMessage){
 
     // build diag response message
     let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
@@ -951,7 +951,8 @@ open class VehicleManager: NSObject {
     }
     rsp.success = msg.diagnosticResponse.success
     if msg.diagnosticResponse.hasValue {
-        rsp.value = Int(msg.diagnosticResponse.value)
+        //rsp.value =  Openxc.DynamicField?(msg.diagnosticResponse.value as! Openxc.DynamicField)
+        print(msg.diagnosticResponse.value as Any)
         
     }
     
@@ -994,7 +995,7 @@ open class VehicleManager: NSObject {
     }
   }
   
-  fileprivate func protobufCanMessage(msg : VehicleMessage){
+    fileprivate func protobufCanMessage(msg : Openxc.VehicleMessage){
     // build CAN response message
     let rsp : VehicleCanResponse = VehicleCanResponse()
     rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
