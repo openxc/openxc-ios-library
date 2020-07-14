@@ -54,18 +54,18 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         // grab VM instance
-        vm = VehicleManager.sharedInstance
-        vmu = VehicleMessageUnit.sharedInstance
-        bm = BluetoothManager.sharedInstance
-        tfm = TraceFileManager.sharedInstance
+        self.vm = VehicleManager.sharedInstance
+        self.vmu = VehicleMessageUnit.sharedInstance
+        self.bm = BluetoothManager.sharedInstance
+        self.tfm = TraceFileManager.sharedInstance
         
         // initialize dictionary/table
         dashDict = NSMutableDictionary()
         dashTable.reloadData()
         
         // set default measurement target
-        vm.setMeasurementDefaultTarget(self, action: DashboardViewController.defaultMeasurementChange)
-        vm.setManagerCallbackTarget(self, action: DashboardViewController.managerStatusUpdates)
+        self.vm.setMeasurementDefaultTarget(self, action: DashboardViewController.default_measurement_change)
+        self.vm.setManagerCallbackTarget(self, action: DashboardViewController.manager_status_updates)
         
         locationManager.delegate=self;
         locationManager.desiredAccuracy=kCLLocationAccuracyBest;
@@ -132,6 +132,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             dashDict = NSMutableDictionary()
             dashTable.reloadData()
         }
+        dashTable.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -143,7 +144,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func managerStatusUpdates(_ rsp:NSDictionary) {
+    func manager_status_updates(_ rsp:NSDictionary) {
         // extract the status message
         let status = rsp.object(forKey: "status") as! Int
         let msg = VehicleManagerStatusMessage(rawValue: status)
@@ -157,7 +158,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     
-    func defaultMeasurementChange(_ rsp:NSDictionary) {
+    func default_measurement_change(_ rsp:NSDictionary) {
         // extract the measurement message
         let vr = rsp.object(forKey: "vehiclemessage") as! VehicleMeasurementResponse
         
@@ -217,7 +218,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let v = dashDict.object(forKey: k)
         
         // main text in table is the measurement name
-        cell!.textLabel?.text = k
+        cell!.textLabel?.text = "k"
         cell!.textLabel?.font = UIFont(name:"Arial", size: 13.0)
         cell!.textLabel?.textColor = UIColor.lightGray
         

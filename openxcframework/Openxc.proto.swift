@@ -10,7 +10,7 @@ import ProtocolBuffers
 public struct Openxc { }
 
 public extension Openxc {
-    public struct OpenxcRoot {
+    struct OpenxcRoot {
         public static let `default` = OpenxcRoot()
         public var extensionRegistry:ExtensionRegistry
 
@@ -22,7 +22,7 @@ public extension Openxc {
         }
     }
 
-    final public class VehicleMessage : GeneratedMessage {
+    final class VehicleMessage : GeneratedMessage {
         public typealias BuilderType = Openxc.VehicleMessage.Builder
 
         public static func == (lhs: Openxc.VehicleMessage, rhs: Openxc.VehicleMessage) -> Bool {
@@ -921,7 +921,7 @@ public extension Openxc {
 
     }
 
-    final public class CanMessage : GeneratedMessage {
+    final class CanMessage : GeneratedMessage {
         public typealias BuilderType = Openxc.CanMessage.Builder
 
         public static func == (lhs: Openxc.CanMessage, rhs: Openxc.CanMessage) -> Bool {
@@ -1342,7 +1342,7 @@ public extension Openxc {
 
     }
 
-    final public class ControlCommand : GeneratedMessage {
+    final class ControlCommand : GeneratedMessage {
         public typealias BuilderType = Openxc.ControlCommand.Builder
 
         public static func == (lhs: Openxc.ControlCommand, rhs: Openxc.ControlCommand) -> Bool {
@@ -2301,7 +2301,7 @@ public extension Openxc {
 
     }
 
-    final public class DiagnosticControlCommand : GeneratedMessage {
+    final class DiagnosticControlCommand : GeneratedMessage {
         public typealias BuilderType = Openxc.DiagnosticControlCommand.Builder
 
         public static func == (lhs: Openxc.DiagnosticControlCommand, rhs: Openxc.DiagnosticControlCommand) -> Bool {
@@ -2654,7 +2654,7 @@ public extension Openxc {
 
     }
 
-    final public class PassthroughModeControlCommand : GeneratedMessage {
+    final class PassthroughModeControlCommand : GeneratedMessage {
         public typealias BuilderType = Openxc.PassthroughModeControlCommand.Builder
 
         public static func == (lhs: Openxc.PassthroughModeControlCommand, rhs: Openxc.PassthroughModeControlCommand) -> Bool {
@@ -2921,7 +2921,7 @@ public extension Openxc {
 
     }
 
-    final public class AcceptanceFilterBypassCommand : GeneratedMessage {
+    final class AcceptanceFilterBypassCommand : GeneratedMessage {
         public typealias BuilderType = Openxc.AcceptanceFilterBypassCommand.Builder
 
         public static func == (lhs: Openxc.AcceptanceFilterBypassCommand, rhs: Openxc.AcceptanceFilterBypassCommand) -> Bool {
@@ -3188,7 +3188,7 @@ public extension Openxc {
 
     }
 
-    final public class PayloadFormatCommand : GeneratedMessage {
+    final class PayloadFormatCommand : GeneratedMessage {
         public typealias BuilderType = Openxc.PayloadFormatCommand.Builder
 
         public static func == (lhs: Openxc.PayloadFormatCommand, rhs: Openxc.PayloadFormatCommand) -> Bool {
@@ -3450,7 +3450,7 @@ public extension Openxc {
 
     }
 
-    final public class PredefinedObd2RequestsCommand : GeneratedMessage {
+    final class PredefinedObd2RequestsCommand : GeneratedMessage {
         public typealias BuilderType = Openxc.PredefinedObd2RequestsCommand.Builder
 
         public static func == (lhs: Openxc.PredefinedObd2RequestsCommand, rhs: Openxc.PredefinedObd2RequestsCommand) -> Bool {
@@ -3662,7 +3662,7 @@ public extension Openxc {
 
     }
 
-    final public class NetworkOperatorSettings : GeneratedMessage {
+    final class NetworkOperatorSettings : GeneratedMessage {
         public typealias BuilderType = Openxc.NetworkOperatorSettings.Builder
 
         public static func == (lhs: Openxc.NetworkOperatorSettings, rhs: Openxc.NetworkOperatorSettings) -> Bool {
@@ -4391,7 +4391,7 @@ public extension Openxc {
 
     }
 
-    final public class NetworkDataSettings : GeneratedMessage {
+    final class NetworkDataSettings : GeneratedMessage {
         public typealias BuilderType = Openxc.NetworkDataSettings.Builder
 
         public static func == (lhs: Openxc.NetworkDataSettings, rhs: Openxc.NetworkDataSettings) -> Bool {
@@ -4603,7 +4603,7 @@ public extension Openxc {
 
     }
 
-    final public class ServerConnectSettings : GeneratedMessage {
+    final class ServerConnectSettings : GeneratedMessage {
         public typealias BuilderType = Openxc.ServerConnectSettings.Builder
 
         public static func == (lhs: Openxc.ServerConnectSettings, rhs: Openxc.ServerConnectSettings) -> Bool {
@@ -4870,7 +4870,7 @@ public extension Openxc {
 
     }
 
-    final public class ModemConfigurationCommand : GeneratedMessage {
+    final class ModemConfigurationCommand : GeneratedMessage {
         public typealias BuilderType = Openxc.ModemConfigurationCommand.Builder
 
         public static func == (lhs: Openxc.ModemConfigurationCommand, rhs: Openxc.ModemConfigurationCommand) -> Bool {
@@ -5314,7 +5314,7 @@ public extension Openxc {
 
     }
 
-    final public class RtcconfigurationCommand : GeneratedMessage {
+    final class RtcconfigurationCommand : GeneratedMessage {
         public typealias BuilderType = Openxc.RtcconfigurationCommand.Builder
 
         public static func == (lhs: Openxc.RtcconfigurationCommand, rhs: Openxc.RtcconfigurationCommand) -> Bool {
@@ -5528,7 +5528,7 @@ public extension Openxc {
 
     }
 
-    final public class CommandResponse : GeneratedMessage {
+    final class CommandResponse : GeneratedMessage {
         public typealias BuilderType = Openxc.CommandResponse.Builder
 
         public static func == (lhs: Openxc.CommandResponse, rhs: Openxc.CommandResponse) -> Bool {
@@ -5850,7 +5850,7 @@ public extension Openxc {
 
     }
 
-    final public class DiagnosticRequest : GeneratedMessage {
+    final class DiagnosticRequest : GeneratedMessage {
         public typealias BuilderType = Openxc.DiagnosticRequest.Builder
 
         public static func == (lhs: Openxc.DiagnosticRequest, rhs: Openxc.DiagnosticRequest) -> Bool {
@@ -6542,7 +6542,7 @@ public extension Openxc {
 
     }
 
-    final public class DiagnosticResponse : GeneratedMessage {
+    final class DiagnosticResponse : GeneratedMessage {
         public typealias BuilderType = Openxc.DiagnosticResponse.Builder
 
         public static func == (lhs: Openxc.DiagnosticResponse, rhs: Openxc.DiagnosticResponse) -> Bool {
@@ -7177,7 +7177,7 @@ public extension Openxc {
 
     }
 
-    final public class DiagnosticStitchResponse : GeneratedMessage {
+    final class DiagnosticStitchResponse : GeneratedMessage {
         public typealias BuilderType = Openxc.DiagnosticStitchResponse.Builder
 
         public static func == (lhs: Openxc.DiagnosticStitchResponse, rhs: Openxc.DiagnosticStitchResponse) -> Bool {
@@ -7922,7 +7922,7 @@ public extension Openxc {
 
     }
 
-    final public class DynamicField : GeneratedMessage {
+    final class DynamicField : GeneratedMessage {
         public typealias BuilderType = Openxc.DynamicField.Builder
 
         public static func == (lhs: Openxc.DynamicField, rhs: Openxc.DynamicField) -> Bool {
@@ -8345,7 +8345,7 @@ public extension Openxc {
 
     }
 
-    final public class SimpleMessage : GeneratedMessage {
+    final class SimpleMessage : GeneratedMessage {
         public typealias BuilderType = Openxc.SimpleMessage.Builder
 
         public static func == (lhs: Openxc.SimpleMessage, rhs: Openxc.SimpleMessage) -> Bool {

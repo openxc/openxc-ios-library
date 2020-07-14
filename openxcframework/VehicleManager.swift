@@ -857,13 +857,16 @@ open class VehicleManager: NSObject {
     fileprivate func protobufMeasurementMessage(msg : Openxc.VehicleMessage){
     //let name = msg.simpleMessage.name
     let name = msg.simpleMessage.name as NSString
-    
+    print("Here is the message\(msg)")
     // build measurement message
     let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
-    rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+       // print("response of time stamp")
+       // print(Int(truncatingIfNeeded:msg.timestamp))
+    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
     //rsp.name = msg.simpleMessage.name as NSString
     
     rsp.name = name
+        print("Response >>>\(rsp.name)")
     self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
     
   }
@@ -914,7 +917,7 @@ open class VehicleManager: NSObject {
     // build command response message
     print(msg)
     let rsp : VehicleCommandResponse = VehicleCommandResponse()
-        rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+        //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
         rsp.command_response = name.lowercased() as NSString
         rsp.message = msg.commandResponse.message as NSString
         rsp.status = msg.commandResponse.status
@@ -951,7 +954,7 @@ open class VehicleManager: NSObject {
     }
     rsp.success = msg.diagnosticResponse.success
     if msg.diagnosticResponse.hasValue {
-        //rsp.value =  Openxc.DynamicField?(msg.diagnosticResponse.value as! Openxc.DynamicField)
+        rsp.value = msg.diagnosticResponse.value as! NSInteger
         print(msg.diagnosticResponse.value as Any)
         
     }
