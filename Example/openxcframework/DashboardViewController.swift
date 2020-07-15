@@ -54,18 +54,18 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         // grab VM instance
-        self.vm = VehicleManager.sharedInstance
-        self.vmu = VehicleMessageUnit.sharedInstance
-        self.bm = BluetoothManager.sharedInstance
-        self.tfm = TraceFileManager.sharedInstance
+        vm = VehicleManager.sharedInstance
+        vmu = VehicleMessageUnit.sharedInstance
+        bm = BluetoothManager.sharedInstance
+        tfm = TraceFileManager.sharedInstance
         
         // initialize dictionary/table
         dashDict = NSMutableDictionary()
         dashTable.reloadData()
         
-        // set default measurement target
-        self.vm.setMeasurementDefaultTarget(self, action: DashboardViewController.default_measurement_change)
-        self.vm.setManagerCallbackTarget(self, action: DashboardViewController.manager_status_updates)
+       // set default measurement target
+        vm.setMeasurementDefaultTarget(self, action: DashboardViewController.default_measurement_change)
+        vm.setManagerCallbackTarget(self, action: DashboardViewController.manager_status_updates)
         
         locationManager.delegate=self;
         locationManager.desiredAccuracy=kCLLocationAccuracyBest;

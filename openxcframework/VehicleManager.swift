@@ -655,7 +655,7 @@ open class VehicleManager: NSObject {
         let prepend : [UInt8] = [UInt8(cdata.count)]
         cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
         cdata2.append(cdata)
-        //print(cdata2)
+        print("DiagnosticRequest>>\(cdata2)")
         
         // append to tx buffer
         bleTransmitDataBuffer.add(cdata2)
@@ -796,9 +796,7 @@ open class VehicleManager: NSObject {
     var msg : Openxc.VehicleMessage
     do {
         msg = try Openxc.VehicleMessage.parseFrom(data: data_chunk as Data)
-      //print(msg)
-      
-      
+      print("Decoding  Message>>>>\(msg)")
       let data_left : NSMutableData = NSMutableData()
       data_left.append(RxDataBuffer.subdata(with: NSMakeRange(packetlen+1, RxDataBuffer.length-packetlen-1)))
       RxDataBuffer = data_left
@@ -857,16 +855,22 @@ open class VehicleManager: NSObject {
     fileprivate func protobufMeasurementMessage(msg : Openxc.VehicleMessage){
     //let name = msg.simpleMessage.name
     let name = msg.simpleMessage.name as NSString
-    print("Here is the message\(msg)")
+        let resultString = String(describing: msg)
+       // let vr = Dictionary(resultString)
+        print("Converting to string\(resultString)")
     // build measurement message
+        //let vr = msg.simpleMessage as!  NSString
+         //print("Response >>>\(vr)")
+       
     let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
-       // print("response of time stamp")
-       // print(Int(truncatingIfNeeded:msg.timestamp))
+        if let timestamp = msg.timestamp{
+            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+        }
     //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
     //rsp.name = msg.simpleMessage.name as NSString
     
     rsp.name = name
-        print("Response >>>\(rsp.name)")
+       
     self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
     
   }
@@ -917,6 +921,9 @@ open class VehicleManager: NSObject {
     // build command response message
     print(msg)
     let rsp : VehicleCommandResponse = VehicleCommandResponse()
+        if let timestamp = msg.timestamp{
+                 rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+             }
         //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
         rsp.command_response = name.lowercased() as NSString
         rsp.message = msg.commandResponse.message as NSString
@@ -942,17 +949,29 @@ open class VehicleManager: NSObject {
   }
   
     fileprivate func protobufDignosticMessage(msg : Openxc.VehicleMessage){
-
+print(msg)
     // build diag response message
     let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
-    rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+        if let timestamp = msg.timestamp{
+                 rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+             }
+    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+//        if (frame != -1){
+//        if let payloadX = json["payload"] as? String,frame == 0   {
+//                multiFramePayload = payloadX
+//                print("payload : \(multiFramePayload)")
+//            return
+//                }
+//        }else{
     rsp.bus = Int(msg.diagnosticResponse.bus)
     rsp.message_id = Int(msg.diagnosticResponse.messageId)
     rsp.mode = Int(msg.diagnosticResponse.mode)
     if msg.diagnosticResponse.hasPid {
         rsp.pid = Int(msg.diagnosticResponse.pid)
     }
-    rsp.success = msg.diagnosticResponse.success
+    if  let successValue =  msg.diagnosticResponse.success {
+        rsp.success = successValue //msg.diagnosticResponse.success
+    }
     if msg.diagnosticResponse.hasValue {
         rsp.value = msg.diagnosticResponse.value as! NSInteger
         print(msg.diagnosticResponse.value as Any)
@@ -1001,7 +1020,10 @@ open class VehicleManager: NSObject {
     fileprivate func protobufCanMessage(msg : Openxc.VehicleMessage){
     // build CAN response message
     let rsp : VehicleCanResponse = VehicleCanResponse()
-    rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+        if let timestamp = msg.timestamp{
+                 rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+             }
+    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
     rsp.bus = Int(msg.canMessage.bus)
     rsp.id = Int(msg.canMessage.id)
     rsp.data = String(data:msg.canMessage.data as Data,encoding: String.Encoding.utf8)! as NSString
