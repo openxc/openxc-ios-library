@@ -470,8 +470,6 @@ open class VehicleManager: NSObject {
         let cmsg = try cbuild.build()
         _ = mbuild.setControlCommand(cmsg)
         let mmsg = try mbuild.build()
-        //print (mmsg)
-        
         
         let cdata = mmsg.data()
         let cdata2 = NSMutableData()
@@ -875,6 +873,7 @@ open class VehicleManager: NSObject {
     
   }
     fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg : Openxc.VehicleMessage){
+       
         
       if msg.simpleMessage.value.hasStringValue {
           rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
@@ -891,8 +890,10 @@ open class VehicleManager: NSObject {
         if msg.simpleMessage.event.hasNumericValue {
           rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
       }
+        self.protoSimpleMsgCheck(rsp:rsp,name:name)
 
   }
+    
     fileprivate func protoSimpleMsgCheck(rsp : VehicleMeasurementResponse, name:NSString){
         
         // capture this message into the dictionary of latest messages
@@ -900,6 +901,7 @@ open class VehicleManager: NSObject {
         
         // look for a specific callback for this measurement name
         var found=false
+        print(measurementCallBacks.keys)
         for key in measurementCallBacks.keys {
           let act = measurementCallBacks[key]
           if act!.returnKey() == name {
@@ -1688,13 +1690,11 @@ print(msg)
   }
   public func calculateThroughput() -> (String) {
     //.. Code process
-    //print(tempDataBuffer1)
+
     let value = tempDataBuffer.length/5
     print(tempDataBuffer.length)
     tempDataBuffer.setData(NSMutableData() as Data)
     let result = String(value)
-    print(tempDataBuffer.length)
-    print(result)
     return result
   }
 

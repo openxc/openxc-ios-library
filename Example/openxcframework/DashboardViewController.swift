@@ -218,7 +218,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let v = dashDict.object(forKey: k)
         
         // main text in table is the measurement name
-        cell!.textLabel?.text = "k"
+        cell!.textLabel?.text = k
         cell!.textLabel?.font = UIFont(name:"Arial", size: 13.0)
         cell!.textLabel?.textColor = UIColor.lightGray
         
