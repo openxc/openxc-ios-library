@@ -6,3637 +6,38 @@
 import Foundation
 import ProtocolBuffers
 
-let errMsg = "Conversion failed."
-let errMsgJSON = "Invalid JSON data"
-let msgUnused = ".unused"
-public struct OpenxcRoot {
-    public static let defaultValue = OpenxcRoot()
-    public var extensionRegistry:ExtensionRegistry
 
-    init() {
-        extensionRegistry = ExtensionRegistry()
-        registerAllExtensions(registry: extensionRegistry)
-    }
-    public func registerAllExtensions(registry: ExtensionRegistry) {
-        print(registry)
-    }
-}
-
-final public class VehicleMessage : GeneratedMessage {
-    public typealias BuilderType = VehicleMessage.Builder
-
-    public static func == (lhs: VehicleMessage, rhs: VehicleMessage) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
-        fieldCheck = fieldCheck && (lhs.hasCanMessage == rhs.hasCanMessage) && (!lhs.hasCanMessage || lhs.canMessage == rhs.canMessage)
-        fieldCheck = fieldCheck && (lhs.hasSimpleMessage == rhs.hasSimpleMessage) && (!lhs.hasSimpleMessage || lhs.simpleMessage == rhs.simpleMessage)
-        fieldCheck = fieldCheck && (lhs.hasDiagnosticResponse == rhs.hasDiagnosticResponse) && (!lhs.hasDiagnosticResponse || lhs.diagnosticResponse == rhs.diagnosticResponse)
-        fieldCheck = fieldCheck && (lhs.hasControlCommand == rhs.hasControlCommand) && (!lhs.hasControlCommand || lhs.controlCommand == rhs.controlCommand)
-        fieldCheck = fieldCheck && (lhs.hasCommandResponse == rhs.hasCommandResponse) && (!lhs.hasCommandResponse || lhs.commandResponse == rhs.commandResponse)
-        fieldCheck = fieldCheck && (lhs.hasTimestamp == rhs.hasTimestamp) && (!lhs.hasTimestamp || lhs.timestamp == rhs.timestamp)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-        //Enum type declaration start
-        public enum ProtoType:Int32, GeneratedEnum {
-            case unused = 0
-            case can = 1
-            case simple = 2
-            case diagnostic = 3
-            case controlCommand = 4
-            case commandResponse = 5
-            public func toString() -> String {
-                switch self {
-                case .unused: return msgUnused
-                case .can: return "CAN"
-                case .simple: return "SIMPLE"
-                case .diagnostic: return "DIAGNOSTIC"
-                case .controlCommand: return "CONTROL_COMMAND"
-                case .commandResponse: return "COMMAND_RESPONSE"
-                }
-            }
-            public static func fromString(_ str:String) throws -> VehicleMessage.ProtoType {
-                switch str {
-                case "UNUSED":    return .unused
-                case "CAN":    return .can
-                case "SIMPLE":    return .simple
-                case "DIAGNOSTIC":    return .diagnostic
-                case "CONTROL_COMMAND":    return .controlCommand
-                case "COMMAND_RESPONSE":    return .commandResponse
-                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
-                }
-            }
-            public var debugDescription:String { return getDescription() }
-            public var description:String { return getDescription() }
-            private func getDescription() -> String { 
-                switch self {
-                case .unused: return msgUnused
-                case .can: return ".can"
-                case .simple: return ".simple"
-                case .diagnostic: return ".diagnostic"
-                case .controlCommand: return ".controlCommand"
-                case .commandResponse: return ".commandResponse"
-                }
-            }
-            public var hashValue:Int {
-                return self.rawValue.hashValue
-            }
-            public static func == (lhs:ProtoType, rhs:ProtoType) -> Bool {
-                return lhs.hashValue == rhs.hashValue
-            }
-        }
-
-        //Enum type declaration end 
-
-    public fileprivate(set) var type:VehicleMessage.ProtoType = VehicleMessage.ProtoType.unused
-    public fileprivate(set) var hasType:Bool = false
-    public fileprivate(set) var canMessage:CanMessage!
-    public fileprivate(set) var hasCanMessage:Bool = false
-    public fileprivate(set) var simpleMessage:SimpleMessage!
-    public fileprivate(set) var hasSimpleMessage:Bool = false
-    public fileprivate(set) var diagnosticResponse:DiagnosticResponse!
-    public fileprivate(set) var hasDiagnosticResponse:Bool = false
-    public fileprivate(set) var controlCommand:ControlCommand!
-    public fileprivate(set) var hasControlCommand:Bool = false
-    public fileprivate(set) var commandResponse:CommandResponse!
-    public fileprivate(set) var hasCommandResponse:Bool = false
-    public fileprivate(set) var timestamp:UInt64! = nil
-    public fileprivate(set) var hasTimestamp:Bool = false
-
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasType {
-            try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
-        }
-        if hasCanMessage {
-            try codedOutputStream.writeMessage(fieldNumber: 2, value:canMessage)
-        }
-        if hasSimpleMessage {
-            try codedOutputStream.writeMessage(fieldNumber: 3, value:simpleMessage)
-        }
-        if hasDiagnosticResponse {
-            try codedOutputStream.writeMessage(fieldNumber: 4, value:diagnosticResponse)
-        }
-        if hasControlCommand {
-            try codedOutputStream.writeMessage(fieldNumber: 5, value:controlCommand)
-        }
-        if hasCommandResponse {
-            try codedOutputStream.writeMessage(fieldNumber: 6, value:commandResponse)
-        }
-        if hasTimestamp {
-            try codedOutputStream.writeUInt64(fieldNumber: 7, value:timestamp)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if (hasType) {
-            serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
-        }
-        if hasCanMessage,let varSizecanMessage = canMessage?.computeMessageSize(fieldNumber: 2) {
-            
-                serialize_size += varSizecanMessage
-            
-        }
-        if hasSimpleMessage,let varSizesimpleMessage = simpleMessage?.computeMessageSize(fieldNumber: 3) {
-           
-                serialize_size += varSizesimpleMessage
-            
-        }
-        if hasDiagnosticResponse,let varSizediagnosticResponse = diagnosticResponse?.computeMessageSize(fieldNumber: 4) {
-            
-                serialize_size += varSizediagnosticResponse
-            
-        }
-        if hasControlCommand,let varSizecontrolCommand = controlCommand?.computeMessageSize(fieldNumber: 5) {
-           
-                serialize_size += varSizecontrolCommand
-           
-        }
-        if hasCommandResponse,let varSizecommandResponse = commandResponse?.computeMessageSize(fieldNumber: 6) {
-            
-                serialize_size += varSizecommandResponse
-           
-        }
-        if hasTimestamp {
-            serialize_size += timestamp.computeUInt64Size(fieldNumber: 7)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> VehicleMessage.Builder {
-        return VehicleMessage.classBuilder() as! VehicleMessage.Builder
-    }
-    public func getBuilder() -> VehicleMessage.Builder {
-        return classBuilder() as! VehicleMessage.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return VehicleMessage.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return VehicleMessage.Builder()
-    }
-    public func toBuilder() throws -> VehicleMessage.Builder {
-        return try VehicleMessage.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:VehicleMessage) throws -> VehicleMessage.Builder {
-        return try VehicleMessage.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasType {
-            jsonMap["type"] = type.toString()
-        }
-        if hasCanMessage {
-            jsonMap["canMessage"] = try canMessage.encode()
-        }
-        if hasSimpleMessage {
-            jsonMap["simpleMessage"] = try simpleMessage.encode()
-        }
-        if hasDiagnosticResponse {
-            jsonMap["diagnosticResponse"] = try diagnosticResponse.encode()
-        }
-        if hasControlCommand {
-            jsonMap["controlCommand"] = try controlCommand.encode()
-        }
-        if hasCommandResponse {
-            jsonMap["commandResponse"] = try commandResponse.encode()
-        }
-        if hasTimestamp {
-            jsonMap["timestamp"] = "\(timestamp!)"
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> VehicleMessage {
-        return try VehicleMessage.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> VehicleMessage {
-        return try VehicleMessage.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if (hasType) {
-            output += "\(indent) type: \(type.description)\n"
-        }
-        if hasCanMessage {
-            output += "\(indent) canMessage {\n"
-            if let outDescCanMessage = canMessage {
-                output += try outDescCanMessage.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasSimpleMessage {
-            output += "\(indent) simpleMessage {\n"
-            if let outDescSimpleMessage = simpleMessage {
-                output += try outDescSimpleMessage.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasDiagnosticResponse {
-            output += "\(indent) diagnosticResponse {\n"
-            if let outDescDiagnosticResponse = diagnosticResponse {
-                output += try outDescDiagnosticResponse.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasControlCommand {
-            output += "\(indent) controlCommand {\n"
-            if let outDescControlCommand = controlCommand {
-                output += try outDescControlCommand.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasCommandResponse {
-            output += "\(indent) commandResponse {\n"
-            if let outDescCommandResponse = commandResponse {
-                output += try outDescCommandResponse.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasTimestamp {
-            output += "\(indent) timestamp: \(String(describing: timestamp)) \n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasType {
-                 hashCode = (hashCode &* 31) &+ type.hashValue
-            }
-            if hasCanMessage,let hashValuecanMessage = canMessage?.hashValue {
-              
-                    hashCode = (hashCode &* 31) &+ hashValuecanMessage
-                
-            }
-            if hasSimpleMessage,let hashValuesimpleMessage = simpleMessage?.hashValue {
-                
-                    hashCode = (hashCode &* 31) &+ hashValuesimpleMessage
-               
-            }
-            if hasDiagnosticResponse,let hashValuediagnosticResponse = diagnosticResponse?.hashValue {
-                
-                    hashCode = (hashCode &* 31) &+ hashValuediagnosticResponse
-               
-            }
-            if hasControlCommand,let hashValuecontrolCommand = controlCommand?.hashValue {
-             
-                    hashCode = (hashCode &* 31) &+ hashValuecontrolCommand
-                
-            }
-            if hasCommandResponse,let hashValuecommandResponse = commandResponse?.hashValue {
-                
-                    hashCode = (hashCode &* 31) &+ hashValuecommandResponse
-                
-            }
-            if hasTimestamp {
-                hashCode = (hashCode &* 31) &+ timestamp.hashValue
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
-
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "VehicleMessage"
-    }
-    override public func className() -> String {
-        return "VehicleMessage"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:VehicleMessage = VehicleMessage()
-        public func getMessage() -> VehicleMessage {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-            public var type:VehicleMessage.ProtoType {
-                get {
-                    return builderResult.type
-                }
-                set (value) {
-                    builderResult.hasType = true
-                    builderResult.type = value
-                }
-            }
-            public var hasType:Bool{
-                get {
-                    return builderResult.hasType
-                }
-            }
-        @discardableResult
-            public func setType(_ value:VehicleMessage.ProtoType) -> VehicleMessage.Builder {
-              self.type = value
-              return self
-            }
-        @discardableResult
-            public func clearType() -> VehicleMessage.Builder {
-               builderResult.hasType = false
-               builderResult.type = .unused
-               return self
-            }
-        public var canMessage:CanMessage! {
-            get {
-                if canMessageBuilder_ != nil {
-                    builderResult.canMessage = canMessageBuilder_.getMessage()
-                }
-                return builderResult.canMessage
-            }
-            set (value) {
-                builderResult.hasCanMessage = value != nil
-                builderResult.canMessage = value
-            }
-        }
-        public var hasCanMessage:Bool {
-            get {
-                return builderResult.hasCanMessage
-            }
-        }
-        fileprivate var canMessageBuilder_:CanMessage.Builder! {
-            didSet {
-                builderResult.hasCanMessage = true
-            }
-        }
-        public func getCanMessageBuilder() -> CanMessage.Builder {
-            if canMessageBuilder_ == nil {
-                canMessageBuilder_ = CanMessage.Builder()
-                builderResult.canMessage = canMessageBuilder_.getMessage()
-                if canMessage != nil {
-                    do{
-                    try canMessageBuilder_.mergeFrom(other: canMessage)
-                    }catch let error {
-                        print("Error: \(error)")
-                        
-                    }
-                }
-            }
-            return canMessageBuilder_
-        }
-        @discardableResult
-        public func setCanMessage(_ value:CanMessage!) -> VehicleMessage.Builder {
-            self.canMessage = value
-            return self
-        }
-        @discardableResult
-        public func mergeCanMessage(value:CanMessage) throws -> VehicleMessage.Builder {
-            if builderResult.hasCanMessage {
-                builderResult.canMessage = try CanMessage.builderWithPrototype(prototype:builderResult.canMessage).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.canMessage = value
-            }
-            builderResult.hasCanMessage = true
-            return self
-        }
-        @discardableResult
-        public func clearCanMessage() -> VehicleMessage.Builder {
-            canMessageBuilder_ = nil
-            builderResult.hasCanMessage = false
-            builderResult.canMessage = nil
-            return self
-        }
-        public var simpleMessage:SimpleMessage! {
-            get {
-                if simpleMessageBuilder_ != nil {
-                    builderResult.simpleMessage = simpleMessageBuilder_.getMessage()
-                }
-                return builderResult.simpleMessage
-            }
-            set (value) {
-                builderResult.hasSimpleMessage = value != nil
-                builderResult.simpleMessage = value
-            }
-        }
-        public var hasSimpleMessage:Bool {
-            get {
-                return builderResult.hasSimpleMessage
-            }
-        }
-        fileprivate var simpleMessageBuilder_:SimpleMessage.Builder! {
-            didSet {
-                builderResult.hasSimpleMessage = true
-            }
-        }
-        public func getSimpleMessageBuilder() -> SimpleMessage.Builder {
-            if simpleMessageBuilder_ == nil {
-                simpleMessageBuilder_ = SimpleMessage.Builder()
-                builderResult.simpleMessage = simpleMessageBuilder_.getMessage()
-                if simpleMessage != nil {
-                    do{
-                         try simpleMessageBuilder_.mergeFrom(other: simpleMessage)
-                        
-                    }catch let error {
-                        
-                       print("Error: \(error)")
-                    }
-                }
-            }
-            return simpleMessageBuilder_
-        }
-        @discardableResult
-        public func setSimpleMessage(_ value:SimpleMessage!) -> VehicleMessage.Builder {
-            self.simpleMessage = value
-            return self
-        }
-        @discardableResult
-        public func mergeSimpleMessage(value:SimpleMessage) throws -> VehicleMessage.Builder {
-            if builderResult.hasSimpleMessage {
-                builderResult.simpleMessage = try SimpleMessage.builderWithPrototype(prototype:builderResult.simpleMessage).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.simpleMessage = value
-            }
-            builderResult.hasSimpleMessage = true
-            return self
-        }
-        @discardableResult
-        public func clearSimpleMessage() -> VehicleMessage.Builder {
-            simpleMessageBuilder_ = nil
-            builderResult.hasSimpleMessage = false
-            builderResult.simpleMessage = nil
-            return self
-        }
-        public var diagnosticResponse:DiagnosticResponse! {
-            get {
-                if diagnosticResponseBuilder_ != nil {
-                    builderResult.diagnosticResponse = diagnosticResponseBuilder_.getMessage()
-                }
-                return builderResult.diagnosticResponse
-            }
-            set (value) {
-                builderResult.hasDiagnosticResponse = value != nil
-                builderResult.diagnosticResponse = value
-            }
-        }
-        public var hasDiagnosticResponse:Bool {
-            get {
-                return builderResult.hasDiagnosticResponse
-            }
-        }
-        fileprivate var diagnosticResponseBuilder_:DiagnosticResponse.Builder! {
-            didSet {
-                builderResult.hasDiagnosticResponse = true
-            }
-        }
-        public func getDiagnosticResponseBuilder() -> DiagnosticResponse.Builder {
-            if diagnosticResponseBuilder_ == nil {
-                diagnosticResponseBuilder_ = DiagnosticResponse.Builder()
-                builderResult.diagnosticResponse = diagnosticResponseBuilder_.getMessage()
-                if diagnosticResponse != nil {
-                    do {
-                    try diagnosticResponseBuilder_.mergeFrom(other: diagnosticResponse)
-                    }catch let error{
-                        print("Error: \(error)")
-                    }
-            }
-        }
-            return diagnosticResponseBuilder_
-        }
-        @discardableResult
-        public func setDiagnosticResponse(_ value:DiagnosticResponse!) -> VehicleMessage.Builder {
-            self.diagnosticResponse = value
-            return self
-        }
-        @discardableResult
-        public func mergeDiagnosticResponse(value:DiagnosticResponse) throws -> VehicleMessage.Builder {
-            if builderResult.hasDiagnosticResponse {
-                builderResult.diagnosticResponse = try DiagnosticResponse.builderWithPrototype(prototype:builderResult.diagnosticResponse).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.diagnosticResponse = value
-            }
-            builderResult.hasDiagnosticResponse = true
-            return self
-        }
-        @discardableResult
-        public func clearDiagnosticResponse() -> VehicleMessage.Builder {
-            diagnosticResponseBuilder_ = nil
-            builderResult.hasDiagnosticResponse = false
-            builderResult.diagnosticResponse = nil
-            return self
-        }
-        public var controlCommand:ControlCommand! {
-            get {
-                if controlCommandBuilder_ != nil {
-                    builderResult.controlCommand = controlCommandBuilder_.getMessage()
-                }
-                return builderResult.controlCommand
-            }
-            set (value) {
-                builderResult.hasControlCommand = value != nil
-                builderResult.controlCommand = value
-            }
-        }
-        public var hasControlCommand:Bool {
-            get {
-                return builderResult.hasControlCommand
-            }
-        }
-        fileprivate var controlCommandBuilder_:ControlCommand.Builder! {
-            didSet {
-                builderResult.hasControlCommand = true
-            }
-        }
-        public func getControlCommandBuilder() -> ControlCommand.Builder {
-            if controlCommandBuilder_ == nil {
-                controlCommandBuilder_ = ControlCommand.Builder()
-                builderResult.controlCommand = controlCommandBuilder_.getMessage()
-                if controlCommand != nil {
-                    do{
-                         try controlCommandBuilder_.mergeFrom(other: controlCommand)
-                    }catch let error{
-                        print("Error: \(error)")
-                    }
-                   
-                }
-            }
-            return controlCommandBuilder_
-        }
-        @discardableResult
-        public func setControlCommand(_ value:ControlCommand!) -> VehicleMessage.Builder {
-            self.controlCommand = value
-            return self
-        }
-        @discardableResult
-        public func mergeControlCommand(value:ControlCommand) throws -> VehicleMessage.Builder {
-            if builderResult.hasControlCommand {
-                builderResult.controlCommand = try ControlCommand.builderWithPrototype(prototype:builderResult.controlCommand).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.controlCommand = value
-            }
-            builderResult.hasControlCommand = true
-            return self
-        }
-        @discardableResult
-        public func clearControlCommand() -> VehicleMessage.Builder {
-            controlCommandBuilder_ = nil
-            builderResult.hasControlCommand = false
-            builderResult.controlCommand = nil
-            return self
-        }
-        public var commandResponse:CommandResponse! {
-            get {
-                if commandResponseBuilder_ != nil {
-                    builderResult.commandResponse = commandResponseBuilder_.getMessage()
-                }
-                return builderResult.commandResponse
-            }
-            set (value) {
-                builderResult.hasCommandResponse = value != nil
-                builderResult.commandResponse = value
-            }
-        }
-        public var hasCommandResponse:Bool {
-            get {
-                return builderResult.hasCommandResponse
-            }
-        }
-        fileprivate var commandResponseBuilder_:CommandResponse.Builder! {
-            didSet {
-                builderResult.hasCommandResponse = true
-            }
-        }
-        public func getCommandResponseBuilder() -> CommandResponse.Builder {
-            if commandResponseBuilder_ == nil {
-                commandResponseBuilder_ = CommandResponse.Builder()
-                builderResult.commandResponse = commandResponseBuilder_.getMessage()
-                if commandResponse != nil {
-                    do{
-                        try commandResponseBuilder_.mergeFrom(other: commandResponse)
-                        
-                    }catch let error{
-                        print("Error: \(error)")
-                    }
-                    
-                }
-            }
-            return commandResponseBuilder_
-        }
-        @discardableResult
-        public func setCommandResponse(_ value:CommandResponse!) -> VehicleMessage.Builder {
-            self.commandResponse = value
-            return self
-        }
-        @discardableResult
-        public func mergeCommandResponse(value:CommandResponse) throws -> VehicleMessage.Builder {
-            if builderResult.hasCommandResponse {
-                builderResult.commandResponse = try CommandResponse.builderWithPrototype(prototype:builderResult.commandResponse).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.commandResponse = value
-            }
-            builderResult.hasCommandResponse = true
-            return self
-        }
-        @discardableResult
-        public func clearCommandResponse() -> VehicleMessage.Builder {
-            commandResponseBuilder_ = nil
-            builderResult.hasCommandResponse = false
-            builderResult.commandResponse = nil
-            return self
-        }
-        public var timestamp:UInt64 {
-            get {
-                return builderResult.timestamp
-            }
-            set (value) {
-                builderResult.hasTimestamp = true
-                builderResult.timestamp = value
-            }
-        }
-        public var hasTimestamp:Bool {
-            get {
-                return builderResult.hasTimestamp
-            }
-        }
-        @discardableResult
-        public func setTimestamp(_ value:UInt64) -> VehicleMessage.Builder {
-            self.timestamp = value
-            return self
-        }
-        @discardableResult
-        public func clearTimestamp() -> VehicleMessage.Builder{
-            builderResult.hasTimestamp = false
-            builderResult.timestamp = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> VehicleMessage.Builder {
-            builderResult = VehicleMessage()
-            return self
-        }
-        override public func clone() throws -> VehicleMessage.Builder {
-            return try VehicleMessage.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> VehicleMessage {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> VehicleMessage {
-            let returnMe:VehicleMessage = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:VehicleMessage) throws -> VehicleMessage.Builder {
-            if other == VehicleMessage() {
-                return self
-            }
-            if other.hasType {
-                type = other.type
-            }
-            if (other.hasCanMessage) {
-                try mergeCanMessage(value: other.canMessage)
-            }
-            if (other.hasSimpleMessage) {
-                try mergeSimpleMessage(value: other.simpleMessage)
-            }
-            if (other.hasDiagnosticResponse) {
-                try mergeDiagnosticResponse(value: other.diagnosticResponse)
-            }
-            if (other.hasControlCommand) {
-                try mergeControlCommand(value: other.controlCommand)
-            }
-            if (other.hasCommandResponse) {
-                try mergeCommandResponse(value: other.commandResponse)
-            }
-            if other.hasTimestamp {
-                timestamp = other.timestamp
-            }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> VehicleMessage.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> VehicleMessage.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
-
-                case 8:
-                    let valueInttype = try codedInputStream.readEnum()
-                    if let enumstype = VehicleMessage.ProtoType(rawValue:valueInttype){
-                        type = enumstype
-                    } else {
-                        try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
-                    }
-
-                case 18:
-                    let subBuilder:CanMessage.Builder = CanMessage.Builder()
-                    if hasCanMessage {
-                        try subBuilder.mergeFrom(other: canMessage)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    canMessage = subBuilder.buildPartial()
-
-                case 26:
-                    let subBuilder:SimpleMessage.Builder = SimpleMessage.Builder()
-                    if hasSimpleMessage {
-                        try subBuilder.mergeFrom(other: simpleMessage)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    simpleMessage = subBuilder.buildPartial()
-
-                case 34:
-                    let subBuilder:DiagnosticResponse.Builder = DiagnosticResponse.Builder()
-                    if hasDiagnosticResponse {
-                        try subBuilder.mergeFrom(other: diagnosticResponse)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    diagnosticResponse = subBuilder.buildPartial()
-
-                case 42:
-                    let subBuilder:ControlCommand.Builder = ControlCommand.Builder()
-                    if hasControlCommand {
-                        try subBuilder.mergeFrom(other: controlCommand)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    controlCommand = subBuilder.buildPartial()
-
-                case 50:
-                    let subBuilder:CommandResponse.Builder = CommandResponse.Builder()
-                    if hasCommandResponse {
-                        try subBuilder.mergeFrom(other: commandResponse)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    commandResponse = subBuilder.buildPartial()
-
-                case 56:
-                    timestamp = try codedInputStream.readUInt64()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
-                        return self
-                    }
-                }
-            }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> VehicleMessage.Builder {
-            let resultDecodedBuilder = VehicleMessage.Builder()
-            if let jsonValueType = jsonMap["type"] as? String {
-                resultDecodedBuilder.type = try VehicleMessage.ProtoType.fromString(jsonValueType)
-            }
-            if let jsonValueCanMessage = jsonMap["canMessage"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.canMessage = try CanMessage.Builder.decodeToBuilder(jsonMap:jsonValueCanMessage).build()
-
-            }
-            if let jsonValueSimpleMessage = jsonMap["simpleMessage"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.simpleMessage = try SimpleMessage.Builder.decodeToBuilder(jsonMap:jsonValueSimpleMessage).build()
-
-            }
-            if let jsonValueDiagnosticResponse = jsonMap["diagnosticResponse"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.diagnosticResponse = try DiagnosticResponse.Builder.decodeToBuilder(jsonMap:jsonValueDiagnosticResponse).build()
-
-            }
-            if let jsonValueControlCommand = jsonMap["controlCommand"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.controlCommand = try ControlCommand.Builder.decodeToBuilder(jsonMap:jsonValueControlCommand).build()
-
-            }
-            if let jsonValueCommandResponse = jsonMap["commandResponse"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.commandResponse = try CommandResponse.Builder.decodeToBuilder(jsonMap:jsonValueCommandResponse).build()
-
-            }
-            if let jsonValueTimestamp = jsonMap["timestamp"] as? String {
-                resultDecodedBuilder.timestamp = UInt64(jsonValueTimestamp)!
-            } else if let jsonValueTimestamp = jsonMap["timestamp"] as? UInt {
-                resultDecodedBuilder.timestamp = UInt64(jsonValueTimestamp)
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> VehicleMessage.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try VehicleMessage.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class CanMessage : GeneratedMessage {
-    public typealias BuilderType = CanMessage.Builder
-
-    public static func == (lhs: CanMessage, rhs: CanMessage) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
-        fieldCheck = fieldCheck && (lhs.hasId == rhs.hasId) && (!lhs.hasId || lhs.id == rhs.id)
-        fieldCheck = fieldCheck && (lhs.hasData == rhs.hasData) && (!lhs.hasData || lhs.data == rhs.data)
-        fieldCheck = fieldCheck && (lhs.hasFrameFormat == rhs.hasFrameFormat) && (!lhs.hasFrameFormat || lhs.frameFormat == rhs.frameFormat)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-
-
-        //Enum type declaration start 
-
-        public enum FrameFormat:Int32, GeneratedEnum {
-            case unused = 0
-            case standard = 1
-            case extended = 2
-            public func toString() -> String {
-                switch self {
-                case .unused: return "UNUSED"
-                case .standard: return "STANDARD"
-                case .extended: return "EXTENDED"
-                }
-            }
-            public static func fromString(_ str:String) throws -> CanMessage.FrameFormat {
-                switch str {
-                case "UNUSED":    return .unused
-                case "STANDARD":    return .standard
-                case "EXTENDED":    return .extended
-                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
-                }
-            }
-            public var debugDescription:String { return getDescription() }
-            public var description:String { return getDescription() }
-            private func getDescription() -> String { 
-                switch self {
-                case .unused: return msgUnused
-                case .standard: return ".standard"
-                case .extended: return ".extended"
-                }
-            }
-            public var hashValue:Int {
-                return self.rawValue.hashValue
-            }
-            public static func == (lhs:FrameFormat, rhs:FrameFormat) -> Bool {
-                return lhs.hashValue == rhs.hashValue
-            }
-        }
-
-        //Enum type declaration end 
-
-    public fileprivate(set) var bus:Int32! = nil
-    public fileprivate(set) var hasBus:Bool = false
-
-    public fileprivate(set) var id:UInt32! = nil
-    public fileprivate(set) var hasId:Bool = false
-
-    public fileprivate(set) var data:Data! = nil
-    public fileprivate(set) var hasData:Bool = false
-
-    public fileprivate(set) var frameFormat:CanMessage.FrameFormat = CanMessage.FrameFormat.unused
-    public fileprivate(set) var hasFrameFormat:Bool = false
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasBus {
-            try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
-        }
-        if hasId {
-            try codedOutputStream.writeUInt32(fieldNumber: 2, value:id)
-        }
-        if hasData {
-            try codedOutputStream.writeData(fieldNumber: 3, value:data)
-        }
-        if hasFrameFormat {
-            try codedOutputStream.writeEnum(fieldNumber: 4, value:frameFormat.rawValue)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if hasBus {
-            serialize_size += bus.computeInt32Size(fieldNumber: 1)
-        }
-        if hasId {
-            serialize_size += id.computeUInt32Size(fieldNumber: 2)
-        }
-        if hasData {
-            serialize_size += data.computeDataSize(fieldNumber: 3)
-        }
-        if (hasFrameFormat) {
-            serialize_size += frameFormat.rawValue.computeEnumSize(fieldNumber: 4)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> CanMessage.Builder {
-        return CanMessage.classBuilder() as! CanMessage.Builder
-    }
-    public func getBuilder() -> CanMessage.Builder {
-        return classBuilder() as! CanMessage.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return CanMessage.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return CanMessage.Builder()
-    }
-    public func toBuilder() throws -> CanMessage.Builder {
-        return try CanMessage.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:CanMessage) throws -> CanMessage.Builder {
-        return try CanMessage.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasBus {
-            jsonMap["bus"] = Int(bus)
-        }
-        if hasId {
-            jsonMap["id"] = UInt(id)
-        }
-        if hasData {
-            jsonMap["data"] = data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
-        }
-        if hasFrameFormat {
-            jsonMap["frameFormat"] = frameFormat.toString()
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> CanMessage {
-        return try CanMessage.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> CanMessage {
-        return try CanMessage.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasBus {
-            output += "\(indent) bus: \(String(describing: bus)) \n"
-        }
-        if hasId {
-            output += "\(indent) id: \(String(describing: id)) \n"
-        }
-        if hasData {
-            output += "\(indent) data: \(String(describing: data)) \n"
-        }
-        if (hasFrameFormat) {
-            output += "\(indent) frameFormat: \(frameFormat.description)\n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasBus {
-                hashCode = (hashCode &* 31) &+ bus.hashValue
-            }
-            if hasId {
-                hashCode = (hashCode &* 31) &+ id.hashValue
-            }
-            if hasData {
-                hashCode = (hashCode &* 31) &+ data.hashValue
-            }
-            if hasFrameFormat {
-                 hashCode = (hashCode &* 31) &+ frameFormat.hashValue
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
-
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "CanMessage"
-    }
-    override public func className() -> String {
-        return "CanMessage"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:CanMessage = CanMessage()
-        public func getMessage() -> CanMessage {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-        public var bus:Int32 {
-            get {
-                return builderResult.bus
-            }
-            set (value) {
-                builderResult.hasBus = true
-                builderResult.bus = value
-            }
-        }
-        public var hasBus:Bool {
-            get {
-                return builderResult.hasBus
-            }
-        }
-        @discardableResult
-        public func setBus(_ value:Int32) -> CanMessage.Builder {
-            self.bus = value
-            return self
-        }
-        @discardableResult
-        public func clearBus() -> CanMessage.Builder{
-            builderResult.hasBus = false
-            builderResult.bus = nil
-            return self
-        }
-        public var id:UInt32 {
-            get {
-                return builderResult.id
-            }
-            set (value) {
-                builderResult.hasId = true
-                builderResult.id = value
-            }
-        }
-        public var hasId:Bool {
-            get {
-                return builderResult.hasId
-            }
-        }
-        @discardableResult
-        public func setId(_ value:UInt32) -> CanMessage.Builder {
-            self.id = value
-            return self
-        }
-        @discardableResult
-        public func clearId() -> CanMessage.Builder{
-            builderResult.hasId = false
-            builderResult.id = nil
-            return self
-        }
-        public var data:Data {
-            get {
-                return builderResult.data
-            }
-            set (value) {
-                builderResult.hasData = true
-                builderResult.data = value
-            }
-        }
-        public var hasData:Bool {
-            get {
-                return builderResult.hasData
-            }
-        }
-        @discardableResult
-        public func setData(_ value:Data) -> CanMessage.Builder {
-            self.data = value
-            return self
-        }
-        @discardableResult
-        public func clearData() -> CanMessage.Builder{
-            builderResult.hasData = false
-            builderResult.data = nil
-            return self
-        }
-            public var frameFormat:CanMessage.FrameFormat {
-                get {
-                    return builderResult.frameFormat
-                }
-                set (value) {
-                    builderResult.hasFrameFormat = true
-                    builderResult.frameFormat = value
-                }
-            }
-            public var hasFrameFormat:Bool{
-                get {
-                    return builderResult.hasFrameFormat
-                }
-            }
-        @discardableResult
-            public func setFrameFormat(_ value:CanMessage.FrameFormat) -> CanMessage.Builder {
-              self.frameFormat = value
-              return self
-            }
-        @discardableResult
-            public func clearFrameFormat() -> CanMessage.Builder {
-               builderResult.hasFrameFormat = false
-               builderResult.frameFormat = .unused
-               return self
-            }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> CanMessage.Builder {
-            builderResult = CanMessage()
-            return self
-        }
-        override public func clone() throws -> CanMessage.Builder {
-            return try CanMessage.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> CanMessage {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> CanMessage {
-            let returnMe:CanMessage = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:CanMessage) throws -> CanMessage.Builder {
-            if other == CanMessage() {
-                return self
-            }
-            if other.hasBus {
-                bus = other.bus
-            }
-            if other.hasId {
-                id = other.id
-            }
-            if other.hasData {
-                data = other.data
-            }
-            if other.hasFrameFormat {
-                frameFormat = other.frameFormat
-            }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> CanMessage.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> CanMessage.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
-
-                case 8:
-                    bus = try codedInputStream.readInt32()
-
-                case 16:
-                    id = try codedInputStream.readUInt32()
-
-                case 26:
-                    data = try codedInputStream.readData()
-
-                case 32:
-                    let valueIntframeFormat = try codedInputStream.readEnum()
-                    if let enumsframeFormat = CanMessage.FrameFormat(rawValue:valueIntframeFormat){
-                        frameFormat = enumsframeFormat
-                    } else {
-                        try unknownFieldsBuilder.mergeVarintField(fieldNumber: 4, value:Int64(valueIntframeFormat))
-                    }
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
-                        return self
-                    }
-                }
-            }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> CanMessage.Builder {
-            let resultDecodedBuilder = CanMessage.Builder()
-            if let jsonValueBus = jsonMap["bus"] as? Int {
-                resultDecodedBuilder.bus = Int32(jsonValueBus)
-            } else if let jsonValueBus = jsonMap["bus"] as? String {
-                resultDecodedBuilder.bus = Int32(jsonValueBus)!
-            }
-            if let jsonValueId = jsonMap["id"] as? UInt {
-                resultDecodedBuilder.id = UInt32(jsonValueId)
-            } else if let jsonValueId = jsonMap["id"] as? String {
-                resultDecodedBuilder.id = UInt32(jsonValueId)!
-            }
-            if let jsonValueData = jsonMap["data"] as? String {
-                resultDecodedBuilder.data = Data(base64Encoded:jsonValueData, options: Data.Base64DecodingOptions(rawValue:0))!
-            }
-            if let jsonValueFrameFormat = jsonMap["frameFormat"] as? String {
-                resultDecodedBuilder.frameFormat = try CanMessage.FrameFormat.fromString(jsonValueFrameFormat)
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> CanMessage.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try CanMessage.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class ControlCommand : GeneratedMessage {
-    public typealias BuilderType = ControlCommand.Builder
-
-    public static func == (lhs: ControlCommand, rhs: ControlCommand) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
-        fieldCheck = fieldCheck && (lhs.hasDiagnosticRequest == rhs.hasDiagnosticRequest) && (!lhs.hasDiagnosticRequest || lhs.diagnosticRequest == rhs.diagnosticRequest)
-        fieldCheck = fieldCheck && (lhs.hasPassthroughModeRequest == rhs.hasPassthroughModeRequest) && (!lhs.hasPassthroughModeRequest || lhs.passthroughModeRequest == rhs.passthroughModeRequest)
-        fieldCheck = fieldCheck && (lhs.hasAcceptanceFilterBypassCommand == rhs.hasAcceptanceFilterBypassCommand) && (!lhs.hasAcceptanceFilterBypassCommand || lhs.acceptanceFilterBypassCommand == rhs.acceptanceFilterBypassCommand)
-        fieldCheck = fieldCheck && (lhs.hasPayloadFormatCommand == rhs.hasPayloadFormatCommand) && (!lhs.hasPayloadFormatCommand || lhs.payloadFormatCommand == rhs.payloadFormatCommand)
-        fieldCheck = fieldCheck && (lhs.hasPredefinedObd2RequestsCommand == rhs.hasPredefinedObd2RequestsCommand) && (!lhs.hasPredefinedObd2RequestsCommand || lhs.predefinedObd2RequestsCommand == rhs.predefinedObd2RequestsCommand)
-        fieldCheck = fieldCheck && (lhs.hasModemConfigurationCommand == rhs.hasModemConfigurationCommand) && (!lhs.hasModemConfigurationCommand || lhs.modemConfigurationCommand == rhs.modemConfigurationCommand)
-        fieldCheck = fieldCheck && (lhs.hasRtcConfigurationCommand == rhs.hasRtcConfigurationCommand) && (!lhs.hasRtcConfigurationCommand || lhs.rtcConfigurationCommand == rhs.rtcConfigurationCommand)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-
-
-        //Enum type declaration start 
-
-        public enum ProtoType:Int32, GeneratedEnum {
-            case unused = 0
-            case version = 1
-            case deviceId = 2
-            case diagnostic = 3
-            case passthrough = 4
-            case acceptanceFilterBypass = 5
-            case payloadFormat = 6
-            case predefinedObd2Requests = 7
-            case modemConfiguration = 8
-            case rtcConfiguration = 9
-            case sdMountStatus = 10
-            case platform = 11
-            public func toString() -> String {
-                switch self {
-                case .unused: return "UNUSED"
-                case .version: return "VERSION"
-                case .deviceId: return "DEVICE_ID"
-                case .diagnostic: return "DIAGNOSTIC"
-                case .passthrough: return "PASSTHROUGH"
-                case .acceptanceFilterBypass: return "ACCEPTANCE_FILTER_BYPASS"
-                case .payloadFormat: return "PAYLOAD_FORMAT"
-                case .predefinedObd2Requests: return "PREDEFINED_OBD2_REQUESTS"
-                case .modemConfiguration: return "MODEM_CONFIGURATION"
-                case .rtcConfiguration: return "RTC_CONFIGURATION"
-                case .sdMountStatus: return "SD_MOUNT_STATUS"
-                case .platform: return "PLATFORM"
-                }
-            }
-            public static func fromString(_ str:String) throws -> ControlCommand.ProtoType {
-                switch str {
-                case "UNUSED":    return .unused
-                case "VERSION":    return .version
-                case "DEVICE_ID":    return .deviceId
-                case "DIAGNOSTIC":    return .diagnostic
-                case "PASSTHROUGH":    return .passthrough
-                case "ACCEPTANCE_FILTER_BYPASS":    return .acceptanceFilterBypass
-                case "PAYLOAD_FORMAT":    return .payloadFormat
-                case "PREDEFINED_OBD2_REQUESTS":    return .predefinedObd2Requests
-                case "MODEM_CONFIGURATION":    return .modemConfiguration
-                case "RTC_CONFIGURATION":    return .rtcConfiguration
-                case "SD_MOUNT_STATUS":    return .sdMountStatus
-                case "PLATFORM":    return .platform
-                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
-                }
-            }
-            public var debugDescription:String { return getDescription() }
-            public var description:String { return getDescription() }
-            private func getDescription() -> String { 
-                switch self {
-                case .unused: return msgUnused
-                case .version: return ".version"
-                case .deviceId: return ".deviceId"
-                case .diagnostic: return ".diagnostic"
-                case .passthrough: return ".passthrough"
-                case .acceptanceFilterBypass: return ".acceptanceFilterBypass"
-                case .payloadFormat: return ".payloadFormat"
-                case .predefinedObd2Requests: return ".predefinedObd2Requests"
-                case .modemConfiguration: return ".modemConfiguration"
-                case .rtcConfiguration: return ".rtcConfiguration"
-                case .sdMountStatus: return ".sdMountStatus"
-                case .platform: return ".platform"
-                }
-            }
-            public var hashValue:Int {
-                return self.rawValue.hashValue
-            }
-            public static func == (lhs:ProtoType, rhs:ProtoType) -> Bool {
-                return lhs.hashValue == rhs.hashValue
-            }
-        }
-
-        //Enum type declaration end 
-
-    public fileprivate(set) var type:ControlCommand.ProtoType = ControlCommand.ProtoType.unused
-    public fileprivate(set) var hasType:Bool = false
-    public fileprivate(set) var diagnosticRequest:DiagnosticControlCommand!
-    public fileprivate(set) var hasDiagnosticRequest:Bool = false
-    public fileprivate(set) var passthroughModeRequest:PassthroughModeControlCommand!
-    public fileprivate(set) var hasPassthroughModeRequest:Bool = false
-    public fileprivate(set) var acceptanceFilterBypassCommand:AcceptanceFilterBypassCommand!
-    public fileprivate(set) var hasAcceptanceFilterBypassCommand:Bool = false
-    public fileprivate(set) var payloadFormatCommand:PayloadFormatCommand!
-    public fileprivate(set) var hasPayloadFormatCommand:Bool = false
-    public fileprivate(set) var predefinedObd2RequestsCommand:PredefinedObd2RequestsCommand!
-    public fileprivate(set) var hasPredefinedObd2RequestsCommand:Bool = false
-    public fileprivate(set) var modemConfigurationCommand:ModemConfigurationCommand!
-    public fileprivate(set) var hasModemConfigurationCommand:Bool = false
-    public fileprivate(set) var rtcConfigurationCommand:RtcconfigurationCommand!
-    public fileprivate(set) var hasRtcConfigurationCommand:Bool = false
-    required public init() {
-        super.init()
-    }
-  
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasType {
-            try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
-        }
-        if hasDiagnosticRequest {
-            try codedOutputStream.writeMessage(fieldNumber: 2, value:diagnosticRequest)
-        }
-        if hasPassthroughModeRequest {
-            try codedOutputStream.writeMessage(fieldNumber: 3, value:passthroughModeRequest)
-        }
-        if hasAcceptanceFilterBypassCommand {
-            try codedOutputStream.writeMessage(fieldNumber: 4, value:acceptanceFilterBypassCommand)
-        }
-        if hasPayloadFormatCommand {
-            try codedOutputStream.writeMessage(fieldNumber: 5, value:payloadFormatCommand)
-        }
-        if hasPredefinedObd2RequestsCommand {
-            try codedOutputStream.writeMessage(fieldNumber: 6, value:predefinedObd2RequestsCommand)
-        }
-        if hasModemConfigurationCommand {
-            try codedOutputStream.writeMessage(fieldNumber: 7, value:modemConfigurationCommand)
-        }
-        if hasRtcConfigurationCommand {
-            try codedOutputStream.writeMessage(fieldNumber: 8, value:rtcConfigurationCommand)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if (hasType) {
-            serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
-        }
-        if hasDiagnosticRequest,let varSizediagnosticRequest = diagnosticRequest?.computeMessageSize(fieldNumber: 2) {
-          
-                serialize_size += varSizediagnosticRequest
-         
-        }
-        if hasPassthroughModeRequest,let varSizepassthroughModeRequest = passthroughModeRequest?.computeMessageSize(fieldNumber: 3) {
-            
-                serialize_size += varSizepassthroughModeRequest
-        
-        }
-        if hasAcceptanceFilterBypassCommand,let varSizeacceptanceFilterBypassCommand = acceptanceFilterBypassCommand?.computeMessageSize(fieldNumber: 4) {
-           
-                serialize_size += varSizeacceptanceFilterBypassCommand
-          
-        }
-        if hasPayloadFormatCommand,let varSizepayloadFormatCommand = payloadFormatCommand?.computeMessageSize(fieldNumber: 5) {
-            
-                serialize_size += varSizepayloadFormatCommand
-         
-        }
-        if hasPredefinedObd2RequestsCommand,let varSizepredefinedObd2RequestsCommand = predefinedObd2RequestsCommand?.computeMessageSize(fieldNumber: 6) {
-          
-                serialize_size += varSizepredefinedObd2RequestsCommand
-          
-        }
-        if hasModemConfigurationCommand,let varSizemodemConfigurationCommand = modemConfigurationCommand?.computeMessageSize(fieldNumber: 7) {
-           
-                serialize_size += varSizemodemConfigurationCommand
-         
-        }
-        if hasRtcConfigurationCommand,let varSizertcConfigurationCommand = rtcConfigurationCommand?.computeMessageSize(fieldNumber: 8) {
-    
-                serialize_size += varSizertcConfigurationCommand
-         
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> ControlCommand.Builder {
-        return ControlCommand.classBuilder() as! ControlCommand.Builder
-    }
-    public func getBuilder() -> ControlCommand.Builder {
-        return classBuilder() as! ControlCommand.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return ControlCommand.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return ControlCommand.Builder()
-    }
-    public func toBuilder() throws -> ControlCommand.Builder {
-        return try ControlCommand.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:ControlCommand) throws -> ControlCommand.Builder {
-        return try ControlCommand.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasType {
-            jsonMap["type"] = type.toString()
-        }
-        if hasDiagnosticRequest {
-            jsonMap["diagnosticRequest"] = try diagnosticRequest.encode()
-        }
-        if hasPassthroughModeRequest {
-            jsonMap["passthroughModeRequest"] = try passthroughModeRequest.encode()
-        }
-        if hasAcceptanceFilterBypassCommand {
-            jsonMap["acceptanceFilterBypassCommand"] = try acceptanceFilterBypassCommand.encode()
-        }
-        if hasPayloadFormatCommand {
-            jsonMap["payloadFormatCommand"] = try payloadFormatCommand.encode()
-        }
-        if hasPredefinedObd2RequestsCommand {
-            jsonMap["predefinedObd2RequestsCommand"] = try predefinedObd2RequestsCommand.encode()
-        }
-        if hasModemConfigurationCommand {
-            jsonMap["modemConfigurationCommand"] = try modemConfigurationCommand.encode()
-        }
-        if hasRtcConfigurationCommand {
-            jsonMap["rtcConfigurationCommand"] = try rtcConfigurationCommand.encode()
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> ControlCommand {
-        return try ControlCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> ControlCommand {
-        return try ControlCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if (hasType) {
-            output += "\(indent) type: \(type.description)\n"
-        }
-        if hasDiagnosticRequest {
-            output += "\(indent) diagnosticRequest {\n"
-            if let outDescDiagnosticRequest = diagnosticRequest {
-                output += try outDescDiagnosticRequest.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasPassthroughModeRequest {
-            output += "\(indent) passthroughModeRequest {\n"
-            if let outDescPassthroughModeRequest = passthroughModeRequest {
-                output += try outDescPassthroughModeRequest.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasAcceptanceFilterBypassCommand {
-            output += "\(indent) acceptanceFilterBypassCommand {\n"
-            if let outDescAcceptanceFilterBypassCommand = acceptanceFilterBypassCommand {
-                output += try outDescAcceptanceFilterBypassCommand.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasPayloadFormatCommand {
-            output += "\(indent) payloadFormatCommand {\n"
-            if let outDescPayloadFormatCommand = payloadFormatCommand {
-                output += try outDescPayloadFormatCommand.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasPredefinedObd2RequestsCommand {
-            output += "\(indent) predefinedObd2RequestsCommand {\n"
-            if let outDescPredefinedObd2RequestsCommand = predefinedObd2RequestsCommand {
-                output += try outDescPredefinedObd2RequestsCommand.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasModemConfigurationCommand {
-            output += "\(indent) modemConfigurationCommand {\n"
-            if let outDescModemConfigurationCommand = modemConfigurationCommand {
-                output += try outDescModemConfigurationCommand.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasRtcConfigurationCommand {
-            output += "\(indent) rtcConfigurationCommand {\n"
-            if let outDescRtcConfigurationCommand = rtcConfigurationCommand {
-                output += try outDescRtcConfigurationCommand.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasType {
-                 hashCode = (hashCode &* 31) &+ type.hashValue
-            }
-            if hasDiagnosticRequest,let hashValuediagnosticRequest = diagnosticRequest?.hashValue {
-               
-                    hashCode = (hashCode &* 31) &+ hashValuediagnosticRequest
-                
-            }
-            if hasPassthroughModeRequest,let hashValuepassthroughModeRequest = passthroughModeRequest?.hashValue {
-                
-                    hashCode = (hashCode &* 31) &+ hashValuepassthroughModeRequest
-
-            }
-            if hasAcceptanceFilterBypassCommand,let hashValueacceptanceFilterBypassCommand = acceptanceFilterBypassCommand?.hashValue {
-    
-                    hashCode = (hashCode &* 31) &+ hashValueacceptanceFilterBypassCommand
-
-            }
-            if hasPayloadFormatCommand,let hashValuepayloadFormatCommand = payloadFormatCommand?.hashValue {
-            
-                    hashCode = (hashCode &* 31) &+ hashValuepayloadFormatCommand
-
-            }
-            if hasPredefinedObd2RequestsCommand,let hashValuepredefinedObd2RequestsCommand = predefinedObd2RequestsCommand?.hashValue {
-            
-                    hashCode = (hashCode &* 31) &+ hashValuepredefinedObd2RequestsCommand
-                
-            }
-            if hasModemConfigurationCommand,let hashValuemodemConfigurationCommand = modemConfigurationCommand?.hashValue{
-                
-                    hashCode = (hashCode &* 31) &+ hashValuemodemConfigurationCommand
-                
-            }
-            if hasRtcConfigurationCommand,let hashValuertcConfigurationCommand = rtcConfigurationCommand?.hashValue {
-                
-                    hashCode = (hashCode &* 31) &+ hashValuertcConfigurationCommand
-                
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
-
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "ControlCommand"
-    }
-    override public func className() -> String {
-        return "ControlCommand"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:ControlCommand = ControlCommand()
-        public func getMessage() -> ControlCommand {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-            public var type:ControlCommand.ProtoType {
-                get {
-                    return builderResult.type
-                }
-                set (value) {
-                    builderResult.hasType = true
-                    builderResult.type = value
-                }
-            }
-            public var hasType:Bool{
-                get {
-                    return builderResult.hasType
-                }
-            }
-        @discardableResult
-            public func setType(_ value:ControlCommand.ProtoType) -> ControlCommand.Builder {
-              self.type = value
-              return self
-            }
-        @discardableResult
-            public func clearType() -> ControlCommand.Builder {
-               builderResult.hasType = false
-               builderResult.type = .unused
-               return self
-            }
-        public var diagnosticRequest:DiagnosticControlCommand! {
-            get {
-                if diagnosticRequestBuilder_ != nil {
-                    builderResult.diagnosticRequest = diagnosticRequestBuilder_.getMessage()
-                }
-                return builderResult.diagnosticRequest
-            }
-            set (value) {
-                builderResult.hasDiagnosticRequest = value != nil
-                builderResult.diagnosticRequest = value
-            }
-        }
-        public var hasDiagnosticRequest:Bool {
-            get {
-                return builderResult.hasDiagnosticRequest
-            }
-        }
-        fileprivate var diagnosticRequestBuilder_:DiagnosticControlCommand.Builder! {
-            didSet {
-                builderResult.hasDiagnosticRequest = true
-            }
-        }
-        public func getDiagnosticRequestBuilder() -> DiagnosticControlCommand.Builder {
-            if diagnosticRequestBuilder_ == nil {
-                diagnosticRequestBuilder_ = DiagnosticControlCommand.Builder()
-                builderResult.diagnosticRequest = diagnosticRequestBuilder_.getMessage()
-                if diagnosticRequest != nil {
-                    do{
-                         try diagnosticRequestBuilder_.mergeFrom(other: diagnosticRequest)
-                    }catch let error{
-                        print("Error: \(error)")
-                    }
-                   
-                }
-            }
-            return diagnosticRequestBuilder_
-        }
-        @discardableResult
-        public func setDiagnosticRequest(_ value:DiagnosticControlCommand!) -> ControlCommand.Builder {
-            self.diagnosticRequest = value
-            return self
-        }
-        @discardableResult
-        public func mergeDiagnosticRequest(value:DiagnosticControlCommand) throws -> ControlCommand.Builder {
-            if builderResult.hasDiagnosticRequest {
-                builderResult.diagnosticRequest = try DiagnosticControlCommand.builderWithPrototype(prototype:builderResult.diagnosticRequest).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.diagnosticRequest = value
-            }
-            builderResult.hasDiagnosticRequest = true
-            return self
-        }
-        @discardableResult
-        public func clearDiagnosticRequest() -> ControlCommand.Builder {
-            diagnosticRequestBuilder_ = nil
-            builderResult.hasDiagnosticRequest = false
-            builderResult.diagnosticRequest = nil
-            return self
-        }
-        public var passthroughModeRequest:PassthroughModeControlCommand! {
-            get {
-                if passthroughModeRequestBuilder_ != nil {
-                    builderResult.passthroughModeRequest = passthroughModeRequestBuilder_.getMessage()
-                }
-                return builderResult.passthroughModeRequest
-            }
-            set (value) {
-                builderResult.hasPassthroughModeRequest = value != nil
-                builderResult.passthroughModeRequest = value
-            }
-        }
-        public var hasPassthroughModeRequest:Bool {
-            get {
-                return builderResult.hasPassthroughModeRequest
-            }
-        }
-        fileprivate var passthroughModeRequestBuilder_:PassthroughModeControlCommand.Builder! {
-            didSet {
-                builderResult.hasPassthroughModeRequest = true
-            }
-        }
-        public func getPassthroughModeRequestBuilder() -> PassthroughModeControlCommand.Builder {
-            if passthroughModeRequestBuilder_ == nil {
-                passthroughModeRequestBuilder_ = PassthroughModeControlCommand.Builder()
-                builderResult.passthroughModeRequest = passthroughModeRequestBuilder_.getMessage()
-                if passthroughModeRequest != nil {
-                    do{
-                        try passthroughModeRequestBuilder_.mergeFrom(other: passthroughModeRequest)
-                    }catch let error{
-                         print("Error: \(error)")
-                    }
-                    
-                }
-            }
-            return passthroughModeRequestBuilder_
-        }
-        @discardableResult
-        public func setPassthroughModeRequest(_ value:PassthroughModeControlCommand!) -> ControlCommand.Builder {
-            self.passthroughModeRequest = value
-            return self
-        }
-        @discardableResult
-        public func mergePassthroughModeRequest(value:PassthroughModeControlCommand) throws -> ControlCommand.Builder {
-            if builderResult.hasPassthroughModeRequest {
-                builderResult.passthroughModeRequest = try PassthroughModeControlCommand.builderWithPrototype(prototype:builderResult.passthroughModeRequest).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.passthroughModeRequest = value
-            }
-            builderResult.hasPassthroughModeRequest = true
-            return self
-        }
-        @discardableResult
-        public func clearPassthroughModeRequest() -> ControlCommand.Builder {
-            passthroughModeRequestBuilder_ = nil
-            builderResult.hasPassthroughModeRequest = false
-            builderResult.passthroughModeRequest = nil
-            return self
-        }
-        public var acceptanceFilterBypassCommand:AcceptanceFilterBypassCommand! {
-            get {
-                if acceptanceFilterBypassCommandBuilder_ != nil {
-                    builderResult.acceptanceFilterBypassCommand = acceptanceFilterBypassCommandBuilder_.getMessage()
-                }
-                return builderResult.acceptanceFilterBypassCommand
-            }
-            set (value) {
-                builderResult.hasAcceptanceFilterBypassCommand = value != nil
-                builderResult.acceptanceFilterBypassCommand = value
-            }
-        }
-        public var hasAcceptanceFilterBypassCommand:Bool {
-            get {
-                return builderResult.hasAcceptanceFilterBypassCommand
-            }
-        }
-        fileprivate var acceptanceFilterBypassCommandBuilder_:AcceptanceFilterBypassCommand.Builder! {
-            didSet {
-                builderResult.hasAcceptanceFilterBypassCommand = true
-            }
-        }
-        public func getAcceptanceFilterBypassCommandBuilder() -> AcceptanceFilterBypassCommand.Builder {
-            if acceptanceFilterBypassCommandBuilder_ == nil {
-                acceptanceFilterBypassCommandBuilder_ = AcceptanceFilterBypassCommand.Builder()
-                builderResult.acceptanceFilterBypassCommand = acceptanceFilterBypassCommandBuilder_.getMessage()
-                if acceptanceFilterBypassCommand != nil {
-                    do{
-                    try acceptanceFilterBypassCommandBuilder_.mergeFrom(other: acceptanceFilterBypassCommand)
-                    }catch let error{
-                         print("Error: \(error)")
-                    }
-                }
-            }
-            return acceptanceFilterBypassCommandBuilder_
-        }
-        @discardableResult
-        public func setAcceptanceFilterBypassCommand(_ value:AcceptanceFilterBypassCommand!) -> ControlCommand.Builder {
-            self.acceptanceFilterBypassCommand = value
-            return self
-        }
-        @discardableResult
-        public func mergeAcceptanceFilterBypassCommand(value:AcceptanceFilterBypassCommand) throws -> ControlCommand.Builder {
-            if builderResult.hasAcceptanceFilterBypassCommand {
-                builderResult.acceptanceFilterBypassCommand = try AcceptanceFilterBypassCommand.builderWithPrototype(prototype:builderResult.acceptanceFilterBypassCommand).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.acceptanceFilterBypassCommand = value
-            }
-            builderResult.hasAcceptanceFilterBypassCommand = true
-            return self
-        }
-        @discardableResult
-        public func clearAcceptanceFilterBypassCommand() -> ControlCommand.Builder {
-            acceptanceFilterBypassCommandBuilder_ = nil
-            builderResult.hasAcceptanceFilterBypassCommand = false
-            builderResult.acceptanceFilterBypassCommand = nil
-            return self
-        }
-        public var payloadFormatCommand:PayloadFormatCommand! {
-            get {
-                if payloadFormatCommandBuilder_ != nil {
-                    builderResult.payloadFormatCommand = payloadFormatCommandBuilder_.getMessage()
-                }
-                return builderResult.payloadFormatCommand
-            }
-            set (value) {
-                builderResult.hasPayloadFormatCommand = value != nil
-                builderResult.payloadFormatCommand = value
-            }
-        }
-        public var hasPayloadFormatCommand:Bool {
-            get {
-                return builderResult.hasPayloadFormatCommand
-            }
-        }
-        fileprivate var payloadFormatCommandBuilder_:PayloadFormatCommand.Builder! {
-            didSet {
-                builderResult.hasPayloadFormatCommand = true
-            }
-        }
-        public func getPayloadFormatCommandBuilder() -> PayloadFormatCommand.Builder {
-            if payloadFormatCommandBuilder_ == nil {
-                payloadFormatCommandBuilder_ = PayloadFormatCommand.Builder()
-                builderResult.payloadFormatCommand = payloadFormatCommandBuilder_.getMessage()
-                if payloadFormatCommand != nil {
-                    do{
-                    try payloadFormatCommandBuilder_.mergeFrom(other: payloadFormatCommand)
-                    }catch let error{
-                         print("Error: \(error)")
-                    }
-                }
-            }
-            return payloadFormatCommandBuilder_
-        }
-        @discardableResult
-        public func setPayloadFormatCommand(_ value:PayloadFormatCommand!) -> ControlCommand.Builder {
-            self.payloadFormatCommand = value
-            return self
-        }
-        @discardableResult
-        public func mergePayloadFormatCommand(value:PayloadFormatCommand) throws -> ControlCommand.Builder {
-            if builderResult.hasPayloadFormatCommand {
-                builderResult.payloadFormatCommand = try PayloadFormatCommand.builderWithPrototype(prototype:builderResult.payloadFormatCommand).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.payloadFormatCommand = value
-            }
-            builderResult.hasPayloadFormatCommand = true
-            return self
-        }
-        @discardableResult
-        public func clearPayloadFormatCommand() -> ControlCommand.Builder {
-            payloadFormatCommandBuilder_ = nil
-            builderResult.hasPayloadFormatCommand = false
-            builderResult.payloadFormatCommand = nil
-            return self
-        }
-        public var predefinedObd2RequestsCommand:PredefinedObd2RequestsCommand! {
-            get {
-                if predefinedObd2RequestsCommandBuilder_ != nil {
-                    builderResult.predefinedObd2RequestsCommand = predefinedObd2RequestsCommandBuilder_.getMessage()
-                }
-                return builderResult.predefinedObd2RequestsCommand
-            }
-            set (value) {
-                builderResult.hasPredefinedObd2RequestsCommand = value != nil
-                builderResult.predefinedObd2RequestsCommand = value
-            }
-        }
-        public var hasPredefinedObd2RequestsCommand:Bool {
-            get {
-                return builderResult.hasPredefinedObd2RequestsCommand
-            }
-        }
-        fileprivate var predefinedObd2RequestsCommandBuilder_:PredefinedObd2RequestsCommand.Builder! {
-            didSet {
-                builderResult.hasPredefinedObd2RequestsCommand = true
-            }
-        }
-        public func getPredefinedObd2RequestsCommandBuilder() -> PredefinedObd2RequestsCommand.Builder {
-            if predefinedObd2RequestsCommandBuilder_ == nil {
-                predefinedObd2RequestsCommandBuilder_ = PredefinedObd2RequestsCommand.Builder()
-                builderResult.predefinedObd2RequestsCommand = predefinedObd2RequestsCommandBuilder_.getMessage()
-                if predefinedObd2RequestsCommand != nil {
-                    do{
-                    try predefinedObd2RequestsCommandBuilder_.mergeFrom(other: predefinedObd2RequestsCommand)
-                    }catch{
-                         print("Error: \(error)")
-                    }
-                }
-            }
-            return predefinedObd2RequestsCommandBuilder_
-        }
-        @discardableResult
-        public func setPredefinedObd2RequestsCommand(_ value:PredefinedObd2RequestsCommand!) -> ControlCommand.Builder {
-            self.predefinedObd2RequestsCommand = value
-            return self
-        }
-        @discardableResult
-        public func mergePredefinedObd2RequestsCommand(value:PredefinedObd2RequestsCommand) throws -> ControlCommand.Builder {
-            if builderResult.hasPredefinedObd2RequestsCommand {
-                builderResult.predefinedObd2RequestsCommand = try PredefinedObd2RequestsCommand.builderWithPrototype(prototype:builderResult.predefinedObd2RequestsCommand).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.predefinedObd2RequestsCommand = value
-            }
-            builderResult.hasPredefinedObd2RequestsCommand = true
-            return self
-        }
-        @discardableResult
-        public func clearPredefinedObd2RequestsCommand() -> ControlCommand.Builder {
-            predefinedObd2RequestsCommandBuilder_ = nil
-            builderResult.hasPredefinedObd2RequestsCommand = false
-            builderResult.predefinedObd2RequestsCommand = nil
-            return self
-        }
-        public var modemConfigurationCommand:ModemConfigurationCommand! {
-            get {
-                if modemConfigurationCommandBuilder_ != nil {
-                    builderResult.modemConfigurationCommand = modemConfigurationCommandBuilder_.getMessage()
-                }
-                return builderResult.modemConfigurationCommand
-            }
-            set (value) {
-                builderResult.hasModemConfigurationCommand = value != nil
-                builderResult.modemConfigurationCommand = value
-            }
-        }
-        public var hasModemConfigurationCommand:Bool {
-            get {
-                return builderResult.hasModemConfigurationCommand
-            }
-        }
-        fileprivate var modemConfigurationCommandBuilder_:ModemConfigurationCommand.Builder! {
-            didSet {
-                builderResult.hasModemConfigurationCommand = true
-            }
-        }
-        public func getModemConfigurationCommandBuilder() -> ModemConfigurationCommand.Builder {
-            if modemConfigurationCommandBuilder_ == nil {
-                modemConfigurationCommandBuilder_ = ModemConfigurationCommand.Builder()
-                builderResult.modemConfigurationCommand = modemConfigurationCommandBuilder_.getMessage()
-                if modemConfigurationCommand != nil {
-                    do{
-                    try modemConfigurationCommandBuilder_.mergeFrom(other: modemConfigurationCommand)
-                    }catch let error{
-                         print("Error: \(error)")
-                    }
-                }
-            }
-            return modemConfigurationCommandBuilder_
-        }
-        @discardableResult
-        public func setModemConfigurationCommand(_ value:ModemConfigurationCommand!) -> ControlCommand.Builder {
-            self.modemConfigurationCommand = value
-            return self
-        }
-        @discardableResult
-        public func mergeModemConfigurationCommand(value:ModemConfigurationCommand) throws -> ControlCommand.Builder {
-            if builderResult.hasModemConfigurationCommand {
-                builderResult.modemConfigurationCommand = try ModemConfigurationCommand.builderWithPrototype(prototype:builderResult.modemConfigurationCommand).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.modemConfigurationCommand = value
-            }
-            builderResult.hasModemConfigurationCommand = true
-            return self
-        }
-        @discardableResult
-        public func clearModemConfigurationCommand() -> ControlCommand.Builder {
-            modemConfigurationCommandBuilder_ = nil
-            builderResult.hasModemConfigurationCommand = false
-            builderResult.modemConfigurationCommand = nil
-            return self
-        }
-        public var rtcConfigurationCommand:RtcconfigurationCommand! {
-            get {
-                if rtcConfigurationCommandBuilder_ != nil {
-                    builderResult.rtcConfigurationCommand = rtcConfigurationCommandBuilder_.getMessage()
-                }
-                return builderResult.rtcConfigurationCommand
-            }
-            set (value) {
-                builderResult.hasRtcConfigurationCommand = value != nil
-                builderResult.rtcConfigurationCommand = value
-            }
-        }
-        public var hasRtcConfigurationCommand:Bool {
-            get {
-                return builderResult.hasRtcConfigurationCommand
-            }
-        }
-        fileprivate var rtcConfigurationCommandBuilder_:RtcconfigurationCommand.Builder! {
-            didSet {
-                builderResult.hasRtcConfigurationCommand = true
-            }
-        }
-        public func getRtcConfigurationCommandBuilder() -> RtcconfigurationCommand.Builder {
-            if rtcConfigurationCommandBuilder_ == nil {
-                rtcConfigurationCommandBuilder_ = RtcconfigurationCommand.Builder()
-                builderResult.rtcConfigurationCommand = rtcConfigurationCommandBuilder_.getMessage()
-                if rtcConfigurationCommand != nil {
-                    do{
-                    try rtcConfigurationCommandBuilder_.mergeFrom(other: rtcConfigurationCommand)
-                    }catch{
-                         print("Error: \(error)")
-                    }
-                }
-            }
-            return rtcConfigurationCommandBuilder_
-        }
-        @discardableResult
-        public func setRtcConfigurationCommand(_ value:RtcconfigurationCommand!) -> ControlCommand.Builder {
-            self.rtcConfigurationCommand = value
-            return self
-        }
-        @discardableResult
-        public func mergeRtcConfigurationCommand(value:RtcconfigurationCommand) throws -> ControlCommand.Builder {
-            if builderResult.hasRtcConfigurationCommand {
-                builderResult.rtcConfigurationCommand = try RtcconfigurationCommand.builderWithPrototype(prototype:builderResult.rtcConfigurationCommand).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.rtcConfigurationCommand = value
-            }
-            builderResult.hasRtcConfigurationCommand = true
-            return self
-        }
-        @discardableResult
-        public func clearRtcConfigurationCommand() -> ControlCommand.Builder {
-            rtcConfigurationCommandBuilder_ = nil
-            builderResult.hasRtcConfigurationCommand = false
-            builderResult.rtcConfigurationCommand = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> ControlCommand.Builder {
-            builderResult = ControlCommand()
-            return self
-        }
-        override public func clone() throws -> ControlCommand.Builder {
-            return try ControlCommand.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> ControlCommand {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> ControlCommand {
-            let returnMe:ControlCommand = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:ControlCommand) throws -> ControlCommand.Builder {
-            if other == ControlCommand() {
-                return self
-            }
-            if other.hasType {
-                type = other.type
-            }
-            if (other.hasDiagnosticRequest) {
-                try mergeDiagnosticRequest(value: other.diagnosticRequest)
-            }
-            if (other.hasPassthroughModeRequest) {
-                try mergePassthroughModeRequest(value: other.passthroughModeRequest)
-            }
-            if (other.hasAcceptanceFilterBypassCommand) {
-                try mergeAcceptanceFilterBypassCommand(value: other.acceptanceFilterBypassCommand)
-            }
-            if (other.hasPayloadFormatCommand) {
-                try mergePayloadFormatCommand(value: other.payloadFormatCommand)
-            }
-            if (other.hasPredefinedObd2RequestsCommand) {
-                try mergePredefinedObd2RequestsCommand(value: other.predefinedObd2RequestsCommand)
-            }
-            if (other.hasModemConfigurationCommand) {
-                try mergeModemConfigurationCommand(value: other.modemConfigurationCommand)
-            }
-            if (other.hasRtcConfigurationCommand) {
-                try mergeRtcConfigurationCommand(value: other.rtcConfigurationCommand)
-            }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> ControlCommand.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> ControlCommand.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
-
-                case 8:
-                    let valueInttype = try codedInputStream.readEnum()
-                    if let enumstype = ControlCommand.ProtoType(rawValue:valueInttype){
-                        type = enumstype
-                    } else {
-                        try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
-                    }
-
-                case 18:
-                    let subBuilder:DiagnosticControlCommand.Builder = DiagnosticControlCommand.Builder()
-                    if hasDiagnosticRequest {
-                        try subBuilder.mergeFrom(other: diagnosticRequest)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    diagnosticRequest = subBuilder.buildPartial()
-
-                case 26:
-                    let subBuilder:PassthroughModeControlCommand.Builder = PassthroughModeControlCommand.Builder()
-                    if hasPassthroughModeRequest {
-                        try subBuilder.mergeFrom(other: passthroughModeRequest)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    passthroughModeRequest = subBuilder.buildPartial()
-
-                case 34:
-                    let subBuilder:AcceptanceFilterBypassCommand.Builder = AcceptanceFilterBypassCommand.Builder()
-                    if hasAcceptanceFilterBypassCommand {
-                        try subBuilder.mergeFrom(other: acceptanceFilterBypassCommand)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    acceptanceFilterBypassCommand = subBuilder.buildPartial()
-
-                case 42:
-                    let subBuilder:PayloadFormatCommand.Builder = PayloadFormatCommand.Builder()
-                    if hasPayloadFormatCommand {
-                        try subBuilder.mergeFrom(other: payloadFormatCommand)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    payloadFormatCommand = subBuilder.buildPartial()
-
-                case 50:
-                    let subBuilder:PredefinedObd2RequestsCommand.Builder = PredefinedObd2RequestsCommand.Builder()
-                    if hasPredefinedObd2RequestsCommand {
-                        try subBuilder.mergeFrom(other: predefinedObd2RequestsCommand)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    predefinedObd2RequestsCommand = subBuilder.buildPartial()
-
-                case 58:
-                    let subBuilder:ModemConfigurationCommand.Builder = ModemConfigurationCommand.Builder()
-                    if hasModemConfigurationCommand {
-                        try subBuilder.mergeFrom(other: modemConfigurationCommand)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    modemConfigurationCommand = subBuilder.buildPartial()
-
-                case 66:
-                    let subBuilder:RtcconfigurationCommand.Builder = RtcconfigurationCommand.Builder()
-                    if hasRtcConfigurationCommand {
-                        try subBuilder.mergeFrom(other: rtcConfigurationCommand)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    rtcConfigurationCommand = subBuilder.buildPartial()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
-                        return self
-                    }
-                }
-            }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> ControlCommand.Builder {
-            let resultDecodedBuilder = ControlCommand.Builder()
-            if let jsonValueType = jsonMap["type"] as? String {
-                resultDecodedBuilder.type = try ControlCommand.ProtoType.fromString(jsonValueType)
-            }
-            if let jsonValueDiagnosticRequest = jsonMap["diagnosticRequest"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.diagnosticRequest = try DiagnosticControlCommand.Builder.decodeToBuilder(jsonMap:jsonValueDiagnosticRequest).build()
-
-            }
-            if let jsonValuePassthroughModeRequest = jsonMap["passthroughModeRequest"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.passthroughModeRequest = try PassthroughModeControlCommand.Builder.decodeToBuilder(jsonMap:jsonValuePassthroughModeRequest).build()
-
-            }
-            if let jsonValueAcceptanceFilterBypassCommand = jsonMap["acceptanceFilterBypassCommand"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.acceptanceFilterBypassCommand = try AcceptanceFilterBypassCommand.Builder.decodeToBuilder(jsonMap:jsonValueAcceptanceFilterBypassCommand).build()
-
-            }
-            if let jsonValuePayloadFormatCommand = jsonMap["payloadFormatCommand"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.payloadFormatCommand = try PayloadFormatCommand.Builder.decodeToBuilder(jsonMap:jsonValuePayloadFormatCommand).build()
-
-            }
-            if let jsonValuePredefinedObd2RequestsCommand = jsonMap["predefinedObd2RequestsCommand"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.predefinedObd2RequestsCommand = try PredefinedObd2RequestsCommand.Builder.decodeToBuilder(jsonMap:jsonValuePredefinedObd2RequestsCommand).build()
-
-            }
-            if let jsonValueModemConfigurationCommand = jsonMap["modemConfigurationCommand"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.modemConfigurationCommand = try ModemConfigurationCommand.Builder.decodeToBuilder(jsonMap:jsonValueModemConfigurationCommand).build()
-
-            }
-            if let jsonValueRtcConfigurationCommand = jsonMap["rtcConfigurationCommand"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.rtcConfigurationCommand = try RtcconfigurationCommand.Builder.decodeToBuilder(jsonMap:jsonValueRtcConfigurationCommand).build()
-
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> ControlCommand.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try ControlCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class DiagnosticControlCommand : GeneratedMessage {
-    public typealias BuilderType = DiagnosticControlCommand.Builder
-
-    public static func == (lhs: DiagnosticControlCommand, rhs: DiagnosticControlCommand) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasRequest == rhs.hasRequest) && (!lhs.hasRequest || lhs.request == rhs.request)
-        fieldCheck = fieldCheck && (lhs.hasAction == rhs.hasAction) && (!lhs.hasAction || lhs.action == rhs.action)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-
-
-        //Enum type declaration start 
-
-        public enum Action:Int32, GeneratedEnum {
-            case unused = 0
-            case add = 1
-            case cancel = 2
-            public func toString() -> String {
-                switch self {
-                case .unused: return "UNUSED"
-                case .add: return "ADD"
-                case .cancel: return "CANCEL"
-                }
-            }
-            public static func fromString(_ str:String) throws -> DiagnosticControlCommand.Action {
-                switch str {
-                case "UNUSED":    return .unused
-                case "ADD":    return .add
-                case "CANCEL":    return .cancel
-                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
-                }
-            }
-            public var debugDescription:String { return getDescription() }
-            public var description:String { return getDescription() }
-            private func getDescription() -> String { 
-                switch self {
-                case .unused: return msgUnused
-                case .add: return ".add"
-                case .cancel: return ".cancel"
-                }
-            }
-            public var hashValue:Int {
-                return self.rawValue.hashValue
-            }
-            public static func == (lhs:Action, rhs:Action) -> Bool {
-                return lhs.hashValue == rhs.hashValue
-            }
-        }
-
-        //Enum type declaration end 
-
-    public fileprivate(set) var request:DiagnosticRequest!
-    public fileprivate(set) var hasRequest:Bool = false
-    public fileprivate(set) var action:DiagnosticControlCommand.Action = DiagnosticControlCommand.Action.unused
-    public fileprivate(set) var hasAction:Bool = false
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasRequest {
-            try codedOutputStream.writeMessage(fieldNumber: 1, value:request)
-        }
-        if hasAction {
-            try codedOutputStream.writeEnum(fieldNumber: 2, value:action.rawValue)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if hasRequest,let varSizerequest = request?.computeMessageSize(fieldNumber: 1) {
-            
-                serialize_size += varSizerequest
-        }
-        if (hasAction) {
-            serialize_size += action.rawValue.computeEnumSize(fieldNumber: 2)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> DiagnosticControlCommand.Builder {
-        return DiagnosticControlCommand.classBuilder() as! DiagnosticControlCommand.Builder
-    }
-    public func getBuilder() -> DiagnosticControlCommand.Builder {
-        return classBuilder() as! DiagnosticControlCommand.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return DiagnosticControlCommand.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return DiagnosticControlCommand.Builder()
-    }
-    public func toBuilder() throws -> DiagnosticControlCommand.Builder {
-        return try DiagnosticControlCommand.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:DiagnosticControlCommand) throws -> DiagnosticControlCommand.Builder {
-        return try DiagnosticControlCommand.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasRequest {
-            jsonMap["request"] = try request.encode()
-        }
-        if hasAction {
-            jsonMap["action"] = action.toString()
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> DiagnosticControlCommand {
-        return try DiagnosticControlCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DiagnosticControlCommand {
-        return try DiagnosticControlCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasRequest {
-            output += "\(indent) request {\n"
-            if let outDescRequest = request {
-                output += try outDescRequest.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if (hasAction) {
-            output += "\(indent) action: \(action.description)\n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasRequest,let hashValuerequest = request?.hashValue {
-                
-                    hashCode = (hashCode &* 31) &+ hashValuerequest
-            
-            }
-            if hasAction {
-                 hashCode = (hashCode &* 31) &+ action.hashValue
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
-
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "DiagnosticControlCommand"
-    }
-    override public func className() -> String {
-        return "DiagnosticControlCommand"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:DiagnosticControlCommand = DiagnosticControlCommand()
-        public func getMessage() -> DiagnosticControlCommand {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-        public var request:DiagnosticRequest! {
-            get {
-                if requestBuilder_ != nil {
-                    builderResult.request = requestBuilder_.getMessage()
-                }
-                return builderResult.request
-            }
-            set (value) {
-                builderResult.hasRequest = value != nil
-                builderResult.request = value
-            }
-        }
-        public var hasRequest:Bool {
-            get {
-                return builderResult.hasRequest
-            }
-        }
-        fileprivate var requestBuilder_:DiagnosticRequest.Builder! {
-            didSet {
-                builderResult.hasRequest = true
-            }
-        }
-        public func getRequestBuilder() -> DiagnosticRequest.Builder {
-            if requestBuilder_ == nil {
-                requestBuilder_ = DiagnosticRequest.Builder()
-                builderResult.request = requestBuilder_.getMessage()
-                if request != nil {
-                    do{
-                        try requestBuilder_.mergeFrom(other: request)
-                    }catch let error{
-                         print("Error: \(error)")
-                    }
-                   
-                }
-            }
-            return requestBuilder_
-        }
-        @discardableResult
-        public func setRequest(_ value:DiagnosticRequest!) -> DiagnosticControlCommand.Builder {
-            self.request = value
-            return self
-        }
-        @discardableResult
-        public func mergeRequest(value:DiagnosticRequest) throws -> DiagnosticControlCommand.Builder {
-            if builderResult.hasRequest {
-                builderResult.request = try DiagnosticRequest.builderWithPrototype(prototype:builderResult.request).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.request = value
-            }
-            builderResult.hasRequest = true
-            return self
-        }
-        @discardableResult
-        public func clearRequest() -> DiagnosticControlCommand.Builder {
-            requestBuilder_ = nil
-            builderResult.hasRequest = false
-            builderResult.request = nil
-            return self
-        }
-            public var action:DiagnosticControlCommand.Action {
-                get {
-                    return builderResult.action
-                }
-                set (value) {
-                    builderResult.hasAction = true
-                    builderResult.action = value
-                }
-            }
-            public var hasAction:Bool{
-                get {
-                    return builderResult.hasAction
-                }
-            }
-        @discardableResult
-            public func setAction(_ value:DiagnosticControlCommand.Action) -> DiagnosticControlCommand.Builder {
-              self.action = value
-              return self
-            }
-        @discardableResult
-            public func clearAction() -> DiagnosticControlCommand.Builder {
-               builderResult.hasAction = false
-               builderResult.action = .unused
-               return self
-            }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> DiagnosticControlCommand.Builder {
-            builderResult = DiagnosticControlCommand()
-            return self
-        }
-        override public func clone() throws -> DiagnosticControlCommand.Builder {
-            return try DiagnosticControlCommand.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> DiagnosticControlCommand {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> DiagnosticControlCommand {
-            let returnMe:DiagnosticControlCommand = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:DiagnosticControlCommand) throws -> DiagnosticControlCommand.Builder {
-            if other == DiagnosticControlCommand() {
-                return self
-            }
-            if (other.hasRequest) {
-                try mergeRequest(value: other.request)
-            }
-            if other.hasAction {
-                action = other.action
-            }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> DiagnosticControlCommand.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> DiagnosticControlCommand.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
-
-                case 10:
-                    let subBuilder:DiagnosticRequest.Builder = DiagnosticRequest.Builder()
-                    if hasRequest {
-                        try subBuilder.mergeFrom(other: request)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    request = subBuilder.buildPartial()
-
-                case 16:
-                    let valueIntaction = try codedInputStream.readEnum()
-                    if let enumsaction = DiagnosticControlCommand.Action(rawValue:valueIntaction){
-                        action = enumsaction
-                    } else {
-                        try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntaction))
-                    }
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
-                        return self
-                    }
-                }
-            }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> DiagnosticControlCommand.Builder {
-            let resultDecodedBuilder = DiagnosticControlCommand.Builder()
-            if let jsonValueRequest = jsonMap["request"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.request = try DiagnosticRequest.Builder.decodeToBuilder(jsonMap:jsonValueRequest).build()
-
-            }
-            if let jsonValueAction = jsonMap["action"] as? String {
-                resultDecodedBuilder.action = try DiagnosticControlCommand.Action.fromString(jsonValueAction)
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DiagnosticControlCommand.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try DiagnosticControlCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class PassthroughModeControlCommand : GeneratedMessage {
-    public typealias BuilderType = PassthroughModeControlCommand.Builder
-
-    public static func == (lhs: PassthroughModeControlCommand, rhs: PassthroughModeControlCommand) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
-        fieldCheck = fieldCheck && (lhs.hasEnabled == rhs.hasEnabled) && (!lhs.hasEnabled || lhs.enabled == rhs.enabled)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-    public fileprivate(set) var bus:Int32! = nil
-    public fileprivate(set) var hasBus:Bool = false
-
-    public fileprivate(set) var enabled:Bool! = nil
-    public fileprivate(set) var hasEnabled:Bool = false
-
-    required public init() {
-        super.init()
-    }
-
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasBus {
-            try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
-        }
-        if hasEnabled {
-            try codedOutputStream.writeBool(fieldNumber: 2, value:enabled)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if hasBus {
-            serialize_size += bus.computeInt32Size(fieldNumber: 1)
-        }
-        if hasEnabled {
-            serialize_size += enabled.computeBoolSize(fieldNumber: 2)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> PassthroughModeControlCommand.Builder {
-        return PassthroughModeControlCommand.classBuilder() as! PassthroughModeControlCommand.Builder
-    }
-    public func getBuilder() -> PassthroughModeControlCommand.Builder {
-        return classBuilder() as! PassthroughModeControlCommand.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return PassthroughModeControlCommand.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return PassthroughModeControlCommand.Builder()
-    }
-    public func toBuilder() throws -> PassthroughModeControlCommand.Builder {
-        return try PassthroughModeControlCommand.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:PassthroughModeControlCommand) throws -> PassthroughModeControlCommand.Builder {
-        return try PassthroughModeControlCommand.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasBus {
-            jsonMap["bus"] = Int(bus)
-        }
-        if hasEnabled {
-            jsonMap["enabled"] = enabled
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> PassthroughModeControlCommand {
-        return try PassthroughModeControlCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> PassthroughModeControlCommand {
-        return try PassthroughModeControlCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasBus {
-            output += "\(indent) bus: \(String(describing: bus)) \n"
-        }
-        if hasEnabled {
-            output += "\(indent) enabled: \(String(describing: enabled)) \n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasBus {
-                hashCode = (hashCode &* 31) &+ bus.hashValue
-            }
-            if hasEnabled {
-                hashCode = (hashCode &* 31) &+ enabled.hashValue
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
-
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "PassthroughModeControlCommand"
-    }
-    override public func className() -> String {
-        return "PassthroughModeControlCommand"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:PassthroughModeControlCommand = PassthroughModeControlCommand()
-        public func getMessage() -> PassthroughModeControlCommand {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-        public var bus:Int32 {
-            get {
-                return builderResult.bus
-            }
-            set (value) {
-                builderResult.hasBus = true
-                builderResult.bus = value
-            }
-        }
-        public var hasBus:Bool {
-            get {
-                return builderResult.hasBus
-            }
-        }
-        @discardableResult
-        public func setBus(_ value:Int32) -> PassthroughModeControlCommand.Builder {
-            self.bus = value
-            return self
-        }
-        @discardableResult
-        public func clearBus() -> PassthroughModeControlCommand.Builder{
-            builderResult.hasBus = false
-            builderResult.bus = nil
-            return self
-        }
-        public var enabled:Bool {
-            get {
-                return builderResult.enabled
-            }
-            set (value) {
-                builderResult.hasEnabled = true
-                builderResult.enabled = value
-            }
-        }
-        public var hasEnabled:Bool {
-            get {
-                return builderResult.hasEnabled
-            }
-        }
-        @discardableResult
-        public func setEnabled(_ value:Bool) -> PassthroughModeControlCommand.Builder {
-            self.enabled = value
-            return self
-        }
-        @discardableResult
-        public func clearEnabled() -> PassthroughModeControlCommand.Builder{
-            builderResult.hasEnabled = false
-            builderResult.enabled = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> PassthroughModeControlCommand.Builder {
-            builderResult = PassthroughModeControlCommand()
-            return self
-        }
-        override public func clone() throws -> PassthroughModeControlCommand.Builder {
-            return try PassthroughModeControlCommand.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> PassthroughModeControlCommand {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> PassthroughModeControlCommand {
-            let returnMe:PassthroughModeControlCommand = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:PassthroughModeControlCommand) throws -> PassthroughModeControlCommand.Builder {
-            if other == PassthroughModeControlCommand() {
-                return self
-            }
-            if other.hasBus {
-                bus = other.bus
-            }
-            if other.hasEnabled {
-                enabled = other.enabled
-            }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> PassthroughModeControlCommand.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> PassthroughModeControlCommand.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
-
-                case 8:
-                    bus = try codedInputStream.readInt32()
-
-                case 16:
-                    enabled = try codedInputStream.readBool()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
-                        return self
-                    }
-                }
-            }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> PassthroughModeControlCommand.Builder {
-            let resultDecodedBuilder = PassthroughModeControlCommand.Builder()
-            if let jsonValueBus = jsonMap["bus"] as? Int {
-                resultDecodedBuilder.bus = Int32(jsonValueBus)
-            } else if let jsonValueBus = jsonMap["bus"] as? String {
-                resultDecodedBuilder.bus = Int32(jsonValueBus)!
-            }
-            if let jsonValueEnabled = jsonMap["enabled"] as? Bool {
-                resultDecodedBuilder.enabled = jsonValueEnabled
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> PassthroughModeControlCommand.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try PassthroughModeControlCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class AcceptanceFilterBypassCommand : GeneratedMessage {
-    public typealias BuilderType = AcceptanceFilterBypassCommand.Builder
-
-    public static func == (lhs: AcceptanceFilterBypassCommand, rhs: AcceptanceFilterBypassCommand) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
-        fieldCheck = fieldCheck && (lhs.hasBypass == rhs.hasBypass) && (!lhs.hasBypass || lhs.bypass == rhs.bypass)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-    public fileprivate(set) var bus:Int32! = nil
-    public fileprivate(set) var hasBus:Bool = false
-
-    public fileprivate(set) var bypass:Bool! = nil
-    public fileprivate(set) var hasBypass:Bool = false
-
-    required public init() {
-        super.init()
-    }
-  
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasBus {
-            try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
-        }
-        if hasBypass {
-            try codedOutputStream.writeBool(fieldNumber: 2, value:bypass)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if hasBus {
-            serialize_size += bus.computeInt32Size(fieldNumber: 1)
-        }
-        if hasBypass {
-            serialize_size += bypass.computeBoolSize(fieldNumber: 2)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> AcceptanceFilterBypassCommand.Builder {
-        return AcceptanceFilterBypassCommand.classBuilder() as! AcceptanceFilterBypassCommand.Builder
-    }
-    public func getBuilder() -> AcceptanceFilterBypassCommand.Builder {
-        return classBuilder() as! AcceptanceFilterBypassCommand.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return AcceptanceFilterBypassCommand.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return AcceptanceFilterBypassCommand.Builder()
-    }
-    public func toBuilder() throws -> AcceptanceFilterBypassCommand.Builder {
-        return try AcceptanceFilterBypassCommand.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:AcceptanceFilterBypassCommand) throws -> AcceptanceFilterBypassCommand.Builder {
-        return try AcceptanceFilterBypassCommand.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasBus {
-            jsonMap["bus"] = Int(bus)
-        }
-        if hasBypass {
-            jsonMap["bypass"] = bypass
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> AcceptanceFilterBypassCommand {
-        return try AcceptanceFilterBypassCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> AcceptanceFilterBypassCommand {
-        return try AcceptanceFilterBypassCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasBus {
-            output += "\(indent) bus: \(String(describing: bus)) \n"
-        }
-        if hasBypass {
-            output += "\(indent) bypass: \(String(describing: bypass)) \n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasBus {
-                hashCode = (hashCode &* 31) &+ bus.hashValue
-            }
-            if hasBypass {
-                hashCode = (hashCode &* 31) &+ bypass.hashValue
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
-
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "AcceptanceFilterBypassCommand"
-    }
-    override public func className() -> String {
-        return "AcceptanceFilterBypassCommand"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:AcceptanceFilterBypassCommand = AcceptanceFilterBypassCommand()
-        public func getMessage() -> AcceptanceFilterBypassCommand {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-        public var bus:Int32 {
-            get {
-                return builderResult.bus
-            }
-            set (value) {
-                builderResult.hasBus = true
-                builderResult.bus = value
-            }
-        }
-        public var hasBus:Bool {
-            get {
-                return builderResult.hasBus
-            }
-        }
-        @discardableResult
-        public func setBus(_ value:Int32) -> AcceptanceFilterBypassCommand.Builder {
-            self.bus = value
-            return self
-        }
-        @discardableResult
-        public func clearBus() -> AcceptanceFilterBypassCommand.Builder{
-            builderResult.hasBus = false
-            builderResult.bus = nil
-            return self
-        }
-        public var bypass:Bool {
-            get {
-                return builderResult.bypass
-            }
-            set (value) {
-                builderResult.hasBypass = true
-                builderResult.bypass = value
-            }
-        }
-        public var hasBypass:Bool {
-            get {
-                return builderResult.hasBypass
-            }
-        }
-        @discardableResult
-        public func setBypass(_ value:Bool) -> AcceptanceFilterBypassCommand.Builder {
-            self.bypass = value
-            return self
-        }
-        @discardableResult
-        public func clearBypass() -> AcceptanceFilterBypassCommand.Builder{
-            builderResult.hasBypass = false
-            builderResult.bypass = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> AcceptanceFilterBypassCommand.Builder {
-            builderResult = AcceptanceFilterBypassCommand()
-            return self
-        }
-        override public func clone() throws -> AcceptanceFilterBypassCommand.Builder {
-            return try AcceptanceFilterBypassCommand.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> AcceptanceFilterBypassCommand {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> AcceptanceFilterBypassCommand {
-            let returnMe:AcceptanceFilterBypassCommand = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:AcceptanceFilterBypassCommand) throws -> AcceptanceFilterBypassCommand.Builder {
-            if other == AcceptanceFilterBypassCommand() {
-                return self
-            }
-            if other.hasBus {
-                bus = other.bus
-            }
-            if other.hasBypass {
-                bypass = other.bypass
-            }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> AcceptanceFilterBypassCommand.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> AcceptanceFilterBypassCommand.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
-
-                case 8:
-                    bus = try codedInputStream.readInt32()
-
-                case 16:
-                    bypass = try codedInputStream.readBool()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
-                        return self
-                    }
-                }
-            }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> AcceptanceFilterBypassCommand.Builder {
-            let resultDecodedBuilder = AcceptanceFilterBypassCommand.Builder()
-            if let jsonValueBus = jsonMap["bus"] as? Int {
-                resultDecodedBuilder.bus = Int32(jsonValueBus)
-            } else if let jsonValueBus = jsonMap["bus"] as? String {
-                resultDecodedBuilder.bus = Int32(jsonValueBus)!
-            }
-            if let jsonValueBypass = jsonMap["bypass"] as? Bool {
-                resultDecodedBuilder.bypass = jsonValueBypass
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> AcceptanceFilterBypassCommand.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try AcceptanceFilterBypassCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class PayloadFormatCommand : GeneratedMessage {
-    public typealias BuilderType = PayloadFormatCommand.Builder
-
-    public static func == (lhs: PayloadFormatCommand, rhs: PayloadFormatCommand) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasFormat == rhs.hasFormat) && (!lhs.hasFormat || lhs.format == rhs.format)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-
-
-        //Enum type declaration start 
-
-        public enum PayloadFormat:Int32, GeneratedEnum {
-            case unused = 0
-            case json = 1
-            case protobuf = 2
-            case messagepack = 3
-            public func toString() -> String {
-                switch self {
-                case .unused: return "UNUSED"
-                case .json: return "JSON"
-                case .protobuf: return "PROTOBUF"
-                case .messagepack: return "MESSAGEPACK"
-                }
-            }
-            public static func fromString(_ str:String) throws -> PayloadFormatCommand.PayloadFormat {
-                switch str {
-                case "UNUSED":    return .unused
-                case "JSON":    return .json
-                case "PROTOBUF":    return .protobuf
-                case "MESSAGEPACK":    return .messagepack
-                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
-                }
-            }
-            public var debugDescription:String { return getDescription() }
-            public var description:String { return getDescription() }
-            private func getDescription() -> String { 
-                switch self {
-                case .unused: return msgUnused
-                case .json: return ".json"
-                case .protobuf: return ".protobuf"
-                case .messagepack: return ".messagepack"
-                }
-            }
-            public var hashValue:Int {
-                return self.rawValue.hashValue
-            }
-            public static func == (lhs:PayloadFormat, rhs:PayloadFormat) -> Bool {
-                return lhs.hashValue == rhs.hashValue
-            }
-        }
-
-        //Enum type declaration end 
-
-    public fileprivate(set) var format:PayloadFormatCommand.PayloadFormat = PayloadFormatCommand.PayloadFormat.unused
-    public fileprivate(set) var hasFormat:Bool = false
-    required public init() {
-        super.init()
-    }
-   
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasFormat {
-            try codedOutputStream.writeEnum(fieldNumber: 1, value:format.rawValue)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if (hasFormat) {
-            serialize_size += format.rawValue.computeEnumSize(fieldNumber: 1)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> PayloadFormatCommand.Builder {
-        return PayloadFormatCommand.classBuilder() as! PayloadFormatCommand.Builder
-    }
-    public func getBuilder() -> PayloadFormatCommand.Builder {
-        return classBuilder() as! PayloadFormatCommand.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return PayloadFormatCommand.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return PayloadFormatCommand.Builder()
-    }
-    public func toBuilder() throws -> PayloadFormatCommand.Builder {
-        return try PayloadFormatCommand.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:PayloadFormatCommand) throws -> PayloadFormatCommand.Builder {
-        return try PayloadFormatCommand.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasFormat {
-            jsonMap["format"] = format.toString()
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> PayloadFormatCommand {
-        return try PayloadFormatCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> PayloadFormatCommand {
-        return try PayloadFormatCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if (hasFormat) {
-            output += "\(indent) format: \(format.description)\n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasFormat {
-                 hashCode = (hashCode &* 31) &+ format.hashValue
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
-
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "PayloadFormatCommand"
-    }
-    override public func className() -> String {
-        return "PayloadFormatCommand"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:PayloadFormatCommand = PayloadFormatCommand()
-        public func getMessage() -> PayloadFormatCommand {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-            public var format:PayloadFormatCommand.PayloadFormat {
-                get {
-                    return builderResult.format
-                }
-                set (value) {
-                    builderResult.hasFormat = true
-                    builderResult.format = value
-                }
-            }
-            public var hasFormat:Bool{
-                get {
-                    return builderResult.hasFormat
-                }
-            }
-        @discardableResult
-            public func setFormat(_ value:PayloadFormatCommand.PayloadFormat) -> PayloadFormatCommand.Builder {
-              self.format = value
-              return self
-            }
-        @discardableResult
-            public func clearFormat() -> PayloadFormatCommand.Builder {
-               builderResult.hasFormat = false
-               builderResult.format = .unused
-               return self
-            }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> PayloadFormatCommand.Builder {
-            builderResult = PayloadFormatCommand()
-            return self
-        }
-        override public func clone() throws -> PayloadFormatCommand.Builder {
-            return try PayloadFormatCommand.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> PayloadFormatCommand {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> PayloadFormatCommand {
-            let returnMe:PayloadFormatCommand = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:PayloadFormatCommand) throws -> PayloadFormatCommand.Builder {
-            if other == PayloadFormatCommand() {
-                return self
-            }
-            if other.hasFormat {
-                format = other.format
-            }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> PayloadFormatCommand.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> PayloadFormatCommand.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
-
-                case 8:
-                    let valueIntformat = try codedInputStream.readEnum()
-                    if let enumsformat = PayloadFormatCommand.PayloadFormat(rawValue:valueIntformat){
-                        format = enumsformat
-                    } else {
-                        try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntformat))
-                    }
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
-                        return self
-                    }
-                }
-            }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> PayloadFormatCommand.Builder {
-            let resultDecodedBuilder = PayloadFormatCommand.Builder()
-            if let jsonValueFormat = jsonMap["format"] as? String {
-                resultDecodedBuilder.format = try PayloadFormatCommand.PayloadFormat.fromString(jsonValueFormat)
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> PayloadFormatCommand.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try PayloadFormatCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class PredefinedObd2RequestsCommand : GeneratedMessage {
-    public typealias BuilderType = PredefinedObd2RequestsCommand.Builder
-
-    public static func == (lhs: PredefinedObd2RequestsCommand, rhs: PredefinedObd2RequestsCommand) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasEnabled == rhs.hasEnabled) && (!lhs.hasEnabled || lhs.enabled == rhs.enabled)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-    public fileprivate(set) var enabled:Bool! = nil
-    public fileprivate(set) var hasEnabled:Bool = false
-
-    required public init() {
-        super.init()
-    }
-
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasEnabled {
-            try codedOutputStream.writeBool(fieldNumber: 1, value:enabled)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if hasEnabled {
-            serialize_size += enabled.computeBoolSize(fieldNumber: 1)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> PredefinedObd2RequestsCommand.Builder {
-        return PredefinedObd2RequestsCommand.classBuilder() as! PredefinedObd2RequestsCommand.Builder
-    }
-    public func getBuilder() -> PredefinedObd2RequestsCommand.Builder {
-        return classBuilder() as! PredefinedObd2RequestsCommand.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return PredefinedObd2RequestsCommand.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return PredefinedObd2RequestsCommand.Builder()
-    }
-    public func toBuilder() throws -> PredefinedObd2RequestsCommand.Builder {
-        return try PredefinedObd2RequestsCommand.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:PredefinedObd2RequestsCommand) throws -> PredefinedObd2RequestsCommand.Builder {
-        return try PredefinedObd2RequestsCommand.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasEnabled {
-            jsonMap["enabled"] = enabled
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> PredefinedObd2RequestsCommand {
-        return try PredefinedObd2RequestsCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> PredefinedObd2RequestsCommand {
-        return try PredefinedObd2RequestsCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasEnabled {
-            output += "\(indent) enabled: \(String(describing: enabled)) \n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasEnabled {
-                hashCode = (hashCode &* 31) &+ enabled.hashValue
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
-
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "PredefinedObd2RequestsCommand"
-    }
-    override public func className() -> String {
-        return "PredefinedObd2RequestsCommand"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:PredefinedObd2RequestsCommand = PredefinedObd2RequestsCommand()
-        public func getMessage() -> PredefinedObd2RequestsCommand {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-        public var enabled:Bool {
-            get {
-                return builderResult.enabled
-            }
-            set (value) {
-                builderResult.hasEnabled = true
-                builderResult.enabled = value
-            }
-        }
-        public var hasEnabled:Bool {
-            get {
-                return builderResult.hasEnabled
-            }
-        }
-        @discardableResult
-        public func setEnabled(_ value:Bool) -> PredefinedObd2RequestsCommand.Builder {
-            self.enabled = value
-            return self
-        }
-        @discardableResult
-        public func clearEnabled() -> PredefinedObd2RequestsCommand.Builder{
-            builderResult.hasEnabled = false
-            builderResult.enabled = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> PredefinedObd2RequestsCommand.Builder {
-            builderResult = PredefinedObd2RequestsCommand()
-            return self
-        }
-        override public func clone() throws -> PredefinedObd2RequestsCommand.Builder {
-            return try PredefinedObd2RequestsCommand.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> PredefinedObd2RequestsCommand {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> PredefinedObd2RequestsCommand {
-            let returnMe:PredefinedObd2RequestsCommand = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:PredefinedObd2RequestsCommand) throws -> PredefinedObd2RequestsCommand.Builder {
-            if other == PredefinedObd2RequestsCommand() {
-                return self
-            }
-            if other.hasEnabled {
-                enabled = other.enabled
-            }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> PredefinedObd2RequestsCommand.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> PredefinedObd2RequestsCommand.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
+public struct Openxc { }
 
-                case 8:
-                    enabled = try codedInputStream.readBool()
+public extension Openxc {
+    struct OpenxcRoot {
+        public static let `default` = OpenxcRoot()
+        public var extensionRegistry:ExtensionRegistry
 
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
-                        return self
-                    }
-                }
-            }
+        init() {
+            extensionRegistry = ExtensionRegistry()
+            registerAllExtensions(registry: extensionRegistry)
         }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> PredefinedObd2RequestsCommand.Builder {
-            let resultDecodedBuilder = PredefinedObd2RequestsCommand.Builder()
-            if let jsonValueEnabled = jsonMap["enabled"] as? Bool {
-                resultDecodedBuilder.enabled = jsonValueEnabled
-            }
-            return resultDecodedBuilder
+        public func registerAllExtensions(registry: ExtensionRegistry) {
         }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> PredefinedObd2RequestsCommand.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try PredefinedObd2RequestsCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class NetworkOperatorSettings : GeneratedMessage {
-    public typealias BuilderType = NetworkOperatorSettings.Builder
-
-    public static func == (lhs: NetworkOperatorSettings, rhs: NetworkOperatorSettings) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasAllowDataRoaming == rhs.hasAllowDataRoaming) && (!lhs.hasAllowDataRoaming || lhs.allowDataRoaming == rhs.allowDataRoaming)
-        fieldCheck = fieldCheck && (lhs.hasOperatorSelectMode == rhs.hasOperatorSelectMode) && (!lhs.hasOperatorSelectMode || lhs.operatorSelectMode == rhs.operatorSelectMode)
-        fieldCheck = fieldCheck && (lhs.hasNetworkDescriptor == rhs.hasNetworkDescriptor) && (!lhs.hasNetworkDescriptor || lhs.networkDescriptor == rhs.networkDescriptor)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
     }
-
-
-
-    //Nested type declaration start
 
-    final public class NetworkDescriptor : GeneratedMessage {
-        public typealias BuilderType = NetworkOperatorSettings.NetworkDescriptor.Builder
+    final class VehicleMessage : GeneratedMessage {
+        public typealias BuilderType = Openxc.VehicleMessage.Builder
 
-        public static func == (lhs: NetworkOperatorSettings.NetworkDescriptor, rhs: NetworkOperatorSettings.NetworkDescriptor) -> Bool {
+        public static func == (lhs: Openxc.VehicleMessage, rhs: Openxc.VehicleMessage) -> Bool {
             if lhs === rhs {
                 return true
             }
             var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-            fieldCheck = fieldCheck && (lhs.hasPlmn == rhs.hasPlmn) && (!lhs.hasPlmn || lhs.plmn == rhs.plmn)
-            fieldCheck = fieldCheck && (lhs.hasNetworkType == rhs.hasNetworkType) && (!lhs.hasNetworkType || lhs.networkType == rhs.networkType)
+            fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
+            fieldCheck = fieldCheck && (lhs.hasCanMessage == rhs.hasCanMessage) && (!lhs.hasCanMessage || lhs.canMessage == rhs.canMessage)
+            fieldCheck = fieldCheck && (lhs.hasSimpleMessage == rhs.hasSimpleMessage) && (!lhs.hasSimpleMessage || lhs.simpleMessage == rhs.simpleMessage)
+            fieldCheck = fieldCheck && (lhs.hasDiagnosticResponse == rhs.hasDiagnosticResponse) && (!lhs.hasDiagnosticResponse || lhs.diagnosticResponse == rhs.diagnosticResponse)
+            fieldCheck = fieldCheck && (lhs.hasControlCommand == rhs.hasControlCommand) && (!lhs.hasControlCommand || lhs.controlCommand == rhs.controlCommand)
+            fieldCheck = fieldCheck && (lhs.hasCommandResponse == rhs.hasCommandResponse) && (!lhs.hasCommandResponse || lhs.commandResponse == rhs.commandResponse)
+            fieldCheck = fieldCheck && (lhs.hasDiagnosticStitchResponse == rhs.hasDiagnosticStitchResponse) && (!lhs.hasDiagnosticStitchResponse || lhs.diagnosticStitchResponse == rhs.diagnosticStitchResponse)
+            fieldCheck = fieldCheck && (lhs.hasTimestamp == rhs.hasTimestamp) && (!lhs.hasTimestamp || lhs.timestamp == rhs.timestamp)
             fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
             return fieldCheck
         }
@@ -3645,55 +46,106 @@ final public class NetworkOperatorSettings : GeneratedMessage {
 
             //Enum type declaration start 
 
-            public enum NetworkType:Int32, GeneratedEnum {
-                case gsm = 0
-                case utran = 2
+            public enum ProtoType:Int32, GeneratedEnum {
+                case unused = 0
+                case can = 1
+                case simple = 2
+                case diagnostic = 3
+                case controlCommand = 4
+                case commandResponse = 5
+                case diagnosticStitch = 6
                 public func toString() -> String {
                     switch self {
-                    case .gsm: return "GSM"
-                    case .utran: return "UTRAN"
+                    case .unused: return "UNUSED"
+                    case .can: return "CAN"
+                    case .simple: return "SIMPLE"
+                    case .diagnostic: return "DIAGNOSTIC"
+                    case .controlCommand: return "CONTROL_COMMAND"
+                    case .commandResponse: return "COMMAND_RESPONSE"
+                    case .diagnosticStitch: return "DIAGNOSTIC_STITCH"
                     }
                 }
-                public static func fromString(_ str:String) throws -> NetworkOperatorSettings.NetworkDescriptor.NetworkType {
+                public static func fromString(_ str:String) throws -> Openxc.VehicleMessage.ProtoType {
                     switch str {
-                    case "GSM":    return .gsm
-                    case "UTRAN":    return .utran
-                    default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
+                    case "UNUSED":    return .unused
+                    case "CAN":    return .can
+                    case "SIMPLE":    return .simple
+                    case "DIAGNOSTIC":    return .diagnostic
+                    case "CONTROL_COMMAND":    return .controlCommand
+                    case "COMMAND_RESPONSE":    return .commandResponse
+                    case "DIAGNOSTIC_STITCH":    return .diagnosticStitch
+                    default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
                     }
                 }
                 public var debugDescription:String { return getDescription() }
                 public var description:String { return getDescription() }
                 private func getDescription() -> String { 
                     switch self {
-                    case .gsm: return ".gsm"
-                    case .utran: return ".utran"
+                    case .unused: return ".unused"
+                    case .can: return ".can"
+                    case .simple: return ".simple"
+                    case .diagnostic: return ".diagnostic"
+                    case .controlCommand: return ".controlCommand"
+                    case .commandResponse: return ".commandResponse"
+                    case .diagnosticStitch: return ".diagnosticStitch"
                     }
                 }
                 public var hashValue:Int {
                     return self.rawValue.hashValue
                 }
-                public static func == (lhs:NetworkType, rhs:NetworkType) -> Bool {
+                public static func ==(lhs:ProtoType, rhs:ProtoType) -> Bool {
                     return lhs.hashValue == rhs.hashValue
                 }
             }
 
             //Enum type declaration end 
 
-        public fileprivate(set) var plmn:UInt32! = nil
-        public fileprivate(set) var hasPlmn:Bool = false
+        public fileprivate(set) var type:Openxc.VehicleMessage.ProtoType = Openxc.VehicleMessage.ProtoType.unused
+        public fileprivate(set) var hasType:Bool = false
+        public fileprivate(set) var canMessage:Openxc.CanMessage!
+        public fileprivate(set) var hasCanMessage:Bool = false
+        public fileprivate(set) var simpleMessage:Openxc.SimpleMessage!
+        public fileprivate(set) var hasSimpleMessage:Bool = false
+        public fileprivate(set) var diagnosticResponse:Openxc.DiagnosticResponse!
+        public fileprivate(set) var hasDiagnosticResponse:Bool = false
+        public fileprivate(set) var controlCommand:Openxc.ControlCommand!
+        public fileprivate(set) var hasControlCommand:Bool = false
+        public fileprivate(set) var commandResponse:Openxc.CommandResponse!
+        public fileprivate(set) var hasCommandResponse:Bool = false
+        public fileprivate(set) var diagnosticStitchResponse:Openxc.DiagnosticStitchResponse!
+        public fileprivate(set) var hasDiagnosticStitchResponse:Bool = false
+        public fileprivate(set) var timestamp:UInt64! = nil
+        public fileprivate(set) var hasTimestamp:Bool = false
 
-        public fileprivate(set) var networkType:NetworkOperatorSettings.NetworkDescriptor.NetworkType = NetworkOperatorSettings.NetworkDescriptor.NetworkType.gsm
-        public fileprivate(set) var hasNetworkType:Bool = false
         required public init() {
             super.init()
         }
-    
+        override public func isInitialized() throws {
+        }
         override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-            if hasPlmn {
-                try codedOutputStream.writeUInt32(fieldNumber: 1, value:plmn)
+            if hasType {
+                try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
             }
-            if hasNetworkType {
-                try codedOutputStream.writeEnum(fieldNumber: 2, value:networkType.rawValue)
+            if hasCanMessage {
+                try codedOutputStream.writeMessage(fieldNumber: 2, value:canMessage)
+            }
+            if hasSimpleMessage {
+                try codedOutputStream.writeMessage(fieldNumber: 3, value:simpleMessage)
+            }
+            if hasDiagnosticResponse {
+                try codedOutputStream.writeMessage(fieldNumber: 4, value:diagnosticResponse)
+            }
+            if hasControlCommand {
+                try codedOutputStream.writeMessage(fieldNumber: 5, value:controlCommand)
+            }
+            if hasCommandResponse {
+                try codedOutputStream.writeMessage(fieldNumber: 6, value:commandResponse)
+            }
+            if hasDiagnosticStitchResponse {
+                try codedOutputStream.writeMessage(fieldNumber: 7, value:diagnosticStitchResponse)
+            }
+            if hasTimestamp {
+                try codedOutputStream.writeUInt64(fieldNumber: 8, value:timestamp)
             }
             try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
@@ -3704,58 +156,148 @@ final public class NetworkOperatorSettings : GeneratedMessage {
             }
 
             serialize_size = 0
-            if hasPlmn {
-                serialize_size += plmn.computeUInt32Size(fieldNumber: 1)
+            if (hasType) {
+                serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
             }
-            if (hasNetworkType) {
-                serialize_size += networkType.rawValue.computeEnumSize(fieldNumber: 2)
+            if hasCanMessage {
+                if let varSizecanMessage = canMessage?.computeMessageSize(fieldNumber: 2) {
+                    serialize_size += varSizecanMessage
+                }
+            }
+            if hasSimpleMessage {
+                if let varSizesimpleMessage = simpleMessage?.computeMessageSize(fieldNumber: 3) {
+                    serialize_size += varSizesimpleMessage
+                }
+            }
+            if hasDiagnosticResponse {
+                if let varSizediagnosticResponse = diagnosticResponse?.computeMessageSize(fieldNumber: 4) {
+                    serialize_size += varSizediagnosticResponse
+                }
+            }
+            if hasControlCommand {
+                if let varSizecontrolCommand = controlCommand?.computeMessageSize(fieldNumber: 5) {
+                    serialize_size += varSizecontrolCommand
+                }
+            }
+            if hasCommandResponse {
+                if let varSizecommandResponse = commandResponse?.computeMessageSize(fieldNumber: 6) {
+                    serialize_size += varSizecommandResponse
+                }
+            }
+            if hasDiagnosticStitchResponse {
+                if let varSizediagnosticStitchResponse = diagnosticStitchResponse?.computeMessageSize(fieldNumber: 7) {
+                    serialize_size += varSizediagnosticStitchResponse
+                }
+            }
+            if hasTimestamp {
+                serialize_size += timestamp.computeUInt64Size(fieldNumber: 8)
             }
             serialize_size += unknownFields.serializedSize()
             memoizedSerializedSize = serialize_size
             return serialize_size
         }
-        public class func getBuilder() -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-            return NetworkOperatorSettings.NetworkDescriptor.classBuilder() as! NetworkOperatorSettings.NetworkDescriptor.Builder
+        public class func getBuilder() -> Openxc.VehicleMessage.Builder {
+            return Openxc.VehicleMessage.classBuilder() as! Openxc.VehicleMessage.Builder
         }
-        public func getBuilder() -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-            return classBuilder() as! NetworkOperatorSettings.NetworkDescriptor.Builder
+        public func getBuilder() -> Openxc.VehicleMessage.Builder {
+            return classBuilder() as! Openxc.VehicleMessage.Builder
         }
         override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-            return NetworkOperatorSettings.NetworkDescriptor.Builder()
+            return Openxc.VehicleMessage.Builder()
         }
         override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-            return NetworkOperatorSettings.NetworkDescriptor.Builder()
+            return Openxc.VehicleMessage.Builder()
         }
-        public func toBuilder() throws -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-            return try NetworkOperatorSettings.NetworkDescriptor.builderWithPrototype(prototype:self)
+        public func toBuilder() throws -> Openxc.VehicleMessage.Builder {
+            return try Openxc.VehicleMessage.builderWithPrototype(prototype:self)
         }
-        public class func builderWithPrototype(prototype:NetworkOperatorSettings.NetworkDescriptor) throws -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-            return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(other:prototype)
+        public class func builderWithPrototype(prototype:Openxc.VehicleMessage) throws -> Openxc.VehicleMessage.Builder {
+            return try Openxc.VehicleMessage.Builder().mergeFrom(other:prototype)
         }
         override public func encode() throws -> Dictionary<String,Any> {
             try isInitialized()
             var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-            if hasPlmn {
-                jsonMap["PLMN"] = UInt(plmn)
+            if hasType {
+                jsonMap["type"] = type.toString()
             }
-            if hasNetworkType {
-                jsonMap["networkType"] = networkType.toString()
+            if hasCanMessage {
+                jsonMap["canMessage"] = try canMessage.encode()
+            }
+            if hasSimpleMessage {
+                jsonMap["simpleMessage"] = try simpleMessage.encode()
+            }
+            if hasDiagnosticResponse {
+                jsonMap["diagnosticResponse"] = try diagnosticResponse.encode()
+            }
+            if hasControlCommand {
+                jsonMap["controlCommand"] = try controlCommand.encode()
+            }
+            if hasCommandResponse {
+                jsonMap["commandResponse"] = try commandResponse.encode()
+            }
+            if hasDiagnosticStitchResponse {
+                jsonMap["diagnosticStitchResponse"] = try diagnosticStitchResponse.encode()
+            }
+            if hasTimestamp {
+                jsonMap["timestamp"] = "\(timestamp!)"
             }
             return jsonMap
         }
-        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> NetworkOperatorSettings.NetworkDescriptor {
-            return try NetworkOperatorSettings.NetworkDescriptor.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.VehicleMessage {
+            return try Openxc.VehicleMessage.Builder.decodeToBuilder(jsonMap:jsonMap).build()
         }
-        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> NetworkOperatorSettings.NetworkDescriptor {
-            return try NetworkOperatorSettings.NetworkDescriptor.Builder.fromJSONToBuilder(data:data, options:options).build()
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.VehicleMessage {
+            return try Openxc.VehicleMessage.Builder.fromJSONToBuilder(data:data, options:options).build()
         }
         override public func getDescription(indent:String) throws -> String {
             var output = ""
-            if hasPlmn {
-                output += "\(indent) plmn: \(String(describing: plmn)) \n"
+            if (hasType) {
+                output += "\(indent) type: \(type.description)\n"
             }
-            if (hasNetworkType) {
-                output += "\(indent) networkType: \(networkType.description)\n"
+            if hasCanMessage {
+                output += "\(indent) canMessage {\n"
+                if let outDescCanMessage = canMessage {
+                    output += try outDescCanMessage.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasSimpleMessage {
+                output += "\(indent) simpleMessage {\n"
+                if let outDescSimpleMessage = simpleMessage {
+                    output += try outDescSimpleMessage.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasDiagnosticResponse {
+                output += "\(indent) diagnosticResponse {\n"
+                if let outDescDiagnosticResponse = diagnosticResponse {
+                    output += try outDescDiagnosticResponse.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasControlCommand {
+                output += "\(indent) controlCommand {\n"
+                if let outDescControlCommand = controlCommand {
+                    output += try outDescControlCommand.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasCommandResponse {
+                output += "\(indent) commandResponse {\n"
+                if let outDescCommandResponse = commandResponse {
+                    output += try outDescCommandResponse.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasDiagnosticStitchResponse {
+                output += "\(indent) diagnosticStitchResponse {\n"
+                if let outDescDiagnosticStitchResponse = diagnosticStitchResponse {
+                    output += try outDescDiagnosticStitchResponse.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasTimestamp {
+                output += "\(indent) timestamp: \(String(describing: timestamp)) \n"
             }
             output += unknownFields.getDescription(indent: indent)
             return output
@@ -3763,11 +305,41 @@ final public class NetworkOperatorSettings : GeneratedMessage {
         override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
-                if hasPlmn {
-                    hashCode = (hashCode &* 31) &+ plmn.hashValue
+                if hasType {
+                     hashCode = (hashCode &* 31) &+ type.hashValue
                 }
-                if hasNetworkType {
-                     hashCode = (hashCode &* 31) &+ networkType.hashValue
+                if hasCanMessage {
+                    if let hashValuecanMessage = canMessage?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuecanMessage
+                    }
+                }
+                if hasSimpleMessage {
+                    if let hashValuesimpleMessage = simpleMessage?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuesimpleMessage
+                    }
+                }
+                if hasDiagnosticResponse {
+                    if let hashValuediagnosticResponse = diagnosticResponse?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuediagnosticResponse
+                    }
+                }
+                if hasControlCommand {
+                    if let hashValuecontrolCommand = controlCommand?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuecontrolCommand
+                    }
+                }
+                if hasCommandResponse {
+                    if let hashValuecommandResponse = commandResponse?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuecommandResponse
+                    }
+                }
+                if hasDiagnosticStitchResponse {
+                    if let hashValuediagnosticStitchResponse = diagnosticStitchResponse?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuediagnosticStitchResponse
+                    }
+                }
+                if hasTimestamp {
+                    hashCode = (hashCode &* 31) &+ timestamp.hashValue
                 }
                 hashCode = (hashCode &* 31) &+  unknownFields.hashValue
                 return hashCode
@@ -3778,113 +350,455 @@ final public class NetworkOperatorSettings : GeneratedMessage {
         //Meta information declaration start
 
         override public class func className() -> String {
-            return "NetworkOperatorSettings.NetworkDescriptor"
+            return "Openxc.VehicleMessage"
         }
         override public func className() -> String {
-            return "NetworkOperatorSettings.NetworkDescriptor"
+            return "Openxc.VehicleMessage"
         }
         //Meta information declaration end
 
         final public class Builder : GeneratedMessageBuilder {
-            fileprivate var builderResult:NetworkOperatorSettings.NetworkDescriptor = NetworkOperatorSettings.NetworkDescriptor()
-            public func getMessage() -> NetworkOperatorSettings.NetworkDescriptor {
+            fileprivate var builderResult:Openxc.VehicleMessage = Openxc.VehicleMessage()
+            public func getMessage() -> Openxc.VehicleMessage {
                 return builderResult
             }
 
             required override public init () {
                 super.init()
             }
-            public var plmn:UInt32 {
-                get {
-                    return builderResult.plmn
-                }
-                set (value) {
-                    builderResult.hasPlmn = true
-                    builderResult.plmn = value
-                }
-            }
-            public var hasPlmn:Bool {
-                get {
-                    return builderResult.hasPlmn
-                }
-            }
-            @discardableResult
-            public func setPlmn(_ value:UInt32) -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-                self.plmn = value
-                return self
-            }
-            @discardableResult
-            public func clearPlmn() -> NetworkOperatorSettings.NetworkDescriptor.Builder{
-                builderResult.hasPlmn = false
-                builderResult.plmn = nil
-                return self
-            }
-                public var networkType:NetworkOperatorSettings.NetworkDescriptor.NetworkType {
+                public var type:Openxc.VehicleMessage.ProtoType {
                     get {
-                        return builderResult.networkType
+                        return builderResult.type
                     }
                     set (value) {
-                        builderResult.hasNetworkType = true
-                        builderResult.networkType = value
+                        builderResult.hasType = true
+                        builderResult.type = value
                     }
                 }
-                public var hasNetworkType:Bool{
+                public var hasType:Bool{
                     get {
-                        return builderResult.hasNetworkType
+                        return builderResult.hasType
                     }
                 }
             @discardableResult
-                public func setNetworkType(_ value:NetworkOperatorSettings.NetworkDescriptor.NetworkType) -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-                  self.networkType = value
+                public func setType(_ value:Openxc.VehicleMessage.ProtoType) -> Openxc.VehicleMessage.Builder {
+                  self.type = value
                   return self
                 }
             @discardableResult
-                public func clearNetworkType() -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-                   builderResult.hasNetworkType = false
-                   builderResult.networkType = .gsm
+                public func clearType() -> Openxc.VehicleMessage.Builder {
+                   builderResult.hasType = false
+                   builderResult.type = .unused
                    return self
                 }
+            public var canMessage:Openxc.CanMessage! {
+                get {
+                    if canMessageBuilder_ != nil {
+                        builderResult.canMessage = canMessageBuilder_.getMessage()
+                    }
+                    return builderResult.canMessage
+                }
+                set (value) {
+                    builderResult.hasCanMessage = value != nil
+                    builderResult.canMessage = value
+                }
+            }
+            public var hasCanMessage:Bool {
+                get {
+                    return builderResult.hasCanMessage
+                }
+            }
+            fileprivate var canMessageBuilder_:Openxc.CanMessage.Builder! {
+                didSet {
+                    builderResult.hasCanMessage = true
+                }
+            }
+            public func getCanMessageBuilder() -> Openxc.CanMessage.Builder {
+                if canMessageBuilder_ == nil {
+                    canMessageBuilder_ = Openxc.CanMessage.Builder()
+                    builderResult.canMessage = canMessageBuilder_.getMessage()
+                    if canMessage != nil {
+                        try! canMessageBuilder_.mergeFrom(other: canMessage)
+                    }
+                }
+                return canMessageBuilder_
+            }
+            @discardableResult
+            public func setCanMessage(_ value:Openxc.CanMessage!) -> Openxc.VehicleMessage.Builder {
+                self.canMessage = value
+                return self
+            }
+            @discardableResult
+            public func mergeCanMessage(value:Openxc.CanMessage) throws -> Openxc.VehicleMessage.Builder {
+                if builderResult.hasCanMessage {
+                    builderResult.canMessage = try Openxc.CanMessage.builderWithPrototype(prototype:builderResult.canMessage).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.canMessage = value
+                }
+                builderResult.hasCanMessage = true
+                return self
+            }
+            @discardableResult
+            public func clearCanMessage() -> Openxc.VehicleMessage.Builder {
+                canMessageBuilder_ = nil
+                builderResult.hasCanMessage = false
+                builderResult.canMessage = nil
+                return self
+            }
+            public var simpleMessage:Openxc.SimpleMessage! {
+                get {
+                    if simpleMessageBuilder_ != nil {
+                        builderResult.simpleMessage = simpleMessageBuilder_.getMessage()
+                    }
+                    return builderResult.simpleMessage
+                }
+                set (value) {
+                    builderResult.hasSimpleMessage = value != nil
+                    builderResult.simpleMessage = value
+                }
+            }
+            public var hasSimpleMessage:Bool {
+                get {
+                    return builderResult.hasSimpleMessage
+                }
+            }
+            fileprivate var simpleMessageBuilder_:Openxc.SimpleMessage.Builder! {
+                didSet {
+                    builderResult.hasSimpleMessage = true
+                }
+            }
+            public func getSimpleMessageBuilder() -> Openxc.SimpleMessage.Builder {
+                if simpleMessageBuilder_ == nil {
+                    simpleMessageBuilder_ = Openxc.SimpleMessage.Builder()
+                    builderResult.simpleMessage = simpleMessageBuilder_.getMessage()
+                    if simpleMessage != nil {
+                        try! simpleMessageBuilder_.mergeFrom(other: simpleMessage)
+                    }
+                }
+                return simpleMessageBuilder_
+            }
+            @discardableResult
+            public func setSimpleMessage(_ value:Openxc.SimpleMessage!) -> Openxc.VehicleMessage.Builder {
+                self.simpleMessage = value
+                return self
+            }
+            @discardableResult
+            public func mergeSimpleMessage(value:Openxc.SimpleMessage) throws -> Openxc.VehicleMessage.Builder {
+                if builderResult.hasSimpleMessage {
+                    builderResult.simpleMessage = try Openxc.SimpleMessage.builderWithPrototype(prototype:builderResult.simpleMessage).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.simpleMessage = value
+                }
+                builderResult.hasSimpleMessage = true
+                return self
+            }
+            @discardableResult
+            public func clearSimpleMessage() -> Openxc.VehicleMessage.Builder {
+                simpleMessageBuilder_ = nil
+                builderResult.hasSimpleMessage = false
+                builderResult.simpleMessage = nil
+                return self
+            }
+            public var diagnosticResponse:Openxc.DiagnosticResponse! {
+                get {
+                    if diagnosticResponseBuilder_ != nil {
+                        builderResult.diagnosticResponse = diagnosticResponseBuilder_.getMessage()
+                    }
+                    return builderResult.diagnosticResponse
+                }
+                set (value) {
+                    builderResult.hasDiagnosticResponse = value != nil
+                    builderResult.diagnosticResponse = value
+                }
+            }
+            public var hasDiagnosticResponse:Bool {
+                get {
+                    return builderResult.hasDiagnosticResponse
+                }
+            }
+            fileprivate var diagnosticResponseBuilder_:Openxc.DiagnosticResponse.Builder! {
+                didSet {
+                    builderResult.hasDiagnosticResponse = true
+                }
+            }
+            public func getDiagnosticResponseBuilder() -> Openxc.DiagnosticResponse.Builder {
+                if diagnosticResponseBuilder_ == nil {
+                    diagnosticResponseBuilder_ = Openxc.DiagnosticResponse.Builder()
+                    builderResult.diagnosticResponse = diagnosticResponseBuilder_.getMessage()
+                    if diagnosticResponse != nil {
+                        try! diagnosticResponseBuilder_.mergeFrom(other: diagnosticResponse)
+                    }
+                }
+                return diagnosticResponseBuilder_
+            }
+            @discardableResult
+            public func setDiagnosticResponse(_ value:Openxc.DiagnosticResponse!) -> Openxc.VehicleMessage.Builder {
+                self.diagnosticResponse = value
+                return self
+            }
+            @discardableResult
+            public func mergeDiagnosticResponse(value:Openxc.DiagnosticResponse) throws -> Openxc.VehicleMessage.Builder {
+                if builderResult.hasDiagnosticResponse {
+                    builderResult.diagnosticResponse = try Openxc.DiagnosticResponse.builderWithPrototype(prototype:builderResult.diagnosticResponse).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.diagnosticResponse = value
+                }
+                builderResult.hasDiagnosticResponse = true
+                return self
+            }
+            @discardableResult
+            public func clearDiagnosticResponse() -> Openxc.VehicleMessage.Builder {
+                diagnosticResponseBuilder_ = nil
+                builderResult.hasDiagnosticResponse = false
+                builderResult.diagnosticResponse = nil
+                return self
+            }
+            public var controlCommand:Openxc.ControlCommand! {
+                get {
+                    if controlCommandBuilder_ != nil {
+                        builderResult.controlCommand = controlCommandBuilder_.getMessage()
+                    }
+                    return builderResult.controlCommand
+                }
+                set (value) {
+                    builderResult.hasControlCommand = value != nil
+                    builderResult.controlCommand = value
+                }
+            }
+            public var hasControlCommand:Bool {
+                get {
+                    return builderResult.hasControlCommand
+                }
+            }
+            fileprivate var controlCommandBuilder_:Openxc.ControlCommand.Builder! {
+                didSet {
+                    builderResult.hasControlCommand = true
+                }
+            }
+            public func getControlCommandBuilder() -> Openxc.ControlCommand.Builder {
+                if controlCommandBuilder_ == nil {
+                    controlCommandBuilder_ = Openxc.ControlCommand.Builder()
+                    builderResult.controlCommand = controlCommandBuilder_.getMessage()
+                    if controlCommand != nil {
+                        try! controlCommandBuilder_.mergeFrom(other: controlCommand)
+                    }
+                }
+                return controlCommandBuilder_
+            }
+            @discardableResult
+            public func setControlCommand(_ value:Openxc.ControlCommand!) -> Openxc.VehicleMessage.Builder {
+                self.controlCommand = value
+                return self
+            }
+            @discardableResult
+            public func mergeControlCommand(value:Openxc.ControlCommand) throws -> Openxc.VehicleMessage.Builder {
+                if builderResult.hasControlCommand {
+                    builderResult.controlCommand = try Openxc.ControlCommand.builderWithPrototype(prototype:builderResult.controlCommand).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.controlCommand = value
+                }
+                builderResult.hasControlCommand = true
+                return self
+            }
+            @discardableResult
+            public func clearControlCommand() -> Openxc.VehicleMessage.Builder {
+                controlCommandBuilder_ = nil
+                builderResult.hasControlCommand = false
+                builderResult.controlCommand = nil
+                return self
+            }
+            public var commandResponse:Openxc.CommandResponse! {
+                get {
+                    if commandResponseBuilder_ != nil {
+                        builderResult.commandResponse = commandResponseBuilder_.getMessage()
+                    }
+                    return builderResult.commandResponse
+                }
+                set (value) {
+                    builderResult.hasCommandResponse = value != nil
+                    builderResult.commandResponse = value
+                }
+            }
+            public var hasCommandResponse:Bool {
+                get {
+                    return builderResult.hasCommandResponse
+                }
+            }
+            fileprivate var commandResponseBuilder_:Openxc.CommandResponse.Builder! {
+                didSet {
+                    builderResult.hasCommandResponse = true
+                }
+            }
+            public func getCommandResponseBuilder() -> Openxc.CommandResponse.Builder {
+                if commandResponseBuilder_ == nil {
+                    commandResponseBuilder_ = Openxc.CommandResponse.Builder()
+                    builderResult.commandResponse = commandResponseBuilder_.getMessage()
+                    if commandResponse != nil {
+                        try! commandResponseBuilder_.mergeFrom(other: commandResponse)
+                    }
+                }
+                return commandResponseBuilder_
+            }
+            @discardableResult
+            public func setCommandResponse(_ value:Openxc.CommandResponse!) -> Openxc.VehicleMessage.Builder {
+                self.commandResponse = value
+                return self
+            }
+            @discardableResult
+            public func mergeCommandResponse(value:Openxc.CommandResponse) throws -> Openxc.VehicleMessage.Builder {
+                if builderResult.hasCommandResponse {
+                    builderResult.commandResponse = try Openxc.CommandResponse.builderWithPrototype(prototype:builderResult.commandResponse).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.commandResponse = value
+                }
+                builderResult.hasCommandResponse = true
+                return self
+            }
+            @discardableResult
+            public func clearCommandResponse() -> Openxc.VehicleMessage.Builder {
+                commandResponseBuilder_ = nil
+                builderResult.hasCommandResponse = false
+                builderResult.commandResponse = nil
+                return self
+            }
+            public var diagnosticStitchResponse:Openxc.DiagnosticStitchResponse! {
+                get {
+                    if diagnosticStitchResponseBuilder_ != nil {
+                        builderResult.diagnosticStitchResponse = diagnosticStitchResponseBuilder_.getMessage()
+                    }
+                    return builderResult.diagnosticStitchResponse
+                }
+                set (value) {
+                    builderResult.hasDiagnosticStitchResponse = value != nil
+                    builderResult.diagnosticStitchResponse = value
+                }
+            }
+            public var hasDiagnosticStitchResponse:Bool {
+                get {
+                    return builderResult.hasDiagnosticStitchResponse
+                }
+            }
+            fileprivate var diagnosticStitchResponseBuilder_:Openxc.DiagnosticStitchResponse.Builder! {
+                didSet {
+                    builderResult.hasDiagnosticStitchResponse = true
+                }
+            }
+            public func getDiagnosticStitchResponseBuilder() -> Openxc.DiagnosticStitchResponse.Builder {
+                if diagnosticStitchResponseBuilder_ == nil {
+                    diagnosticStitchResponseBuilder_ = Openxc.DiagnosticStitchResponse.Builder()
+                    builderResult.diagnosticStitchResponse = diagnosticStitchResponseBuilder_.getMessage()
+                    if diagnosticStitchResponse != nil {
+                        try! diagnosticStitchResponseBuilder_.mergeFrom(other: diagnosticStitchResponse)
+                    }
+                }
+                return diagnosticStitchResponseBuilder_
+            }
+            @discardableResult
+            public func setDiagnosticStitchResponse(_ value:Openxc.DiagnosticStitchResponse!) -> Openxc.VehicleMessage.Builder {
+                self.diagnosticStitchResponse = value
+                return self
+            }
+            @discardableResult
+            public func mergeDiagnosticStitchResponse(value:Openxc.DiagnosticStitchResponse) throws -> Openxc.VehicleMessage.Builder {
+                if builderResult.hasDiagnosticStitchResponse {
+                    builderResult.diagnosticStitchResponse = try Openxc.DiagnosticStitchResponse.builderWithPrototype(prototype:builderResult.diagnosticStitchResponse).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.diagnosticStitchResponse = value
+                }
+                builderResult.hasDiagnosticStitchResponse = true
+                return self
+            }
+            @discardableResult
+            public func clearDiagnosticStitchResponse() -> Openxc.VehicleMessage.Builder {
+                diagnosticStitchResponseBuilder_ = nil
+                builderResult.hasDiagnosticStitchResponse = false
+                builderResult.diagnosticStitchResponse = nil
+                return self
+            }
+            public var timestamp:UInt64 {
+                get {
+                    return builderResult.timestamp
+                }
+                set (value) {
+                    builderResult.hasTimestamp = true
+                    builderResult.timestamp = value
+                }
+            }
+            public var hasTimestamp:Bool {
+                get {
+                    return builderResult.hasTimestamp
+                }
+            }
+            @discardableResult
+            public func setTimestamp(_ value:UInt64) -> Openxc.VehicleMessage.Builder {
+                self.timestamp = value
+                return self
+            }
+            @discardableResult
+            public func clearTimestamp() -> Openxc.VehicleMessage.Builder{
+                builderResult.hasTimestamp = false
+                builderResult.timestamp = nil
+                return self
+            }
             override public var internalGetResult:GeneratedMessage {
                 get {
                     return builderResult
                 }
             }
             @discardableResult
-            override public func clear() -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-                builderResult = NetworkOperatorSettings.NetworkDescriptor()
+            override public func clear() -> Openxc.VehicleMessage.Builder {
+                builderResult = Openxc.VehicleMessage()
                 return self
             }
-            override public func clone() throws -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-                return try NetworkOperatorSettings.NetworkDescriptor.builderWithPrototype(prototype:builderResult)
+            override public func clone() throws -> Openxc.VehicleMessage.Builder {
+                return try Openxc.VehicleMessage.builderWithPrototype(prototype:builderResult)
             }
-            override public func build() throws -> NetworkOperatorSettings.NetworkDescriptor {
+            override public func build() throws -> Openxc.VehicleMessage {
                 try checkInitialized()
                 return buildPartial()
             }
-            public func buildPartial() -> NetworkOperatorSettings.NetworkDescriptor {
-                let returnMe:NetworkOperatorSettings.NetworkDescriptor = builderResult
+            public func buildPartial() -> Openxc.VehicleMessage {
+                let returnMe:Openxc.VehicleMessage = builderResult
                 return returnMe
             }
             @discardableResult
-            public func mergeFrom(other:NetworkOperatorSettings.NetworkDescriptor) throws -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-                if other == NetworkOperatorSettings.NetworkDescriptor() {
+            public func mergeFrom(other:Openxc.VehicleMessage) throws -> Openxc.VehicleMessage.Builder {
+                if other == Openxc.VehicleMessage() {
                     return self
                 }
-                if other.hasPlmn {
-                    plmn = other.plmn
+                if other.hasType {
+                    type = other.type
                 }
-                if other.hasNetworkType {
-                    networkType = other.networkType
+                if (other.hasCanMessage) {
+                    try mergeCanMessage(value: other.canMessage)
+                }
+                if (other.hasSimpleMessage) {
+                    try mergeSimpleMessage(value: other.simpleMessage)
+                }
+                if (other.hasDiagnosticResponse) {
+                    try mergeDiagnosticResponse(value: other.diagnosticResponse)
+                }
+                if (other.hasControlCommand) {
+                    try mergeControlCommand(value: other.controlCommand)
+                }
+                if (other.hasCommandResponse) {
+                    try mergeCommandResponse(value: other.commandResponse)
+                }
+                if (other.hasDiagnosticStitchResponse) {
+                    try mergeDiagnosticStitchResponse(value: other.diagnosticStitchResponse)
+                }
+                if other.hasTimestamp {
+                    timestamp = other.timestamp
                 }
                 try merge(unknownField: other.unknownFields)
                 return self
             }
             @discardableResult
-            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> NetworkOperatorSettings.NetworkDescriptor.Builder {
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.VehicleMessage.Builder {
                 return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
             }
             @discardableResult
-            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> NetworkOperatorSettings.NetworkDescriptor.Builder {
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.VehicleMessage.Builder {
                 let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
                 while (true) {
                     let protobufTag = try codedInputStream.readTag()
@@ -3894,14 +808,499 @@ final public class NetworkOperatorSettings : GeneratedMessage {
                         return self
 
                     case 8:
-                        plmn = try codedInputStream.readUInt32()
+                        let valueInttype = try codedInputStream.readEnum()
+                        if let enumstype = Openxc.VehicleMessage.ProtoType(rawValue:valueInttype){
+                            type = enumstype
+                        } else {
+                            try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
+                        }
+
+                    case 18:
+                        let subBuilder:Openxc.CanMessage.Builder = Openxc.CanMessage.Builder()
+                        if hasCanMessage {
+                            try subBuilder.mergeFrom(other: canMessage)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        canMessage = subBuilder.buildPartial()
+
+                    case 26:
+                        let subBuilder:Openxc.SimpleMessage.Builder = Openxc.SimpleMessage.Builder()
+                        if hasSimpleMessage {
+                            try subBuilder.mergeFrom(other: simpleMessage)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        simpleMessage = subBuilder.buildPartial()
+
+                    case 34:
+                        let subBuilder:Openxc.DiagnosticResponse.Builder = Openxc.DiagnosticResponse.Builder()
+                        if hasDiagnosticResponse {
+                            try subBuilder.mergeFrom(other: diagnosticResponse)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        diagnosticResponse = subBuilder.buildPartial()
+
+                    case 42:
+                        let subBuilder:Openxc.ControlCommand.Builder = Openxc.ControlCommand.Builder()
+                        if hasControlCommand {
+                            try subBuilder.mergeFrom(other: controlCommand)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        controlCommand = subBuilder.buildPartial()
+
+                    case 50:
+                        let subBuilder:Openxc.CommandResponse.Builder = Openxc.CommandResponse.Builder()
+                        if hasCommandResponse {
+                            try subBuilder.mergeFrom(other: commandResponse)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        commandResponse = subBuilder.buildPartial()
+
+                    case 58:
+                        let subBuilder:Openxc.DiagnosticStitchResponse.Builder = Openxc.DiagnosticStitchResponse.Builder()
+                        if hasDiagnosticStitchResponse {
+                            try subBuilder.mergeFrom(other: diagnosticStitchResponse)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        diagnosticStitchResponse = subBuilder.buildPartial()
+
+                    case 64:
+                        timestamp = try codedInputStream.readUInt64()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
+                    }
+                }
+            }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.VehicleMessage.Builder {
+                let resultDecodedBuilder = Openxc.VehicleMessage.Builder()
+                if let jsonValueType = jsonMap["type"] as? String {
+                    resultDecodedBuilder.type = try Openxc.VehicleMessage.ProtoType.fromString(jsonValueType)
+                }
+                if let jsonValueCanMessage = jsonMap["canMessage"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.canMessage = try Openxc.CanMessage.Builder.decodeToBuilder(jsonMap:jsonValueCanMessage).build()
+
+                }
+                if let jsonValueSimpleMessage = jsonMap["simpleMessage"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.simpleMessage = try Openxc.SimpleMessage.Builder.decodeToBuilder(jsonMap:jsonValueSimpleMessage).build()
+
+                }
+                if let jsonValueDiagnosticResponse = jsonMap["diagnosticResponse"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.diagnosticResponse = try Openxc.DiagnosticResponse.Builder.decodeToBuilder(jsonMap:jsonValueDiagnosticResponse).build()
+
+                }
+                if let jsonValueControlCommand = jsonMap["controlCommand"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.controlCommand = try Openxc.ControlCommand.Builder.decodeToBuilder(jsonMap:jsonValueControlCommand).build()
+
+                }
+                if let jsonValueCommandResponse = jsonMap["commandResponse"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.commandResponse = try Openxc.CommandResponse.Builder.decodeToBuilder(jsonMap:jsonValueCommandResponse).build()
+
+                }
+                if let jsonValueDiagnosticStitchResponse = jsonMap["diagnosticStitchResponse"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.diagnosticStitchResponse = try Openxc.DiagnosticStitchResponse.Builder.decodeToBuilder(jsonMap:jsonValueDiagnosticStitchResponse).build()
+
+                }
+                if let jsonValueTimestamp = jsonMap["timestamp"] as? String {
+                    resultDecodedBuilder.timestamp = UInt64(jsonValueTimestamp)!
+                } else if let jsonValueTimestamp = jsonMap["timestamp"] as? UInt {
+                    resultDecodedBuilder.timestamp = UInt64(jsonValueTimestamp)
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.VehicleMessage.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.VehicleMessage.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
+        }
+
+    }
+
+    final class CanMessage : GeneratedMessage {
+        public typealias BuilderType = Openxc.CanMessage.Builder
+
+        public static func == (lhs: Openxc.CanMessage, rhs: Openxc.CanMessage) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
+            fieldCheck = fieldCheck && (lhs.hasId == rhs.hasId) && (!lhs.hasId || lhs.id == rhs.id)
+            fieldCheck = fieldCheck && (lhs.hasData == rhs.hasData) && (!lhs.hasData || lhs.data == rhs.data)
+            fieldCheck = fieldCheck && (lhs.hasFrameFormat == rhs.hasFrameFormat) && (!lhs.hasFrameFormat || lhs.frameFormat == rhs.frameFormat)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
+        }
+
+
+
+            //Enum type declaration start 
+
+            public enum FrameFormat:Int32, GeneratedEnum {
+                case unused = 0
+                case standard = 1
+                case extended = 2
+                public func toString() -> String {
+                    switch self {
+                    case .unused: return "UNUSED"
+                    case .standard: return "STANDARD"
+                    case .extended: return "EXTENDED"
+                    }
+                }
+                public static func fromString(_ str:String) throws -> Openxc.CanMessage.FrameFormat {
+                    switch str {
+                    case "UNUSED":    return .unused
+                    case "STANDARD":    return .standard
+                    case "EXTENDED":    return .extended
+                    default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                    }
+                }
+                public var debugDescription:String { return getDescription() }
+                public var description:String { return getDescription() }
+                private func getDescription() -> String { 
+                    switch self {
+                    case .unused: return ".unused"
+                    case .standard: return ".standard"
+                    case .extended: return ".extended"
+                    }
+                }
+                public var hashValue:Int {
+                    return self.rawValue.hashValue
+                }
+                public static func ==(lhs:FrameFormat, rhs:FrameFormat) -> Bool {
+                    return lhs.hashValue == rhs.hashValue
+                }
+            }
+
+            //Enum type declaration end 
+
+        public fileprivate(set) var bus:Int32! = nil
+        public fileprivate(set) var hasBus:Bool = false
+
+        public fileprivate(set) var id:UInt32! = nil
+        public fileprivate(set) var hasId:Bool = false
+
+        public fileprivate(set) var data:Data! = nil
+        public fileprivate(set) var hasData:Bool = false
+
+        public fileprivate(set) var frameFormat:Openxc.CanMessage.FrameFormat = Openxc.CanMessage.FrameFormat.unused
+        public fileprivate(set) var hasFrameFormat:Bool = false
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasBus {
+                try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
+            }
+            if hasId {
+                try codedOutputStream.writeUInt32(fieldNumber: 2, value:id)
+            }
+            if hasData {
+                try codedOutputStream.writeData(fieldNumber: 3, value:data)
+            }
+            if hasFrameFormat {
+                try codedOutputStream.writeEnum(fieldNumber: 4, value:frameFormat.rawValue)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasBus {
+                serialize_size += bus.computeInt32Size(fieldNumber: 1)
+            }
+            if hasId {
+                serialize_size += id.computeUInt32Size(fieldNumber: 2)
+            }
+            if hasData {
+                serialize_size += data.computeDataSize(fieldNumber: 3)
+            }
+            if (hasFrameFormat) {
+                serialize_size += frameFormat.rawValue.computeEnumSize(fieldNumber: 4)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.CanMessage.Builder {
+            return Openxc.CanMessage.classBuilder() as! Openxc.CanMessage.Builder
+        }
+        public func getBuilder() -> Openxc.CanMessage.Builder {
+            return classBuilder() as! Openxc.CanMessage.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.CanMessage.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.CanMessage.Builder()
+        }
+        public func toBuilder() throws -> Openxc.CanMessage.Builder {
+            return try Openxc.CanMessage.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.CanMessage) throws -> Openxc.CanMessage.Builder {
+            return try Openxc.CanMessage.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasBus {
+                jsonMap["bus"] = Int(bus)
+            }
+            if hasId {
+                jsonMap["id"] = UInt(id)
+            }
+            if hasData {
+                jsonMap["data"] = data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+            }
+            if hasFrameFormat {
+                jsonMap["frameFormat"] = frameFormat.toString()
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.CanMessage {
+            return try Openxc.CanMessage.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.CanMessage {
+            return try Openxc.CanMessage.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasBus {
+                output += "\(indent) bus: \(String(describing: bus)) \n"
+            }
+            if hasId {
+                output += "\(indent) id: \(String(describing: id)) \n"
+            }
+            if hasData {
+                output += "\(indent) data: \(String(describing: data)) \n"
+            }
+            if (hasFrameFormat) {
+                output += "\(indent) frameFormat: \(frameFormat.description)\n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasBus {
+                    hashCode = (hashCode &* 31) &+ bus.hashValue
+                }
+                if hasId {
+                    hashCode = (hashCode &* 31) &+ id.hashValue
+                }
+                if hasData {
+                    hashCode = (hashCode &* 31) &+ data.hashValue
+                }
+                if hasFrameFormat {
+                     hashCode = (hashCode &* 31) &+ frameFormat.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.CanMessage"
+        }
+        override public func className() -> String {
+            return "Openxc.CanMessage"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.CanMessage = Openxc.CanMessage()
+            public func getMessage() -> Openxc.CanMessage {
+                return builderResult
+            }
+
+            required override public init () {
+                super.init()
+            }
+            public var bus:Int32 {
+                get {
+                    return builderResult.bus
+                }
+                set (value) {
+                    builderResult.hasBus = true
+                    builderResult.bus = value
+                }
+            }
+            public var hasBus:Bool {
+                get {
+                    return builderResult.hasBus
+                }
+            }
+            @discardableResult
+            public func setBus(_ value:Int32) -> Openxc.CanMessage.Builder {
+                self.bus = value
+                return self
+            }
+            @discardableResult
+            public func clearBus() -> Openxc.CanMessage.Builder{
+                builderResult.hasBus = false
+                builderResult.bus = nil
+                return self
+            }
+            public var id:UInt32 {
+                get {
+                    return builderResult.id
+                }
+                set (value) {
+                    builderResult.hasId = true
+                    builderResult.id = value
+                }
+            }
+            public var hasId:Bool {
+                get {
+                    return builderResult.hasId
+                }
+            }
+            @discardableResult
+            public func setId(_ value:UInt32) -> Openxc.CanMessage.Builder {
+                self.id = value
+                return self
+            }
+            @discardableResult
+            public func clearId() -> Openxc.CanMessage.Builder{
+                builderResult.hasId = false
+                builderResult.id = nil
+                return self
+            }
+            public var data:Data {
+                get {
+                    return builderResult.data
+                }
+                set (value) {
+                    builderResult.hasData = true
+                    builderResult.data = value
+                }
+            }
+            public var hasData:Bool {
+                get {
+                    return builderResult.hasData
+                }
+            }
+            @discardableResult
+            public func setData(_ value:Data) -> Openxc.CanMessage.Builder {
+                self.data = value
+                return self
+            }
+            @discardableResult
+            public func clearData() -> Openxc.CanMessage.Builder{
+                builderResult.hasData = false
+                builderResult.data = nil
+                return self
+            }
+                public var frameFormat:Openxc.CanMessage.FrameFormat {
+                    get {
+                        return builderResult.frameFormat
+                    }
+                    set (value) {
+                        builderResult.hasFrameFormat = true
+                        builderResult.frameFormat = value
+                    }
+                }
+                public var hasFrameFormat:Bool{
+                    get {
+                        return builderResult.hasFrameFormat
+                    }
+                }
+            @discardableResult
+                public func setFrameFormat(_ value:Openxc.CanMessage.FrameFormat) -> Openxc.CanMessage.Builder {
+                  self.frameFormat = value
+                  return self
+                }
+            @discardableResult
+                public func clearFrameFormat() -> Openxc.CanMessage.Builder {
+                   builderResult.hasFrameFormat = false
+                   builderResult.frameFormat = .unused
+                   return self
+                }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.CanMessage.Builder {
+                builderResult = Openxc.CanMessage()
+                return self
+            }
+            override public func clone() throws -> Openxc.CanMessage.Builder {
+                return try Openxc.CanMessage.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.CanMessage {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.CanMessage {
+                let returnMe:Openxc.CanMessage = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.CanMessage) throws -> Openxc.CanMessage.Builder {
+                if other == Openxc.CanMessage() {
+                    return self
+                }
+                if other.hasBus {
+                    bus = other.bus
+                }
+                if other.hasId {
+                    id = other.id
+                }
+                if other.hasData {
+                    data = other.data
+                }
+                if other.hasFrameFormat {
+                    frameFormat = other.frameFormat
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.CanMessage.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.CanMessage.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                    case 8:
+                        bus = try codedInputStream.readInt32()
 
                     case 16:
-                        let valueIntnetworkType = try codedInputStream.readEnum()
-                        if let enumsnetworkType = NetworkOperatorSettings.NetworkDescriptor.NetworkType(rawValue:valueIntnetworkType){
-                            networkType = enumsnetworkType
+                        id = try codedInputStream.readUInt32()
+
+                    case 26:
+                        data = try codedInputStream.readData()
+
+                    case 32:
+                        let valueIntframeFormat = try codedInputStream.readEnum()
+                        if let enumsframeFormat = Openxc.CanMessage.FrameFormat(rawValue:valueIntframeFormat){
+                            frameFormat = enumsframeFormat
                         } else {
-                            try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntnetworkType))
+                            try unknownFieldsBuilder.mergeVarintField(fieldNumber: 4, value:Int64(valueIntframeFormat))
                         }
 
                     default:
@@ -3912,4047 +1311,7471 @@ final public class NetworkOperatorSettings : GeneratedMessage {
                     }
                 }
             }
-            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-                let resultDecodedBuilder = NetworkOperatorSettings.NetworkDescriptor.Builder()
-                if let jsonValuePlmn = jsonMap["PLMN"] as? UInt {
-                    resultDecodedBuilder.plmn = UInt32(jsonValuePlmn)
-                } else if let jsonValuePlmn = jsonMap["PLMN"] as? String {
-                    resultDecodedBuilder.plmn = UInt32(jsonValuePlmn)!
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.CanMessage.Builder {
+                let resultDecodedBuilder = Openxc.CanMessage.Builder()
+                if let jsonValueBus = jsonMap["bus"] as? Int {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)
+                } else if let jsonValueBus = jsonMap["bus"] as? String {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)!
                 }
-                if let jsonValueNetworkType = jsonMap["networkType"] as? String {
-                    resultDecodedBuilder.networkType = try NetworkOperatorSettings.NetworkDescriptor.NetworkType.fromString(jsonValueNetworkType)
+                if let jsonValueId = jsonMap["id"] as? UInt {
+                    resultDecodedBuilder.id = UInt32(jsonValueId)
+                } else if let jsonValueId = jsonMap["id"] as? String {
+                    resultDecodedBuilder.id = UInt32(jsonValueId)!
+                }
+                if let jsonValueData = jsonMap["data"] as? String {
+                    resultDecodedBuilder.data = Data(base64Encoded:jsonValueData, options: Data.Base64DecodingOptions(rawValue:0))!
+                }
+                if let jsonValueFrameFormat = jsonMap["frameFormat"] as? String {
+                    resultDecodedBuilder.frameFormat = try Openxc.CanMessage.FrameFormat.fromString(jsonValueFrameFormat)
                 }
                 return resultDecodedBuilder
             }
-            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> NetworkOperatorSettings.NetworkDescriptor.Builder {
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.CanMessage.Builder {
                 let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
                 guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-                  throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
                 }
-                return try NetworkOperatorSettings.NetworkDescriptor.Builder.decodeToBuilder(jsonMap:jsDataCast)
+                return try Openxc.CanMessage.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
         }
 
     }
 
-    //Nested type declaration end
+    final class ControlCommand : GeneratedMessage {
+        public typealias BuilderType = Openxc.ControlCommand.Builder
+
+        public static func == (lhs: Openxc.ControlCommand, rhs: Openxc.ControlCommand) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
+            fieldCheck = fieldCheck && (lhs.hasDiagnosticRequest == rhs.hasDiagnosticRequest) && (!lhs.hasDiagnosticRequest || lhs.diagnosticRequest == rhs.diagnosticRequest)
+            fieldCheck = fieldCheck && (lhs.hasPassthroughModeRequest == rhs.hasPassthroughModeRequest) && (!lhs.hasPassthroughModeRequest || lhs.passthroughModeRequest == rhs.passthroughModeRequest)
+            fieldCheck = fieldCheck && (lhs.hasAcceptanceFilterBypassCommand == rhs.hasAcceptanceFilterBypassCommand) && (!lhs.hasAcceptanceFilterBypassCommand || lhs.acceptanceFilterBypassCommand == rhs.acceptanceFilterBypassCommand)
+            fieldCheck = fieldCheck && (lhs.hasPayloadFormatCommand == rhs.hasPayloadFormatCommand) && (!lhs.hasPayloadFormatCommand || lhs.payloadFormatCommand == rhs.payloadFormatCommand)
+            fieldCheck = fieldCheck && (lhs.hasPredefinedObd2RequestsCommand == rhs.hasPredefinedObd2RequestsCommand) && (!lhs.hasPredefinedObd2RequestsCommand || lhs.predefinedObd2RequestsCommand == rhs.predefinedObd2RequestsCommand)
+            fieldCheck = fieldCheck && (lhs.hasModemConfigurationCommand == rhs.hasModemConfigurationCommand) && (!lhs.hasModemConfigurationCommand || lhs.modemConfigurationCommand == rhs.modemConfigurationCommand)
+            fieldCheck = fieldCheck && (lhs.hasRtcConfigurationCommand == rhs.hasRtcConfigurationCommand) && (!lhs.hasRtcConfigurationCommand || lhs.rtcConfigurationCommand == rhs.rtcConfigurationCommand)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
+        }
 
 
 
-        //Enum type declaration start 
+            //Enum type declaration start 
 
-        public enum OperatorSelectMode:Int32, GeneratedEnum {
-            case automatic = 0
-            case manual = 1
-            case deregister = 2
-            case setOnly = 3
-            case manualAutomatic = 4
-            public func toString() -> String {
-                switch self {
-                case .automatic: return "AUTOMATIC"
-                case .manual: return "MANUAL"
-                case .deregister: return "DEREGISTER"
-                case .setOnly: return "SET_ONLY"
-                case .manualAutomatic: return "MANUAL_AUTOMATIC"
+            public enum ProtoType:Int32, GeneratedEnum {
+                case unused = 0
+                case version = 1
+                case deviceId = 2
+                case diagnostic = 3
+                case passthrough = 4
+                case acceptanceFilterBypass = 5
+                case payloadFormat = 6
+                case predefinedObd2Requests = 7
+                case modemConfiguration = 8
+                case rtcConfiguration = 9
+                case sdMountStatus = 10
+                case platform = 11
+                public func toString() -> String {
+                    switch self {
+                    case .unused: return "UNUSED"
+                    case .version: return "VERSION"
+                    case .deviceId: return "DEVICE_ID"
+                    case .diagnostic: return "DIAGNOSTIC"
+                    case .passthrough: return "PASSTHROUGH"
+                    case .acceptanceFilterBypass: return "ACCEPTANCE_FILTER_BYPASS"
+                    case .payloadFormat: return "PAYLOAD_FORMAT"
+                    case .predefinedObd2Requests: return "PREDEFINED_OBD2_REQUESTS"
+                    case .modemConfiguration: return "MODEM_CONFIGURATION"
+                    case .rtcConfiguration: return "RTC_CONFIGURATION"
+                    case .sdMountStatus: return "SD_MOUNT_STATUS"
+                    case .platform: return "PLATFORM"
+                    }
+                }
+                public static func fromString(_ str:String) throws -> Openxc.ControlCommand.ProtoType {
+                    switch str {
+                    case "UNUSED":    return .unused
+                    case "VERSION":    return .version
+                    case "DEVICE_ID":    return .deviceId
+                    case "DIAGNOSTIC":    return .diagnostic
+                    case "PASSTHROUGH":    return .passthrough
+                    case "ACCEPTANCE_FILTER_BYPASS":    return .acceptanceFilterBypass
+                    case "PAYLOAD_FORMAT":    return .payloadFormat
+                    case "PREDEFINED_OBD2_REQUESTS":    return .predefinedObd2Requests
+                    case "MODEM_CONFIGURATION":    return .modemConfiguration
+                    case "RTC_CONFIGURATION":    return .rtcConfiguration
+                    case "SD_MOUNT_STATUS":    return .sdMountStatus
+                    case "PLATFORM":    return .platform
+                    default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                    }
+                }
+                public var debugDescription:String { return getDescription() }
+                public var description:String { return getDescription() }
+                private func getDescription() -> String { 
+                    switch self {
+                    case .unused: return ".unused"
+                    case .version: return ".version"
+                    case .deviceId: return ".deviceId"
+                    case .diagnostic: return ".diagnostic"
+                    case .passthrough: return ".passthrough"
+                    case .acceptanceFilterBypass: return ".acceptanceFilterBypass"
+                    case .payloadFormat: return ".payloadFormat"
+                    case .predefinedObd2Requests: return ".predefinedObd2Requests"
+                    case .modemConfiguration: return ".modemConfiguration"
+                    case .rtcConfiguration: return ".rtcConfiguration"
+                    case .sdMountStatus: return ".sdMountStatus"
+                    case .platform: return ".platform"
+                    }
+                }
+                public var hashValue:Int {
+                    return self.rawValue.hashValue
+                }
+                public static func ==(lhs:ProtoType, rhs:ProtoType) -> Bool {
+                    return lhs.hashValue == rhs.hashValue
                 }
             }
-            public static func fromString(_ str:String) throws -> NetworkOperatorSettings.OperatorSelectMode {
-                switch str {
-                case "AUTOMATIC":    return .automatic
-                case "MANUAL":    return .manual
-                case "DEREGISTER":    return .deregister
-                case "SET_ONLY":    return .setOnly
-                case "MANUAL_AUTOMATIC":    return .manualAutomatic
-                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
+
+            //Enum type declaration end 
+
+        public fileprivate(set) var type:Openxc.ControlCommand.ProtoType = Openxc.ControlCommand.ProtoType.unused
+        public fileprivate(set) var hasType:Bool = false
+        public fileprivate(set) var diagnosticRequest:Openxc.DiagnosticControlCommand!
+        public fileprivate(set) var hasDiagnosticRequest:Bool = false
+        public fileprivate(set) var passthroughModeRequest:Openxc.PassthroughModeControlCommand!
+        public fileprivate(set) var hasPassthroughModeRequest:Bool = false
+        public fileprivate(set) var acceptanceFilterBypassCommand:Openxc.AcceptanceFilterBypassCommand!
+        public fileprivate(set) var hasAcceptanceFilterBypassCommand:Bool = false
+        public fileprivate(set) var payloadFormatCommand:Openxc.PayloadFormatCommand!
+        public fileprivate(set) var hasPayloadFormatCommand:Bool = false
+        public fileprivate(set) var predefinedObd2RequestsCommand:Openxc.PredefinedObd2RequestsCommand!
+        public fileprivate(set) var hasPredefinedObd2RequestsCommand:Bool = false
+        public fileprivate(set) var modemConfigurationCommand:Openxc.ModemConfigurationCommand!
+        public fileprivate(set) var hasModemConfigurationCommand:Bool = false
+        public fileprivate(set) var rtcConfigurationCommand:Openxc.RtcconfigurationCommand!
+        public fileprivate(set) var hasRtcConfigurationCommand:Bool = false
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasType {
+                try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
+            }
+            if hasDiagnosticRequest {
+                try codedOutputStream.writeMessage(fieldNumber: 2, value:diagnosticRequest)
+            }
+            if hasPassthroughModeRequest {
+                try codedOutputStream.writeMessage(fieldNumber: 3, value:passthroughModeRequest)
+            }
+            if hasAcceptanceFilterBypassCommand {
+                try codedOutputStream.writeMessage(fieldNumber: 4, value:acceptanceFilterBypassCommand)
+            }
+            if hasPayloadFormatCommand {
+                try codedOutputStream.writeMessage(fieldNumber: 5, value:payloadFormatCommand)
+            }
+            if hasPredefinedObd2RequestsCommand {
+                try codedOutputStream.writeMessage(fieldNumber: 6, value:predefinedObd2RequestsCommand)
+            }
+            if hasModemConfigurationCommand {
+                try codedOutputStream.writeMessage(fieldNumber: 7, value:modemConfigurationCommand)
+            }
+            if hasRtcConfigurationCommand {
+                try codedOutputStream.writeMessage(fieldNumber: 8, value:rtcConfigurationCommand)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if (hasType) {
+                serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
+            }
+            if hasDiagnosticRequest {
+                if let varSizediagnosticRequest = diagnosticRequest?.computeMessageSize(fieldNumber: 2) {
+                    serialize_size += varSizediagnosticRequest
                 }
             }
-            public var debugDescription:String { return getDescription() }
-            public var description:String { return getDescription() }
-            private func getDescription() -> String { 
-                switch self {
-                case .automatic: return ".automatic"
-                case .manual: return ".manual"
-                case .deregister: return ".deregister"
-                case .setOnly: return ".setOnly"
-                case .manualAutomatic: return ".manualAutomatic"
+            if hasPassthroughModeRequest {
+                if let varSizepassthroughModeRequest = passthroughModeRequest?.computeMessageSize(fieldNumber: 3) {
+                    serialize_size += varSizepassthroughModeRequest
                 }
             }
-            public var hashValue:Int {
-                return self.rawValue.hashValue
+            if hasAcceptanceFilterBypassCommand {
+                if let varSizeacceptanceFilterBypassCommand = acceptanceFilterBypassCommand?.computeMessageSize(fieldNumber: 4) {
+                    serialize_size += varSizeacceptanceFilterBypassCommand
+                }
             }
-            public static func == (lhs:OperatorSelectMode, rhs:OperatorSelectMode) -> Bool {
-                return lhs.hashValue == rhs.hashValue
+            if hasPayloadFormatCommand {
+                if let varSizepayloadFormatCommand = payloadFormatCommand?.computeMessageSize(fieldNumber: 5) {
+                    serialize_size += varSizepayloadFormatCommand
+                }
+            }
+            if hasPredefinedObd2RequestsCommand {
+                if let varSizepredefinedObd2RequestsCommand = predefinedObd2RequestsCommand?.computeMessageSize(fieldNumber: 6) {
+                    serialize_size += varSizepredefinedObd2RequestsCommand
+                }
+            }
+            if hasModemConfigurationCommand {
+                if let varSizemodemConfigurationCommand = modemConfigurationCommand?.computeMessageSize(fieldNumber: 7) {
+                    serialize_size += varSizemodemConfigurationCommand
+                }
+            }
+            if hasRtcConfigurationCommand {
+                if let varSizertcConfigurationCommand = rtcConfigurationCommand?.computeMessageSize(fieldNumber: 8) {
+                    serialize_size += varSizertcConfigurationCommand
+                }
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.ControlCommand.Builder {
+            return Openxc.ControlCommand.classBuilder() as! Openxc.ControlCommand.Builder
+        }
+        public func getBuilder() -> Openxc.ControlCommand.Builder {
+            return classBuilder() as! Openxc.ControlCommand.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.ControlCommand.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.ControlCommand.Builder()
+        }
+        public func toBuilder() throws -> Openxc.ControlCommand.Builder {
+            return try Openxc.ControlCommand.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.ControlCommand) throws -> Openxc.ControlCommand.Builder {
+            return try Openxc.ControlCommand.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasType {
+                jsonMap["type"] = type.toString()
+            }
+            if hasDiagnosticRequest {
+                jsonMap["diagnosticRequest"] = try diagnosticRequest.encode()
+            }
+            if hasPassthroughModeRequest {
+                jsonMap["passthroughModeRequest"] = try passthroughModeRequest.encode()
+            }
+            if hasAcceptanceFilterBypassCommand {
+                jsonMap["acceptanceFilterBypassCommand"] = try acceptanceFilterBypassCommand.encode()
+            }
+            if hasPayloadFormatCommand {
+                jsonMap["payloadFormatCommand"] = try payloadFormatCommand.encode()
+            }
+            if hasPredefinedObd2RequestsCommand {
+                jsonMap["predefinedObd2RequestsCommand"] = try predefinedObd2RequestsCommand.encode()
+            }
+            if hasModemConfigurationCommand {
+                jsonMap["modemConfigurationCommand"] = try modemConfigurationCommand.encode()
+            }
+            if hasRtcConfigurationCommand {
+                jsonMap["rtcConfigurationCommand"] = try rtcConfigurationCommand.encode()
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.ControlCommand {
+            return try Openxc.ControlCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.ControlCommand {
+            return try Openxc.ControlCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if (hasType) {
+                output += "\(indent) type: \(type.description)\n"
+            }
+            if hasDiagnosticRequest {
+                output += "\(indent) diagnosticRequest {\n"
+                if let outDescDiagnosticRequest = diagnosticRequest {
+                    output += try outDescDiagnosticRequest.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasPassthroughModeRequest {
+                output += "\(indent) passthroughModeRequest {\n"
+                if let outDescPassthroughModeRequest = passthroughModeRequest {
+                    output += try outDescPassthroughModeRequest.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasAcceptanceFilterBypassCommand {
+                output += "\(indent) acceptanceFilterBypassCommand {\n"
+                if let outDescAcceptanceFilterBypassCommand = acceptanceFilterBypassCommand {
+                    output += try outDescAcceptanceFilterBypassCommand.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasPayloadFormatCommand {
+                output += "\(indent) payloadFormatCommand {\n"
+                if let outDescPayloadFormatCommand = payloadFormatCommand {
+                    output += try outDescPayloadFormatCommand.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasPredefinedObd2RequestsCommand {
+                output += "\(indent) predefinedObd2RequestsCommand {\n"
+                if let outDescPredefinedObd2RequestsCommand = predefinedObd2RequestsCommand {
+                    output += try outDescPredefinedObd2RequestsCommand.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasModemConfigurationCommand {
+                output += "\(indent) modemConfigurationCommand {\n"
+                if let outDescModemConfigurationCommand = modemConfigurationCommand {
+                    output += try outDescModemConfigurationCommand.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasRtcConfigurationCommand {
+                output += "\(indent) rtcConfigurationCommand {\n"
+                if let outDescRtcConfigurationCommand = rtcConfigurationCommand {
+                    output += try outDescRtcConfigurationCommand.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasType {
+                     hashCode = (hashCode &* 31) &+ type.hashValue
+                }
+                if hasDiagnosticRequest {
+                    if let hashValuediagnosticRequest = diagnosticRequest?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuediagnosticRequest
+                    }
+                }
+                if hasPassthroughModeRequest {
+                    if let hashValuepassthroughModeRequest = passthroughModeRequest?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuepassthroughModeRequest
+                    }
+                }
+                if hasAcceptanceFilterBypassCommand {
+                    if let hashValueacceptanceFilterBypassCommand = acceptanceFilterBypassCommand?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValueacceptanceFilterBypassCommand
+                    }
+                }
+                if hasPayloadFormatCommand {
+                    if let hashValuepayloadFormatCommand = payloadFormatCommand?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuepayloadFormatCommand
+                    }
+                }
+                if hasPredefinedObd2RequestsCommand {
+                    if let hashValuepredefinedObd2RequestsCommand = predefinedObd2RequestsCommand?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuepredefinedObd2RequestsCommand
+                    }
+                }
+                if hasModemConfigurationCommand {
+                    if let hashValuemodemConfigurationCommand = modemConfigurationCommand?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuemodemConfigurationCommand
+                    }
+                }
+                if hasRtcConfigurationCommand {
+                    if let hashValuertcConfigurationCommand = rtcConfigurationCommand?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuertcConfigurationCommand
+                    }
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
             }
         }
 
-        //Enum type declaration end 
 
-    public fileprivate(set) var allowDataRoaming:Bool! = nil
-    public fileprivate(set) var hasAllowDataRoaming:Bool = false
+        //Meta information declaration start
 
-    public fileprivate(set) var operatorSelectMode:NetworkOperatorSettings.OperatorSelectMode = NetworkOperatorSettings.OperatorSelectMode.automatic
-    public fileprivate(set) var hasOperatorSelectMode:Bool = false
-    public fileprivate(set) var networkDescriptor:NetworkOperatorSettings.NetworkDescriptor!
-    public fileprivate(set) var hasNetworkDescriptor:Bool = false
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasAllowDataRoaming {
-            try codedOutputStream.writeBool(fieldNumber: 1, value:allowDataRoaming)
+        override public class func className() -> String {
+            return "Openxc.ControlCommand"
         }
-        if hasOperatorSelectMode {
-            try codedOutputStream.writeEnum(fieldNumber: 2, value:operatorSelectMode.rawValue)
+        override public func className() -> String {
+            return "Openxc.ControlCommand"
         }
-        if hasNetworkDescriptor {
-            try codedOutputStream.writeMessage(fieldNumber: 3, value:networkDescriptor)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
+        //Meta information declaration end
 
-        serialize_size = 0
-        if hasAllowDataRoaming {
-            serialize_size += allowDataRoaming.computeBoolSize(fieldNumber: 1)
-        }
-        if (hasOperatorSelectMode) {
-            serialize_size += operatorSelectMode.rawValue.computeEnumSize(fieldNumber: 2)
-        }
-        if hasNetworkDescriptor,let varSizenetworkDescriptor = networkDescriptor?.computeMessageSize(fieldNumber: 3) {
-           
-                serialize_size += varSizenetworkDescriptor
-            
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> NetworkOperatorSettings.Builder {
-        return NetworkOperatorSettings.classBuilder() as! NetworkOperatorSettings.Builder
-    }
-    public func getBuilder() -> NetworkOperatorSettings.Builder {
-        return classBuilder() as! NetworkOperatorSettings.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return NetworkOperatorSettings.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return NetworkOperatorSettings.Builder()
-    }
-    public func toBuilder() throws -> NetworkOperatorSettings.Builder {
-        return try NetworkOperatorSettings.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:NetworkOperatorSettings) throws -> NetworkOperatorSettings.Builder {
-        return try NetworkOperatorSettings.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasAllowDataRoaming {
-            jsonMap["allowDataRoaming"] = allowDataRoaming
-        }
-        if hasOperatorSelectMode {
-            jsonMap["operatorSelectMode"] = operatorSelectMode.toString()
-        }
-        if hasNetworkDescriptor {
-            jsonMap["networkDescriptor"] = try networkDescriptor.encode()
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> NetworkOperatorSettings {
-        return try NetworkOperatorSettings.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> NetworkOperatorSettings {
-        return try NetworkOperatorSettings.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasAllowDataRoaming {
-            output += "\(indent) allowDataRoaming: \(String(describing: allowDataRoaming)) \n"
-        }
-        if (hasOperatorSelectMode) {
-            output += "\(indent) operatorSelectMode: \(operatorSelectMode.description)\n"
-        }
-        if hasNetworkDescriptor {
-            output += "\(indent) networkDescriptor {\n"
-            if let outDescNetworkDescriptor = networkDescriptor {
-                output += try outDescNetworkDescriptor.getDescription(indent: "\(indent)  ")
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.ControlCommand = Openxc.ControlCommand()
+            public func getMessage() -> Openxc.ControlCommand {
+                return builderResult
             }
-            output += "\(indent) }\n"
+
+            required override public init () {
+                super.init()
+            }
+                public var type:Openxc.ControlCommand.ProtoType {
+                    get {
+                        return builderResult.type
+                    }
+                    set (value) {
+                        builderResult.hasType = true
+                        builderResult.type = value
+                    }
+                }
+                public var hasType:Bool{
+                    get {
+                        return builderResult.hasType
+                    }
+                }
+            @discardableResult
+                public func setType(_ value:Openxc.ControlCommand.ProtoType) -> Openxc.ControlCommand.Builder {
+                  self.type = value
+                  return self
+                }
+            @discardableResult
+                public func clearType() -> Openxc.ControlCommand.Builder {
+                   builderResult.hasType = false
+                   builderResult.type = .unused
+                   return self
+                }
+            public var diagnosticRequest:Openxc.DiagnosticControlCommand! {
+                get {
+                    if diagnosticRequestBuilder_ != nil {
+                        builderResult.diagnosticRequest = diagnosticRequestBuilder_.getMessage()
+                    }
+                    return builderResult.diagnosticRequest
+                }
+                set (value) {
+                    builderResult.hasDiagnosticRequest = value != nil
+                    builderResult.diagnosticRequest = value
+                }
+            }
+            public var hasDiagnosticRequest:Bool {
+                get {
+                    return builderResult.hasDiagnosticRequest
+                }
+            }
+            fileprivate var diagnosticRequestBuilder_:Openxc.DiagnosticControlCommand.Builder! {
+                didSet {
+                    builderResult.hasDiagnosticRequest = true
+                }
+            }
+            public func getDiagnosticRequestBuilder() -> Openxc.DiagnosticControlCommand.Builder {
+                if diagnosticRequestBuilder_ == nil {
+                    diagnosticRequestBuilder_ = Openxc.DiagnosticControlCommand.Builder()
+                    builderResult.diagnosticRequest = diagnosticRequestBuilder_.getMessage()
+                    if diagnosticRequest != nil {
+                        try! diagnosticRequestBuilder_.mergeFrom(other: diagnosticRequest)
+                    }
+                }
+                return diagnosticRequestBuilder_
+            }
+            @discardableResult
+            public func setDiagnosticRequest(_ value:Openxc.DiagnosticControlCommand!) -> Openxc.ControlCommand.Builder {
+                self.diagnosticRequest = value
+                return self
+            }
+            @discardableResult
+            public func mergeDiagnosticRequest(value:Openxc.DiagnosticControlCommand) throws -> Openxc.ControlCommand.Builder {
+                if builderResult.hasDiagnosticRequest {
+                    builderResult.diagnosticRequest = try Openxc.DiagnosticControlCommand.builderWithPrototype(prototype:builderResult.diagnosticRequest).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.diagnosticRequest = value
+                }
+                builderResult.hasDiagnosticRequest = true
+                return self
+            }
+            @discardableResult
+            public func clearDiagnosticRequest() -> Openxc.ControlCommand.Builder {
+                diagnosticRequestBuilder_ = nil
+                builderResult.hasDiagnosticRequest = false
+                builderResult.diagnosticRequest = nil
+                return self
+            }
+            public var passthroughModeRequest:Openxc.PassthroughModeControlCommand! {
+                get {
+                    if passthroughModeRequestBuilder_ != nil {
+                        builderResult.passthroughModeRequest = passthroughModeRequestBuilder_.getMessage()
+                    }
+                    return builderResult.passthroughModeRequest
+                }
+                set (value) {
+                    builderResult.hasPassthroughModeRequest = value != nil
+                    builderResult.passthroughModeRequest = value
+                }
+            }
+            public var hasPassthroughModeRequest:Bool {
+                get {
+                    return builderResult.hasPassthroughModeRequest
+                }
+            }
+            fileprivate var passthroughModeRequestBuilder_:Openxc.PassthroughModeControlCommand.Builder! {
+                didSet {
+                    builderResult.hasPassthroughModeRequest = true
+                }
+            }
+            public func getPassthroughModeRequestBuilder() -> Openxc.PassthroughModeControlCommand.Builder {
+                if passthroughModeRequestBuilder_ == nil {
+                    passthroughModeRequestBuilder_ = Openxc.PassthroughModeControlCommand.Builder()
+                    builderResult.passthroughModeRequest = passthroughModeRequestBuilder_.getMessage()
+                    if passthroughModeRequest != nil {
+                        try! passthroughModeRequestBuilder_.mergeFrom(other: passthroughModeRequest)
+                    }
+                }
+                return passthroughModeRequestBuilder_
+            }
+            @discardableResult
+            public func setPassthroughModeRequest(_ value:Openxc.PassthroughModeControlCommand!) -> Openxc.ControlCommand.Builder {
+                self.passthroughModeRequest = value
+                return self
+            }
+            @discardableResult
+            public func mergePassthroughModeRequest(value:Openxc.PassthroughModeControlCommand) throws -> Openxc.ControlCommand.Builder {
+                if builderResult.hasPassthroughModeRequest {
+                    builderResult.passthroughModeRequest = try Openxc.PassthroughModeControlCommand.builderWithPrototype(prototype:builderResult.passthroughModeRequest).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.passthroughModeRequest = value
+                }
+                builderResult.hasPassthroughModeRequest = true
+                return self
+            }
+            @discardableResult
+            public func clearPassthroughModeRequest() -> Openxc.ControlCommand.Builder {
+                passthroughModeRequestBuilder_ = nil
+                builderResult.hasPassthroughModeRequest = false
+                builderResult.passthroughModeRequest = nil
+                return self
+            }
+            public var acceptanceFilterBypassCommand:Openxc.AcceptanceFilterBypassCommand! {
+                get {
+                    if acceptanceFilterBypassCommandBuilder_ != nil {
+                        builderResult.acceptanceFilterBypassCommand = acceptanceFilterBypassCommandBuilder_.getMessage()
+                    }
+                    return builderResult.acceptanceFilterBypassCommand
+                }
+                set (value) {
+                    builderResult.hasAcceptanceFilterBypassCommand = value != nil
+                    builderResult.acceptanceFilterBypassCommand = value
+                }
+            }
+            public var hasAcceptanceFilterBypassCommand:Bool {
+                get {
+                    return builderResult.hasAcceptanceFilterBypassCommand
+                }
+            }
+            fileprivate var acceptanceFilterBypassCommandBuilder_:Openxc.AcceptanceFilterBypassCommand.Builder! {
+                didSet {
+                    builderResult.hasAcceptanceFilterBypassCommand = true
+                }
+            }
+            public func getAcceptanceFilterBypassCommandBuilder() -> Openxc.AcceptanceFilterBypassCommand.Builder {
+                if acceptanceFilterBypassCommandBuilder_ == nil {
+                    acceptanceFilterBypassCommandBuilder_ = Openxc.AcceptanceFilterBypassCommand.Builder()
+                    builderResult.acceptanceFilterBypassCommand = acceptanceFilterBypassCommandBuilder_.getMessage()
+                    if acceptanceFilterBypassCommand != nil {
+                        try! acceptanceFilterBypassCommandBuilder_.mergeFrom(other: acceptanceFilterBypassCommand)
+                    }
+                }
+                return acceptanceFilterBypassCommandBuilder_
+            }
+            @discardableResult
+            public func setAcceptanceFilterBypassCommand(_ value:Openxc.AcceptanceFilterBypassCommand!) -> Openxc.ControlCommand.Builder {
+                self.acceptanceFilterBypassCommand = value
+                return self
+            }
+            @discardableResult
+            public func mergeAcceptanceFilterBypassCommand(value:Openxc.AcceptanceFilterBypassCommand) throws -> Openxc.ControlCommand.Builder {
+                if builderResult.hasAcceptanceFilterBypassCommand {
+                    builderResult.acceptanceFilterBypassCommand = try Openxc.AcceptanceFilterBypassCommand.builderWithPrototype(prototype:builderResult.acceptanceFilterBypassCommand).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.acceptanceFilterBypassCommand = value
+                }
+                builderResult.hasAcceptanceFilterBypassCommand = true
+                return self
+            }
+            @discardableResult
+            public func clearAcceptanceFilterBypassCommand() -> Openxc.ControlCommand.Builder {
+                acceptanceFilterBypassCommandBuilder_ = nil
+                builderResult.hasAcceptanceFilterBypassCommand = false
+                builderResult.acceptanceFilterBypassCommand = nil
+                return self
+            }
+            public var payloadFormatCommand:Openxc.PayloadFormatCommand! {
+                get {
+                    if payloadFormatCommandBuilder_ != nil {
+                        builderResult.payloadFormatCommand = payloadFormatCommandBuilder_.getMessage()
+                    }
+                    return builderResult.payloadFormatCommand
+                }
+                set (value) {
+                    builderResult.hasPayloadFormatCommand = value != nil
+                    builderResult.payloadFormatCommand = value
+                }
+            }
+            public var hasPayloadFormatCommand:Bool {
+                get {
+                    return builderResult.hasPayloadFormatCommand
+                }
+            }
+            fileprivate var payloadFormatCommandBuilder_:Openxc.PayloadFormatCommand.Builder! {
+                didSet {
+                    builderResult.hasPayloadFormatCommand = true
+                }
+            }
+            public func getPayloadFormatCommandBuilder() -> Openxc.PayloadFormatCommand.Builder {
+                if payloadFormatCommandBuilder_ == nil {
+                    payloadFormatCommandBuilder_ = Openxc.PayloadFormatCommand.Builder()
+                    builderResult.payloadFormatCommand = payloadFormatCommandBuilder_.getMessage()
+                    if payloadFormatCommand != nil {
+                        try! payloadFormatCommandBuilder_.mergeFrom(other: payloadFormatCommand)
+                    }
+                }
+                return payloadFormatCommandBuilder_
+            }
+            @discardableResult
+            public func setPayloadFormatCommand(_ value:Openxc.PayloadFormatCommand!) -> Openxc.ControlCommand.Builder {
+                self.payloadFormatCommand = value
+                return self
+            }
+            @discardableResult
+            public func mergePayloadFormatCommand(value:Openxc.PayloadFormatCommand) throws -> Openxc.ControlCommand.Builder {
+                if builderResult.hasPayloadFormatCommand {
+                    builderResult.payloadFormatCommand = try Openxc.PayloadFormatCommand.builderWithPrototype(prototype:builderResult.payloadFormatCommand).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.payloadFormatCommand = value
+                }
+                builderResult.hasPayloadFormatCommand = true
+                return self
+            }
+            @discardableResult
+            public func clearPayloadFormatCommand() -> Openxc.ControlCommand.Builder {
+                payloadFormatCommandBuilder_ = nil
+                builderResult.hasPayloadFormatCommand = false
+                builderResult.payloadFormatCommand = nil
+                return self
+            }
+            public var predefinedObd2RequestsCommand:Openxc.PredefinedObd2RequestsCommand! {
+                get {
+                    if predefinedObd2RequestsCommandBuilder_ != nil {
+                        builderResult.predefinedObd2RequestsCommand = predefinedObd2RequestsCommandBuilder_.getMessage()
+                    }
+                    return builderResult.predefinedObd2RequestsCommand
+                }
+                set (value) {
+                    builderResult.hasPredefinedObd2RequestsCommand = value != nil
+                    builderResult.predefinedObd2RequestsCommand = value
+                }
+            }
+            public var hasPredefinedObd2RequestsCommand:Bool {
+                get {
+                    return builderResult.hasPredefinedObd2RequestsCommand
+                }
+            }
+            fileprivate var predefinedObd2RequestsCommandBuilder_:Openxc.PredefinedObd2RequestsCommand.Builder! {
+                didSet {
+                    builderResult.hasPredefinedObd2RequestsCommand = true
+                }
+            }
+            public func getPredefinedObd2RequestsCommandBuilder() -> Openxc.PredefinedObd2RequestsCommand.Builder {
+                if predefinedObd2RequestsCommandBuilder_ == nil {
+                    predefinedObd2RequestsCommandBuilder_ = Openxc.PredefinedObd2RequestsCommand.Builder()
+                    builderResult.predefinedObd2RequestsCommand = predefinedObd2RequestsCommandBuilder_.getMessage()
+                    if predefinedObd2RequestsCommand != nil {
+                        try! predefinedObd2RequestsCommandBuilder_.mergeFrom(other: predefinedObd2RequestsCommand)
+                    }
+                }
+                return predefinedObd2RequestsCommandBuilder_
+            }
+            @discardableResult
+            public func setPredefinedObd2RequestsCommand(_ value:Openxc.PredefinedObd2RequestsCommand!) -> Openxc.ControlCommand.Builder {
+                self.predefinedObd2RequestsCommand = value
+                return self
+            }
+            @discardableResult
+            public func mergePredefinedObd2RequestsCommand(value:Openxc.PredefinedObd2RequestsCommand) throws -> Openxc.ControlCommand.Builder {
+                if builderResult.hasPredefinedObd2RequestsCommand {
+                    builderResult.predefinedObd2RequestsCommand = try Openxc.PredefinedObd2RequestsCommand.builderWithPrototype(prototype:builderResult.predefinedObd2RequestsCommand).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.predefinedObd2RequestsCommand = value
+                }
+                builderResult.hasPredefinedObd2RequestsCommand = true
+                return self
+            }
+            @discardableResult
+            public func clearPredefinedObd2RequestsCommand() -> Openxc.ControlCommand.Builder {
+                predefinedObd2RequestsCommandBuilder_ = nil
+                builderResult.hasPredefinedObd2RequestsCommand = false
+                builderResult.predefinedObd2RequestsCommand = nil
+                return self
+            }
+            public var modemConfigurationCommand:Openxc.ModemConfigurationCommand! {
+                get {
+                    if modemConfigurationCommandBuilder_ != nil {
+                        builderResult.modemConfigurationCommand = modemConfigurationCommandBuilder_.getMessage()
+                    }
+                    return builderResult.modemConfigurationCommand
+                }
+                set (value) {
+                    builderResult.hasModemConfigurationCommand = value != nil
+                    builderResult.modemConfigurationCommand = value
+                }
+            }
+            public var hasModemConfigurationCommand:Bool {
+                get {
+                    return builderResult.hasModemConfigurationCommand
+                }
+            }
+            fileprivate var modemConfigurationCommandBuilder_:Openxc.ModemConfigurationCommand.Builder! {
+                didSet {
+                    builderResult.hasModemConfigurationCommand = true
+                }
+            }
+            public func getModemConfigurationCommandBuilder() -> Openxc.ModemConfigurationCommand.Builder {
+                if modemConfigurationCommandBuilder_ == nil {
+                    modemConfigurationCommandBuilder_ = Openxc.ModemConfigurationCommand.Builder()
+                    builderResult.modemConfigurationCommand = modemConfigurationCommandBuilder_.getMessage()
+                    if modemConfigurationCommand != nil {
+                        try! modemConfigurationCommandBuilder_.mergeFrom(other: modemConfigurationCommand)
+                    }
+                }
+                return modemConfigurationCommandBuilder_
+            }
+            @discardableResult
+            public func setModemConfigurationCommand(_ value:Openxc.ModemConfigurationCommand!) -> Openxc.ControlCommand.Builder {
+                self.modemConfigurationCommand = value
+                return self
+            }
+            @discardableResult
+            public func mergeModemConfigurationCommand(value:Openxc.ModemConfigurationCommand) throws -> Openxc.ControlCommand.Builder {
+                if builderResult.hasModemConfigurationCommand {
+                    builderResult.modemConfigurationCommand = try Openxc.ModemConfigurationCommand.builderWithPrototype(prototype:builderResult.modemConfigurationCommand).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.modemConfigurationCommand = value
+                }
+                builderResult.hasModemConfigurationCommand = true
+                return self
+            }
+            @discardableResult
+            public func clearModemConfigurationCommand() -> Openxc.ControlCommand.Builder {
+                modemConfigurationCommandBuilder_ = nil
+                builderResult.hasModemConfigurationCommand = false
+                builderResult.modemConfigurationCommand = nil
+                return self
+            }
+            public var rtcConfigurationCommand:Openxc.RtcconfigurationCommand! {
+                get {
+                    if rtcConfigurationCommandBuilder_ != nil {
+                        builderResult.rtcConfigurationCommand = rtcConfigurationCommandBuilder_.getMessage()
+                    }
+                    return builderResult.rtcConfigurationCommand
+                }
+                set (value) {
+                    builderResult.hasRtcConfigurationCommand = value != nil
+                    builderResult.rtcConfigurationCommand = value
+                }
+            }
+            public var hasRtcConfigurationCommand:Bool {
+                get {
+                    return builderResult.hasRtcConfigurationCommand
+                }
+            }
+            fileprivate var rtcConfigurationCommandBuilder_:Openxc.RtcconfigurationCommand.Builder! {
+                didSet {
+                    builderResult.hasRtcConfigurationCommand = true
+                }
+            }
+            public func getRtcConfigurationCommandBuilder() -> Openxc.RtcconfigurationCommand.Builder {
+                if rtcConfigurationCommandBuilder_ == nil {
+                    rtcConfigurationCommandBuilder_ = Openxc.RtcconfigurationCommand.Builder()
+                    builderResult.rtcConfigurationCommand = rtcConfigurationCommandBuilder_.getMessage()
+                    if rtcConfigurationCommand != nil {
+                        try! rtcConfigurationCommandBuilder_.mergeFrom(other: rtcConfigurationCommand)
+                    }
+                }
+                return rtcConfigurationCommandBuilder_
+            }
+            @discardableResult
+            public func setRtcConfigurationCommand(_ value:Openxc.RtcconfigurationCommand!) -> Openxc.ControlCommand.Builder {
+                self.rtcConfigurationCommand = value
+                return self
+            }
+            @discardableResult
+            public func mergeRtcConfigurationCommand(value:Openxc.RtcconfigurationCommand) throws -> Openxc.ControlCommand.Builder {
+                if builderResult.hasRtcConfigurationCommand {
+                    builderResult.rtcConfigurationCommand = try Openxc.RtcconfigurationCommand.builderWithPrototype(prototype:builderResult.rtcConfigurationCommand).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.rtcConfigurationCommand = value
+                }
+                builderResult.hasRtcConfigurationCommand = true
+                return self
+            }
+            @discardableResult
+            public func clearRtcConfigurationCommand() -> Openxc.ControlCommand.Builder {
+                rtcConfigurationCommandBuilder_ = nil
+                builderResult.hasRtcConfigurationCommand = false
+                builderResult.rtcConfigurationCommand = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.ControlCommand.Builder {
+                builderResult = Openxc.ControlCommand()
+                return self
+            }
+            override public func clone() throws -> Openxc.ControlCommand.Builder {
+                return try Openxc.ControlCommand.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.ControlCommand {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.ControlCommand {
+                let returnMe:Openxc.ControlCommand = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.ControlCommand) throws -> Openxc.ControlCommand.Builder {
+                if other == Openxc.ControlCommand() {
+                    return self
+                }
+                if other.hasType {
+                    type = other.type
+                }
+                if (other.hasDiagnosticRequest) {
+                    try mergeDiagnosticRequest(value: other.diagnosticRequest)
+                }
+                if (other.hasPassthroughModeRequest) {
+                    try mergePassthroughModeRequest(value: other.passthroughModeRequest)
+                }
+                if (other.hasAcceptanceFilterBypassCommand) {
+                    try mergeAcceptanceFilterBypassCommand(value: other.acceptanceFilterBypassCommand)
+                }
+                if (other.hasPayloadFormatCommand) {
+                    try mergePayloadFormatCommand(value: other.payloadFormatCommand)
+                }
+                if (other.hasPredefinedObd2RequestsCommand) {
+                    try mergePredefinedObd2RequestsCommand(value: other.predefinedObd2RequestsCommand)
+                }
+                if (other.hasModemConfigurationCommand) {
+                    try mergeModemConfigurationCommand(value: other.modemConfigurationCommand)
+                }
+                if (other.hasRtcConfigurationCommand) {
+                    try mergeRtcConfigurationCommand(value: other.rtcConfigurationCommand)
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.ControlCommand.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.ControlCommand.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                    case 8:
+                        let valueInttype = try codedInputStream.readEnum()
+                        if let enumstype = Openxc.ControlCommand.ProtoType(rawValue:valueInttype){
+                            type = enumstype
+                        } else {
+                            try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
+                        }
+
+                    case 18:
+                        let subBuilder:Openxc.DiagnosticControlCommand.Builder = Openxc.DiagnosticControlCommand.Builder()
+                        if hasDiagnosticRequest {
+                            try subBuilder.mergeFrom(other: diagnosticRequest)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        diagnosticRequest = subBuilder.buildPartial()
+
+                    case 26:
+                        let subBuilder:Openxc.PassthroughModeControlCommand.Builder = Openxc.PassthroughModeControlCommand.Builder()
+                        if hasPassthroughModeRequest {
+                            try subBuilder.mergeFrom(other: passthroughModeRequest)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        passthroughModeRequest = subBuilder.buildPartial()
+
+                    case 34:
+                        let subBuilder:Openxc.AcceptanceFilterBypassCommand.Builder = Openxc.AcceptanceFilterBypassCommand.Builder()
+                        if hasAcceptanceFilterBypassCommand {
+                            try subBuilder.mergeFrom(other: acceptanceFilterBypassCommand)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        acceptanceFilterBypassCommand = subBuilder.buildPartial()
+
+                    case 42:
+                        let subBuilder:Openxc.PayloadFormatCommand.Builder = Openxc.PayloadFormatCommand.Builder()
+                        if hasPayloadFormatCommand {
+                            try subBuilder.mergeFrom(other: payloadFormatCommand)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        payloadFormatCommand = subBuilder.buildPartial()
+
+                    case 50:
+                        let subBuilder:Openxc.PredefinedObd2RequestsCommand.Builder = Openxc.PredefinedObd2RequestsCommand.Builder()
+                        if hasPredefinedObd2RequestsCommand {
+                            try subBuilder.mergeFrom(other: predefinedObd2RequestsCommand)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        predefinedObd2RequestsCommand = subBuilder.buildPartial()
+
+                    case 58:
+                        let subBuilder:Openxc.ModemConfigurationCommand.Builder = Openxc.ModemConfigurationCommand.Builder()
+                        if hasModemConfigurationCommand {
+                            try subBuilder.mergeFrom(other: modemConfigurationCommand)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        modemConfigurationCommand = subBuilder.buildPartial()
+
+                    case 66:
+                        let subBuilder:Openxc.RtcconfigurationCommand.Builder = Openxc.RtcconfigurationCommand.Builder()
+                        if hasRtcConfigurationCommand {
+                            try subBuilder.mergeFrom(other: rtcConfigurationCommand)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        rtcConfigurationCommand = subBuilder.buildPartial()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
+                    }
+                }
+            }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.ControlCommand.Builder {
+                let resultDecodedBuilder = Openxc.ControlCommand.Builder()
+                if let jsonValueType = jsonMap["type"] as? String {
+                    resultDecodedBuilder.type = try Openxc.ControlCommand.ProtoType.fromString(jsonValueType)
+                }
+                if let jsonValueDiagnosticRequest = jsonMap["diagnosticRequest"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.diagnosticRequest = try Openxc.DiagnosticControlCommand.Builder.decodeToBuilder(jsonMap:jsonValueDiagnosticRequest).build()
+
+                }
+                if let jsonValuePassthroughModeRequest = jsonMap["passthroughModeRequest"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.passthroughModeRequest = try Openxc.PassthroughModeControlCommand.Builder.decodeToBuilder(jsonMap:jsonValuePassthroughModeRequest).build()
+
+                }
+                if let jsonValueAcceptanceFilterBypassCommand = jsonMap["acceptanceFilterBypassCommand"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.acceptanceFilterBypassCommand = try Openxc.AcceptanceFilterBypassCommand.Builder.decodeToBuilder(jsonMap:jsonValueAcceptanceFilterBypassCommand).build()
+
+                }
+                if let jsonValuePayloadFormatCommand = jsonMap["payloadFormatCommand"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.payloadFormatCommand = try Openxc.PayloadFormatCommand.Builder.decodeToBuilder(jsonMap:jsonValuePayloadFormatCommand).build()
+
+                }
+                if let jsonValuePredefinedObd2RequestsCommand = jsonMap["predefinedObd2RequestsCommand"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.predefinedObd2RequestsCommand = try Openxc.PredefinedObd2RequestsCommand.Builder.decodeToBuilder(jsonMap:jsonValuePredefinedObd2RequestsCommand).build()
+
+                }
+                if let jsonValueModemConfigurationCommand = jsonMap["modemConfigurationCommand"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.modemConfigurationCommand = try Openxc.ModemConfigurationCommand.Builder.decodeToBuilder(jsonMap:jsonValueModemConfigurationCommand).build()
+
+                }
+                if let jsonValueRtcConfigurationCommand = jsonMap["rtcConfigurationCommand"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.rtcConfigurationCommand = try Openxc.RtcconfigurationCommand.Builder.decodeToBuilder(jsonMap:jsonValueRtcConfigurationCommand).build()
+
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.ControlCommand.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.ControlCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
         }
-        output += unknownFields.getDescription(indent: indent)
-        return output
+
     }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
+
+    final class DiagnosticControlCommand : GeneratedMessage {
+        public typealias BuilderType = Openxc.DiagnosticControlCommand.Builder
+
+        public static func == (lhs: Openxc.DiagnosticControlCommand, rhs: Openxc.DiagnosticControlCommand) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasRequest == rhs.hasRequest) && (!lhs.hasRequest || lhs.request == rhs.request)
+            fieldCheck = fieldCheck && (lhs.hasAction == rhs.hasAction) && (!lhs.hasAction || lhs.action == rhs.action)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
+        }
+
+
+
+            //Enum type declaration start 
+
+            public enum Action:Int32, GeneratedEnum {
+                case unused = 0
+                case add = 1
+                case cancel = 2
+                public func toString() -> String {
+                    switch self {
+                    case .unused: return "UNUSED"
+                    case .add: return "ADD"
+                    case .cancel: return "CANCEL"
+                    }
+                }
+                public static func fromString(_ str:String) throws -> Openxc.DiagnosticControlCommand.Action {
+                    switch str {
+                    case "UNUSED":    return .unused
+                    case "ADD":    return .add
+                    case "CANCEL":    return .cancel
+                    default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                    }
+                }
+                public var debugDescription:String { return getDescription() }
+                public var description:String { return getDescription() }
+                private func getDescription() -> String { 
+                    switch self {
+                    case .unused: return ".unused"
+                    case .add: return ".add"
+                    case .cancel: return ".cancel"
+                    }
+                }
+                public var hashValue:Int {
+                    return self.rawValue.hashValue
+                }
+                public static func ==(lhs:Action, rhs:Action) -> Bool {
+                    return lhs.hashValue == rhs.hashValue
+                }
+            }
+
+            //Enum type declaration end 
+
+        public fileprivate(set) var request:Openxc.DiagnosticRequest!
+        public fileprivate(set) var hasRequest:Bool = false
+        public fileprivate(set) var action:Openxc.DiagnosticControlCommand.Action = Openxc.DiagnosticControlCommand.Action.unused
+        public fileprivate(set) var hasAction:Bool = false
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasRequest {
+                try codedOutputStream.writeMessage(fieldNumber: 1, value:request)
+            }
+            if hasAction {
+                try codedOutputStream.writeEnum(fieldNumber: 2, value:action.rawValue)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasRequest {
+                if let varSizerequest = request?.computeMessageSize(fieldNumber: 1) {
+                    serialize_size += varSizerequest
+                }
+            }
+            if (hasAction) {
+                serialize_size += action.rawValue.computeEnumSize(fieldNumber: 2)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.DiagnosticControlCommand.Builder {
+            return Openxc.DiagnosticControlCommand.classBuilder() as! Openxc.DiagnosticControlCommand.Builder
+        }
+        public func getBuilder() -> Openxc.DiagnosticControlCommand.Builder {
+            return classBuilder() as! Openxc.DiagnosticControlCommand.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.DiagnosticControlCommand.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.DiagnosticControlCommand.Builder()
+        }
+        public func toBuilder() throws -> Openxc.DiagnosticControlCommand.Builder {
+            return try Openxc.DiagnosticControlCommand.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.DiagnosticControlCommand) throws -> Openxc.DiagnosticControlCommand.Builder {
+            return try Openxc.DiagnosticControlCommand.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasRequest {
+                jsonMap["request"] = try request.encode()
+            }
+            if hasAction {
+                jsonMap["action"] = action.toString()
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.DiagnosticControlCommand {
+            return try Openxc.DiagnosticControlCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.DiagnosticControlCommand {
+            return try Openxc.DiagnosticControlCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasRequest {
+                output += "\(indent) request {\n"
+                if let outDescRequest = request {
+                    output += try outDescRequest.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if (hasAction) {
+                output += "\(indent) action: \(action.description)\n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasRequest {
+                    if let hashValuerequest = request?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuerequest
+                    }
+                }
+                if hasAction {
+                     hashCode = (hashCode &* 31) &+ action.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.DiagnosticControlCommand"
+        }
+        override public func className() -> String {
+            return "Openxc.DiagnosticControlCommand"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.DiagnosticControlCommand = Openxc.DiagnosticControlCommand()
+            public func getMessage() -> Openxc.DiagnosticControlCommand {
+                return builderResult
+            }
+
+            required override public init () {
+                super.init()
+            }
+            public var request:Openxc.DiagnosticRequest! {
+                get {
+                    if requestBuilder_ != nil {
+                        builderResult.request = requestBuilder_.getMessage()
+                    }
+                    return builderResult.request
+                }
+                set (value) {
+                    builderResult.hasRequest = value != nil
+                    builderResult.request = value
+                }
+            }
+            public var hasRequest:Bool {
+                get {
+                    return builderResult.hasRequest
+                }
+            }
+            fileprivate var requestBuilder_:Openxc.DiagnosticRequest.Builder! {
+                didSet {
+                    builderResult.hasRequest = true
+                }
+            }
+            public func getRequestBuilder() -> Openxc.DiagnosticRequest.Builder {
+                if requestBuilder_ == nil {
+                    requestBuilder_ = Openxc.DiagnosticRequest.Builder()
+                    builderResult.request = requestBuilder_.getMessage()
+                    if request != nil {
+                        try! requestBuilder_.mergeFrom(other: request)
+                    }
+                }
+                return requestBuilder_
+            }
+            @discardableResult
+            public func setRequest(_ value:Openxc.DiagnosticRequest!) -> Openxc.DiagnosticControlCommand.Builder {
+                self.request = value
+                return self
+            }
+            @discardableResult
+            public func mergeRequest(value:Openxc.DiagnosticRequest) throws -> Openxc.DiagnosticControlCommand.Builder {
+                if builderResult.hasRequest {
+                    builderResult.request = try Openxc.DiagnosticRequest.builderWithPrototype(prototype:builderResult.request).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.request = value
+                }
+                builderResult.hasRequest = true
+                return self
+            }
+            @discardableResult
+            public func clearRequest() -> Openxc.DiagnosticControlCommand.Builder {
+                requestBuilder_ = nil
+                builderResult.hasRequest = false
+                builderResult.request = nil
+                return self
+            }
+                public var action:Openxc.DiagnosticControlCommand.Action {
+                    get {
+                        return builderResult.action
+                    }
+                    set (value) {
+                        builderResult.hasAction = true
+                        builderResult.action = value
+                    }
+                }
+                public var hasAction:Bool{
+                    get {
+                        return builderResult.hasAction
+                    }
+                }
+            @discardableResult
+                public func setAction(_ value:Openxc.DiagnosticControlCommand.Action) -> Openxc.DiagnosticControlCommand.Builder {
+                  self.action = value
+                  return self
+                }
+            @discardableResult
+                public func clearAction() -> Openxc.DiagnosticControlCommand.Builder {
+                   builderResult.hasAction = false
+                   builderResult.action = .unused
+                   return self
+                }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.DiagnosticControlCommand.Builder {
+                builderResult = Openxc.DiagnosticControlCommand()
+                return self
+            }
+            override public func clone() throws -> Openxc.DiagnosticControlCommand.Builder {
+                return try Openxc.DiagnosticControlCommand.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.DiagnosticControlCommand {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.DiagnosticControlCommand {
+                let returnMe:Openxc.DiagnosticControlCommand = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.DiagnosticControlCommand) throws -> Openxc.DiagnosticControlCommand.Builder {
+                if other == Openxc.DiagnosticControlCommand() {
+                    return self
+                }
+                if (other.hasRequest) {
+                    try mergeRequest(value: other.request)
+                }
+                if other.hasAction {
+                    action = other.action
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.DiagnosticControlCommand.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticControlCommand.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                    case 10:
+                        let subBuilder:Openxc.DiagnosticRequest.Builder = Openxc.DiagnosticRequest.Builder()
+                        if hasRequest {
+                            try subBuilder.mergeFrom(other: request)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        request = subBuilder.buildPartial()
+
+                    case 16:
+                        let valueIntaction = try codedInputStream.readEnum()
+                        if let enumsaction = Openxc.DiagnosticControlCommand.Action(rawValue:valueIntaction){
+                            action = enumsaction
+                        } else {
+                            try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntaction))
+                        }
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
+                    }
+                }
+            }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.DiagnosticControlCommand.Builder {
+                let resultDecodedBuilder = Openxc.DiagnosticControlCommand.Builder()
+                if let jsonValueRequest = jsonMap["request"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.request = try Openxc.DiagnosticRequest.Builder.decodeToBuilder(jsonMap:jsonValueRequest).build()
+
+                }
+                if let jsonValueAction = jsonMap["action"] as? String {
+                    resultDecodedBuilder.action = try Openxc.DiagnosticControlCommand.Action.fromString(jsonValueAction)
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.DiagnosticControlCommand.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.DiagnosticControlCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
+        }
+
+    }
+
+    final class PassthroughModeControlCommand : GeneratedMessage {
+        public typealias BuilderType = Openxc.PassthroughModeControlCommand.Builder
+
+        public static func == (lhs: Openxc.PassthroughModeControlCommand, rhs: Openxc.PassthroughModeControlCommand) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
+            fieldCheck = fieldCheck && (lhs.hasEnabled == rhs.hasEnabled) && (!lhs.hasEnabled || lhs.enabled == rhs.enabled)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
+        }
+
+        public fileprivate(set) var bus:Int32! = nil
+        public fileprivate(set) var hasBus:Bool = false
+
+        public fileprivate(set) var enabled:Bool! = nil
+        public fileprivate(set) var hasEnabled:Bool = false
+
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasBus {
+                try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
+            }
+            if hasEnabled {
+                try codedOutputStream.writeBool(fieldNumber: 2, value:enabled)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasBus {
+                serialize_size += bus.computeInt32Size(fieldNumber: 1)
+            }
+            if hasEnabled {
+                serialize_size += enabled.computeBoolSize(fieldNumber: 2)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.PassthroughModeControlCommand.Builder {
+            return Openxc.PassthroughModeControlCommand.classBuilder() as! Openxc.PassthroughModeControlCommand.Builder
+        }
+        public func getBuilder() -> Openxc.PassthroughModeControlCommand.Builder {
+            return classBuilder() as! Openxc.PassthroughModeControlCommand.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.PassthroughModeControlCommand.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.PassthroughModeControlCommand.Builder()
+        }
+        public func toBuilder() throws -> Openxc.PassthroughModeControlCommand.Builder {
+            return try Openxc.PassthroughModeControlCommand.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.PassthroughModeControlCommand) throws -> Openxc.PassthroughModeControlCommand.Builder {
+            return try Openxc.PassthroughModeControlCommand.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasBus {
+                jsonMap["bus"] = Int(bus)
+            }
+            if hasEnabled {
+                jsonMap["enabled"] = enabled
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.PassthroughModeControlCommand {
+            return try Openxc.PassthroughModeControlCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.PassthroughModeControlCommand {
+            return try Openxc.PassthroughModeControlCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasBus {
+                output += "\(indent) bus: \(String(describing: bus)) \n"
+            }
+            if hasEnabled {
+                output += "\(indent) enabled: \(String(describing: enabled)) \n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasBus {
+                    hashCode = (hashCode &* 31) &+ bus.hashValue
+                }
+                if hasEnabled {
+                    hashCode = (hashCode &* 31) &+ enabled.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.PassthroughModeControlCommand"
+        }
+        override public func className() -> String {
+            return "Openxc.PassthroughModeControlCommand"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.PassthroughModeControlCommand = Openxc.PassthroughModeControlCommand()
+            public func getMessage() -> Openxc.PassthroughModeControlCommand {
+                return builderResult
+            }
+
+            required override public init () {
+                super.init()
+            }
+            public var bus:Int32 {
+                get {
+                    return builderResult.bus
+                }
+                set (value) {
+                    builderResult.hasBus = true
+                    builderResult.bus = value
+                }
+            }
+            public var hasBus:Bool {
+                get {
+                    return builderResult.hasBus
+                }
+            }
+            @discardableResult
+            public func setBus(_ value:Int32) -> Openxc.PassthroughModeControlCommand.Builder {
+                self.bus = value
+                return self
+            }
+            @discardableResult
+            public func clearBus() -> Openxc.PassthroughModeControlCommand.Builder{
+                builderResult.hasBus = false
+                builderResult.bus = nil
+                return self
+            }
+            public var enabled:Bool {
+                get {
+                    return builderResult.enabled
+                }
+                set (value) {
+                    builderResult.hasEnabled = true
+                    builderResult.enabled = value
+                }
+            }
+            public var hasEnabled:Bool {
+                get {
+                    return builderResult.hasEnabled
+                }
+            }
+            @discardableResult
+            public func setEnabled(_ value:Bool) -> Openxc.PassthroughModeControlCommand.Builder {
+                self.enabled = value
+                return self
+            }
+            @discardableResult
+            public func clearEnabled() -> Openxc.PassthroughModeControlCommand.Builder{
+                builderResult.hasEnabled = false
+                builderResult.enabled = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.PassthroughModeControlCommand.Builder {
+                builderResult = Openxc.PassthroughModeControlCommand()
+                return self
+            }
+            override public func clone() throws -> Openxc.PassthroughModeControlCommand.Builder {
+                return try Openxc.PassthroughModeControlCommand.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.PassthroughModeControlCommand {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.PassthroughModeControlCommand {
+                let returnMe:Openxc.PassthroughModeControlCommand = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.PassthroughModeControlCommand) throws -> Openxc.PassthroughModeControlCommand.Builder {
+                if other == Openxc.PassthroughModeControlCommand() {
+                    return self
+                }
+                if other.hasBus {
+                    bus = other.bus
+                }
+                if other.hasEnabled {
+                    enabled = other.enabled
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.PassthroughModeControlCommand.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.PassthroughModeControlCommand.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                    case 8:
+                        bus = try codedInputStream.readInt32()
+
+                    case 16:
+                        enabled = try codedInputStream.readBool()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
+                    }
+                }
+            }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.PassthroughModeControlCommand.Builder {
+                let resultDecodedBuilder = Openxc.PassthroughModeControlCommand.Builder()
+                if let jsonValueBus = jsonMap["bus"] as? Int {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)
+                } else if let jsonValueBus = jsonMap["bus"] as? String {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)!
+                }
+                if let jsonValueEnabled = jsonMap["enabled"] as? Bool {
+                    resultDecodedBuilder.enabled = jsonValueEnabled
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.PassthroughModeControlCommand.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.PassthroughModeControlCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
+        }
+
+    }
+
+    final class AcceptanceFilterBypassCommand : GeneratedMessage {
+        public typealias BuilderType = Openxc.AcceptanceFilterBypassCommand.Builder
+
+        public static func == (lhs: Openxc.AcceptanceFilterBypassCommand, rhs: Openxc.AcceptanceFilterBypassCommand) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
+            fieldCheck = fieldCheck && (lhs.hasBypass == rhs.hasBypass) && (!lhs.hasBypass || lhs.bypass == rhs.bypass)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
+        }
+
+        public fileprivate(set) var bus:Int32! = nil
+        public fileprivate(set) var hasBus:Bool = false
+
+        public fileprivate(set) var bypass:Bool! = nil
+        public fileprivate(set) var hasBypass:Bool = false
+
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasBus {
+                try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
+            }
+            if hasBypass {
+                try codedOutputStream.writeBool(fieldNumber: 2, value:bypass)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasBus {
+                serialize_size += bus.computeInt32Size(fieldNumber: 1)
+            }
+            if hasBypass {
+                serialize_size += bypass.computeBoolSize(fieldNumber: 2)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.AcceptanceFilterBypassCommand.Builder {
+            return Openxc.AcceptanceFilterBypassCommand.classBuilder() as! Openxc.AcceptanceFilterBypassCommand.Builder
+        }
+        public func getBuilder() -> Openxc.AcceptanceFilterBypassCommand.Builder {
+            return classBuilder() as! Openxc.AcceptanceFilterBypassCommand.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.AcceptanceFilterBypassCommand.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.AcceptanceFilterBypassCommand.Builder()
+        }
+        public func toBuilder() throws -> Openxc.AcceptanceFilterBypassCommand.Builder {
+            return try Openxc.AcceptanceFilterBypassCommand.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.AcceptanceFilterBypassCommand) throws -> Openxc.AcceptanceFilterBypassCommand.Builder {
+            return try Openxc.AcceptanceFilterBypassCommand.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasBus {
+                jsonMap["bus"] = Int(bus)
+            }
+            if hasBypass {
+                jsonMap["bypass"] = bypass
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.AcceptanceFilterBypassCommand {
+            return try Openxc.AcceptanceFilterBypassCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.AcceptanceFilterBypassCommand {
+            return try Openxc.AcceptanceFilterBypassCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasBus {
+                output += "\(indent) bus: \(String(describing: bus)) \n"
+            }
+            if hasBypass {
+                output += "\(indent) bypass: \(String(describing: bypass)) \n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasBus {
+                    hashCode = (hashCode &* 31) &+ bus.hashValue
+                }
+                if hasBypass {
+                    hashCode = (hashCode &* 31) &+ bypass.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.AcceptanceFilterBypassCommand"
+        }
+        override public func className() -> String {
+            return "Openxc.AcceptanceFilterBypassCommand"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.AcceptanceFilterBypassCommand = Openxc.AcceptanceFilterBypassCommand()
+            public func getMessage() -> Openxc.AcceptanceFilterBypassCommand {
+                return builderResult
+            }
+
+            required override public init () {
+                super.init()
+            }
+            public var bus:Int32 {
+                get {
+                    return builderResult.bus
+                }
+                set (value) {
+                    builderResult.hasBus = true
+                    builderResult.bus = value
+                }
+            }
+            public var hasBus:Bool {
+                get {
+                    return builderResult.hasBus
+                }
+            }
+            @discardableResult
+            public func setBus(_ value:Int32) -> Openxc.AcceptanceFilterBypassCommand.Builder {
+                self.bus = value
+                return self
+            }
+            @discardableResult
+            public func clearBus() -> Openxc.AcceptanceFilterBypassCommand.Builder{
+                builderResult.hasBus = false
+                builderResult.bus = nil
+                return self
+            }
+            public var bypass:Bool {
+                get {
+                    return builderResult.bypass
+                }
+                set (value) {
+                    builderResult.hasBypass = true
+                    builderResult.bypass = value
+                }
+            }
+            public var hasBypass:Bool {
+                get {
+                    return builderResult.hasBypass
+                }
+            }
+            @discardableResult
+            public func setBypass(_ value:Bool) -> Openxc.AcceptanceFilterBypassCommand.Builder {
+                self.bypass = value
+                return self
+            }
+            @discardableResult
+            public func clearBypass() -> Openxc.AcceptanceFilterBypassCommand.Builder{
+                builderResult.hasBypass = false
+                builderResult.bypass = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.AcceptanceFilterBypassCommand.Builder {
+                builderResult = Openxc.AcceptanceFilterBypassCommand()
+                return self
+            }
+            override public func clone() throws -> Openxc.AcceptanceFilterBypassCommand.Builder {
+                return try Openxc.AcceptanceFilterBypassCommand.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.AcceptanceFilterBypassCommand {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.AcceptanceFilterBypassCommand {
+                let returnMe:Openxc.AcceptanceFilterBypassCommand = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.AcceptanceFilterBypassCommand) throws -> Openxc.AcceptanceFilterBypassCommand.Builder {
+                if other == Openxc.AcceptanceFilterBypassCommand() {
+                    return self
+                }
+                if other.hasBus {
+                    bus = other.bus
+                }
+                if other.hasBypass {
+                    bypass = other.bypass
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.AcceptanceFilterBypassCommand.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.AcceptanceFilterBypassCommand.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                    case 8:
+                        bus = try codedInputStream.readInt32()
+
+                    case 16:
+                        bypass = try codedInputStream.readBool()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
+                    }
+                }
+            }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.AcceptanceFilterBypassCommand.Builder {
+                let resultDecodedBuilder = Openxc.AcceptanceFilterBypassCommand.Builder()
+                if let jsonValueBus = jsonMap["bus"] as? Int {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)
+                } else if let jsonValueBus = jsonMap["bus"] as? String {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)!
+                }
+                if let jsonValueBypass = jsonMap["bypass"] as? Bool {
+                    resultDecodedBuilder.bypass = jsonValueBypass
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.AcceptanceFilterBypassCommand.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.AcceptanceFilterBypassCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
+        }
+
+    }
+
+    final class PayloadFormatCommand : GeneratedMessage {
+        public typealias BuilderType = Openxc.PayloadFormatCommand.Builder
+
+        public static func == (lhs: Openxc.PayloadFormatCommand, rhs: Openxc.PayloadFormatCommand) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasFormat == rhs.hasFormat) && (!lhs.hasFormat || lhs.format == rhs.format)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
+        }
+
+
+
+            //Enum type declaration start 
+
+            public enum PayloadFormat:Int32, GeneratedEnum {
+                case unused = 0
+                case json = 1
+                case protobuf = 2
+                case messagepack = 3
+                public func toString() -> String {
+                    switch self {
+                    case .unused: return "UNUSED"
+                    case .json: return "JSON"
+                    case .protobuf: return "PROTOBUF"
+                    case .messagepack: return "MESSAGEPACK"
+                    }
+                }
+                public static func fromString(_ str:String) throws -> Openxc.PayloadFormatCommand.PayloadFormat {
+                    switch str {
+                    case "UNUSED":    return .unused
+                    case "JSON":    return .json
+                    case "PROTOBUF":    return .protobuf
+                    case "MESSAGEPACK":    return .messagepack
+                    default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                    }
+                }
+                public var debugDescription:String { return getDescription() }
+                public var description:String { return getDescription() }
+                private func getDescription() -> String { 
+                    switch self {
+                    case .unused: return ".unused"
+                    case .json: return ".json"
+                    case .protobuf: return ".protobuf"
+                    case .messagepack: return ".messagepack"
+                    }
+                }
+                public var hashValue:Int {
+                    return self.rawValue.hashValue
+                }
+                public static func ==(lhs:PayloadFormat, rhs:PayloadFormat) -> Bool {
+                    return lhs.hashValue == rhs.hashValue
+                }
+            }
+
+            //Enum type declaration end 
+
+        public fileprivate(set) var format:Openxc.PayloadFormatCommand.PayloadFormat = Openxc.PayloadFormatCommand.PayloadFormat.unused
+        public fileprivate(set) var hasFormat:Bool = false
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasFormat {
+                try codedOutputStream.writeEnum(fieldNumber: 1, value:format.rawValue)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if (hasFormat) {
+                serialize_size += format.rawValue.computeEnumSize(fieldNumber: 1)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.PayloadFormatCommand.Builder {
+            return Openxc.PayloadFormatCommand.classBuilder() as! Openxc.PayloadFormatCommand.Builder
+        }
+        public func getBuilder() -> Openxc.PayloadFormatCommand.Builder {
+            return classBuilder() as! Openxc.PayloadFormatCommand.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.PayloadFormatCommand.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.PayloadFormatCommand.Builder()
+        }
+        public func toBuilder() throws -> Openxc.PayloadFormatCommand.Builder {
+            return try Openxc.PayloadFormatCommand.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.PayloadFormatCommand) throws -> Openxc.PayloadFormatCommand.Builder {
+            return try Openxc.PayloadFormatCommand.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasFormat {
+                jsonMap["format"] = format.toString()
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.PayloadFormatCommand {
+            return try Openxc.PayloadFormatCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.PayloadFormatCommand {
+            return try Openxc.PayloadFormatCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if (hasFormat) {
+                output += "\(indent) format: \(format.description)\n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasFormat {
+                     hashCode = (hashCode &* 31) &+ format.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.PayloadFormatCommand"
+        }
+        override public func className() -> String {
+            return "Openxc.PayloadFormatCommand"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.PayloadFormatCommand = Openxc.PayloadFormatCommand()
+            public func getMessage() -> Openxc.PayloadFormatCommand {
+                return builderResult
+            }
+
+            required override public init () {
+                super.init()
+            }
+                public var format:Openxc.PayloadFormatCommand.PayloadFormat {
+                    get {
+                        return builderResult.format
+                    }
+                    set (value) {
+                        builderResult.hasFormat = true
+                        builderResult.format = value
+                    }
+                }
+                public var hasFormat:Bool{
+                    get {
+                        return builderResult.hasFormat
+                    }
+                }
+            @discardableResult
+                public func setFormat(_ value:Openxc.PayloadFormatCommand.PayloadFormat) -> Openxc.PayloadFormatCommand.Builder {
+                  self.format = value
+                  return self
+                }
+            @discardableResult
+                public func clearFormat() -> Openxc.PayloadFormatCommand.Builder {
+                   builderResult.hasFormat = false
+                   builderResult.format = .unused
+                   return self
+                }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.PayloadFormatCommand.Builder {
+                builderResult = Openxc.PayloadFormatCommand()
+                return self
+            }
+            override public func clone() throws -> Openxc.PayloadFormatCommand.Builder {
+                return try Openxc.PayloadFormatCommand.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.PayloadFormatCommand {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.PayloadFormatCommand {
+                let returnMe:Openxc.PayloadFormatCommand = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.PayloadFormatCommand) throws -> Openxc.PayloadFormatCommand.Builder {
+                if other == Openxc.PayloadFormatCommand() {
+                    return self
+                }
+                if other.hasFormat {
+                    format = other.format
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.PayloadFormatCommand.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.PayloadFormatCommand.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                    case 8:
+                        let valueIntformat = try codedInputStream.readEnum()
+                        if let enumsformat = Openxc.PayloadFormatCommand.PayloadFormat(rawValue:valueIntformat){
+                            format = enumsformat
+                        } else {
+                            try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueIntformat))
+                        }
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
+                    }
+                }
+            }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.PayloadFormatCommand.Builder {
+                let resultDecodedBuilder = Openxc.PayloadFormatCommand.Builder()
+                if let jsonValueFormat = jsonMap["format"] as? String {
+                    resultDecodedBuilder.format = try Openxc.PayloadFormatCommand.PayloadFormat.fromString(jsonValueFormat)
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.PayloadFormatCommand.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.PayloadFormatCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
+        }
+
+    }
+
+    final class PredefinedObd2RequestsCommand : GeneratedMessage {
+        public typealias BuilderType = Openxc.PredefinedObd2RequestsCommand.Builder
+
+        public static func == (lhs: Openxc.PredefinedObd2RequestsCommand, rhs: Openxc.PredefinedObd2RequestsCommand) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasEnabled == rhs.hasEnabled) && (!lhs.hasEnabled || lhs.enabled == rhs.enabled)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
+        }
+
+        public fileprivate(set) var enabled:Bool! = nil
+        public fileprivate(set) var hasEnabled:Bool = false
+
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasEnabled {
+                try codedOutputStream.writeBool(fieldNumber: 1, value:enabled)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasEnabled {
+                serialize_size += enabled.computeBoolSize(fieldNumber: 1)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.PredefinedObd2RequestsCommand.Builder {
+            return Openxc.PredefinedObd2RequestsCommand.classBuilder() as! Openxc.PredefinedObd2RequestsCommand.Builder
+        }
+        public func getBuilder() -> Openxc.PredefinedObd2RequestsCommand.Builder {
+            return classBuilder() as! Openxc.PredefinedObd2RequestsCommand.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.PredefinedObd2RequestsCommand.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.PredefinedObd2RequestsCommand.Builder()
+        }
+        public func toBuilder() throws -> Openxc.PredefinedObd2RequestsCommand.Builder {
+            return try Openxc.PredefinedObd2RequestsCommand.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.PredefinedObd2RequestsCommand) throws -> Openxc.PredefinedObd2RequestsCommand.Builder {
+            return try Openxc.PredefinedObd2RequestsCommand.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasEnabled {
+                jsonMap["enabled"] = enabled
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.PredefinedObd2RequestsCommand {
+            return try Openxc.PredefinedObd2RequestsCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.PredefinedObd2RequestsCommand {
+            return try Openxc.PredefinedObd2RequestsCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasEnabled {
+                output += "\(indent) enabled: \(String(describing: enabled)) \n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasEnabled {
+                    hashCode = (hashCode &* 31) &+ enabled.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.PredefinedObd2RequestsCommand"
+        }
+        override public func className() -> String {
+            return "Openxc.PredefinedObd2RequestsCommand"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.PredefinedObd2RequestsCommand = Openxc.PredefinedObd2RequestsCommand()
+            public func getMessage() -> Openxc.PredefinedObd2RequestsCommand {
+                return builderResult
+            }
+
+            required override public init () {
+                super.init()
+            }
+            public var enabled:Bool {
+                get {
+                    return builderResult.enabled
+                }
+                set (value) {
+                    builderResult.hasEnabled = true
+                    builderResult.enabled = value
+                }
+            }
+            public var hasEnabled:Bool {
+                get {
+                    return builderResult.hasEnabled
+                }
+            }
+            @discardableResult
+            public func setEnabled(_ value:Bool) -> Openxc.PredefinedObd2RequestsCommand.Builder {
+                self.enabled = value
+                return self
+            }
+            @discardableResult
+            public func clearEnabled() -> Openxc.PredefinedObd2RequestsCommand.Builder{
+                builderResult.hasEnabled = false
+                builderResult.enabled = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.PredefinedObd2RequestsCommand.Builder {
+                builderResult = Openxc.PredefinedObd2RequestsCommand()
+                return self
+            }
+            override public func clone() throws -> Openxc.PredefinedObd2RequestsCommand.Builder {
+                return try Openxc.PredefinedObd2RequestsCommand.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.PredefinedObd2RequestsCommand {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.PredefinedObd2RequestsCommand {
+                let returnMe:Openxc.PredefinedObd2RequestsCommand = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.PredefinedObd2RequestsCommand) throws -> Openxc.PredefinedObd2RequestsCommand.Builder {
+                if other == Openxc.PredefinedObd2RequestsCommand() {
+                    return self
+                }
+                if other.hasEnabled {
+                    enabled = other.enabled
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.PredefinedObd2RequestsCommand.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.PredefinedObd2RequestsCommand.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                    case 8:
+                        enabled = try codedInputStream.readBool()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
+                    }
+                }
+            }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.PredefinedObd2RequestsCommand.Builder {
+                let resultDecodedBuilder = Openxc.PredefinedObd2RequestsCommand.Builder()
+                if let jsonValueEnabled = jsonMap["enabled"] as? Bool {
+                    resultDecodedBuilder.enabled = jsonValueEnabled
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.PredefinedObd2RequestsCommand.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.PredefinedObd2RequestsCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
+        }
+
+    }
+
+    final class NetworkOperatorSettings : GeneratedMessage {
+        public typealias BuilderType = Openxc.NetworkOperatorSettings.Builder
+
+        public static func == (lhs: Openxc.NetworkOperatorSettings, rhs: Openxc.NetworkOperatorSettings) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasAllowDataRoaming == rhs.hasAllowDataRoaming) && (!lhs.hasAllowDataRoaming || lhs.allowDataRoaming == rhs.allowDataRoaming)
+            fieldCheck = fieldCheck && (lhs.hasOperatorSelectMode == rhs.hasOperatorSelectMode) && (!lhs.hasOperatorSelectMode || lhs.operatorSelectMode == rhs.operatorSelectMode)
+            fieldCheck = fieldCheck && (lhs.hasNetworkDescriptor == rhs.hasNetworkDescriptor) && (!lhs.hasNetworkDescriptor || lhs.networkDescriptor == rhs.networkDescriptor)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
+        }
+
+
+
+        //Nested type declaration start
+
+        final public class NetworkDescriptor : GeneratedMessage {
+            public typealias BuilderType = Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder
+
+            public static func == (lhs: Openxc.NetworkOperatorSettings.NetworkDescriptor, rhs: Openxc.NetworkOperatorSettings.NetworkDescriptor) -> Bool {
+                if lhs === rhs {
+                    return true
+                }
+                var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+                fieldCheck = fieldCheck && (lhs.hasPlmn == rhs.hasPlmn) && (!lhs.hasPlmn || lhs.plmn == rhs.plmn)
+                fieldCheck = fieldCheck && (lhs.hasNetworkType == rhs.hasNetworkType) && (!lhs.hasNetworkType || lhs.networkType == rhs.networkType)
+                fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+                return fieldCheck
+            }
+
+
+
+                //Enum type declaration start 
+
+                public enum NetworkType:Int32, GeneratedEnum {
+                    case gsm = 0
+                    case utran = 2
+                    public func toString() -> String {
+                        switch self {
+                        case .gsm: return "GSM"
+                        case .utran: return "UTRAN"
+                        }
+                    }
+                    public static func fromString(_ str:String) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor.NetworkType {
+                        switch str {
+                        case "GSM":    return .gsm
+                        case "UTRAN":    return .utran
+                        default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                        }
+                    }
+                    public var debugDescription:String { return getDescription() }
+                    public var description:String { return getDescription() }
+                    private func getDescription() -> String { 
+                        switch self {
+                        case .gsm: return ".gsm"
+                        case .utran: return ".utran"
+                        }
+                    }
+                    public var hashValue:Int {
+                        return self.rawValue.hashValue
+                    }
+                    public static func ==(lhs:NetworkType, rhs:NetworkType) -> Bool {
+                        return lhs.hashValue == rhs.hashValue
+                    }
+                }
+
+                //Enum type declaration end 
+
+            public fileprivate(set) var plmn:UInt32! = nil
+            public fileprivate(set) var hasPlmn:Bool = false
+
+            public fileprivate(set) var networkType:Openxc.NetworkOperatorSettings.NetworkDescriptor.NetworkType = Openxc.NetworkOperatorSettings.NetworkDescriptor.NetworkType.gsm
+            public fileprivate(set) var hasNetworkType:Bool = false
+            required public init() {
+                super.init()
+            }
+            override public func isInitialized() throws {
+            }
+            override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+                if hasPlmn {
+                    try codedOutputStream.writeUInt32(fieldNumber: 1, value:plmn)
+                }
+                if hasNetworkType {
+                    try codedOutputStream.writeEnum(fieldNumber: 2, value:networkType.rawValue)
+                }
+                try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+            }
+            override public func serializedSize() -> Int32 {
+                var serialize_size:Int32 = memoizedSerializedSize
+                if serialize_size != -1 {
+                 return serialize_size
+                }
+
+                serialize_size = 0
+                if hasPlmn {
+                    serialize_size += plmn.computeUInt32Size(fieldNumber: 1)
+                }
+                if (hasNetworkType) {
+                    serialize_size += networkType.rawValue.computeEnumSize(fieldNumber: 2)
+                }
+                serialize_size += unknownFields.serializedSize()
+                memoizedSerializedSize = serialize_size
+                return serialize_size
+            }
+            public class func getBuilder() -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                return Openxc.NetworkOperatorSettings.NetworkDescriptor.classBuilder() as! Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder
+            }
+            public func getBuilder() -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                return classBuilder() as! Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder
+            }
+            override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+                return Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder()
+            }
+            override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+                return Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder()
+            }
+            public func toBuilder() throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                return try Openxc.NetworkOperatorSettings.NetworkDescriptor.builderWithPrototype(prototype:self)
+            }
+            public class func builderWithPrototype(prototype:Openxc.NetworkOperatorSettings.NetworkDescriptor) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(other:prototype)
+            }
+            override public func encode() throws -> Dictionary<String,Any> {
+                try isInitialized()
+                var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+                if hasPlmn {
+                    jsonMap["PLMN"] = UInt(plmn)
+                }
+                if hasNetworkType {
+                    jsonMap["networkType"] = networkType.toString()
+                }
+                return jsonMap
+            }
+            override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+                return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+            }
+            override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+                return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder.fromJSONToBuilder(data:data, options:options).build()
+            }
+            override public func getDescription(indent:String) throws -> String {
+                var output = ""
+                if hasPlmn {
+                    output += "\(indent) plmn: \(String(describing: plmn)) \n"
+                }
+                if (hasNetworkType) {
+                    output += "\(indent) networkType: \(networkType.description)\n"
+                }
+                output += unknownFields.getDescription(indent: indent)
+                return output
+            }
+            override public var hashValue:Int {
+                get {
+                    var hashCode:Int = 7
+                    if hasPlmn {
+                        hashCode = (hashCode &* 31) &+ plmn.hashValue
+                    }
+                    if hasNetworkType {
+                         hashCode = (hashCode &* 31) &+ networkType.hashValue
+                    }
+                    hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                    return hashCode
+                }
+            }
+
+
+            //Meta information declaration start
+
+            override public class func className() -> String {
+                return "Openxc.NetworkOperatorSettings.NetworkDescriptor"
+            }
+            override public func className() -> String {
+                return "Openxc.NetworkOperatorSettings.NetworkDescriptor"
+            }
+            //Meta information declaration end
+
+            final public class Builder : GeneratedMessageBuilder {
+                fileprivate var builderResult:Openxc.NetworkOperatorSettings.NetworkDescriptor = Openxc.NetworkOperatorSettings.NetworkDescriptor()
+                public func getMessage() -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+                    return builderResult
+                }
+
+                required override public init () {
+                    super.init()
+                }
+                public var plmn:UInt32 {
+                    get {
+                        return builderResult.plmn
+                    }
+                    set (value) {
+                        builderResult.hasPlmn = true
+                        builderResult.plmn = value
+                    }
+                }
+                public var hasPlmn:Bool {
+                    get {
+                        return builderResult.hasPlmn
+                    }
+                }
+                @discardableResult
+                public func setPlmn(_ value:UInt32) -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                    self.plmn = value
+                    return self
+                }
+                @discardableResult
+                public func clearPlmn() -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder{
+                    builderResult.hasPlmn = false
+                    builderResult.plmn = nil
+                    return self
+                }
+                    public var networkType:Openxc.NetworkOperatorSettings.NetworkDescriptor.NetworkType {
+                        get {
+                            return builderResult.networkType
+                        }
+                        set (value) {
+                            builderResult.hasNetworkType = true
+                            builderResult.networkType = value
+                        }
+                    }
+                    public var hasNetworkType:Bool{
+                        get {
+                            return builderResult.hasNetworkType
+                        }
+                    }
+                @discardableResult
+                    public func setNetworkType(_ value:Openxc.NetworkOperatorSettings.NetworkDescriptor.NetworkType) -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                      self.networkType = value
+                      return self
+                    }
+                @discardableResult
+                    public func clearNetworkType() -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                       builderResult.hasNetworkType = false
+                       builderResult.networkType = .gsm
+                       return self
+                    }
+                override public var internalGetResult:GeneratedMessage {
+                    get {
+                        return builderResult
+                    }
+                }
+                @discardableResult
+                override public func clear() -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                    builderResult = Openxc.NetworkOperatorSettings.NetworkDescriptor()
+                    return self
+                }
+                override public func clone() throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                    return try Openxc.NetworkOperatorSettings.NetworkDescriptor.builderWithPrototype(prototype:builderResult)
+                }
+                override public func build() throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+                    try checkInitialized()
+                    return buildPartial()
+                }
+                public func buildPartial() -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+                    let returnMe:Openxc.NetworkOperatorSettings.NetworkDescriptor = builderResult
+                    return returnMe
+                }
+                @discardableResult
+                public func mergeFrom(other:Openxc.NetworkOperatorSettings.NetworkDescriptor) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                    if other == Openxc.NetworkOperatorSettings.NetworkDescriptor() {
+                        return self
+                    }
+                    if other.hasPlmn {
+                        plmn = other.plmn
+                    }
+                    if other.hasNetworkType {
+                        networkType = other.networkType
+                    }
+                    try merge(unknownField: other.unknownFields)
+                    return self
+                }
+                @discardableResult
+                override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                    return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+                }
+                @discardableResult
+                override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                    let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                    while (true) {
+                        let protobufTag = try codedInputStream.readTag()
+                        switch protobufTag {
+                        case 0: 
+                            self.unknownFields = try unknownFieldsBuilder.build()
+                            return self
+
+                        case 8:
+                            plmn = try codedInputStream.readUInt32()
+
+                        case 16:
+                            let valueIntnetworkType = try codedInputStream.readEnum()
+                            if let enumsnetworkType = Openxc.NetworkOperatorSettings.NetworkDescriptor.NetworkType(rawValue:valueIntnetworkType){
+                                networkType = enumsnetworkType
+                            } else {
+                                try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntnetworkType))
+                            }
+
+                        default:
+                            if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                                unknownFields = try unknownFieldsBuilder.build()
+                                return self
+                            }
+                        }
+                    }
+                }
+                class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                    let resultDecodedBuilder = Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder()
+                    if let jsonValuePlmn = jsonMap["PLMN"] as? UInt {
+                        resultDecodedBuilder.plmn = UInt32(jsonValuePlmn)
+                    } else if let jsonValuePlmn = jsonMap["PLMN"] as? String {
+                        resultDecodedBuilder.plmn = UInt32(jsonValuePlmn)!
+                    }
+                    if let jsonValueNetworkType = jsonMap["networkType"] as? String {
+                        resultDecodedBuilder.networkType = try Openxc.NetworkOperatorSettings.NetworkDescriptor.NetworkType.fromString(jsonValueNetworkType)
+                    }
+                    return resultDecodedBuilder
+                }
+                override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                    let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                    guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                      throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                    }
+                    return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder.decodeToBuilder(jsonMap:jsDataCast)
+                }
+            }
+
+        }
+
+        //Nested type declaration end
+
+
+
+            //Enum type declaration start 
+
+            public enum OperatorSelectMode:Int32, GeneratedEnum {
+                case automatic = 0
+                case manual = 1
+                case deregister = 2
+                case setOnly = 3
+                case manualAutomatic = 4
+                public func toString() -> String {
+                    switch self {
+                    case .automatic: return "AUTOMATIC"
+                    case .manual: return "MANUAL"
+                    case .deregister: return "DEREGISTER"
+                    case .setOnly: return "SET_ONLY"
+                    case .manualAutomatic: return "MANUAL_AUTOMATIC"
+                    }
+                }
+                public static func fromString(_ str:String) throws -> Openxc.NetworkOperatorSettings.OperatorSelectMode {
+                    switch str {
+                    case "AUTOMATIC":    return .automatic
+                    case "MANUAL":    return .manual
+                    case "DEREGISTER":    return .deregister
+                    case "SET_ONLY":    return .setOnly
+                    case "MANUAL_AUTOMATIC":    return .manualAutomatic
+                    default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                    }
+                }
+                public var debugDescription:String { return getDescription() }
+                public var description:String { return getDescription() }
+                private func getDescription() -> String { 
+                    switch self {
+                    case .automatic: return ".automatic"
+                    case .manual: return ".manual"
+                    case .deregister: return ".deregister"
+                    case .setOnly: return ".setOnly"
+                    case .manualAutomatic: return ".manualAutomatic"
+                    }
+                }
+                public var hashValue:Int {
+                    return self.rawValue.hashValue
+                }
+                public static func ==(lhs:OperatorSelectMode, rhs:OperatorSelectMode) -> Bool {
+                    return lhs.hashValue == rhs.hashValue
+                }
+            }
+
+            //Enum type declaration end 
+
+        public fileprivate(set) var allowDataRoaming:Bool! = nil
+        public fileprivate(set) var hasAllowDataRoaming:Bool = false
+
+        public fileprivate(set) var operatorSelectMode:Openxc.NetworkOperatorSettings.OperatorSelectMode = Openxc.NetworkOperatorSettings.OperatorSelectMode.automatic
+        public fileprivate(set) var hasOperatorSelectMode:Bool = false
+        public fileprivate(set) var networkDescriptor:Openxc.NetworkOperatorSettings.NetworkDescriptor!
+        public fileprivate(set) var hasNetworkDescriptor:Bool = false
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
             if hasAllowDataRoaming {
-                hashCode = (hashCode &* 31) &+ allowDataRoaming.hashValue
+                try codedOutputStream.writeBool(fieldNumber: 1, value:allowDataRoaming)
             }
             if hasOperatorSelectMode {
-                 hashCode = (hashCode &* 31) &+ operatorSelectMode.hashValue
+                try codedOutputStream.writeEnum(fieldNumber: 2, value:operatorSelectMode.rawValue)
             }
-            if hasNetworkDescriptor,let hashValuenetworkDescriptor = networkDescriptor?.hashValue  {
-                
-                    hashCode = (hashCode &* 31) &+ hashValuenetworkDescriptor
-                
+            if hasNetworkDescriptor {
+                try codedOutputStream.writeMessage(fieldNumber: 3, value:networkDescriptor)
             }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
-    }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
 
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "NetworkOperatorSettings"
-    }
-    override public func className() -> String {
-        return "NetworkOperatorSettings"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:NetworkOperatorSettings = NetworkOperatorSettings()
-        public func getMessage() -> NetworkOperatorSettings {
-            return builderResult
+            serialize_size = 0
+            if hasAllowDataRoaming {
+                serialize_size += allowDataRoaming.computeBoolSize(fieldNumber: 1)
+            }
+            if (hasOperatorSelectMode) {
+                serialize_size += operatorSelectMode.rawValue.computeEnumSize(fieldNumber: 2)
+            }
+            if hasNetworkDescriptor {
+                if let varSizenetworkDescriptor = networkDescriptor?.computeMessageSize(fieldNumber: 3) {
+                    serialize_size += varSizenetworkDescriptor
+                }
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
         }
-
-        required override public init () {
-            super.init()
+        public class func getBuilder() -> Openxc.NetworkOperatorSettings.Builder {
+            return Openxc.NetworkOperatorSettings.classBuilder() as! Openxc.NetworkOperatorSettings.Builder
         }
-        public var allowDataRoaming:Bool {
+        public func getBuilder() -> Openxc.NetworkOperatorSettings.Builder {
+            return classBuilder() as! Openxc.NetworkOperatorSettings.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.NetworkOperatorSettings.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.NetworkOperatorSettings.Builder()
+        }
+        public func toBuilder() throws -> Openxc.NetworkOperatorSettings.Builder {
+            return try Openxc.NetworkOperatorSettings.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.NetworkOperatorSettings) throws -> Openxc.NetworkOperatorSettings.Builder {
+            return try Openxc.NetworkOperatorSettings.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasAllowDataRoaming {
+                jsonMap["allowDataRoaming"] = allowDataRoaming
+            }
+            if hasOperatorSelectMode {
+                jsonMap["operatorSelectMode"] = operatorSelectMode.toString()
+            }
+            if hasNetworkDescriptor {
+                jsonMap["networkDescriptor"] = try networkDescriptor.encode()
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.NetworkOperatorSettings {
+            return try Openxc.NetworkOperatorSettings.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.NetworkOperatorSettings {
+            return try Openxc.NetworkOperatorSettings.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasAllowDataRoaming {
+                output += "\(indent) allowDataRoaming: \(String(describing: allowDataRoaming)) \n"
+            }
+            if (hasOperatorSelectMode) {
+                output += "\(indent) operatorSelectMode: \(operatorSelectMode.description)\n"
+            }
+            if hasNetworkDescriptor {
+                output += "\(indent) networkDescriptor {\n"
+                if let outDescNetworkDescriptor = networkDescriptor {
+                    output += try outDescNetworkDescriptor.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
             get {
-                return builderResult.allowDataRoaming
+                var hashCode:Int = 7
+                if hasAllowDataRoaming {
+                    hashCode = (hashCode &* 31) &+ allowDataRoaming.hashValue
+                }
+                if hasOperatorSelectMode {
+                     hashCode = (hashCode &* 31) &+ operatorSelectMode.hashValue
+                }
+                if hasNetworkDescriptor {
+                    if let hashValuenetworkDescriptor = networkDescriptor?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuenetworkDescriptor
+                    }
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
             }
-            set (value) {
-                builderResult.hasAllowDataRoaming = true
-                builderResult.allowDataRoaming = value
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.NetworkOperatorSettings"
+        }
+        override public func className() -> String {
+            return "Openxc.NetworkOperatorSettings"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.NetworkOperatorSettings = Openxc.NetworkOperatorSettings()
+            public func getMessage() -> Openxc.NetworkOperatorSettings {
+                return builderResult
             }
-        }
-        public var hasAllowDataRoaming:Bool {
-            get {
-                return builderResult.hasAllowDataRoaming
+
+            required override public init () {
+                super.init()
             }
-        }
-        @discardableResult
-        public func setAllowDataRoaming(_ value:Bool) -> NetworkOperatorSettings.Builder {
-            self.allowDataRoaming = value
-            return self
-        }
-        @discardableResult
-        public func clearAllowDataRoaming() -> NetworkOperatorSettings.Builder{
-            builderResult.hasAllowDataRoaming = false
-            builderResult.allowDataRoaming = nil
-            return self
-        }
-            public var operatorSelectMode:NetworkOperatorSettings.OperatorSelectMode {
+            public var allowDataRoaming:Bool {
                 get {
-                    return builderResult.operatorSelectMode
+                    return builderResult.allowDataRoaming
                 }
                 set (value) {
-                    builderResult.hasOperatorSelectMode = true
-                    builderResult.operatorSelectMode = value
+                    builderResult.hasAllowDataRoaming = true
+                    builderResult.allowDataRoaming = value
                 }
             }
-            public var hasOperatorSelectMode:Bool{
+            public var hasAllowDataRoaming:Bool {
                 get {
-                    return builderResult.hasOperatorSelectMode
+                    return builderResult.hasAllowDataRoaming
                 }
             }
-        @discardableResult
-            public func setOperatorSelectMode(_ value:NetworkOperatorSettings.OperatorSelectMode) -> NetworkOperatorSettings.Builder {
-              self.operatorSelectMode = value
-              return self
-            }
-        @discardableResult
-            public func clearOperatorSelectMode() -> NetworkOperatorSettings.Builder {
-               builderResult.hasOperatorSelectMode = false
-               builderResult.operatorSelectMode = .automatic
-               return self
-            }
-        public var networkDescriptor:NetworkOperatorSettings.NetworkDescriptor! {
-            get {
-                if networkDescriptorBuilder_ != nil {
-                    builderResult.networkDescriptor = networkDescriptorBuilder_.getMessage()
-                }
-                return builderResult.networkDescriptor
-            }
-            set (value) {
-                builderResult.hasNetworkDescriptor = value != nil
-                builderResult.networkDescriptor = value
-            }
-        }
-        public var hasNetworkDescriptor:Bool {
-            get {
-                return builderResult.hasNetworkDescriptor
-            }
-        }
-        fileprivate var networkDescriptorBuilder_:NetworkOperatorSettings.NetworkDescriptor.Builder! {
-            didSet {
-                builderResult.hasNetworkDescriptor = true
-            }
-        }
-        public func getNetworkDescriptorBuilder() -> NetworkOperatorSettings.NetworkDescriptor.Builder {
-            if networkDescriptorBuilder_ == nil {
-                networkDescriptorBuilder_ = NetworkOperatorSettings.NetworkDescriptor.Builder()
-                builderResult.networkDescriptor = networkDescriptorBuilder_.getMessage()
-                if networkDescriptor != nil {
-                    do{
-                    try networkDescriptorBuilder_.mergeFrom(other: networkDescriptor)
-                    }catch let error{
-                        print("Error: \(error)")
-                    }
-                }
-            }
-            return networkDescriptorBuilder_
-        }
-        @discardableResult
-        public func setNetworkDescriptor(_ value:NetworkOperatorSettings.NetworkDescriptor!) -> NetworkOperatorSettings.Builder {
-            self.networkDescriptor = value
-            return self
-        }
-        @discardableResult
-        public func mergeNetworkDescriptor(value:NetworkOperatorSettings.NetworkDescriptor) throws -> NetworkOperatorSettings.Builder {
-            if builderResult.hasNetworkDescriptor {
-                builderResult.networkDescriptor = try NetworkOperatorSettings.NetworkDescriptor.builderWithPrototype(prototype:builderResult.networkDescriptor).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.networkDescriptor = value
-            }
-            builderResult.hasNetworkDescriptor = true
-            return self
-        }
-        @discardableResult
-        public func clearNetworkDescriptor() -> NetworkOperatorSettings.Builder {
-            networkDescriptorBuilder_ = nil
-            builderResult.hasNetworkDescriptor = false
-            builderResult.networkDescriptor = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> NetworkOperatorSettings.Builder {
-            builderResult = NetworkOperatorSettings()
-            return self
-        }
-        override public func clone() throws -> NetworkOperatorSettings.Builder {
-            return try NetworkOperatorSettings.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> NetworkOperatorSettings {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> NetworkOperatorSettings {
-            let returnMe:NetworkOperatorSettings = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:NetworkOperatorSettings) throws -> NetworkOperatorSettings.Builder {
-            if other == NetworkOperatorSettings() {
+            @discardableResult
+            public func setAllowDataRoaming(_ value:Bool) -> Openxc.NetworkOperatorSettings.Builder {
+                self.allowDataRoaming = value
                 return self
             }
-            if other.hasAllowDataRoaming {
-                allowDataRoaming = other.allowDataRoaming
+            @discardableResult
+            public func clearAllowDataRoaming() -> Openxc.NetworkOperatorSettings.Builder{
+                builderResult.hasAllowDataRoaming = false
+                builderResult.allowDataRoaming = nil
+                return self
             }
-            if other.hasOperatorSelectMode {
-                operatorSelectMode = other.operatorSelectMode
+                public var operatorSelectMode:Openxc.NetworkOperatorSettings.OperatorSelectMode {
+                    get {
+                        return builderResult.operatorSelectMode
+                    }
+                    set (value) {
+                        builderResult.hasOperatorSelectMode = true
+                        builderResult.operatorSelectMode = value
+                    }
+                }
+                public var hasOperatorSelectMode:Bool{
+                    get {
+                        return builderResult.hasOperatorSelectMode
+                    }
+                }
+            @discardableResult
+                public func setOperatorSelectMode(_ value:Openxc.NetworkOperatorSettings.OperatorSelectMode) -> Openxc.NetworkOperatorSettings.Builder {
+                  self.operatorSelectMode = value
+                  return self
+                }
+            @discardableResult
+                public func clearOperatorSelectMode() -> Openxc.NetworkOperatorSettings.Builder {
+                   builderResult.hasOperatorSelectMode = false
+                   builderResult.operatorSelectMode = .automatic
+                   return self
+                }
+            public var networkDescriptor:Openxc.NetworkOperatorSettings.NetworkDescriptor! {
+                get {
+                    if networkDescriptorBuilder_ != nil {
+                        builderResult.networkDescriptor = networkDescriptorBuilder_.getMessage()
+                    }
+                    return builderResult.networkDescriptor
+                }
+                set (value) {
+                    builderResult.hasNetworkDescriptor = value != nil
+                    builderResult.networkDescriptor = value
+                }
             }
-            if (other.hasNetworkDescriptor) {
-                try mergeNetworkDescriptor(value: other.networkDescriptor)
+            public var hasNetworkDescriptor:Bool {
+                get {
+                    return builderResult.hasNetworkDescriptor
+                }
             }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> NetworkOperatorSettings.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> NetworkOperatorSettings.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
+            fileprivate var networkDescriptorBuilder_:Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder! {
+                didSet {
+                    builderResult.hasNetworkDescriptor = true
+                }
+            }
+            public func getNetworkDescriptorBuilder() -> Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder {
+                if networkDescriptorBuilder_ == nil {
+                    networkDescriptorBuilder_ = Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder()
+                    builderResult.networkDescriptor = networkDescriptorBuilder_.getMessage()
+                    if networkDescriptor != nil {
+                        try! networkDescriptorBuilder_.mergeFrom(other: networkDescriptor)
+                    }
+                }
+                return networkDescriptorBuilder_
+            }
+            @discardableResult
+            public func setNetworkDescriptor(_ value:Openxc.NetworkOperatorSettings.NetworkDescriptor!) -> Openxc.NetworkOperatorSettings.Builder {
+                self.networkDescriptor = value
+                return self
+            }
+            @discardableResult
+            public func mergeNetworkDescriptor(value:Openxc.NetworkOperatorSettings.NetworkDescriptor) throws -> Openxc.NetworkOperatorSettings.Builder {
+                if builderResult.hasNetworkDescriptor {
+                    builderResult.networkDescriptor = try Openxc.NetworkOperatorSettings.NetworkDescriptor.builderWithPrototype(prototype:builderResult.networkDescriptor).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.networkDescriptor = value
+                }
+                builderResult.hasNetworkDescriptor = true
+                return self
+            }
+            @discardableResult
+            public func clearNetworkDescriptor() -> Openxc.NetworkOperatorSettings.Builder {
+                networkDescriptorBuilder_ = nil
+                builderResult.hasNetworkDescriptor = false
+                builderResult.networkDescriptor = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.NetworkOperatorSettings.Builder {
+                builderResult = Openxc.NetworkOperatorSettings()
+                return self
+            }
+            override public func clone() throws -> Openxc.NetworkOperatorSettings.Builder {
+                return try Openxc.NetworkOperatorSettings.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.NetworkOperatorSettings {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.NetworkOperatorSettings {
+                let returnMe:Openxc.NetworkOperatorSettings = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.NetworkOperatorSettings) throws -> Openxc.NetworkOperatorSettings.Builder {
+                if other == Openxc.NetworkOperatorSettings() {
                     return self
-
-                case 8:
-                    allowDataRoaming = try codedInputStream.readBool()
-
-                case 16:
-                    let valueIntoperatorSelectMode = try codedInputStream.readEnum()
-                    if let enumsoperatorSelectMode = NetworkOperatorSettings.OperatorSelectMode(rawValue:valueIntoperatorSelectMode){
-                        operatorSelectMode = enumsoperatorSelectMode
-                    } else {
-                        try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntoperatorSelectMode))
-                    }
-
-                case 26:
-                    let subBuilder:NetworkOperatorSettings.NetworkDescriptor.Builder = NetworkOperatorSettings.NetworkDescriptor.Builder()
-                    if hasNetworkDescriptor {
-                        try subBuilder.mergeFrom(other: networkDescriptor)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    networkDescriptor = subBuilder.buildPartial()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
+                }
+                if other.hasAllowDataRoaming {
+                    allowDataRoaming = other.allowDataRoaming
+                }
+                if other.hasOperatorSelectMode {
+                    operatorSelectMode = other.operatorSelectMode
+                }
+                if (other.hasNetworkDescriptor) {
+                    try mergeNetworkDescriptor(value: other.networkDescriptor)
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.NetworkOperatorSettings.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkOperatorSettings.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
                         return self
+
+                    case 8:
+                        allowDataRoaming = try codedInputStream.readBool()
+
+                    case 16:
+                        let valueIntoperatorSelectMode = try codedInputStream.readEnum()
+                        if let enumsoperatorSelectMode = Openxc.NetworkOperatorSettings.OperatorSelectMode(rawValue:valueIntoperatorSelectMode){
+                            operatorSelectMode = enumsoperatorSelectMode
+                        } else {
+                            try unknownFieldsBuilder.mergeVarintField(fieldNumber: 2, value:Int64(valueIntoperatorSelectMode))
+                        }
+
+                    case 26:
+                        let subBuilder:Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder = Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder()
+                        if hasNetworkDescriptor {
+                            try subBuilder.mergeFrom(other: networkDescriptor)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        networkDescriptor = subBuilder.buildPartial()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
                     }
                 }
             }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> NetworkOperatorSettings.Builder {
-            let resultDecodedBuilder = NetworkOperatorSettings.Builder()
-            if let jsonValueAllowDataRoaming = jsonMap["allowDataRoaming"] as? Bool {
-                resultDecodedBuilder.allowDataRoaming = jsonValueAllowDataRoaming
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.NetworkOperatorSettings.Builder {
+                let resultDecodedBuilder = Openxc.NetworkOperatorSettings.Builder()
+                if let jsonValueAllowDataRoaming = jsonMap["allowDataRoaming"] as? Bool {
+                    resultDecodedBuilder.allowDataRoaming = jsonValueAllowDataRoaming
+                }
+                if let jsonValueOperatorSelectMode = jsonMap["operatorSelectMode"] as? String {
+                    resultDecodedBuilder.operatorSelectMode = try Openxc.NetworkOperatorSettings.OperatorSelectMode.fromString(jsonValueOperatorSelectMode)
+                }
+                if let jsonValueNetworkDescriptor = jsonMap["networkDescriptor"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.networkDescriptor = try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder.decodeToBuilder(jsonMap:jsonValueNetworkDescriptor).build()
+
+                }
+                return resultDecodedBuilder
             }
-            if let jsonValueOperatorSelectMode = jsonMap["operatorSelectMode"] as? String {
-                resultDecodedBuilder.operatorSelectMode = try NetworkOperatorSettings.OperatorSelectMode.fromString(jsonValueOperatorSelectMode)
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.NetworkOperatorSettings.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.NetworkOperatorSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
-            if let jsonValueNetworkDescriptor = jsonMap["networkDescriptor"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.networkDescriptor = try NetworkOperatorSettings.NetworkDescriptor.Builder.decodeToBuilder(jsonMap:jsonValueNetworkDescriptor).build()
+        }
 
+    }
+
+    final class NetworkDataSettings : GeneratedMessage {
+        public typealias BuilderType = Openxc.NetworkDataSettings.Builder
+
+        public static func == (lhs: Openxc.NetworkDataSettings, rhs: Openxc.NetworkDataSettings) -> Bool {
+            if lhs === rhs {
+                return true
             }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> NetworkOperatorSettings.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try NetworkOperatorSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class NetworkDataSettings : GeneratedMessage {
-    public typealias BuilderType = NetworkDataSettings.Builder
-
-    public static func == (lhs: NetworkDataSettings, rhs: NetworkDataSettings) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasApn == rhs.hasApn) && (!lhs.hasApn || lhs.apn == rhs.apn)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-    public fileprivate(set) var apn:String! = nil
-    public fileprivate(set) var hasApn:Bool = false
-
-    required public init() {
-        super.init()
-    }
-
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasApn {
-            try codedOutputStream.writeString(fieldNumber: 1, value:apn)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasApn == rhs.hasApn) && (!lhs.hasApn || lhs.apn == rhs.apn)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
         }
 
-        serialize_size = 0
-        if hasApn {
-            serialize_size += apn.computeStringSize(fieldNumber: 1)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> NetworkDataSettings.Builder {
-        return NetworkDataSettings.classBuilder() as! NetworkDataSettings.Builder
-    }
-    public func getBuilder() -> NetworkDataSettings.Builder {
-        return classBuilder() as! NetworkDataSettings.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return NetworkDataSettings.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return NetworkDataSettings.Builder()
-    }
-    public func toBuilder() throws -> NetworkDataSettings.Builder {
-        return try NetworkDataSettings.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:NetworkDataSettings) throws -> NetworkDataSettings.Builder {
-        return try NetworkDataSettings.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasApn {
-            jsonMap["APN"] = apn
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> NetworkDataSettings {
-        return try NetworkDataSettings.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> NetworkDataSettings {
-        return try NetworkDataSettings.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasApn {
-            output += "\(indent) apn: \(String(describing: apn)) \n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasApn {
-                hashCode = (hashCode &* 31) &+ apn.hashValue
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
+        public fileprivate(set) var apn:String! = nil
+        public fileprivate(set) var hasApn:Bool = false
 
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "NetworkDataSettings"
-    }
-    override public func className() -> String {
-        return "NetworkDataSettings"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:NetworkDataSettings = NetworkDataSettings()
-        public func getMessage() -> NetworkDataSettings {
-            return builderResult
-        }
-
-        required override public init () {
+        required public init() {
             super.init()
         }
-        public var apn:String {
-            get {
-                return builderResult.apn
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasApn {
+                try codedOutputStream.writeString(fieldNumber: 1, value:apn)
             }
-            set (value) {
-                builderResult.hasApn = true
-                builderResult.apn = value
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasApn {
+                serialize_size += apn.computeStringSize(fieldNumber: 1)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.NetworkDataSettings.Builder {
+            return Openxc.NetworkDataSettings.classBuilder() as! Openxc.NetworkDataSettings.Builder
+        }
+        public func getBuilder() -> Openxc.NetworkDataSettings.Builder {
+            return classBuilder() as! Openxc.NetworkDataSettings.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.NetworkDataSettings.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.NetworkDataSettings.Builder()
+        }
+        public func toBuilder() throws -> Openxc.NetworkDataSettings.Builder {
+            return try Openxc.NetworkDataSettings.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.NetworkDataSettings) throws -> Openxc.NetworkDataSettings.Builder {
+            return try Openxc.NetworkDataSettings.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasApn {
+                jsonMap["apn"] = apn
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.NetworkDataSettings {
+            return try Openxc.NetworkDataSettings.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.NetworkDataSettings {
+            return try Openxc.NetworkDataSettings.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasApn {
+                output += "\(indent) apn: \(String(describing: apn)) \n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasApn {
+                    hashCode = (hashCode &* 31) &+ apn.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
             }
         }
-        public var hasApn:Bool {
-            get {
-                return builderResult.hasApn
-            }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.NetworkDataSettings"
         }
-        @discardableResult
-        public func setApn(_ value:String) -> NetworkDataSettings.Builder {
-            self.apn = value
-            return self
+        override public func className() -> String {
+            return "Openxc.NetworkDataSettings"
         }
-        @discardableResult
-        public func clearApn() -> NetworkDataSettings.Builder{
-            builderResult.hasApn = false
-            builderResult.apn = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.NetworkDataSettings = Openxc.NetworkDataSettings()
+            public func getMessage() -> Openxc.NetworkDataSettings {
                 return builderResult
             }
-        }
-        @discardableResult
-        override public func clear() -> NetworkDataSettings.Builder {
-            builderResult = NetworkDataSettings()
-            return self
-        }
-        override public func clone() throws -> NetworkDataSettings.Builder {
-            return try NetworkDataSettings.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> NetworkDataSettings {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> NetworkDataSettings {
-            let returnMe:NetworkDataSettings = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:NetworkDataSettings) throws -> NetworkDataSettings.Builder {
-            if other == NetworkDataSettings() {
+
+            required override public init () {
+                super.init()
+            }
+            public var apn:String {
+                get {
+                    return builderResult.apn
+                }
+                set (value) {
+                    builderResult.hasApn = true
+                    builderResult.apn = value
+                }
+            }
+            public var hasApn:Bool {
+                get {
+                    return builderResult.hasApn
+                }
+            }
+            @discardableResult
+            public func setApn(_ value:String) -> Openxc.NetworkDataSettings.Builder {
+                self.apn = value
                 return self
             }
-            if other.hasApn {
-                apn = other.apn
+            @discardableResult
+            public func clearApn() -> Openxc.NetworkDataSettings.Builder{
+                builderResult.hasApn = false
+                builderResult.apn = nil
+                return self
             }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> NetworkDataSettings.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> NetworkDataSettings.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.NetworkDataSettings.Builder {
+                builderResult = Openxc.NetworkDataSettings()
+                return self
+            }
+            override public func clone() throws -> Openxc.NetworkDataSettings.Builder {
+                return try Openxc.NetworkDataSettings.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.NetworkDataSettings {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.NetworkDataSettings {
+                let returnMe:Openxc.NetworkDataSettings = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.NetworkDataSettings) throws -> Openxc.NetworkDataSettings.Builder {
+                if other == Openxc.NetworkDataSettings() {
                     return self
-
-                case 10:
-                    apn = try codedInputStream.readString()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
+                }
+                if other.hasApn {
+                    apn = other.apn
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.NetworkDataSettings.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkDataSettings.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
                         return self
+
+                    case 10:
+                        apn = try codedInputStream.readString()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
                     }
                 }
             }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> NetworkDataSettings.Builder {
-            let resultDecodedBuilder = NetworkDataSettings.Builder()
-            if let jsonValueApn = jsonMap["APN"] as? String {
-                resultDecodedBuilder.apn = jsonValueApn
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.NetworkDataSettings.Builder {
+                let resultDecodedBuilder = Openxc.NetworkDataSettings.Builder()
+                if let jsonValueApn = jsonMap["apn"] as? String {
+                    resultDecodedBuilder.apn = jsonValueApn
+                }
+                return resultDecodedBuilder
             }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> NetworkDataSettings.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.NetworkDataSettings.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.NetworkDataSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
-            return try NetworkDataSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class ServerConnectSettings : GeneratedMessage {
-    public typealias BuilderType = ServerConnectSettings.Builder
-
-    public static func == (lhs: ServerConnectSettings, rhs: ServerConnectSettings) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasHost == rhs.hasHost) && (!lhs.hasHost || lhs.host == rhs.host)
-        fieldCheck = fieldCheck && (lhs.hasPort == rhs.hasPort) && (!lhs.hasPort || lhs.port == rhs.port)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-    public fileprivate(set) var host:String! = nil
-    public fileprivate(set) var hasHost:Bool = false
-
-    public fileprivate(set) var port:UInt32! = nil
-    public fileprivate(set) var hasPort:Bool = false
-
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasHost {
-            try codedOutputStream.writeString(fieldNumber: 1, value:host)
-        }
-        if hasPort {
-            try codedOutputStream.writeUInt32(fieldNumber: 2, value:port)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
         }
 
-        serialize_size = 0
-        if hasHost {
-            serialize_size += host.computeStringSize(fieldNumber: 1)
+    }
+
+    final class ServerConnectSettings : GeneratedMessage {
+        public typealias BuilderType = Openxc.ServerConnectSettings.Builder
+
+        public static func == (lhs: Openxc.ServerConnectSettings, rhs: Openxc.ServerConnectSettings) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasHost == rhs.hasHost) && (!lhs.hasHost || lhs.host == rhs.host)
+            fieldCheck = fieldCheck && (lhs.hasPort == rhs.hasPort) && (!lhs.hasPort || lhs.port == rhs.port)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
         }
-        if hasPort {
-            serialize_size += port.computeUInt32Size(fieldNumber: 2)
+
+        public fileprivate(set) var host:String! = nil
+        public fileprivate(set) var hasHost:Bool = false
+
+        public fileprivate(set) var port:UInt32! = nil
+        public fileprivate(set) var hasPort:Bool = false
+
+        required public init() {
+            super.init()
         }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> ServerConnectSettings.Builder {
-        return ServerConnectSettings.classBuilder() as! ServerConnectSettings.Builder
-    }
-    public func getBuilder() -> ServerConnectSettings.Builder {
-        return classBuilder() as! ServerConnectSettings.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return ServerConnectSettings.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return ServerConnectSettings.Builder()
-    }
-    public func toBuilder() throws -> ServerConnectSettings.Builder {
-        return try ServerConnectSettings.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:ServerConnectSettings) throws -> ServerConnectSettings.Builder {
-        return try ServerConnectSettings.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasHost {
-            jsonMap["host"] = host
+        override public func isInitialized() throws {
         }
-        if hasPort {
-            jsonMap["port"] = UInt(port)
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> ServerConnectSettings {
-        return try ServerConnectSettings.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> ServerConnectSettings {
-        return try ServerConnectSettings.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasHost {
-            output += "\(indent) host: \(String(describing: host)) \n"
-        }
-        if hasPort {
-            output += "\(indent) port: \(String(describing: port)) \n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
             if hasHost {
-                hashCode = (hashCode &* 31) &+ host.hashValue
+                try codedOutputStream.writeString(fieldNumber: 1, value:host)
             }
             if hasPort {
-                hashCode = (hashCode &* 31) &+ port.hashValue
+                try codedOutputStream.writeUInt32(fieldNumber: 2, value:port)
             }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
-    }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasHost {
+                serialize_size += host.computeStringSize(fieldNumber: 1)
+            }
+            if hasPort {
+                serialize_size += port.computeUInt32Size(fieldNumber: 2)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.ServerConnectSettings.Builder {
+            return Openxc.ServerConnectSettings.classBuilder() as! Openxc.ServerConnectSettings.Builder
+        }
+        public func getBuilder() -> Openxc.ServerConnectSettings.Builder {
+            return classBuilder() as! Openxc.ServerConnectSettings.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.ServerConnectSettings.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.ServerConnectSettings.Builder()
+        }
+        public func toBuilder() throws -> Openxc.ServerConnectSettings.Builder {
+            return try Openxc.ServerConnectSettings.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.ServerConnectSettings) throws -> Openxc.ServerConnectSettings.Builder {
+            return try Openxc.ServerConnectSettings.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasHost {
+                jsonMap["host"] = host
+            }
+            if hasPort {
+                jsonMap["port"] = UInt(port)
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.ServerConnectSettings {
+            return try Openxc.ServerConnectSettings.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.ServerConnectSettings {
+            return try Openxc.ServerConnectSettings.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasHost {
+                output += "\(indent) host: \(String(describing: host)) \n"
+            }
+            if hasPort {
+                output += "\(indent) port: \(String(describing: port)) \n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasHost {
+                    hashCode = (hashCode &* 31) &+ host.hashValue
+                }
+                if hasPort {
+                    hashCode = (hashCode &* 31) &+ port.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
 
 
-    //Meta information declaration start
+        //Meta information declaration start
 
-    override public class func className() -> String {
-        return "ServerConnectSettings"
-    }
-    override public func className() -> String {
-        return "ServerConnectSettings"
-    }
-    //Meta information declaration end
+        override public class func className() -> String {
+            return "Openxc.ServerConnectSettings"
+        }
+        override public func className() -> String {
+            return "Openxc.ServerConnectSettings"
+        }
+        //Meta information declaration end
 
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:ServerConnectSettings = ServerConnectSettings()
-        public func getMessage() -> ServerConnectSettings {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-        public var host:String {
-            get {
-                return builderResult.host
-            }
-            set (value) {
-                builderResult.hasHost = true
-                builderResult.host = value
-            }
-        }
-        public var hasHost:Bool {
-            get {
-                return builderResult.hasHost
-            }
-        }
-        @discardableResult
-        public func setHost(_ value:String) -> ServerConnectSettings.Builder {
-            self.host = value
-            return self
-        }
-        @discardableResult
-        public func clearHost() -> ServerConnectSettings.Builder{
-            builderResult.hasHost = false
-            builderResult.host = nil
-            return self
-        }
-        public var port:UInt32 {
-            get {
-                return builderResult.port
-            }
-            set (value) {
-                builderResult.hasPort = true
-                builderResult.port = value
-            }
-        }
-        public var hasPort:Bool {
-            get {
-                return builderResult.hasPort
-            }
-        }
-        @discardableResult
-        public func setPort(_ value:UInt32) -> ServerConnectSettings.Builder {
-            self.port = value
-            return self
-        }
-        @discardableResult
-        public func clearPort() -> ServerConnectSettings.Builder{
-            builderResult.hasPort = false
-            builderResult.port = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.ServerConnectSettings = Openxc.ServerConnectSettings()
+            public func getMessage() -> Openxc.ServerConnectSettings {
                 return builderResult
             }
-        }
-        @discardableResult
-        override public func clear() -> ServerConnectSettings.Builder {
-            builderResult = ServerConnectSettings()
-            return self
-        }
-        override public func clone() throws -> ServerConnectSettings.Builder {
-            return try ServerConnectSettings.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> ServerConnectSettings {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> ServerConnectSettings {
-            let returnMe:ServerConnectSettings = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:ServerConnectSettings) throws -> ServerConnectSettings.Builder {
-            if other == ServerConnectSettings() {
+
+            required override public init () {
+                super.init()
+            }
+            public var host:String {
+                get {
+                    return builderResult.host
+                }
+                set (value) {
+                    builderResult.hasHost = true
+                    builderResult.host = value
+                }
+            }
+            public var hasHost:Bool {
+                get {
+                    return builderResult.hasHost
+                }
+            }
+            @discardableResult
+            public func setHost(_ value:String) -> Openxc.ServerConnectSettings.Builder {
+                self.host = value
                 return self
             }
-            if other.hasHost {
-                host = other.host
+            @discardableResult
+            public func clearHost() -> Openxc.ServerConnectSettings.Builder{
+                builderResult.hasHost = false
+                builderResult.host = nil
+                return self
             }
-            if other.hasPort {
-                port = other.port
+            public var port:UInt32 {
+                get {
+                    return builderResult.port
+                }
+                set (value) {
+                    builderResult.hasPort = true
+                    builderResult.port = value
+                }
             }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> ServerConnectSettings.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> ServerConnectSettings.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
+            public var hasPort:Bool {
+                get {
+                    return builderResult.hasPort
+                }
+            }
+            @discardableResult
+            public func setPort(_ value:UInt32) -> Openxc.ServerConnectSettings.Builder {
+                self.port = value
+                return self
+            }
+            @discardableResult
+            public func clearPort() -> Openxc.ServerConnectSettings.Builder{
+                builderResult.hasPort = false
+                builderResult.port = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.ServerConnectSettings.Builder {
+                builderResult = Openxc.ServerConnectSettings()
+                return self
+            }
+            override public func clone() throws -> Openxc.ServerConnectSettings.Builder {
+                return try Openxc.ServerConnectSettings.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.ServerConnectSettings {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.ServerConnectSettings {
+                let returnMe:Openxc.ServerConnectSettings = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.ServerConnectSettings) throws -> Openxc.ServerConnectSettings.Builder {
+                if other == Openxc.ServerConnectSettings() {
                     return self
-
-                case 10:
-                    host = try codedInputStream.readString()
-
-                case 16:
-                    port = try codedInputStream.readUInt32()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
+                }
+                if other.hasHost {
+                    host = other.host
+                }
+                if other.hasPort {
+                    port = other.port
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.ServerConnectSettings.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.ServerConnectSettings.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
                         return self
+
+                    case 10:
+                        host = try codedInputStream.readString()
+
+                    case 16:
+                        port = try codedInputStream.readUInt32()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
                     }
                 }
             }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> ServerConnectSettings.Builder {
-            let resultDecodedBuilder = ServerConnectSettings.Builder()
-            if let jsonValueHost = jsonMap["host"] as? String {
-                resultDecodedBuilder.host = jsonValueHost
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.ServerConnectSettings.Builder {
+                let resultDecodedBuilder = Openxc.ServerConnectSettings.Builder()
+                if let jsonValueHost = jsonMap["host"] as? String {
+                    resultDecodedBuilder.host = jsonValueHost
+                }
+                if let jsonValuePort = jsonMap["port"] as? UInt {
+                    resultDecodedBuilder.port = UInt32(jsonValuePort)
+                } else if let jsonValuePort = jsonMap["port"] as? String {
+                    resultDecodedBuilder.port = UInt32(jsonValuePort)!
+                }
+                return resultDecodedBuilder
             }
-            if let jsonValuePort = jsonMap["port"] as? UInt {
-                resultDecodedBuilder.port = UInt32(jsonValuePort)
-            } else if let jsonValuePort = jsonMap["port"] as? String {
-                resultDecodedBuilder.port = UInt32(jsonValuePort)!
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.ServerConnectSettings.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.ServerConnectSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
-            return resultDecodedBuilder
         }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> ServerConnectSettings.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
+
+    }
+
+    final class ModemConfigurationCommand : GeneratedMessage {
+        public typealias BuilderType = Openxc.ModemConfigurationCommand.Builder
+
+        public static func == (lhs: Openxc.ModemConfigurationCommand, rhs: Openxc.ModemConfigurationCommand) -> Bool {
+            if lhs === rhs {
+                return true
             }
-            return try ServerConnectSettings.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class ModemConfigurationCommand : GeneratedMessage {
-    public typealias BuilderType = ModemConfigurationCommand.Builder
-
-    public static func == (lhs: ModemConfigurationCommand, rhs: ModemConfigurationCommand) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasNetworkOperatorSettings == rhs.hasNetworkOperatorSettings) && (!lhs.hasNetworkOperatorSettings || lhs.networkOperatorSettings == rhs.networkOperatorSettings)
-        fieldCheck = fieldCheck && (lhs.hasNetworkDataSettings == rhs.hasNetworkDataSettings) && (!lhs.hasNetworkDataSettings || lhs.networkDataSettings == rhs.networkDataSettings)
-        fieldCheck = fieldCheck && (lhs.hasServerConnectSettings == rhs.hasServerConnectSettings) && (!lhs.hasServerConnectSettings || lhs.serverConnectSettings == rhs.serverConnectSettings)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-    public fileprivate(set) var networkOperatorSettings:NetworkOperatorSettings!
-    public fileprivate(set) var hasNetworkOperatorSettings:Bool = false
-    public fileprivate(set) var networkDataSettings:NetworkDataSettings!
-    public fileprivate(set) var hasNetworkDataSettings:Bool = false
-    public fileprivate(set) var serverConnectSettings:ServerConnectSettings!
-    public fileprivate(set) var hasServerConnectSettings:Bool = false
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasNetworkOperatorSettings {
-            try codedOutputStream.writeMessage(fieldNumber: 1, value:networkOperatorSettings)
-        }
-        if hasNetworkDataSettings {
-            try codedOutputStream.writeMessage(fieldNumber: 2, value:networkDataSettings)
-        }
-        if hasServerConnectSettings {
-            try codedOutputStream.writeMessage(fieldNumber: 3, value:serverConnectSettings)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasNetworkOperatorSettings == rhs.hasNetworkOperatorSettings) && (!lhs.hasNetworkOperatorSettings || lhs.networkOperatorSettings == rhs.networkOperatorSettings)
+            fieldCheck = fieldCheck && (lhs.hasNetworkDataSettings == rhs.hasNetworkDataSettings) && (!lhs.hasNetworkDataSettings || lhs.networkDataSettings == rhs.networkDataSettings)
+            fieldCheck = fieldCheck && (lhs.hasServerConnectSettings == rhs.hasServerConnectSettings) && (!lhs.hasServerConnectSettings || lhs.serverConnectSettings == rhs.serverConnectSettings)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
         }
 
-        serialize_size = 0
-        if hasNetworkOperatorSettings,let varSizenetworkOperatorSettings = networkOperatorSettings?.computeMessageSize(fieldNumber: 1) {
-          
-                serialize_size += varSizenetworkOperatorSettings
-            
-        }
-        if hasNetworkDataSettings,let varSizenetworkDataSettings = networkDataSettings?.computeMessageSize(fieldNumber: 2) {
-           
-                serialize_size += varSizenetworkDataSettings
-          
-        }
-        if hasServerConnectSettings,let varSizeserverConnectSettings = serverConnectSettings?.computeMessageSize(fieldNumber: 3)  {
-          
-                serialize_size += varSizeserverConnectSettings
-            
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> ModemConfigurationCommand.Builder {
-        return ModemConfigurationCommand.classBuilder() as! ModemConfigurationCommand.Builder
-    }
-    public func getBuilder() -> ModemConfigurationCommand.Builder {
-        return classBuilder() as! ModemConfigurationCommand.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return ModemConfigurationCommand.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return ModemConfigurationCommand.Builder()
-    }
-    public func toBuilder() throws -> ModemConfigurationCommand.Builder {
-        return try ModemConfigurationCommand.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:ModemConfigurationCommand) throws -> ModemConfigurationCommand.Builder {
-        return try ModemConfigurationCommand.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasNetworkOperatorSettings {
-            jsonMap["networkOperatorSettings"] = try networkOperatorSettings.encode()
-        }
-        if hasNetworkDataSettings {
-            jsonMap["networkDataSettings"] = try networkDataSettings.encode()
-        }
-        if hasServerConnectSettings {
-            jsonMap["serverConnectSettings"] = try serverConnectSettings.encode()
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> ModemConfigurationCommand {
-        return try ModemConfigurationCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> ModemConfigurationCommand {
-        return try ModemConfigurationCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasNetworkOperatorSettings {
-            output += "\(indent) networkOperatorSettings {\n"
-            if let outDescNetworkOperatorSettings = networkOperatorSettings {
-                output += try outDescNetworkOperatorSettings.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasNetworkDataSettings {
-            output += "\(indent) networkDataSettings {\n"
-            if let outDescNetworkDataSettings = networkDataSettings {
-                output += try outDescNetworkDataSettings.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasServerConnectSettings {
-            output += "\(indent) serverConnectSettings {\n"
-            if let outDescServerConnectSettings = serverConnectSettings {
-                output += try outDescServerConnectSettings.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasNetworkOperatorSettings,let hashValuenetworkOperatorSettings = networkOperatorSettings?.hashValue {
-              
-                    hashCode = (hashCode &* 31) &+ hashValuenetworkOperatorSettings
-        
-            }
-            if hasNetworkDataSettings,let hashValuenetworkDataSettings = networkDataSettings?.hashValue  {
-              
-                    hashCode = (hashCode &* 31) &+ hashValuenetworkDataSettings
- 
-            }
-            if hasServerConnectSettings,let hashValueserverConnectSettings = serverConnectSettings?.hashValue {
-               
-                    hashCode = (hashCode &* 31) &+ hashValueserverConnectSettings
-            
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
-
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "ModemConfigurationCommand"
-    }
-    override public func className() -> String {
-        return "ModemConfigurationCommand"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:ModemConfigurationCommand = ModemConfigurationCommand()
-        public func getMessage() -> ModemConfigurationCommand {
-            return builderResult
-        }
-
-        required override public init () {
+        public fileprivate(set) var networkOperatorSettings:Openxc.NetworkOperatorSettings!
+        public fileprivate(set) var hasNetworkOperatorSettings:Bool = false
+        public fileprivate(set) var networkDataSettings:Openxc.NetworkDataSettings!
+        public fileprivate(set) var hasNetworkDataSettings:Bool = false
+        public fileprivate(set) var serverConnectSettings:Openxc.ServerConnectSettings!
+        public fileprivate(set) var hasServerConnectSettings:Bool = false
+        required public init() {
             super.init()
         }
-        public var networkOperatorSettings:NetworkOperatorSettings! {
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasNetworkOperatorSettings {
+                try codedOutputStream.writeMessage(fieldNumber: 1, value:networkOperatorSettings)
+            }
+            if hasNetworkDataSettings {
+                try codedOutputStream.writeMessage(fieldNumber: 2, value:networkDataSettings)
+            }
+            if hasServerConnectSettings {
+                try codedOutputStream.writeMessage(fieldNumber: 3, value:serverConnectSettings)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasNetworkOperatorSettings {
+                if let varSizenetworkOperatorSettings = networkOperatorSettings?.computeMessageSize(fieldNumber: 1) {
+                    serialize_size += varSizenetworkOperatorSettings
+                }
+            }
+            if hasNetworkDataSettings {
+                if let varSizenetworkDataSettings = networkDataSettings?.computeMessageSize(fieldNumber: 2) {
+                    serialize_size += varSizenetworkDataSettings
+                }
+            }
+            if hasServerConnectSettings {
+                if let varSizeserverConnectSettings = serverConnectSettings?.computeMessageSize(fieldNumber: 3) {
+                    serialize_size += varSizeserverConnectSettings
+                }
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.ModemConfigurationCommand.Builder {
+            return Openxc.ModemConfigurationCommand.classBuilder() as! Openxc.ModemConfigurationCommand.Builder
+        }
+        public func getBuilder() -> Openxc.ModemConfigurationCommand.Builder {
+            return classBuilder() as! Openxc.ModemConfigurationCommand.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.ModemConfigurationCommand.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.ModemConfigurationCommand.Builder()
+        }
+        public func toBuilder() throws -> Openxc.ModemConfigurationCommand.Builder {
+            return try Openxc.ModemConfigurationCommand.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.ModemConfigurationCommand) throws -> Openxc.ModemConfigurationCommand.Builder {
+            return try Openxc.ModemConfigurationCommand.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasNetworkOperatorSettings {
+                jsonMap["networkOperatorSettings"] = try networkOperatorSettings.encode()
+            }
+            if hasNetworkDataSettings {
+                jsonMap["networkDataSettings"] = try networkDataSettings.encode()
+            }
+            if hasServerConnectSettings {
+                jsonMap["serverConnectSettings"] = try serverConnectSettings.encode()
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.ModemConfigurationCommand {
+            return try Openxc.ModemConfigurationCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.ModemConfigurationCommand {
+            return try Openxc.ModemConfigurationCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasNetworkOperatorSettings {
+                output += "\(indent) networkOperatorSettings {\n"
+                if let outDescNetworkOperatorSettings = networkOperatorSettings {
+                    output += try outDescNetworkOperatorSettings.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasNetworkDataSettings {
+                output += "\(indent) networkDataSettings {\n"
+                if let outDescNetworkDataSettings = networkDataSettings {
+                    output += try outDescNetworkDataSettings.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasServerConnectSettings {
+                output += "\(indent) serverConnectSettings {\n"
+                if let outDescServerConnectSettings = serverConnectSettings {
+                    output += try outDescServerConnectSettings.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
             get {
-                if networkOperatorSettingsBuilder_ != nil {
+                var hashCode:Int = 7
+                if hasNetworkOperatorSettings {
+                    if let hashValuenetworkOperatorSettings = networkOperatorSettings?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuenetworkOperatorSettings
+                    }
+                }
+                if hasNetworkDataSettings {
+                    if let hashValuenetworkDataSettings = networkDataSettings?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuenetworkDataSettings
+                    }
+                }
+                if hasServerConnectSettings {
+                    if let hashValueserverConnectSettings = serverConnectSettings?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValueserverConnectSettings
+                    }
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.ModemConfigurationCommand"
+        }
+        override public func className() -> String {
+            return "Openxc.ModemConfigurationCommand"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.ModemConfigurationCommand = Openxc.ModemConfigurationCommand()
+            public func getMessage() -> Openxc.ModemConfigurationCommand {
+                return builderResult
+            }
+
+            required override public init () {
+                super.init()
+            }
+            public var networkOperatorSettings:Openxc.NetworkOperatorSettings! {
+                get {
+                    if networkOperatorSettingsBuilder_ != nil {
+                        builderResult.networkOperatorSettings = networkOperatorSettingsBuilder_.getMessage()
+                    }
+                    return builderResult.networkOperatorSettings
+                }
+                set (value) {
+                    builderResult.hasNetworkOperatorSettings = value != nil
+                    builderResult.networkOperatorSettings = value
+                }
+            }
+            public var hasNetworkOperatorSettings:Bool {
+                get {
+                    return builderResult.hasNetworkOperatorSettings
+                }
+            }
+            fileprivate var networkOperatorSettingsBuilder_:Openxc.NetworkOperatorSettings.Builder! {
+                didSet {
+                    builderResult.hasNetworkOperatorSettings = true
+                }
+            }
+            public func getNetworkOperatorSettingsBuilder() -> Openxc.NetworkOperatorSettings.Builder {
+                if networkOperatorSettingsBuilder_ == nil {
+                    networkOperatorSettingsBuilder_ = Openxc.NetworkOperatorSettings.Builder()
                     builderResult.networkOperatorSettings = networkOperatorSettingsBuilder_.getMessage()
-                }
-                return builderResult.networkOperatorSettings
-            }
-            set (value) {
-                builderResult.hasNetworkOperatorSettings = value != nil
-                builderResult.networkOperatorSettings = value
-            }
-        }
-        public var hasNetworkOperatorSettings:Bool {
-            get {
-                return builderResult.hasNetworkOperatorSettings
-            }
-        }
-        fileprivate var networkOperatorSettingsBuilder_:NetworkOperatorSettings.Builder! {
-            didSet {
-                builderResult.hasNetworkOperatorSettings = true
-            }
-        }
-        public func getNetworkOperatorSettingsBuilder() -> NetworkOperatorSettings.Builder {
-            if networkOperatorSettingsBuilder_ == nil {
-                networkOperatorSettingsBuilder_ = NetworkOperatorSettings.Builder()
-                builderResult.networkOperatorSettings = networkOperatorSettingsBuilder_.getMessage()
-                if networkOperatorSettings != nil {
-                    do{
-                         try networkOperatorSettingsBuilder_.mergeFrom(other: networkOperatorSettings)
-                    }catch let error{
-                       print("Error: \(error)")
+                    if networkOperatorSettings != nil {
+                        try! networkOperatorSettingsBuilder_.mergeFrom(other: networkOperatorSettings)
                     }
-                   
                 }
+                return networkOperatorSettingsBuilder_
             }
-            return networkOperatorSettingsBuilder_
-        }
-        @discardableResult
-        public func setNetworkOperatorSettings(_ value:NetworkOperatorSettings!) -> ModemConfigurationCommand.Builder {
-            self.networkOperatorSettings = value
-            return self
-        }
-        @discardableResult
-        public func mergeNetworkOperatorSettings(value:NetworkOperatorSettings) throws -> ModemConfigurationCommand.Builder {
-            if builderResult.hasNetworkOperatorSettings {
-                builderResult.networkOperatorSettings = try NetworkOperatorSettings.builderWithPrototype(prototype:builderResult.networkOperatorSettings).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.networkOperatorSettings = value
-            }
-            builderResult.hasNetworkOperatorSettings = true
-            return self
-        }
-        @discardableResult
-        public func clearNetworkOperatorSettings() -> ModemConfigurationCommand.Builder {
-            networkOperatorSettingsBuilder_ = nil
-            builderResult.hasNetworkOperatorSettings = false
-            builderResult.networkOperatorSettings = nil
-            return self
-        }
-        public var networkDataSettings:NetworkDataSettings! {
-            get {
-                if networkDataSettingsBuilder_ != nil {
-                    builderResult.networkDataSettings = networkDataSettingsBuilder_.getMessage()
-                }
-                return builderResult.networkDataSettings
-            }
-            set (value) {
-                builderResult.hasNetworkDataSettings = value != nil
-                builderResult.networkDataSettings = value
-            }
-        }
-        public var hasNetworkDataSettings:Bool {
-            get {
-                return builderResult.hasNetworkDataSettings
-            }
-        }
-        fileprivate var networkDataSettingsBuilder_:NetworkDataSettings.Builder! {
-            didSet {
-                builderResult.hasNetworkDataSettings = true
-            }
-        }
-        public func getNetworkDataSettingsBuilder() -> NetworkDataSettings.Builder {
-            if networkDataSettingsBuilder_ == nil {
-                networkDataSettingsBuilder_ = NetworkDataSettings.Builder()
-                builderResult.networkDataSettings = networkDataSettingsBuilder_.getMessage()
-                if networkDataSettings != nil {
-                    do{
-                        try networkDataSettingsBuilder_.mergeFrom(other: networkDataSettings)
-                    }catch let error{
-                        print("Error: \(error)")
-                    }
-                   
-                }
-            }
-            return networkDataSettingsBuilder_
-        }
-        @discardableResult
-        public func setNetworkDataSettings(_ value:NetworkDataSettings!) -> ModemConfigurationCommand.Builder {
-            self.networkDataSettings = value
-            return self
-        }
-        @discardableResult
-        public func mergeNetworkDataSettings(value:NetworkDataSettings) throws -> ModemConfigurationCommand.Builder {
-            if builderResult.hasNetworkDataSettings {
-                builderResult.networkDataSettings = try NetworkDataSettings.builderWithPrototype(prototype:builderResult.networkDataSettings).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.networkDataSettings = value
-            }
-            builderResult.hasNetworkDataSettings = true
-            return self
-        }
-        @discardableResult
-        public func clearNetworkDataSettings() -> ModemConfigurationCommand.Builder {
-            networkDataSettingsBuilder_ = nil
-            builderResult.hasNetworkDataSettings = false
-            builderResult.networkDataSettings = nil
-            return self
-        }
-        public var serverConnectSettings:ServerConnectSettings! {
-            get {
-                if serverConnectSettingsBuilder_ != nil {
-                    builderResult.serverConnectSettings = serverConnectSettingsBuilder_.getMessage()
-                }
-                return builderResult.serverConnectSettings
-            }
-            set (value) {
-                builderResult.hasServerConnectSettings = value != nil
-                builderResult.serverConnectSettings = value
-            }
-        }
-        public var hasServerConnectSettings:Bool {
-            get {
-                return builderResult.hasServerConnectSettings
-            }
-        }
-        fileprivate var serverConnectSettingsBuilder_:ServerConnectSettings.Builder! {
-            didSet {
-                builderResult.hasServerConnectSettings = true
-            }
-        }
-        public func getServerConnectSettingsBuilder() -> ServerConnectSettings.Builder {
-            if serverConnectSettingsBuilder_ == nil {
-                serverConnectSettingsBuilder_ = ServerConnectSettings.Builder()
-                builderResult.serverConnectSettings = serverConnectSettingsBuilder_.getMessage()
-                if serverConnectSettings != nil {
-                    do{
-                         try serverConnectSettingsBuilder_.mergeFrom(other: serverConnectSettings)
-                    }catch let error{
-                        print("Error: \(error)")
-                    }
-                   
-                }
-            }
-            return serverConnectSettingsBuilder_
-        }
-        @discardableResult
-        public func setServerConnectSettings(_ value:ServerConnectSettings!) -> ModemConfigurationCommand.Builder {
-            self.serverConnectSettings = value
-            return self
-        }
-        @discardableResult
-        public func mergeServerConnectSettings(value:ServerConnectSettings) throws -> ModemConfigurationCommand.Builder {
-            if builderResult.hasServerConnectSettings {
-                builderResult.serverConnectSettings = try ServerConnectSettings.builderWithPrototype(prototype:builderResult.serverConnectSettings).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.serverConnectSettings = value
-            }
-            builderResult.hasServerConnectSettings = true
-            return self
-        }
-        @discardableResult
-        public func clearServerConnectSettings() -> ModemConfigurationCommand.Builder {
-            serverConnectSettingsBuilder_ = nil
-            builderResult.hasServerConnectSettings = false
-            builderResult.serverConnectSettings = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> ModemConfigurationCommand.Builder {
-            builderResult = ModemConfigurationCommand()
-            return self
-        }
-        override public func clone() throws -> ModemConfigurationCommand.Builder {
-            return try ModemConfigurationCommand.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> ModemConfigurationCommand {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> ModemConfigurationCommand {
-            let returnMe:ModemConfigurationCommand = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:ModemConfigurationCommand) throws -> ModemConfigurationCommand.Builder {
-            if other == ModemConfigurationCommand() {
+            @discardableResult
+            public func setNetworkOperatorSettings(_ value:Openxc.NetworkOperatorSettings!) -> Openxc.ModemConfigurationCommand.Builder {
+                self.networkOperatorSettings = value
                 return self
             }
-            if (other.hasNetworkOperatorSettings) {
-                try mergeNetworkOperatorSettings(value: other.networkOperatorSettings)
+            @discardableResult
+            public func mergeNetworkOperatorSettings(value:Openxc.NetworkOperatorSettings) throws -> Openxc.ModemConfigurationCommand.Builder {
+                if builderResult.hasNetworkOperatorSettings {
+                    builderResult.networkOperatorSettings = try Openxc.NetworkOperatorSettings.builderWithPrototype(prototype:builderResult.networkOperatorSettings).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.networkOperatorSettings = value
+                }
+                builderResult.hasNetworkOperatorSettings = true
+                return self
             }
-            if (other.hasNetworkDataSettings) {
-                try mergeNetworkDataSettings(value: other.networkDataSettings)
+            @discardableResult
+            public func clearNetworkOperatorSettings() -> Openxc.ModemConfigurationCommand.Builder {
+                networkOperatorSettingsBuilder_ = nil
+                builderResult.hasNetworkOperatorSettings = false
+                builderResult.networkOperatorSettings = nil
+                return self
             }
-            if (other.hasServerConnectSettings) {
-                try mergeServerConnectSettings(value: other.serverConnectSettings)
+            public var networkDataSettings:Openxc.NetworkDataSettings! {
+                get {
+                    if networkDataSettingsBuilder_ != nil {
+                        builderResult.networkDataSettings = networkDataSettingsBuilder_.getMessage()
+                    }
+                    return builderResult.networkDataSettings
+                }
+                set (value) {
+                    builderResult.hasNetworkDataSettings = value != nil
+                    builderResult.networkDataSettings = value
+                }
             }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> ModemConfigurationCommand.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> ModemConfigurationCommand.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
+            public var hasNetworkDataSettings:Bool {
+                get {
+                    return builderResult.hasNetworkDataSettings
+                }
+            }
+            fileprivate var networkDataSettingsBuilder_:Openxc.NetworkDataSettings.Builder! {
+                didSet {
+                    builderResult.hasNetworkDataSettings = true
+                }
+            }
+            public func getNetworkDataSettingsBuilder() -> Openxc.NetworkDataSettings.Builder {
+                if networkDataSettingsBuilder_ == nil {
+                    networkDataSettingsBuilder_ = Openxc.NetworkDataSettings.Builder()
+                    builderResult.networkDataSettings = networkDataSettingsBuilder_.getMessage()
+                    if networkDataSettings != nil {
+                        try! networkDataSettingsBuilder_.mergeFrom(other: networkDataSettings)
+                    }
+                }
+                return networkDataSettingsBuilder_
+            }
+            @discardableResult
+            public func setNetworkDataSettings(_ value:Openxc.NetworkDataSettings!) -> Openxc.ModemConfigurationCommand.Builder {
+                self.networkDataSettings = value
+                return self
+            }
+            @discardableResult
+            public func mergeNetworkDataSettings(value:Openxc.NetworkDataSettings) throws -> Openxc.ModemConfigurationCommand.Builder {
+                if builderResult.hasNetworkDataSettings {
+                    builderResult.networkDataSettings = try Openxc.NetworkDataSettings.builderWithPrototype(prototype:builderResult.networkDataSettings).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.networkDataSettings = value
+                }
+                builderResult.hasNetworkDataSettings = true
+                return self
+            }
+            @discardableResult
+            public func clearNetworkDataSettings() -> Openxc.ModemConfigurationCommand.Builder {
+                networkDataSettingsBuilder_ = nil
+                builderResult.hasNetworkDataSettings = false
+                builderResult.networkDataSettings = nil
+                return self
+            }
+            public var serverConnectSettings:Openxc.ServerConnectSettings! {
+                get {
+                    if serverConnectSettingsBuilder_ != nil {
+                        builderResult.serverConnectSettings = serverConnectSettingsBuilder_.getMessage()
+                    }
+                    return builderResult.serverConnectSettings
+                }
+                set (value) {
+                    builderResult.hasServerConnectSettings = value != nil
+                    builderResult.serverConnectSettings = value
+                }
+            }
+            public var hasServerConnectSettings:Bool {
+                get {
+                    return builderResult.hasServerConnectSettings
+                }
+            }
+            fileprivate var serverConnectSettingsBuilder_:Openxc.ServerConnectSettings.Builder! {
+                didSet {
+                    builderResult.hasServerConnectSettings = true
+                }
+            }
+            public func getServerConnectSettingsBuilder() -> Openxc.ServerConnectSettings.Builder {
+                if serverConnectSettingsBuilder_ == nil {
+                    serverConnectSettingsBuilder_ = Openxc.ServerConnectSettings.Builder()
+                    builderResult.serverConnectSettings = serverConnectSettingsBuilder_.getMessage()
+                    if serverConnectSettings != nil {
+                        try! serverConnectSettingsBuilder_.mergeFrom(other: serverConnectSettings)
+                    }
+                }
+                return serverConnectSettingsBuilder_
+            }
+            @discardableResult
+            public func setServerConnectSettings(_ value:Openxc.ServerConnectSettings!) -> Openxc.ModemConfigurationCommand.Builder {
+                self.serverConnectSettings = value
+                return self
+            }
+            @discardableResult
+            public func mergeServerConnectSettings(value:Openxc.ServerConnectSettings) throws -> Openxc.ModemConfigurationCommand.Builder {
+                if builderResult.hasServerConnectSettings {
+                    builderResult.serverConnectSettings = try Openxc.ServerConnectSettings.builderWithPrototype(prototype:builderResult.serverConnectSettings).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.serverConnectSettings = value
+                }
+                builderResult.hasServerConnectSettings = true
+                return self
+            }
+            @discardableResult
+            public func clearServerConnectSettings() -> Openxc.ModemConfigurationCommand.Builder {
+                serverConnectSettingsBuilder_ = nil
+                builderResult.hasServerConnectSettings = false
+                builderResult.serverConnectSettings = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.ModemConfigurationCommand.Builder {
+                builderResult = Openxc.ModemConfigurationCommand()
+                return self
+            }
+            override public func clone() throws -> Openxc.ModemConfigurationCommand.Builder {
+                return try Openxc.ModemConfigurationCommand.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.ModemConfigurationCommand {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.ModemConfigurationCommand {
+                let returnMe:Openxc.ModemConfigurationCommand = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.ModemConfigurationCommand) throws -> Openxc.ModemConfigurationCommand.Builder {
+                if other == Openxc.ModemConfigurationCommand() {
                     return self
-
-                case 10:
-                    let subBuilder:NetworkOperatorSettings.Builder = NetworkOperatorSettings.Builder()
-                    if hasNetworkOperatorSettings {
-                        try subBuilder.mergeFrom(other: networkOperatorSettings)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    networkOperatorSettings = subBuilder.buildPartial()
-
-                case 18:
-                    let subBuilder:NetworkDataSettings.Builder = NetworkDataSettings.Builder()
-                    if hasNetworkDataSettings {
-                        try subBuilder.mergeFrom(other: networkDataSettings)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    networkDataSettings = subBuilder.buildPartial()
-
-                case 26:
-                    let subBuilder:ServerConnectSettings.Builder = ServerConnectSettings.Builder()
-                    if hasServerConnectSettings {
-                        try subBuilder.mergeFrom(other: serverConnectSettings)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    serverConnectSettings = subBuilder.buildPartial()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
+                }
+                if (other.hasNetworkOperatorSettings) {
+                    try mergeNetworkOperatorSettings(value: other.networkOperatorSettings)
+                }
+                if (other.hasNetworkDataSettings) {
+                    try mergeNetworkDataSettings(value: other.networkDataSettings)
+                }
+                if (other.hasServerConnectSettings) {
+                    try mergeServerConnectSettings(value: other.serverConnectSettings)
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.ModemConfigurationCommand.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.ModemConfigurationCommand.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
                         return self
+
+                    case 10:
+                        let subBuilder:Openxc.NetworkOperatorSettings.Builder = Openxc.NetworkOperatorSettings.Builder()
+                        if hasNetworkOperatorSettings {
+                            try subBuilder.mergeFrom(other: networkOperatorSettings)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        networkOperatorSettings = subBuilder.buildPartial()
+
+                    case 18:
+                        let subBuilder:Openxc.NetworkDataSettings.Builder = Openxc.NetworkDataSettings.Builder()
+                        if hasNetworkDataSettings {
+                            try subBuilder.mergeFrom(other: networkDataSettings)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        networkDataSettings = subBuilder.buildPartial()
+
+                    case 26:
+                        let subBuilder:Openxc.ServerConnectSettings.Builder = Openxc.ServerConnectSettings.Builder()
+                        if hasServerConnectSettings {
+                            try subBuilder.mergeFrom(other: serverConnectSettings)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        serverConnectSettings = subBuilder.buildPartial()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
                     }
                 }
             }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> ModemConfigurationCommand.Builder {
-            let resultDecodedBuilder = ModemConfigurationCommand.Builder()
-            if let jsonValueNetworkOperatorSettings = jsonMap["networkOperatorSettings"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.networkOperatorSettings = try NetworkOperatorSettings.Builder.decodeToBuilder(jsonMap:jsonValueNetworkOperatorSettings).build()
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.ModemConfigurationCommand.Builder {
+                let resultDecodedBuilder = Openxc.ModemConfigurationCommand.Builder()
+                if let jsonValueNetworkOperatorSettings = jsonMap["networkOperatorSettings"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.networkOperatorSettings = try Openxc.NetworkOperatorSettings.Builder.decodeToBuilder(jsonMap:jsonValueNetworkOperatorSettings).build()
 
+                }
+                if let jsonValueNetworkDataSettings = jsonMap["networkDataSettings"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.networkDataSettings = try Openxc.NetworkDataSettings.Builder.decodeToBuilder(jsonMap:jsonValueNetworkDataSettings).build()
+
+                }
+                if let jsonValueServerConnectSettings = jsonMap["serverConnectSettings"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.serverConnectSettings = try Openxc.ServerConnectSettings.Builder.decodeToBuilder(jsonMap:jsonValueServerConnectSettings).build()
+
+                }
+                return resultDecodedBuilder
             }
-            if let jsonValueNetworkDataSettings = jsonMap["networkDataSettings"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.networkDataSettings = try NetworkDataSettings.Builder.decodeToBuilder(jsonMap:jsonValueNetworkDataSettings).build()
-
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.ModemConfigurationCommand.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.ModemConfigurationCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
-            if let jsonValueServerConnectSettings = jsonMap["serverConnectSettings"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.serverConnectSettings = try ServerConnectSettings.Builder.decodeToBuilder(jsonMap:jsonValueServerConnectSettings).build()
+        }
 
+    }
+
+    final class RtcconfigurationCommand : GeneratedMessage {
+        public typealias BuilderType = Openxc.RtcconfigurationCommand.Builder
+
+        public static func == (lhs: Openxc.RtcconfigurationCommand, rhs: Openxc.RtcconfigurationCommand) -> Bool {
+            if lhs === rhs {
+                return true
             }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> ModemConfigurationCommand.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try ModemConfigurationCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class RtcconfigurationCommand : GeneratedMessage {
-    public typealias BuilderType = RtcconfigurationCommand.Builder
-
-    public static func == (lhs: RtcconfigurationCommand, rhs: RtcconfigurationCommand) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasUnixTime == rhs.hasUnixTime) && (!lhs.hasUnixTime || lhs.unixTime == rhs.unixTime)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-    public fileprivate(set) var unixTime:UInt32! = nil
-    public fileprivate(set) var hasUnixTime:Bool = false
-
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasUnixTime {
-            try codedOutputStream.writeUInt32(fieldNumber: 1, value:unixTime)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasUnixTime == rhs.hasUnixTime) && (!lhs.hasUnixTime || lhs.unixTime == rhs.unixTime)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
         }
 
-        serialize_size = 0
-        if hasUnixTime {
-            serialize_size += unixTime.computeUInt32Size(fieldNumber: 1)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> RtcconfigurationCommand.Builder {
-        return RtcconfigurationCommand.classBuilder() as! RtcconfigurationCommand.Builder
-    }
-    public func getBuilder() -> RtcconfigurationCommand.Builder {
-        return classBuilder() as! RtcconfigurationCommand.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return RtcconfigurationCommand.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return RtcconfigurationCommand.Builder()
-    }
-    public func toBuilder() throws -> RtcconfigurationCommand.Builder {
-        return try RtcconfigurationCommand.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:RtcconfigurationCommand) throws -> RtcconfigurationCommand.Builder {
-        return try RtcconfigurationCommand.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasUnixTime {
-            jsonMap["unixTime"] = UInt(unixTime)
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> RtcconfigurationCommand {
-        return try RtcconfigurationCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> RtcconfigurationCommand {
-        return try RtcconfigurationCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasUnixTime {
-            output += "\(indent) unixTime: \(String(describing: unixTime)) \n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasUnixTime {
-                hashCode = (hashCode &* 31) &+ unixTime.hashValue
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
+        public fileprivate(set) var unixTime:UInt32! = nil
+        public fileprivate(set) var hasUnixTime:Bool = false
 
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "RtcconfigurationCommand"
-    }
-    override public func className() -> String {
-        return "RtcconfigurationCommand"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:RtcconfigurationCommand = RtcconfigurationCommand()
-        public func getMessage() -> RtcconfigurationCommand {
-            return builderResult
-        }
-
-        required override public init () {
+        required public init() {
             super.init()
         }
-        public var unixTime:UInt32 {
-            get {
-                return builderResult.unixTime
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasUnixTime {
+                try codedOutputStream.writeUInt32(fieldNumber: 1, value:unixTime)
             }
-            set (value) {
-                builderResult.hasUnixTime = true
-                builderResult.unixTime = value
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasUnixTime {
+                serialize_size += unixTime.computeUInt32Size(fieldNumber: 1)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.RtcconfigurationCommand.Builder {
+            return Openxc.RtcconfigurationCommand.classBuilder() as! Openxc.RtcconfigurationCommand.Builder
+        }
+        public func getBuilder() -> Openxc.RtcconfigurationCommand.Builder {
+            return classBuilder() as! Openxc.RtcconfigurationCommand.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.RtcconfigurationCommand.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.RtcconfigurationCommand.Builder()
+        }
+        public func toBuilder() throws -> Openxc.RtcconfigurationCommand.Builder {
+            return try Openxc.RtcconfigurationCommand.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.RtcconfigurationCommand) throws -> Openxc.RtcconfigurationCommand.Builder {
+            return try Openxc.RtcconfigurationCommand.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasUnixTime {
+                jsonMap["unixTime"] = UInt(unixTime)
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.RtcconfigurationCommand {
+            return try Openxc.RtcconfigurationCommand.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.RtcconfigurationCommand {
+            return try Openxc.RtcconfigurationCommand.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasUnixTime {
+                output += "\(indent) unixTime: \(String(describing: unixTime)) \n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasUnixTime {
+                    hashCode = (hashCode &* 31) &+ unixTime.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
             }
         }
-        public var hasUnixTime:Bool {
-            get {
-                return builderResult.hasUnixTime
-            }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.RtcconfigurationCommand"
         }
-        @discardableResult
-        public func setUnixTime(_ value:UInt32) -> RtcconfigurationCommand.Builder {
-            self.unixTime = value
-            return self
+        override public func className() -> String {
+            return "Openxc.RtcconfigurationCommand"
         }
-        @discardableResult
-        public func clearUnixTime() -> RtcconfigurationCommand.Builder{
-            builderResult.hasUnixTime = false
-            builderResult.unixTime = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.RtcconfigurationCommand = Openxc.RtcconfigurationCommand()
+            public func getMessage() -> Openxc.RtcconfigurationCommand {
                 return builderResult
             }
-        }
-        @discardableResult
-        override public func clear() -> RtcconfigurationCommand.Builder {
-            builderResult = RtcconfigurationCommand()
-            return self
-        }
-        override public func clone() throws -> RtcconfigurationCommand.Builder {
-            return try RtcconfigurationCommand.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> RtcconfigurationCommand {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> RtcconfigurationCommand {
-            let returnMe:RtcconfigurationCommand = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:RtcconfigurationCommand) throws -> RtcconfigurationCommand.Builder {
-            if other == RtcconfigurationCommand() {
+
+            required override public init () {
+                super.init()
+            }
+            public var unixTime:UInt32 {
+                get {
+                    return builderResult.unixTime
+                }
+                set (value) {
+                    builderResult.hasUnixTime = true
+                    builderResult.unixTime = value
+                }
+            }
+            public var hasUnixTime:Bool {
+                get {
+                    return builderResult.hasUnixTime
+                }
+            }
+            @discardableResult
+            public func setUnixTime(_ value:UInt32) -> Openxc.RtcconfigurationCommand.Builder {
+                self.unixTime = value
                 return self
             }
-            if other.hasUnixTime {
-                unixTime = other.unixTime
+            @discardableResult
+            public func clearUnixTime() -> Openxc.RtcconfigurationCommand.Builder{
+                builderResult.hasUnixTime = false
+                builderResult.unixTime = nil
+                return self
             }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> RtcconfigurationCommand.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> RtcconfigurationCommand.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.RtcconfigurationCommand.Builder {
+                builderResult = Openxc.RtcconfigurationCommand()
+                return self
+            }
+            override public func clone() throws -> Openxc.RtcconfigurationCommand.Builder {
+                return try Openxc.RtcconfigurationCommand.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.RtcconfigurationCommand {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.RtcconfigurationCommand {
+                let returnMe:Openxc.RtcconfigurationCommand = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.RtcconfigurationCommand) throws -> Openxc.RtcconfigurationCommand.Builder {
+                if other == Openxc.RtcconfigurationCommand() {
                     return self
-
-                case 8:
-                    unixTime = try codedInputStream.readUInt32()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
+                }
+                if other.hasUnixTime {
+                    unixTime = other.unixTime
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.RtcconfigurationCommand.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.RtcconfigurationCommand.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
                         return self
+
+                    case 8:
+                        unixTime = try codedInputStream.readUInt32()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
                     }
                 }
             }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> RtcconfigurationCommand.Builder {
-            let resultDecodedBuilder = RtcconfigurationCommand.Builder()
-            if let jsonValueUnixTime = jsonMap["unixTime"] as? UInt {
-                resultDecodedBuilder.unixTime = UInt32(jsonValueUnixTime)
-            } else if let jsonValueUnixTime = jsonMap["unixTime"] as? String {
-                resultDecodedBuilder.unixTime = UInt32(jsonValueUnixTime)!
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.RtcconfigurationCommand.Builder {
+                let resultDecodedBuilder = Openxc.RtcconfigurationCommand.Builder()
+                if let jsonValueUnixTime = jsonMap["unixTime"] as? UInt {
+                    resultDecodedBuilder.unixTime = UInt32(jsonValueUnixTime)
+                } else if let jsonValueUnixTime = jsonMap["unixTime"] as? String {
+                    resultDecodedBuilder.unixTime = UInt32(jsonValueUnixTime)!
+                }
+                return resultDecodedBuilder
             }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> RtcconfigurationCommand.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.RtcconfigurationCommand.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.RtcconfigurationCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
-            return try RtcconfigurationCommand.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class CommandResponse : GeneratedMessage {
-    public typealias BuilderType = CommandResponse.Builder
-
-    public static func == (lhs: CommandResponse, rhs: CommandResponse) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
-        fieldCheck = fieldCheck && (lhs.hasMessage == rhs.hasMessage) && (!lhs.hasMessage || lhs.message == rhs.message)
-        fieldCheck = fieldCheck && (lhs.hasStatus == rhs.hasStatus) && (!lhs.hasStatus || lhs.status == rhs.status)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-    public fileprivate(set) var type:ControlCommand.ProtoType = ControlCommand.ProtoType.unused
-    public fileprivate(set) var hasType:Bool = false
-    public fileprivate(set) var message:String = ""
-    public fileprivate(set) var hasMessage:Bool = false
-
-    public fileprivate(set) var status:Bool = false
-    public fileprivate(set) var hasStatus:Bool = false
-
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasType {
-            try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
-        }
-        if hasMessage {
-            try codedOutputStream.writeString(fieldNumber: 2, value:message)
-        }
-        if hasStatus {
-            try codedOutputStream.writeBool(fieldNumber: 3, value:status)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
         }
 
-        serialize_size = 0
-        if (hasType) {
-            serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
+    }
+
+    final class CommandResponse : GeneratedMessage {
+        public typealias BuilderType = Openxc.CommandResponse.Builder
+
+        public static func == (lhs: Openxc.CommandResponse, rhs: Openxc.CommandResponse) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
+            fieldCheck = fieldCheck && (lhs.hasMessage == rhs.hasMessage) && (!lhs.hasMessage || lhs.message == rhs.message)
+            fieldCheck = fieldCheck && (lhs.hasStatus == rhs.hasStatus) && (!lhs.hasStatus || lhs.status == rhs.status)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
         }
-        if hasMessage {
-            serialize_size += message.computeStringSize(fieldNumber: 2)
+
+        public fileprivate(set) var type:Openxc.ControlCommand.ProtoType = Openxc.ControlCommand.ProtoType.unused
+        public fileprivate(set) var hasType:Bool = false
+        public fileprivate(set) var message:String! = nil
+        public fileprivate(set) var hasMessage:Bool = false
+
+        public fileprivate(set) var status:Bool! = nil
+        public fileprivate(set) var hasStatus:Bool = false
+
+        required public init() {
+            super.init()
         }
-        if hasStatus {
-            serialize_size += status.computeBoolSize(fieldNumber: 3)
+        override public func isInitialized() throws {
         }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> CommandResponse.Builder {
-        return CommandResponse.classBuilder() as! CommandResponse.Builder
-    }
-    public func getBuilder() -> CommandResponse.Builder {
-        return classBuilder() as! CommandResponse.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return CommandResponse.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return CommandResponse.Builder()
-    }
-    public func toBuilder() throws -> CommandResponse.Builder {
-        return try CommandResponse.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:CommandResponse) throws -> CommandResponse.Builder {
-        return try CommandResponse.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasType {
-            jsonMap["type"] = type.toString()
-        }
-        if hasMessage {
-            jsonMap["message"] = message
-        }
-        if hasStatus {
-            jsonMap["status"] = status
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> CommandResponse {
-        return try CommandResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> CommandResponse {
-        return try CommandResponse.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if (hasType) {
-            output += "\(indent) type: \(type.description)\n"
-        }
-        if hasMessage {
-            output += "\(indent) message: \(String(describing: message)) \n"
-        }
-        if hasStatus {
-            output += "\(indent) status: \(String(describing: status)) \n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
             if hasType {
-                 hashCode = (hashCode &* 31) &+ type.hashValue
+                try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
             }
             if hasMessage {
-                hashCode = (hashCode &* 31) &+ message.hashValue
+                try codedOutputStream.writeString(fieldNumber: 2, value:message)
             }
             if hasStatus {
-                hashCode = (hashCode &* 31) &+ status.hashValue
+                try codedOutputStream.writeBool(fieldNumber: 3, value:status)
             }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
-    }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
 
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "CommandResponse"
-    }
-    override public func className() -> String {
-        return "CommandResponse"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:CommandResponse = CommandResponse()
-        public func getMessage() -> CommandResponse {
-            return builderResult
+            serialize_size = 0
+            if (hasType) {
+                serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
+            }
+            if hasMessage {
+                serialize_size += message.computeStringSize(fieldNumber: 2)
+            }
+            if hasStatus {
+                serialize_size += status.computeBoolSize(fieldNumber: 3)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
         }
-
-        required override public init () {
-            super.init()
+        public class func getBuilder() -> Openxc.CommandResponse.Builder {
+            return Openxc.CommandResponse.classBuilder() as! Openxc.CommandResponse.Builder
         }
-            public var type:ControlCommand.ProtoType {
-                get {
-                    return builderResult.type
+        public func getBuilder() -> Openxc.CommandResponse.Builder {
+            return classBuilder() as! Openxc.CommandResponse.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.CommandResponse.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.CommandResponse.Builder()
+        }
+        public func toBuilder() throws -> Openxc.CommandResponse.Builder {
+            return try Openxc.CommandResponse.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.CommandResponse) throws -> Openxc.CommandResponse.Builder {
+            return try Openxc.CommandResponse.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasType {
+                jsonMap["type"] = type.toString()
+            }
+            if hasMessage {
+                jsonMap["message"] = message
+            }
+            if hasStatus {
+                jsonMap["status"] = status
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.CommandResponse {
+            return try Openxc.CommandResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.CommandResponse {
+            return try Openxc.CommandResponse.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if (hasType) {
+                output += "\(indent) type: \(type.description)\n"
+            }
+            if hasMessage {
+                output += "\(indent) message: \(String(describing: message)) \n"
+            }
+            if hasStatus {
+                output += "\(indent) status: \(String(describing: status)) \n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasType {
+                     hashCode = (hashCode &* 31) &+ type.hashValue
                 }
-                set (value) {
-                    builderResult.hasType = true
-                    builderResult.type = value
+                if hasMessage {
+                    hashCode = (hashCode &* 31) &+ message.hashValue
                 }
-            }
-            public var hasType:Bool{
-                get {
-                    return builderResult.hasType
+                if hasStatus {
+                    hashCode = (hashCode &* 31) &+ status.hashValue
                 }
-            }
-        @discardableResult
-            public func setType(_ value:ControlCommand.ProtoType) -> CommandResponse.Builder {
-              self.type = value
-              return self
-            }
-        @discardableResult
-            public func clearType() -> CommandResponse.Builder {
-               builderResult.hasType = false
-               builderResult.type = .unused
-               return self
-            }
-        public var message:String {
-            get {
-                return builderResult.message
-            }
-            set (value) {
-                builderResult.hasMessage = true
-                builderResult.message = value
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
             }
         }
-        public var hasMessage:Bool {
-            get {
-                return builderResult.hasMessage
-            }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.CommandResponse"
         }
-        @discardableResult
-        public func setMessage(_ value:String) -> CommandResponse.Builder {
-            self.message = value
-            return self
+        override public func className() -> String {
+            return "Openxc.CommandResponse"
         }
-        @discardableResult
-        public func clearMessage() -> CommandResponse.Builder{
-            builderResult.hasMessage = false
-            builderResult.message = ""
-            return self
-        }
-        public var status:Bool {
-            get {
-                return builderResult.status
-            }
-            set (value) {
-                builderResult.hasStatus = true
-                builderResult.status = value
-            }
-        }
-        public var hasStatus:Bool {
-            get {
-                return builderResult.hasStatus
-            }
-        }
-        @discardableResult
-        public func setStatus(_ value:Bool) -> CommandResponse.Builder {
-            self.status = value
-            return self
-        }
-        @discardableResult
-        public func clearStatus() -> CommandResponse.Builder{
-            builderResult.hasStatus = false
-            builderResult.status = false
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.CommandResponse = Openxc.CommandResponse()
+            public func getMessage() -> Openxc.CommandResponse {
                 return builderResult
             }
-        }
-        @discardableResult
-        override public func clear() -> CommandResponse.Builder {
-            builderResult = CommandResponse()
-            return self
-        }
-        override public func clone() throws -> CommandResponse.Builder {
-            return try CommandResponse.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> CommandResponse {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> CommandResponse {
-            let returnMe:CommandResponse = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:CommandResponse) throws -> CommandResponse.Builder {
-            if other == CommandResponse() {
+
+            required override public init () {
+                super.init()
+            }
+                public var type:Openxc.ControlCommand.ProtoType {
+                    get {
+                        return builderResult.type
+                    }
+                    set (value) {
+                        builderResult.hasType = true
+                        builderResult.type = value
+                    }
+                }
+                public var hasType:Bool{
+                    get {
+                        return builderResult.hasType
+                    }
+                }
+            @discardableResult
+                public func setType(_ value:Openxc.ControlCommand.ProtoType) -> Openxc.CommandResponse.Builder {
+                  self.type = value
+                  return self
+                }
+            @discardableResult
+                public func clearType() -> Openxc.CommandResponse.Builder {
+                   builderResult.hasType = false
+                   builderResult.type = .unused
+                   return self
+                }
+            public var message:String {
+                get {
+                    return builderResult.message
+                }
+                set (value) {
+                    builderResult.hasMessage = true
+                    builderResult.message = value
+                }
+            }
+            public var hasMessage:Bool {
+                get {
+                    return builderResult.hasMessage
+                }
+            }
+            @discardableResult
+            public func setMessage(_ value:String) -> Openxc.CommandResponse.Builder {
+                self.message = value
                 return self
             }
-            if other.hasType {
-                type = other.type
+            @discardableResult
+            public func clearMessage() -> Openxc.CommandResponse.Builder{
+                builderResult.hasMessage = false
+                builderResult.message = nil
+                return self
             }
-            if other.hasMessage {
-                message = other.message
+            public var status:Bool {
+                get {
+                    return builderResult.status
+                }
+                set (value) {
+                    builderResult.hasStatus = true
+                    builderResult.status = value
+                }
             }
-            if other.hasStatus {
-                status = other.status
+            public var hasStatus:Bool {
+                get {
+                    return builderResult.hasStatus
+                }
             }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> CommandResponse.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> CommandResponse.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
+            @discardableResult
+            public func setStatus(_ value:Bool) -> Openxc.CommandResponse.Builder {
+                self.status = value
+                return self
+            }
+            @discardableResult
+            public func clearStatus() -> Openxc.CommandResponse.Builder{
+                builderResult.hasStatus = false
+                builderResult.status = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.CommandResponse.Builder {
+                builderResult = Openxc.CommandResponse()
+                return self
+            }
+            override public func clone() throws -> Openxc.CommandResponse.Builder {
+                return try Openxc.CommandResponse.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.CommandResponse {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.CommandResponse {
+                let returnMe:Openxc.CommandResponse = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.CommandResponse) throws -> Openxc.CommandResponse.Builder {
+                if other == Openxc.CommandResponse() {
                     return self
-
-                case 8:
-                    let valueInttype = try codedInputStream.readEnum()
-                    if let enumstype = ControlCommand.ProtoType(rawValue:valueInttype){
-                        type = enumstype
-                    } else {
-                        try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
-                    }
-
-                case 18:
-                    message = try codedInputStream.readString()
-
-                case 24:
-                    status = try codedInputStream.readBool()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
+                }
+                if other.hasType {
+                    type = other.type
+                }
+                if other.hasMessage {
+                    message = other.message
+                }
+                if other.hasStatus {
+                    status = other.status
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.CommandResponse.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.CommandResponse.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
                         return self
+
+                    case 8:
+                        let valueInttype = try codedInputStream.readEnum()
+                        if let enumstype = Openxc.ControlCommand.ProtoType(rawValue:valueInttype){
+                            type = enumstype
+                        } else {
+                            try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
+                        }
+
+                    case 18:
+                        message = try codedInputStream.readString()
+
+                    case 24:
+                        status = try codedInputStream.readBool()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
                     }
                 }
             }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.CommandResponse.Builder {
+                let resultDecodedBuilder = Openxc.CommandResponse.Builder()
+                if let jsonValueType = jsonMap["type"] as? String {
+                    resultDecodedBuilder.type = try Openxc.ControlCommand.ProtoType.fromString(jsonValueType)
+                }
+                if let jsonValueMessage = jsonMap["message"] as? String {
+                    resultDecodedBuilder.message = jsonValueMessage
+                }
+                if let jsonValueStatus = jsonMap["status"] as? Bool {
+                    resultDecodedBuilder.status = jsonValueStatus
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.CommandResponse.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.CommandResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
         }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> CommandResponse.Builder {
-            let resultDecodedBuilder = CommandResponse.Builder()
-            if let jsonValueType = jsonMap["type"] as? String {
-                resultDecodedBuilder.type = try ControlCommand.ProtoType.fromString(jsonValueType)
-            }
-            if let jsonValueMessage = jsonMap["message"] as? String {
-                resultDecodedBuilder.message = jsonValueMessage
-            }
-            if let jsonValueStatus = jsonMap["status"] as? Bool {
-                resultDecodedBuilder.status = jsonValueStatus
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> CommandResponse.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try CommandResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
+
     }
 
-}
+    final class DiagnosticRequest : GeneratedMessage {
+        public typealias BuilderType = Openxc.DiagnosticRequest.Builder
 
-final public class DiagnosticRequest : GeneratedMessage {
-    public typealias BuilderType = DiagnosticRequest.Builder
-
-    public static func == (lhs: DiagnosticRequest, rhs: DiagnosticRequest) -> Bool {
-        if lhs === rhs {
-            return true
+        public static func == (lhs: Openxc.DiagnosticRequest, rhs: Openxc.DiagnosticRequest) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
+            fieldCheck = fieldCheck && (lhs.hasMessageId == rhs.hasMessageId) && (!lhs.hasMessageId || lhs.messageId == rhs.messageId)
+            fieldCheck = fieldCheck && (lhs.hasMode == rhs.hasMode) && (!lhs.hasMode || lhs.mode == rhs.mode)
+            fieldCheck = fieldCheck && (lhs.hasPid == rhs.hasPid) && (!lhs.hasPid || lhs.pid == rhs.pid)
+            fieldCheck = fieldCheck && (lhs.hasPayload == rhs.hasPayload) && (!lhs.hasPayload || lhs.payload == rhs.payload)
+            fieldCheck = fieldCheck && (lhs.hasMultipleResponses == rhs.hasMultipleResponses) && (!lhs.hasMultipleResponses || lhs.multipleResponses == rhs.multipleResponses)
+            fieldCheck = fieldCheck && (lhs.hasFrequency == rhs.hasFrequency) && (!lhs.hasFrequency || lhs.frequency == rhs.frequency)
+            fieldCheck = fieldCheck && (lhs.hasName == rhs.hasName) && (!lhs.hasName || lhs.name == rhs.name)
+            fieldCheck = fieldCheck && (lhs.hasDecodedType == rhs.hasDecodedType) && (!lhs.hasDecodedType || lhs.decodedType == rhs.decodedType)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
         }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
-        fieldCheck = fieldCheck && (lhs.hasMessageId == rhs.hasMessageId) && (!lhs.hasMessageId || lhs.messageId == rhs.messageId)
-        fieldCheck = fieldCheck && (lhs.hasMode == rhs.hasMode) && (!lhs.hasMode || lhs.mode == rhs.mode)
-        fieldCheck = fieldCheck && (lhs.hasPid == rhs.hasPid) && (!lhs.hasPid || lhs.pid == rhs.pid)
-        fieldCheck = fieldCheck && (lhs.hasPayload == rhs.hasPayload) && (!lhs.hasPayload || lhs.payload == rhs.payload)
-        fieldCheck = fieldCheck && (lhs.hasMultipleResponses == rhs.hasMultipleResponses) && (!lhs.hasMultipleResponses || lhs.multipleResponses == rhs.multipleResponses)
-        fieldCheck = fieldCheck && (lhs.hasFrequency == rhs.hasFrequency) && (!lhs.hasFrequency || lhs.frequency == rhs.frequency)
-        fieldCheck = fieldCheck && (lhs.hasName == rhs.hasName) && (!lhs.hasName || lhs.name == rhs.name)
-        fieldCheck = fieldCheck && (lhs.hasDecodedType == rhs.hasDecodedType) && (!lhs.hasDecodedType || lhs.decodedType == rhs.decodedType)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
 
 
 
-        //Enum type declaration start 
+            //Enum type declaration start 
 
-        public enum DecodedType:Int32, GeneratedEnum {
-            case unused = 0
-            case none = 1
-            case obd2 = 2
-            public func toString() -> String {
-                switch self {
-                case .unused: return "UNUSED"
-                case .none: return "NONE"
-                case .obd2: return "OBD2"
+            public enum DecodedType:Int32, GeneratedEnum {
+                case unused = 0
+                case `none` = 1
+                case obd2 = 2
+                public func toString() -> String {
+                    switch self {
+                    case .unused: return "UNUSED"
+                    case .`none`: return "NONE"
+                    case .obd2: return "OBD2"
+                    }
+                }
+                public static func fromString(_ str:String) throws -> Openxc.DiagnosticRequest.DecodedType {
+                    switch str {
+                    case "UNUSED":    return .unused
+                    case "NONE":    return .`none`
+                    case "OBD2":    return .obd2
+                    default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                    }
+                }
+                public var debugDescription:String { return getDescription() }
+                public var description:String { return getDescription() }
+                private func getDescription() -> String { 
+                    switch self {
+                    case .unused: return ".unused"
+                    case .`none`: return ".`none`"
+                    case .obd2: return ".obd2"
+                    }
+                }
+                public var hashValue:Int {
+                    return self.rawValue.hashValue
+                }
+                public static func ==(lhs:DecodedType, rhs:DecodedType) -> Bool {
+                    return lhs.hashValue == rhs.hashValue
                 }
             }
-            public static func fromString(_ str:String) throws -> DiagnosticRequest.DecodedType {
-                switch str {
-                case "UNUSED":    return .unused
-                case "NONE":    return .none
-                case "OBD2":    return .obd2
-                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
-                }
-            }
-            public var debugDescription:String { return getDescription() }
-            public var description:String { return getDescription() }
-            private func getDescription() -> String { 
-                switch self {
-                case .unused: return msgUnused
-                case .none: return ".none"
-                case .obd2: return ".obd2"
-                }
-            }
-            public var hashValue:Int {
-                return self.rawValue.hashValue
-            }
-            public static func == (lhs:DecodedType, rhs:DecodedType) -> Bool {
-                return lhs.hashValue == rhs.hashValue
-            }
-        }
 
-        //Enum type declaration end 
+            //Enum type declaration end 
 
-    public fileprivate(set) var bus:Int32! = nil
-    public fileprivate(set) var hasBus:Bool = false
+        public fileprivate(set) var bus:Int32! = nil
+        public fileprivate(set) var hasBus:Bool = false
 
-    public fileprivate(set) var messageId:UInt32! = nil
-    public fileprivate(set) var hasMessageId:Bool = false
+        public fileprivate(set) var messageId:UInt32! = nil
+        public fileprivate(set) var hasMessageId:Bool = false
 
-    public fileprivate(set) var mode:UInt32! = nil
-    public fileprivate(set) var hasMode:Bool = false
+        public fileprivate(set) var mode:UInt32! = nil
+        public fileprivate(set) var hasMode:Bool = false
 
-    public fileprivate(set) var pid:UInt32! = nil
-    public fileprivate(set) var hasPid:Bool = false
+        public fileprivate(set) var pid:UInt32! = nil
+        public fileprivate(set) var hasPid:Bool = false
 
-    /// TODO we are capping this at 8 bytes for now - need to change when we
-    /// support multi-frame responses
-    public fileprivate(set) var payload:Data! = nil
-    public fileprivate(set) var hasPayload:Bool = false
+        public fileprivate(set) var payload:Data! = nil
+        public fileprivate(set) var hasPayload:Bool = false
 
-    public fileprivate(set) var multipleResponses:Bool! = nil
-    public fileprivate(set) var hasMultipleResponses:Bool = false
+        public fileprivate(set) var multipleResponses:Bool! = nil
+        public fileprivate(set) var hasMultipleResponses:Bool = false
 
-    public fileprivate(set) var frequency:Double! = nil
-    public fileprivate(set) var hasFrequency:Bool = false
+        public fileprivate(set) var frequency:Double! = nil
+        public fileprivate(set) var hasFrequency:Bool = false
 
-    public fileprivate(set) var name:String! = nil
-    public fileprivate(set) var hasName:Bool = false
+        public fileprivate(set) var name:String! = nil
+        public fileprivate(set) var hasName:Bool = false
 
-    public fileprivate(set) var decodedType:DiagnosticRequest.DecodedType = DiagnosticRequest.DecodedType.unused
-    public fileprivate(set) var hasDecodedType:Bool = false
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasBus {
-            try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
+        public fileprivate(set) var decodedType:Openxc.DiagnosticRequest.DecodedType = Openxc.DiagnosticRequest.DecodedType.unused
+        public fileprivate(set) var hasDecodedType:Bool = false
+        required public init() {
+            super.init()
         }
-        if hasMessageId {
-            try codedOutputStream.writeUInt32(fieldNumber: 2, value:messageId)
+        override public func isInitialized() throws {
         }
-        if hasMode {
-            try codedOutputStream.writeUInt32(fieldNumber: 3, value:mode)
-        }
-        if hasPid {
-            try codedOutputStream.writeUInt32(fieldNumber: 4, value:pid)
-        }
-        if hasPayload {
-            try codedOutputStream.writeData(fieldNumber: 5, value:payload)
-        }
-        if hasMultipleResponses {
-            try codedOutputStream.writeBool(fieldNumber: 6, value:multipleResponses)
-        }
-        if hasFrequency {
-            try codedOutputStream.writeDouble(fieldNumber: 7, value:frequency)
-        }
-        if hasName {
-            try codedOutputStream.writeString(fieldNumber: 8, value:name)
-        }
-        if hasDecodedType {
-            try codedOutputStream.writeEnum(fieldNumber: 9, value:decodedType.rawValue)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if hasBus {
-            serialize_size += bus.computeInt32Size(fieldNumber: 1)
-        }
-        if hasMessageId {
-            serialize_size += messageId.computeUInt32Size(fieldNumber: 2)
-        }
-        if hasMode {
-            serialize_size += mode.computeUInt32Size(fieldNumber: 3)
-        }
-        if hasPid {
-            serialize_size += pid.computeUInt32Size(fieldNumber: 4)
-        }
-        if hasPayload {
-            serialize_size += payload.computeDataSize(fieldNumber: 5)
-        }
-        if hasMultipleResponses {
-            serialize_size += multipleResponses.computeBoolSize(fieldNumber: 6)
-        }
-        if hasFrequency {
-            serialize_size += frequency.computeDoubleSize(fieldNumber: 7)
-        }
-        if hasName {
-            serialize_size += name.computeStringSize(fieldNumber: 8)
-        }
-        if (hasDecodedType) {
-            serialize_size += decodedType.rawValue.computeEnumSize(fieldNumber: 9)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> DiagnosticRequest.Builder {
-        return DiagnosticRequest.classBuilder() as! DiagnosticRequest.Builder
-    }
-    public func getBuilder() -> DiagnosticRequest.Builder {
-        return classBuilder() as! DiagnosticRequest.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return DiagnosticRequest.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return DiagnosticRequest.Builder()
-    }
-    public func toBuilder() throws -> DiagnosticRequest.Builder {
-        return try DiagnosticRequest.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:DiagnosticRequest) throws -> DiagnosticRequest.Builder {
-        return try DiagnosticRequest.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasBus {
-            jsonMap["bus"] = Int(bus)
-        }
-        if hasMessageId {
-            jsonMap["messageId"] = UInt(messageId)
-        }
-        if hasMode {
-            jsonMap["mode"] = UInt(mode)
-        }
-        if hasPid {
-            jsonMap["pid"] = UInt(pid)
-        }
-        if hasPayload {
-            jsonMap["payload"] = payload.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
-        }
-        if hasMultipleResponses {
-            jsonMap["multipleResponses"] = multipleResponses
-        }
-        if hasFrequency {
-            jsonMap["frequency"] = Double(frequency)
-        }
-        if hasName {
-            jsonMap["name"] = name
-        }
-        if hasDecodedType {
-            jsonMap["decodedType"] = decodedType.toString()
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> DiagnosticRequest {
-        return try DiagnosticRequest.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DiagnosticRequest {
-        return try DiagnosticRequest.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasBus {
-            output += "\(indent) bus: \(String(describing: bus)) \n"
-        }
-        if hasMessageId {
-            output += "\(indent) messageId: \(String(describing: messageId)) \n"
-        }
-        if hasMode {
-            output += "\(indent) mode: \(String(describing: mode)) \n"
-        }
-        if hasPid {
-            output += "\(indent) pid: \(String(describing: pid)) \n"
-        }
-        if hasPayload {
-            output += "\(indent) payload: \(String(describing: payload)) \n"
-        }
-        if hasMultipleResponses {
-            output += "\(indent) multipleResponses: \(String(describing: multipleResponses)) \n"
-        }
-        if hasFrequency {
-            output += "\(indent) frequency: \(String(describing: frequency)) \n"
-        }
-        if hasName {
-            output += "\(indent) name: \(String(describing: name)) \n"
-        }
-        if (hasDecodedType) {
-            output += "\(indent) decodedType: \(decodedType.description)\n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
             if hasBus {
-                hashCode = (hashCode &* 31) &+ bus.hashValue
+                try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
             }
             if hasMessageId {
-                hashCode = (hashCode &* 31) &+ messageId.hashValue
+                try codedOutputStream.writeUInt32(fieldNumber: 2, value:messageId)
             }
             if hasMode {
-                hashCode = (hashCode &* 31) &+ mode.hashValue
+                try codedOutputStream.writeUInt32(fieldNumber: 3, value:mode)
             }
             if hasPid {
-                hashCode = (hashCode &* 31) &+ pid.hashValue
+                try codedOutputStream.writeUInt32(fieldNumber: 4, value:pid)
             }
             if hasPayload {
-                hashCode = (hashCode &* 31) &+ payload.hashValue
+                try codedOutputStream.writeData(fieldNumber: 5, value:payload)
             }
             if hasMultipleResponses {
-                hashCode = (hashCode &* 31) &+ multipleResponses.hashValue
+                try codedOutputStream.writeBool(fieldNumber: 6, value:multipleResponses)
             }
             if hasFrequency {
-                hashCode = (hashCode &* 31) &+ frequency.hashValue
+                try codedOutputStream.writeDouble(fieldNumber: 7, value:frequency)
             }
             if hasName {
-                hashCode = (hashCode &* 31) &+ name.hashValue
+                try codedOutputStream.writeString(fieldNumber: 8, value:name)
             }
             if hasDecodedType {
-                 hashCode = (hashCode &* 31) &+ decodedType.hashValue
+                try codedOutputStream.writeEnum(fieldNumber: 9, value:decodedType.rawValue)
             }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
-    }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
 
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "DiagnosticRequest"
-    }
-    override public func className() -> String {
-        return "DiagnosticRequest"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:DiagnosticRequest = DiagnosticRequest()
-        public func getMessage() -> DiagnosticRequest {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-        public var bus:Int32 {
-            get {
-                return builderResult.bus
-            }
-            set (value) {
-                builderResult.hasBus = true
-                builderResult.bus = value
-            }
-        }
-        public var hasBus:Bool {
-            get {
-                return builderResult.hasBus
-            }
-        }
-        @discardableResult
-        public func setBus(_ value:Int32) -> DiagnosticRequest.Builder {
-            self.bus = value
-            return self
-        }
-        @discardableResult
-        public func clearBus() -> DiagnosticRequest.Builder{
-            builderResult.hasBus = false
-            builderResult.bus = nil
-            return self
-        }
-        public var messageId:UInt32 {
-            get {
-                return builderResult.messageId
-            }
-            set (value) {
-                builderResult.hasMessageId = true
-                builderResult.messageId = value
-            }
-        }
-        public var hasMessageId:Bool {
-            get {
-                return builderResult.hasMessageId
-            }
-        }
-        @discardableResult
-        public func setMessageId(_ value:UInt32) -> DiagnosticRequest.Builder {
-            self.messageId = value
-            return self
-        }
-        @discardableResult
-        public func clearMessageId() -> DiagnosticRequest.Builder{
-            builderResult.hasMessageId = false
-            builderResult.messageId = nil
-            return self
-        }
-        public var mode:UInt32 {
-            get {
-                return builderResult.mode
-            }
-            set (value) {
-                builderResult.hasMode = true
-                builderResult.mode = value
-            }
-        }
-        public var hasMode:Bool {
-            get {
-                return builderResult.hasMode
-            }
-        }
-        @discardableResult
-        public func setMode(_ value:UInt32) -> DiagnosticRequest.Builder {
-            self.mode = value
-            return self
-        }
-        @discardableResult
-        public func clearMode() -> DiagnosticRequest.Builder{
-            builderResult.hasMode = false
-            builderResult.mode = nil
-            return self
-        }
-        public var pid:UInt32 {
-            get {
-                return builderResult.pid
-            }
-            set (value) {
-                builderResult.hasPid = true
-                builderResult.pid = value
-            }
-        }
-        public var hasPid:Bool {
-            get {
-                return builderResult.hasPid
-            }
-        }
-        @discardableResult
-        public func setPid(_ value:UInt32) -> DiagnosticRequest.Builder {
-            self.pid = value
-            return self
-        }
-        @discardableResult
-        public func clearPid() -> DiagnosticRequest.Builder{
-            builderResult.hasPid = false
-            builderResult.pid = nil
-            return self
-        }
-        /// TODO we are capping this at 8 bytes for now - need to change when we
-        /// support multi-frame responses
-        public var payload:Data {
-            get {
-                return builderResult.payload
-            }
-            set (value) {
-                builderResult.hasPayload = true
-                builderResult.payload = value
-            }
-        }
-        public var hasPayload:Bool {
-            get {
-                return builderResult.hasPayload
-            }
-        }
-        @discardableResult
-        public func setPayload(_ value:Data) -> DiagnosticRequest.Builder {
-            self.payload = value
-            return self
-        }
-        @discardableResult
-        public func clearPayload() -> DiagnosticRequest.Builder{
-            builderResult.hasPayload = false
-            builderResult.payload = nil
-            return self
-        }
-        public var multipleResponses:Bool {
-            get {
-                return builderResult.multipleResponses
-            }
-            set (value) {
-                builderResult.hasMultipleResponses = true
-                builderResult.multipleResponses = value
-            }
-        }
-        public var hasMultipleResponses:Bool {
-            get {
-                return builderResult.hasMultipleResponses
-            }
-        }
-        @discardableResult
-        public func setMultipleResponses(_ value:Bool) -> DiagnosticRequest.Builder {
-            self.multipleResponses = value
-            return self
-        }
-        @discardableResult
-        public func clearMultipleResponses() -> DiagnosticRequest.Builder{
-            builderResult.hasMultipleResponses = false
-            builderResult.multipleResponses = nil
-            return self
-        }
-        public var frequency:Double {
-            get {
-                return builderResult.frequency
-            }
-            set (value) {
-                builderResult.hasFrequency = true
-                builderResult.frequency = value
-            }
-        }
-        public var hasFrequency:Bool {
-            get {
-                return builderResult.hasFrequency
-            }
-        }
-        @discardableResult
-        public func setFrequency(_ value:Double) -> DiagnosticRequest.Builder {
-            self.frequency = value
-            return self
-        }
-        @discardableResult
-        public func clearFrequency() -> DiagnosticRequest.Builder{
-            builderResult.hasFrequency = false
-            builderResult.frequency = nil
-            return self
-        }
-        public var name:String {
-            get {
-                return builderResult.name
-            }
-            set (value) {
-                builderResult.hasName = true
-                builderResult.name = value
-            }
-        }
-        public var hasName:Bool {
-            get {
-                return builderResult.hasName
-            }
-        }
-        @discardableResult
-        public func setName(_ value:String) -> DiagnosticRequest.Builder {
-            self.name = value
-            return self
-        }
-        @discardableResult
-        public func clearName() -> DiagnosticRequest.Builder{
-            builderResult.hasName = false
-            builderResult.name = nil
-            return self
-        }
-            public var decodedType:DiagnosticRequest.DecodedType {
-                get {
-                    return builderResult.decodedType
-                }
-                set (value) {
-                    builderResult.hasDecodedType = true
-                    builderResult.decodedType = value
-                }
-            }
-            public var hasDecodedType:Bool{
-                get {
-                    return builderResult.hasDecodedType
-                }
-            }
-        @discardableResult
-            public func setDecodedType(_ value:DiagnosticRequest.DecodedType) -> DiagnosticRequest.Builder {
-              self.decodedType = value
-              return self
-            }
-        @discardableResult
-            public func clearDecodedType() -> DiagnosticRequest.Builder {
-               builderResult.hasDecodedType = false
-               builderResult.decodedType = .unused
-               return self
-            }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> DiagnosticRequest.Builder {
-            builderResult = DiagnosticRequest()
-            return self
-        }
-        override public func clone() throws -> DiagnosticRequest.Builder {
-            return try DiagnosticRequest.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> DiagnosticRequest {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> DiagnosticRequest {
-            let returnMe:DiagnosticRequest = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:DiagnosticRequest) throws -> DiagnosticRequest.Builder {
-            if other == DiagnosticRequest() {
-                return self
-            }
-            if other.hasBus {
-                bus = other.bus
-            }
-            if other.hasMessageId {
-                messageId = other.messageId
-            }
-            if other.hasMode {
-                mode = other.mode
-            }
-            if other.hasPid {
-                pid = other.pid
-            }
-            if other.hasPayload {
-                payload = other.payload
-            }
-            if other.hasMultipleResponses {
-                multipleResponses = other.multipleResponses
-            }
-            if other.hasFrequency {
-                frequency = other.frequency
-            }
-            if other.hasName {
-                name = other.name
-            }
-            if other.hasDecodedType {
-                decodedType = other.decodedType
-            }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> DiagnosticRequest.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> DiagnosticRequest.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
-
-                case 8:
-                    bus = try codedInputStream.readInt32()
-
-                case 16:
-                    messageId = try codedInputStream.readUInt32()
-
-                case 24:
-                    mode = try codedInputStream.readUInt32()
-
-                case 32:
-                    pid = try codedInputStream.readUInt32()
-
-                case 42:
-                    payload = try codedInputStream.readData()
-
-                case 48:
-                    multipleResponses = try codedInputStream.readBool()
-
-                case 57:
-                    frequency = try codedInputStream.readDouble()
-
-                case 66:
-                    name = try codedInputStream.readString()
-
-                case 72:
-                    let valueIntdecodedType = try codedInputStream.readEnum()
-                    if let enumsdecodedType = DiagnosticRequest.DecodedType(rawValue:valueIntdecodedType){
-                        decodedType = enumsdecodedType
-                    } else {
-                        try unknownFieldsBuilder.mergeVarintField(fieldNumber: 9, value:Int64(valueIntdecodedType))
-                    }
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
-                        return self
-                    }
-                }
-            }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> DiagnosticRequest.Builder {
-            let resultDecodedBuilder = DiagnosticRequest.Builder()
-            if let jsonValueBus = jsonMap["bus"] as? Int {
-                resultDecodedBuilder.bus = Int32(jsonValueBus)
-            } else if let jsonValueBus = jsonMap["bus"] as? String {
-                resultDecodedBuilder.bus = Int32(jsonValueBus)!
-            }
-            if let jsonValueMessageId = jsonMap["messageId"] as? UInt {
-                resultDecodedBuilder.messageId = UInt32(jsonValueMessageId)
-            } else if let jsonValueMessageId = jsonMap["messageId"] as? String {
-                resultDecodedBuilder.messageId = UInt32(jsonValueMessageId)!
-            }
-            if let jsonValueMode = jsonMap["mode"] as? UInt {
-                resultDecodedBuilder.mode = UInt32(jsonValueMode)
-            } else if let jsonValueMode = jsonMap["mode"] as? String {
-                resultDecodedBuilder.mode = UInt32(jsonValueMode)!
-            }
-            if let jsonValuePid = jsonMap["pid"] as? UInt {
-                resultDecodedBuilder.pid = UInt32(jsonValuePid)
-            } else if let jsonValuePid = jsonMap["pid"] as? String {
-                resultDecodedBuilder.pid = UInt32(jsonValuePid)!
-            }
-            if let jsonValuePayload = jsonMap["payload"] as? String {
-                resultDecodedBuilder.payload = Data(base64Encoded:jsonValuePayload, options: Data.Base64DecodingOptions(rawValue:0))!
-            }
-            if let jsonValueMultipleResponses = jsonMap["multipleResponses"] as? Bool {
-                resultDecodedBuilder.multipleResponses = jsonValueMultipleResponses
-            }
-            if let jsonValueFrequency = jsonMap["frequency"] as? Double {
-                resultDecodedBuilder.frequency = Double(jsonValueFrequency)
-            } else if let jsonValueFrequency = jsonMap["frequency"] as? String {
-                resultDecodedBuilder.frequency = Double(jsonValueFrequency)!
-            }
-            if let jsonValueName = jsonMap["name"] as? String {
-                resultDecodedBuilder.name = jsonValueName
-            }
-            if let jsonValueDecodedType = jsonMap["decodedType"] as? String {
-                resultDecodedBuilder.decodedType = try DiagnosticRequest.DecodedType.fromString(jsonValueDecodedType)
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DiagnosticRequest.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try DiagnosticRequest.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class DiagnosticResponse : GeneratedMessage {
-    public typealias BuilderType = DiagnosticResponse.Builder
-
-    public static func == (lhs: DiagnosticResponse, rhs: DiagnosticResponse) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
-        fieldCheck = fieldCheck && (lhs.hasMessageId == rhs.hasMessageId) && (!lhs.hasMessageId || lhs.messageId == rhs.messageId)
-        fieldCheck = fieldCheck && (lhs.hasMode == rhs.hasMode) && (!lhs.hasMode || lhs.mode == rhs.mode)
-        fieldCheck = fieldCheck && (lhs.hasPid == rhs.hasPid) && (!lhs.hasPid || lhs.pid == rhs.pid)
-        fieldCheck = fieldCheck && (lhs.hasSuccess == rhs.hasSuccess) && (!lhs.hasSuccess || lhs.success == rhs.success)
-        fieldCheck = fieldCheck && (lhs.hasNegativeResponseCode == rhs.hasNegativeResponseCode) && (!lhs.hasNegativeResponseCode || lhs.negativeResponseCode == rhs.negativeResponseCode)
-        fieldCheck = fieldCheck && (lhs.hasPayload == rhs.hasPayload) && (!lhs.hasPayload || lhs.payload == rhs.payload)
-        fieldCheck = fieldCheck && (lhs.hasValue == rhs.hasValue) && (!lhs.hasValue || lhs.value == rhs.value)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-    public fileprivate(set) var bus:Int32 = Int32(0)
-    public fileprivate(set) var hasBus:Bool = false
-
-    public fileprivate(set) var messageId:UInt32 = UInt32(0)
-    public fileprivate(set) var hasMessageId:Bool = false
-
-    public fileprivate(set) var mode:UInt32 = UInt32(0)
-    public fileprivate(set) var hasMode:Bool = false
-
-    public fileprivate(set) var pid:UInt32 = UInt32(0)
-    public fileprivate(set) var hasPid:Bool = false
-
-    public fileprivate(set) var success:Bool = true
-    public fileprivate(set) var hasSuccess:Bool = false
-
-    public fileprivate(set) var negativeResponseCode:UInt32 = UInt32(0)
-    public fileprivate(set) var hasNegativeResponseCode:Bool = false
-
-    /// TODO we are capping this at 8 bytes for now - need to change when we
-    /// support multi-frame responses
-    public fileprivate(set) var payload:Data = Data()
-    public fileprivate(set) var hasPayload:Bool = false
-
-    public fileprivate(set) var value:Double! = Double(0)
-    public fileprivate(set) var hasValue:Bool = false
-
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasBus {
-            try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
-        }
-        if hasMessageId {
-            try codedOutputStream.writeUInt32(fieldNumber: 2, value:messageId)
-        }
-        if hasMode {
-            try codedOutputStream.writeUInt32(fieldNumber: 3, value:mode)
-        }
-        if hasPid {
-            try codedOutputStream.writeUInt32(fieldNumber: 4, value:pid)
-        }
-        if hasSuccess {
-            try codedOutputStream.writeBool(fieldNumber: 5, value:success)
-        }
-        if hasNegativeResponseCode {
-            try codedOutputStream.writeUInt32(fieldNumber: 6, value:negativeResponseCode)
-        }
-        if hasPayload {
-            try codedOutputStream.writeData(fieldNumber: 7, value:payload)
-        }
-        if hasValue {
-            try codedOutputStream.writeDouble(fieldNumber: 8, value:value)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if hasBus {
-            serialize_size += bus.computeInt32Size(fieldNumber: 1)
-        }
-        if hasMessageId {
-            serialize_size += messageId.computeUInt32Size(fieldNumber: 2)
-        }
-        if hasMode {
-            serialize_size += mode.computeUInt32Size(fieldNumber: 3)
-        }
-        if hasPid {
-            serialize_size += pid.computeUInt32Size(fieldNumber: 4)
-        }
-        if hasSuccess {
-            serialize_size += success.computeBoolSize(fieldNumber: 5)
-        }
-        if hasNegativeResponseCode {
-            serialize_size += negativeResponseCode.computeUInt32Size(fieldNumber: 6)
-        }
-        if hasPayload {
-            serialize_size += payload.computeDataSize(fieldNumber: 7)
-        }
-        if hasValue {
-            serialize_size += value.computeDoubleSize(fieldNumber: 8)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> DiagnosticResponse.Builder {
-        return DiagnosticResponse.classBuilder() as! DiagnosticResponse.Builder
-    }
-    public func getBuilder() -> DiagnosticResponse.Builder {
-        return classBuilder() as! DiagnosticResponse.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return DiagnosticResponse.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return DiagnosticResponse.Builder()
-    }
-    public func toBuilder() throws -> DiagnosticResponse.Builder {
-        return try DiagnosticResponse.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:DiagnosticResponse) throws -> DiagnosticResponse.Builder {
-        return try DiagnosticResponse.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasBus {
-            jsonMap["bus"] = Int(bus)
-        }
-        if hasMessageId {
-            jsonMap["messageId"] = UInt(messageId)
-        }
-        if hasMode {
-            jsonMap["mode"] = UInt(mode)
-        }
-        if hasPid {
-            jsonMap["pid"] = UInt(pid)
-        }
-        if hasSuccess {
-            jsonMap["success"] = success
-        }
-        if hasNegativeResponseCode {
-            jsonMap["negativeResponseCode"] = UInt(negativeResponseCode)
-        }
-        if hasPayload {
-            jsonMap["payload"] = payload.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
-        }
-        if hasValue {
-            jsonMap["value"] = Double(value)
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> DiagnosticResponse {
-        return try DiagnosticResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DiagnosticResponse {
-        return try DiagnosticResponse.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasBus {
-            output += "\(indent) bus: \(String(describing: bus)) \n"
-        }
-        if hasMessageId {
-            output += "\(indent) messageId: \(String(describing: messageId)) \n"
-        }
-        if hasMode {
-            output += "\(indent) mode: \(String(describing: mode)) \n"
-        }
-        if hasPid {
-            output += "\(indent) pid: \(String(describing: pid)) \n"
-        }
-        if hasSuccess {
-            output += "\(indent) success: \(String(describing: success)) \n"
-        }
-        if hasNegativeResponseCode {
-            output += "\(indent) negativeResponseCode: \(String(describing: negativeResponseCode)) \n"
-        }
-        if hasPayload {
-            output += "\(indent) payload: \(String(describing: payload)) \n"
-        }
-        if hasValue {
-            output += "\(indent) value: \(String(describing: value)) \n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
+            serialize_size = 0
             if hasBus {
-                hashCode = (hashCode &* 31) &+ bus.hashValue
+                serialize_size += bus.computeInt32Size(fieldNumber: 1)
             }
             if hasMessageId {
-                hashCode = (hashCode &* 31) &+ messageId.hashValue
+                serialize_size += messageId.computeUInt32Size(fieldNumber: 2)
             }
             if hasMode {
-                hashCode = (hashCode &* 31) &+ mode.hashValue
+                serialize_size += mode.computeUInt32Size(fieldNumber: 3)
             }
             if hasPid {
-                hashCode = (hashCode &* 31) &+ pid.hashValue
-            }
-            if hasSuccess {
-                hashCode = (hashCode &* 31) &+ success.hashValue
-            }
-            if hasNegativeResponseCode {
-                hashCode = (hashCode &* 31) &+ negativeResponseCode.hashValue
+                serialize_size += pid.computeUInt32Size(fieldNumber: 4)
             }
             if hasPayload {
-                hashCode = (hashCode &* 31) &+ payload.hashValue
+                serialize_size += payload.computeDataSize(fieldNumber: 5)
             }
-            if hasValue {
-                hashCode = (hashCode &* 31) &+ value.hashValue
+            if hasMultipleResponses {
+                serialize_size += multipleResponses.computeBoolSize(fieldNumber: 6)
             }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
+            if hasFrequency {
+                serialize_size += frequency.computeDoubleSize(fieldNumber: 7)
+            }
+            if hasName {
+                serialize_size += name.computeStringSize(fieldNumber: 8)
+            }
+            if (hasDecodedType) {
+                serialize_size += decodedType.rawValue.computeEnumSize(fieldNumber: 9)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
         }
-    }
+        public class func getBuilder() -> Openxc.DiagnosticRequest.Builder {
+            return Openxc.DiagnosticRequest.classBuilder() as! Openxc.DiagnosticRequest.Builder
+        }
+        public func getBuilder() -> Openxc.DiagnosticRequest.Builder {
+            return classBuilder() as! Openxc.DiagnosticRequest.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.DiagnosticRequest.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.DiagnosticRequest.Builder()
+        }
+        public func toBuilder() throws -> Openxc.DiagnosticRequest.Builder {
+            return try Openxc.DiagnosticRequest.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.DiagnosticRequest) throws -> Openxc.DiagnosticRequest.Builder {
+            return try Openxc.DiagnosticRequest.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasBus {
+                jsonMap["bus"] = Int(bus)
+            }
+            if hasMessageId {
+                jsonMap["messageId"] = UInt(messageId)
+            }
+            if hasMode {
+                jsonMap["mode"] = UInt(mode)
+            }
+            if hasPid {
+                jsonMap["pid"] = UInt(pid)
+            }
+            if hasPayload {
+                jsonMap["payload"] = payload.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+            }
+            if hasMultipleResponses {
+                jsonMap["multipleResponses"] = multipleResponses
+            }
+            if hasFrequency {
+                jsonMap["frequency"] = Double(frequency)
+            }
+            if hasName {
+                jsonMap["name"] = name
+            }
+            if hasDecodedType {
+                jsonMap["decodedType"] = decodedType.toString()
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.DiagnosticRequest {
+            return try Openxc.DiagnosticRequest.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.DiagnosticRequest {
+            return try Openxc.DiagnosticRequest.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasBus {
+                output += "\(indent) bus: \(String(describing: bus)) \n"
+            }
+            if hasMessageId {
+                output += "\(indent) messageId: \(String(describing: messageId)) \n"
+            }
+            if hasMode {
+                output += "\(indent) mode: \(String(describing: mode)) \n"
+            }
+            if hasPid {
+                output += "\(indent) pid: \(String(describing: pid)) \n"
+            }
+            if hasPayload {
+                output += "\(indent) payload: \(String(describing: payload)) \n"
+            }
+            if hasMultipleResponses {
+                output += "\(indent) multipleResponses: \(String(describing: multipleResponses)) \n"
+            }
+            if hasFrequency {
+                output += "\(indent) frequency: \(String(describing: frequency)) \n"
+            }
+            if hasName {
+                output += "\(indent) name: \(String(describing: name)) \n"
+            }
+            if (hasDecodedType) {
+                output += "\(indent) decodedType: \(decodedType.description)\n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasBus {
+                    hashCode = (hashCode &* 31) &+ bus.hashValue
+                }
+                if hasMessageId {
+                    hashCode = (hashCode &* 31) &+ messageId.hashValue
+                }
+                if hasMode {
+                    hashCode = (hashCode &* 31) &+ mode.hashValue
+                }
+                if hasPid {
+                    hashCode = (hashCode &* 31) &+ pid.hashValue
+                }
+                if hasPayload {
+                    hashCode = (hashCode &* 31) &+ payload.hashValue
+                }
+                if hasMultipleResponses {
+                    hashCode = (hashCode &* 31) &+ multipleResponses.hashValue
+                }
+                if hasFrequency {
+                    hashCode = (hashCode &* 31) &+ frequency.hashValue
+                }
+                if hasName {
+                    hashCode = (hashCode &* 31) &+ name.hashValue
+                }
+                if hasDecodedType {
+                     hashCode = (hashCode &* 31) &+ decodedType.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
 
 
-    //Meta information declaration start
+        //Meta information declaration start
 
-    override public class func className() -> String {
-        return "DiagnosticResponse"
-    }
-    override public func className() -> String {
-        return "DiagnosticResponse"
-    }
-    //Meta information declaration end
+        override public class func className() -> String {
+            return "Openxc.DiagnosticRequest"
+        }
+        override public func className() -> String {
+            return "Openxc.DiagnosticRequest"
+        }
+        //Meta information declaration end
 
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:DiagnosticResponse = DiagnosticResponse()
-        public func getMessage() -> DiagnosticResponse {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-        public var bus:Int32 {
-            get {
-                return builderResult.bus
-            }
-            set (value) {
-                builderResult.hasBus = true
-                builderResult.bus = value
-            }
-        }
-        public var hasBus:Bool {
-            get {
-                return builderResult.hasBus
-            }
-        }
-        @discardableResult
-        public func setBus(_ value:Int32) -> DiagnosticResponse.Builder {
-            self.bus = value
-            return self
-        }
-        @discardableResult
-        public func clearBus() -> DiagnosticResponse.Builder{
-            builderResult.hasBus = false
-            builderResult.bus = Int32(0)
-            return self
-        }
-        public var messageId:UInt32 {
-            get {
-                return builderResult.messageId
-            }
-            set (value) {
-                builderResult.hasMessageId = true
-                builderResult.messageId = value
-            }
-        }
-        public var hasMessageId:Bool {
-            get {
-                return builderResult.hasMessageId
-            }
-        }
-        @discardableResult
-        public func setMessageId(_ value:UInt32) -> DiagnosticResponse.Builder {
-            self.messageId = value
-            return self
-        }
-        @discardableResult
-        public func clearMessageId() -> DiagnosticResponse.Builder{
-            builderResult.hasMessageId = false
-            builderResult.messageId = UInt32(0)
-            return self
-        }
-        public var mode:UInt32 {
-            get {
-                return builderResult.mode
-            }
-            set (value) {
-                builderResult.hasMode = true
-                builderResult.mode = value
-            }
-        }
-        public var hasMode:Bool {
-            get {
-                return builderResult.hasMode
-            }
-        }
-        @discardableResult
-        public func setMode(_ value:UInt32) -> DiagnosticResponse.Builder {
-            self.mode = value
-            return self
-        }
-        @discardableResult
-        public func clearMode() -> DiagnosticResponse.Builder{
-            builderResult.hasMode = false
-            builderResult.mode = UInt32(0)
-            return self
-        }
-        public var pid:UInt32 {
-            get {
-                return builderResult.pid
-            }
-            set (value) {
-                builderResult.hasPid = true
-                builderResult.pid = value
-            }
-        }
-        public var hasPid:Bool {
-            get {
-                return builderResult.hasPid
-            }
-        }
-        @discardableResult
-        public func setPid(_ value:UInt32) -> DiagnosticResponse.Builder {
-            self.pid = value
-            return self
-        }
-        @discardableResult
-        public func clearPid() -> DiagnosticResponse.Builder{
-            builderResult.hasPid = false
-            builderResult.pid = UInt32(0)
-            return self
-        }
-        public var success:Bool {
-            get {
-                return builderResult.success
-            }
-            set (value) {
-                builderResult.hasSuccess = true
-                builderResult.success = value
-            }
-        }
-        public var hasSuccess:Bool {
-            get {
-                return builderResult.hasSuccess
-            }
-        }
-        @discardableResult
-        public func setSuccess(_ value:Bool) -> DiagnosticResponse.Builder {
-            self.success = value
-            return self
-        }
-        @discardableResult
-        public func clearSuccess() -> DiagnosticResponse.Builder{
-            builderResult.hasSuccess = false
-            builderResult.success = false
-            return self
-        }
-        public var negativeResponseCode:UInt32 {
-            get {
-                return builderResult.negativeResponseCode
-            }
-            set (value) {
-                builderResult.hasNegativeResponseCode = true
-                builderResult.negativeResponseCode = value
-            }
-        }
-        public var hasNegativeResponseCode:Bool {
-            get {
-                return builderResult.hasNegativeResponseCode
-            }
-        }
-        @discardableResult
-        public func setNegativeResponseCode(_ value:UInt32) -> DiagnosticResponse.Builder {
-            self.negativeResponseCode = value
-            return self
-        }
-        @discardableResult
-        public func clearNegativeResponseCode() -> DiagnosticResponse.Builder{
-            builderResult.hasNegativeResponseCode = false
-            builderResult.negativeResponseCode = UInt32(0)
-            return self
-        }
-        /// TODO we are capping this at 8 bytes for now - need to change when we
-        /// support multi-frame responses
-        public var payload:Data {
-            get {
-                return builderResult.payload
-            }
-            set (value) {
-                builderResult.hasPayload = true
-                builderResult.payload = value
-            }
-        }
-        public var hasPayload:Bool {
-            get {
-                return builderResult.hasPayload
-            }
-        }
-        @discardableResult
-        public func setPayload(_ value:Data) -> DiagnosticResponse.Builder {
-            self.payload = value
-            return self
-        }
-        @discardableResult
-        public func clearPayload() -> DiagnosticResponse.Builder{
-            builderResult.hasPayload = false
-            builderResult.payload = Data()
-            return self
-        }
-        public var value:Double {
-            get {
-                return builderResult.value
-            }
-            set (value) {
-                builderResult.hasValue = true
-                builderResult.value = value
-            }
-        }
-        public var hasValue:Bool {
-            get {
-                return builderResult.hasValue
-            }
-        }
-        @discardableResult
-        public func setValue(_ value:Double) -> DiagnosticResponse.Builder {
-            self.value = value
-            return self
-        }
-        @discardableResult
-        public func clearValue() -> DiagnosticResponse.Builder{
-            builderResult.hasValue = false
-            builderResult.value = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.DiagnosticRequest = Openxc.DiagnosticRequest()
+            public func getMessage() -> Openxc.DiagnosticRequest {
                 return builderResult
             }
-        }
-        @discardableResult
-        override public func clear() -> DiagnosticResponse.Builder {
-            builderResult = DiagnosticResponse()
-            return self
-        }
-        override public func clone() throws -> DiagnosticResponse.Builder {
-            return try DiagnosticResponse.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> DiagnosticResponse {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> DiagnosticResponse {
-            let returnMe:DiagnosticResponse = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:DiagnosticResponse) throws -> DiagnosticResponse.Builder {
-            if other == DiagnosticResponse() {
-                return self
-            }
-            if other.hasBus {
-                bus = other.bus
-            }
-            if other.hasMessageId {
-                messageId = other.messageId
-            }
-            if other.hasMode {
-                mode = other.mode
-            }
-            if other.hasPid {
-                pid = other.pid
-            }
-            if other.hasSuccess {
-                success = other.success
-            }
-            if other.hasNegativeResponseCode {
-                negativeResponseCode = other.negativeResponseCode
-            }
-            if other.hasPayload {
-                payload = other.payload
-            }
-            if other.hasValue {
-                value = other.value
-            }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> DiagnosticResponse.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> DiagnosticResponse.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
 
-                case 8:
-                    bus = try codedInputStream.readInt32()
-
-                case 16:
-                    messageId = try codedInputStream.readUInt32()
-
-                case 24:
-                    mode = try codedInputStream.readUInt32()
-
-                case 32:
-                    pid = try codedInputStream.readUInt32()
-
-                case 40:
-                    success = try codedInputStream.readBool()
-
-                case 48:
-                    negativeResponseCode = try codedInputStream.readUInt32()
-
-                case 58:
-                    payload = try codedInputStream.readData()
-
-                case 65:
-                    value = try codedInputStream.readDouble()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
-                        return self
-                    }
-                }
+            required override public init () {
+                super.init()
             }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> DiagnosticResponse.Builder {
-            let resultDecodedBuilder = DiagnosticResponse.Builder()
-            if let jsonValueBus = jsonMap["bus"] as? Int {
-                resultDecodedBuilder.bus = Int32(jsonValueBus)
-            } else if let jsonValueBus = jsonMap["bus"] as? String {
-                resultDecodedBuilder.bus = Int32(jsonValueBus)!
-            }
-            if let jsonValueMessageId = jsonMap["messageId"] as? UInt {
-                resultDecodedBuilder.messageId = UInt32(jsonValueMessageId)
-            } else if let jsonValueMessageId = jsonMap["messageId"] as? String {
-                resultDecodedBuilder.messageId = UInt32(jsonValueMessageId)!
-            }
-            if let jsonValueMode = jsonMap["mode"] as? UInt {
-                resultDecodedBuilder.mode = UInt32(jsonValueMode)
-            } else if let jsonValueMode = jsonMap["mode"] as? String {
-                resultDecodedBuilder.mode = UInt32(jsonValueMode)!
-            }
-            if let jsonValuePid = jsonMap["pid"] as? UInt {
-                resultDecodedBuilder.pid = UInt32(jsonValuePid)
-            } else if let jsonValuePid = jsonMap["pid"] as? String {
-                resultDecodedBuilder.pid = UInt32(jsonValuePid)!
-            }
-            if let jsonValueSuccess = jsonMap["success"] as? Bool {
-                resultDecodedBuilder.success = jsonValueSuccess
-            }
-            if let jsonValueNegativeResponseCode = jsonMap["negativeResponseCode"] as? UInt {
-                resultDecodedBuilder.negativeResponseCode = UInt32(jsonValueNegativeResponseCode)
-            } else if let jsonValueNegativeResponseCode = jsonMap["negativeResponseCode"] as? String {
-                resultDecodedBuilder.negativeResponseCode = UInt32(jsonValueNegativeResponseCode)!
-            }
-            if let jsonValuePayload = jsonMap["payload"] as? String {
-                resultDecodedBuilder.payload = Data(base64Encoded:jsonValuePayload, options: Data.Base64DecodingOptions(rawValue:0))!
-            }
-            if let jsonValueValue = jsonMap["value"] as? Double {
-                resultDecodedBuilder.value = Double(jsonValueValue)
-            } else if let jsonValueValue = jsonMap["value"] as? String {
-                resultDecodedBuilder.value = Double(jsonValueValue)!
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DiagnosticResponse.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try DiagnosticResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class DynamicField : GeneratedMessage {
-    public typealias BuilderType = DynamicField.Builder
-
-    public static func == (lhs: DynamicField, rhs: DynamicField) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
-        fieldCheck = fieldCheck && (lhs.hasStringValue == rhs.hasStringValue) && (!lhs.hasStringValue || lhs.stringValue == rhs.stringValue)
-        fieldCheck = fieldCheck && (lhs.hasNumericValue == rhs.hasNumericValue) && (!lhs.hasNumericValue || lhs.numericValue == rhs.numericValue)
-        fieldCheck = fieldCheck && (lhs.hasBooleanValue == rhs.hasBooleanValue) && (!lhs.hasBooleanValue || lhs.booleanValue == rhs.booleanValue)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-
-
-        //Enum type declaration start 
-
-        public enum ProtoType:Int32, GeneratedEnum {
-            case unused = 0
-            case String = 1
-            case num = 2
-            case bool = 3
-            public func toString() -> String {
-                switch self {
-                case .unused: return "UNUSED"
-                case .String: return "STRING"
-                case .num: return "NUM"
-                case .bool: return "BOOL"
-                }
-            }
-            public static func fromString(_ str:String) throws -> DynamicField.ProtoType {
-                switch str {
-                case "UNUSED":    return .unused
-                case "STRING":    return .String
-                case "NUM":    return .num
-                case "BOOL":    return .bool
-                default: throw ProtocolBuffersError.invalidProtocolBuffer(errMsg)
-                }
-            }
-            public var debugDescription:String { return getDescription() }
-            public var description:String { return getDescription() }
-            private func getDescription() -> String { 
-                switch self {
-                case .unused: return msgUnused
-                case .String: return ".String"
-                case .num: return ".num"
-                case .bool: return ".bool"
-                }
-            }
-            public var hashValue:Int {
-                return self.rawValue.hashValue
-            }
-            public static func == (lhs:ProtoType, rhs:ProtoType) -> Bool {
-                return lhs.hashValue == rhs.hashValue
-            }
-        }
-
-        //Enum type declaration end 
-
-    public fileprivate(set) var type:DynamicField.ProtoType = DynamicField.ProtoType.unused
-    public fileprivate(set) var hasType:Bool = false
-    public fileprivate(set) var stringValue:String! = nil
-    public fileprivate(set) var hasStringValue:Bool = false
-
-    public fileprivate(set) var numericValue:Double! = nil
-    public fileprivate(set) var hasNumericValue:Bool = false
-
-    public fileprivate(set) var booleanValue:Bool! = nil
-    public fileprivate(set) var hasBooleanValue:Bool = false
-
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasType {
-            try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
-        }
-        if hasStringValue {
-            try codedOutputStream.writeString(fieldNumber: 2, value:stringValue)
-        }
-        if hasNumericValue {
-            try codedOutputStream.writeDouble(fieldNumber: 3, value:numericValue)
-        }
-        if hasBooleanValue {
-            try codedOutputStream.writeBool(fieldNumber: 4, value:booleanValue)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
-        }
-
-        serialize_size = 0
-        if (hasType) {
-            serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
-        }
-        if hasStringValue {
-            serialize_size += stringValue.computeStringSize(fieldNumber: 2)
-        }
-        if hasNumericValue {
-            serialize_size += numericValue.computeDoubleSize(fieldNumber: 3)
-        }
-        if hasBooleanValue {
-            serialize_size += booleanValue.computeBoolSize(fieldNumber: 4)
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> DynamicField.Builder {
-        return DynamicField.classBuilder() as! DynamicField.Builder
-    }
-    public func getBuilder() -> DynamicField.Builder {
-        return classBuilder() as! DynamicField.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return DynamicField.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return DynamicField.Builder()
-    }
-    public func toBuilder() throws -> DynamicField.Builder {
-        return try DynamicField.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:DynamicField) throws -> DynamicField.Builder {
-        return try DynamicField.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasType {
-            jsonMap["type"] = type.toString()
-        }
-        if hasStringValue {
-            jsonMap["stringValue"] = stringValue
-        }
-        if hasNumericValue {
-            jsonMap["numericValue"] = Double(numericValue)
-        }
-        if hasBooleanValue {
-            jsonMap["booleanValue"] = booleanValue
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> DynamicField {
-        return try DynamicField.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DynamicField {
-        return try DynamicField.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if (hasType) {
-            output += "\(indent) type: \(type.description)\n"
-        }
-        if hasStringValue {
-            output += "\(indent) stringValue: \(String(describing: stringValue)) \n"
-        }
-        if hasNumericValue {
-            output += "\(indent) numericValue: \(String(describing: numericValue)) \n"
-        }
-        if hasBooleanValue {
-            output += "\(indent) booleanValue: \(String(describing: booleanValue)) \n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasType {
-                 hashCode = (hashCode &* 31) &+ type.hashValue
-            }
-            if hasStringValue {
-                hashCode = (hashCode &* 31) &+ stringValue.hashValue
-            }
-            if hasNumericValue {
-                hashCode = (hashCode &* 31) &+ numericValue.hashValue
-            }
-            if hasBooleanValue {
-                hashCode = (hashCode &* 31) &+ booleanValue.hashValue
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
-
-
-    //Meta information declaration start
-
-    override public class func className() -> String {
-        return "DynamicField"
-    }
-    override public func className() -> String {
-        return "DynamicField"
-    }
-    //Meta information declaration end
-
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:DynamicField = DynamicField()
-        public func getMessage() -> DynamicField {
-            return builderResult
-        }
-
-        required override public init () {
-            super.init()
-        }
-            public var type:DynamicField.ProtoType {
+            public var bus:Int32 {
                 get {
-                    return builderResult.type
+                    return builderResult.bus
                 }
                 set (value) {
-                    builderResult.hasType = true
-                    builderResult.type = value
+                    builderResult.hasBus = true
+                    builderResult.bus = value
                 }
             }
-            public var hasType:Bool{
+            public var hasBus:Bool {
                 get {
-                    return builderResult.hasType
+                    return builderResult.hasBus
                 }
             }
-        @discardableResult
-            public func setType(_ value:DynamicField.ProtoType) -> DynamicField.Builder {
-              self.type = value
-              return self
-            }
-        @discardableResult
-            public func clearType() -> DynamicField.Builder {
-               builderResult.hasType = false
-               builderResult.type = .unused
-               return self
-            }
-        public var stringValue:String {
-            get {
-                return builderResult.stringValue
-            }
-            set (value) {
-                builderResult.hasStringValue = true
-                builderResult.stringValue = value
-            }
-        }
-        public var hasStringValue:Bool {
-            get {
-                return builderResult.hasStringValue
-            }
-        }
-        @discardableResult
-        public func setStringValue(_ value:String) -> DynamicField.Builder {
-            self.stringValue = value
-            return self
-        }
-        @discardableResult
-        public func clearStringValue() -> DynamicField.Builder{
-            builderResult.hasStringValue = false
-            builderResult.stringValue = nil
-            return self
-        }
-        public var numericValue:Double {
-            get {
-                return builderResult.numericValue
-            }
-            set (value) {
-                builderResult.hasNumericValue = true
-                builderResult.numericValue = value
-            }
-        }
-        public var hasNumericValue:Bool {
-            get {
-                return builderResult.hasNumericValue
-            }
-        }
-        @discardableResult
-        public func setNumericValue(_ value:Double) -> DynamicField.Builder {
-            self.numericValue = value
-            return self
-        }
-        @discardableResult
-        public func clearNumericValue() -> DynamicField.Builder{
-            builderResult.hasNumericValue = false
-            builderResult.numericValue = nil
-            return self
-        }
-        public var booleanValue:Bool {
-            get {
-                return builderResult.booleanValue
-            }
-            set (value) {
-                builderResult.hasBooleanValue = true
-                builderResult.booleanValue = value
-            }
-        }
-        public var hasBooleanValue:Bool {
-            get {
-                return builderResult.hasBooleanValue
-            }
-        }
-        @discardableResult
-        public func setBooleanValue(_ value:Bool) -> DynamicField.Builder {
-            self.booleanValue = value
-            return self
-        }
-        @discardableResult
-        public func clearBooleanValue() -> DynamicField.Builder{
-            builderResult.hasBooleanValue = false
-            builderResult.booleanValue = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
-                return builderResult
-            }
-        }
-        @discardableResult
-        override public func clear() -> DynamicField.Builder {
-            builderResult = DynamicField()
-            return self
-        }
-        override public func clone() throws -> DynamicField.Builder {
-            return try DynamicField.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> DynamicField {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> DynamicField {
-            let returnMe:DynamicField = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:DynamicField) throws -> DynamicField.Builder {
-            if other == DynamicField() {
+            @discardableResult
+            public func setBus(_ value:Int32) -> Openxc.DiagnosticRequest.Builder {
+                self.bus = value
                 return self
             }
-            if other.hasType {
-                type = other.type
+            @discardableResult
+            public func clearBus() -> Openxc.DiagnosticRequest.Builder{
+                builderResult.hasBus = false
+                builderResult.bus = nil
+                return self
             }
-            if other.hasStringValue {
-                stringValue = other.stringValue
+            public var messageId:UInt32 {
+                get {
+                    return builderResult.messageId
+                }
+                set (value) {
+                    builderResult.hasMessageId = true
+                    builderResult.messageId = value
+                }
             }
-            if other.hasNumericValue {
-                numericValue = other.numericValue
+            public var hasMessageId:Bool {
+                get {
+                    return builderResult.hasMessageId
+                }
             }
-            if other.hasBooleanValue {
-                booleanValue = other.booleanValue
+            @discardableResult
+            public func setMessageId(_ value:UInt32) -> Openxc.DiagnosticRequest.Builder {
+                self.messageId = value
+                return self
             }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> DynamicField.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> DynamicField.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
-                    return self
-
-                case 8:
-                    let valueInttype = try codedInputStream.readEnum()
-                    if let enumstype = DynamicField.ProtoType(rawValue:valueInttype){
-                        type = enumstype
-                    } else {
-                        try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
+            @discardableResult
+            public func clearMessageId() -> Openxc.DiagnosticRequest.Builder{
+                builderResult.hasMessageId = false
+                builderResult.messageId = nil
+                return self
+            }
+            public var mode:UInt32 {
+                get {
+                    return builderResult.mode
+                }
+                set (value) {
+                    builderResult.hasMode = true
+                    builderResult.mode = value
+                }
+            }
+            public var hasMode:Bool {
+                get {
+                    return builderResult.hasMode
+                }
+            }
+            @discardableResult
+            public func setMode(_ value:UInt32) -> Openxc.DiagnosticRequest.Builder {
+                self.mode = value
+                return self
+            }
+            @discardableResult
+            public func clearMode() -> Openxc.DiagnosticRequest.Builder{
+                builderResult.hasMode = false
+                builderResult.mode = nil
+                return self
+            }
+            public var pid:UInt32 {
+                get {
+                    return builderResult.pid
+                }
+                set (value) {
+                    builderResult.hasPid = true
+                    builderResult.pid = value
+                }
+            }
+            public var hasPid:Bool {
+                get {
+                    return builderResult.hasPid
+                }
+            }
+            @discardableResult
+            public func setPid(_ value:UInt32) -> Openxc.DiagnosticRequest.Builder {
+                self.pid = value
+                return self
+            }
+            @discardableResult
+            public func clearPid() -> Openxc.DiagnosticRequest.Builder{
+                builderResult.hasPid = false
+                builderResult.pid = nil
+                return self
+            }
+            public var payload:Data {
+                get {
+                    return builderResult.payload
+                }
+                set (value) {
+                    builderResult.hasPayload = true
+                    builderResult.payload = value
+                }
+            }
+            public var hasPayload:Bool {
+                get {
+                    return builderResult.hasPayload
+                }
+            }
+            @discardableResult
+            public func setPayload(_ value:Data) -> Openxc.DiagnosticRequest.Builder {
+                self.payload = value
+                return self
+            }
+            @discardableResult
+            public func clearPayload() -> Openxc.DiagnosticRequest.Builder{
+                builderResult.hasPayload = false
+                builderResult.payload = nil
+                return self
+            }
+            public var multipleResponses:Bool {
+                get {
+                    return builderResult.multipleResponses
+                }
+                set (value) {
+                    builderResult.hasMultipleResponses = true
+                    builderResult.multipleResponses = value
+                }
+            }
+            public var hasMultipleResponses:Bool {
+                get {
+                    return builderResult.hasMultipleResponses
+                }
+            }
+            @discardableResult
+            public func setMultipleResponses(_ value:Bool) -> Openxc.DiagnosticRequest.Builder {
+                self.multipleResponses = value
+                return self
+            }
+            @discardableResult
+            public func clearMultipleResponses() -> Openxc.DiagnosticRequest.Builder{
+                builderResult.hasMultipleResponses = false
+                builderResult.multipleResponses = nil
+                return self
+            }
+            public var frequency:Double {
+                get {
+                    return builderResult.frequency
+                }
+                set (value) {
+                    builderResult.hasFrequency = true
+                    builderResult.frequency = value
+                }
+            }
+            public var hasFrequency:Bool {
+                get {
+                    return builderResult.hasFrequency
+                }
+            }
+            @discardableResult
+            public func setFrequency(_ value:Double) -> Openxc.DiagnosticRequest.Builder {
+                self.frequency = value
+                return self
+            }
+            @discardableResult
+            public func clearFrequency() -> Openxc.DiagnosticRequest.Builder{
+                builderResult.hasFrequency = false
+                builderResult.frequency = nil
+                return self
+            }
+            public var name:String {
+                get {
+                    return builderResult.name
+                }
+                set (value) {
+                    builderResult.hasName = true
+                    builderResult.name = value
+                }
+            }
+            public var hasName:Bool {
+                get {
+                    return builderResult.hasName
+                }
+            }
+            @discardableResult
+            public func setName(_ value:String) -> Openxc.DiagnosticRequest.Builder {
+                self.name = value
+                return self
+            }
+            @discardableResult
+            public func clearName() -> Openxc.DiagnosticRequest.Builder{
+                builderResult.hasName = false
+                builderResult.name = nil
+                return self
+            }
+                public var decodedType:Openxc.DiagnosticRequest.DecodedType {
+                    get {
+                        return builderResult.decodedType
                     }
-
-                case 18:
-                    stringValue = try codedInputStream.readString()
-
-                case 25:
-                    numericValue = try codedInputStream.readDouble()
-
-                case 32:
-                    booleanValue = try codedInputStream.readBool()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
+                    set (value) {
+                        builderResult.hasDecodedType = true
+                        builderResult.decodedType = value
+                    }
+                }
+                public var hasDecodedType:Bool{
+                    get {
+                        return builderResult.hasDecodedType
+                    }
+                }
+            @discardableResult
+                public func setDecodedType(_ value:Openxc.DiagnosticRequest.DecodedType) -> Openxc.DiagnosticRequest.Builder {
+                  self.decodedType = value
+                  return self
+                }
+            @discardableResult
+                public func clearDecodedType() -> Openxc.DiagnosticRequest.Builder {
+                   builderResult.hasDecodedType = false
+                   builderResult.decodedType = .unused
+                   return self
+                }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.DiagnosticRequest.Builder {
+                builderResult = Openxc.DiagnosticRequest()
+                return self
+            }
+            override public func clone() throws -> Openxc.DiagnosticRequest.Builder {
+                return try Openxc.DiagnosticRequest.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.DiagnosticRequest {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.DiagnosticRequest {
+                let returnMe:Openxc.DiagnosticRequest = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.DiagnosticRequest) throws -> Openxc.DiagnosticRequest.Builder {
+                if other == Openxc.DiagnosticRequest() {
+                    return self
+                }
+                if other.hasBus {
+                    bus = other.bus
+                }
+                if other.hasMessageId {
+                    messageId = other.messageId
+                }
+                if other.hasMode {
+                    mode = other.mode
+                }
+                if other.hasPid {
+                    pid = other.pid
+                }
+                if other.hasPayload {
+                    payload = other.payload
+                }
+                if other.hasMultipleResponses {
+                    multipleResponses = other.multipleResponses
+                }
+                if other.hasFrequency {
+                    frequency = other.frequency
+                }
+                if other.hasName {
+                    name = other.name
+                }
+                if other.hasDecodedType {
+                    decodedType = other.decodedType
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.DiagnosticRequest.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticRequest.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
                         return self
+
+                    case 8:
+                        bus = try codedInputStream.readInt32()
+
+                    case 16:
+                        messageId = try codedInputStream.readUInt32()
+
+                    case 24:
+                        mode = try codedInputStream.readUInt32()
+
+                    case 32:
+                        pid = try codedInputStream.readUInt32()
+
+                    case 42:
+                        payload = try codedInputStream.readData()
+
+                    case 48:
+                        multipleResponses = try codedInputStream.readBool()
+
+                    case 57:
+                        frequency = try codedInputStream.readDouble()
+
+                    case 66:
+                        name = try codedInputStream.readString()
+
+                    case 72:
+                        let valueIntdecodedType = try codedInputStream.readEnum()
+                        if let enumsdecodedType = Openxc.DiagnosticRequest.DecodedType(rawValue:valueIntdecodedType){
+                            decodedType = enumsdecodedType
+                        } else {
+                            try unknownFieldsBuilder.mergeVarintField(fieldNumber: 9, value:Int64(valueIntdecodedType))
+                        }
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
                     }
                 }
             }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> DynamicField.Builder {
-            let resultDecodedBuilder = DynamicField.Builder()
-            if let jsonValueType = jsonMap["type"] as? String {
-                resultDecodedBuilder.type = try DynamicField.ProtoType.fromString(jsonValueType)
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.DiagnosticRequest.Builder {
+                let resultDecodedBuilder = Openxc.DiagnosticRequest.Builder()
+                if let jsonValueBus = jsonMap["bus"] as? Int {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)
+                } else if let jsonValueBus = jsonMap["bus"] as? String {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)!
+                }
+                if let jsonValueMessageId = jsonMap["messageId"] as? UInt {
+                    resultDecodedBuilder.messageId = UInt32(jsonValueMessageId)
+                } else if let jsonValueMessageId = jsonMap["messageId"] as? String {
+                    resultDecodedBuilder.messageId = UInt32(jsonValueMessageId)!
+                }
+                if let jsonValueMode = jsonMap["mode"] as? UInt {
+                    resultDecodedBuilder.mode = UInt32(jsonValueMode)
+                } else if let jsonValueMode = jsonMap["mode"] as? String {
+                    resultDecodedBuilder.mode = UInt32(jsonValueMode)!
+                }
+                if let jsonValuePid = jsonMap["pid"] as? UInt {
+                    resultDecodedBuilder.pid = UInt32(jsonValuePid)
+                } else if let jsonValuePid = jsonMap["pid"] as? String {
+                    resultDecodedBuilder.pid = UInt32(jsonValuePid)!
+                }
+                if let jsonValuePayload = jsonMap["payload"] as? String {
+                    resultDecodedBuilder.payload = Data(base64Encoded:jsonValuePayload, options: Data.Base64DecodingOptions(rawValue:0))!
+                }
+                if let jsonValueMultipleResponses = jsonMap["multipleResponses"] as? Bool {
+                    resultDecodedBuilder.multipleResponses = jsonValueMultipleResponses
+                }
+                if let jsonValueFrequency = jsonMap["frequency"] as? Double {
+                    resultDecodedBuilder.frequency = Double(jsonValueFrequency)
+                } else if let jsonValueFrequency = jsonMap["frequency"] as? String {
+                    resultDecodedBuilder.frequency = Double(jsonValueFrequency)!
+                }
+                if let jsonValueName = jsonMap["name"] as? String {
+                    resultDecodedBuilder.name = jsonValueName
+                }
+                if let jsonValueDecodedType = jsonMap["decodedType"] as? String {
+                    resultDecodedBuilder.decodedType = try Openxc.DiagnosticRequest.DecodedType.fromString(jsonValueDecodedType)
+                }
+                return resultDecodedBuilder
             }
-            if let jsonValueStringValue = jsonMap["stringValue"] as? String {
-                resultDecodedBuilder.stringValue = jsonValueStringValue
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.DiagnosticRequest.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.DiagnosticRequest.Builder.decodeToBuilder(jsonMap:jsDataCast)
             }
-            if let jsonValueNumericValue = jsonMap["numericValue"] as? Double {
-                resultDecodedBuilder.numericValue = Double(jsonValueNumericValue)
-            } else if let jsonValueNumericValue = jsonMap["numericValue"] as? String {
-                resultDecodedBuilder.numericValue = Double(jsonValueNumericValue)!
+        }
+
+    }
+
+    final class DiagnosticResponse : GeneratedMessage {
+        public typealias BuilderType = Openxc.DiagnosticResponse.Builder
+
+        public static func == (lhs: Openxc.DiagnosticResponse, rhs: Openxc.DiagnosticResponse) -> Bool {
+            if lhs === rhs {
+                return true
             }
-            if let jsonValueBooleanValue = jsonMap["booleanValue"] as? Bool {
-                resultDecodedBuilder.booleanValue = jsonValueBooleanValue
-            }
-            return resultDecodedBuilder
-        }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> DynamicField.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
-            }
-            return try DynamicField.Builder.decodeToBuilder(jsonMap:jsDataCast)
-        }
-    }
-
-}
-
-final public class SimpleMessage : GeneratedMessage {
-    public typealias BuilderType = SimpleMessage.Builder
-
-    public static func == (lhs: SimpleMessage, rhs: SimpleMessage) -> Bool {
-        if lhs === rhs {
-            return true
-        }
-        var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-        fieldCheck = fieldCheck && (lhs.hasName == rhs.hasName) && (!lhs.hasName || lhs.name == rhs.name)
-        fieldCheck = fieldCheck && (lhs.hasValue == rhs.hasValue) && (!lhs.hasValue || lhs.value == rhs.value)
-        fieldCheck = fieldCheck && (lhs.hasEvent == rhs.hasEvent) && (!lhs.hasEvent || lhs.event == rhs.event)
-        fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
-        return fieldCheck
-    }
-
-    public fileprivate(set) var name:String! = nil
-    public fileprivate(set) var hasName:Bool = false
-
-    public fileprivate(set) var value:DynamicField!
-    public fileprivate(set) var hasValue:Bool = false
-    public fileprivate(set) var event:DynamicField!
-    public fileprivate(set) var hasEvent:Bool = false
-    required public init() {
-        super.init()
-    }
-    override public func writeTo(codedOutputStream: CodedOutputStream) throws {
-        if hasName {
-            try codedOutputStream.writeString(fieldNumber: 1, value:name)
-        }
-        if hasValue {
-            try codedOutputStream.writeMessage(fieldNumber: 2, value:value)
-        }
-        if hasEvent {
-            try codedOutputStream.writeMessage(fieldNumber: 3, value:event)
-        }
-        try unknownFields.writeTo(codedOutputStream: codedOutputStream)
-    }
-    override public func serializedSize() -> Int32 {
-        var serialize_size:Int32 = memoizedSerializedSize
-        if serialize_size != -1 {
-         return serialize_size
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
+            fieldCheck = fieldCheck && (lhs.hasMessageId == rhs.hasMessageId) && (!lhs.hasMessageId || lhs.messageId == rhs.messageId)
+            fieldCheck = fieldCheck && (lhs.hasMode == rhs.hasMode) && (!lhs.hasMode || lhs.mode == rhs.mode)
+            fieldCheck = fieldCheck && (lhs.hasPid == rhs.hasPid) && (!lhs.hasPid || lhs.pid == rhs.pid)
+            fieldCheck = fieldCheck && (lhs.hasSuccess == rhs.hasSuccess) && (!lhs.hasSuccess || lhs.success == rhs.success)
+            fieldCheck = fieldCheck && (lhs.hasNegativeResponseCode == rhs.hasNegativeResponseCode) && (!lhs.hasNegativeResponseCode || lhs.negativeResponseCode == rhs.negativeResponseCode)
+            fieldCheck = fieldCheck && (lhs.hasPayload == rhs.hasPayload) && (!lhs.hasPayload || lhs.payload == rhs.payload)
+            fieldCheck = fieldCheck && (lhs.hasValue == rhs.hasValue) && (!lhs.hasValue || lhs.value == rhs.value)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
         }
 
-        serialize_size = 0
-        if hasName {
-            serialize_size += name.computeStringSize(fieldNumber: 1)
-        }
-        if hasValue,let varSizevalue = value?.computeMessageSize(fieldNumber: 2)  {
-        
-                serialize_size += varSizevalue
-            
-        }
-        if hasEvent,let varSizeevent = event?.computeMessageSize(fieldNumber: 3) {
-            
-                serialize_size += varSizeevent
-            
-        }
-        serialize_size += unknownFields.serializedSize()
-        memoizedSerializedSize = serialize_size
-        return serialize_size
-    }
-    public class func getBuilder() -> SimpleMessage.Builder {
-        return SimpleMessage.classBuilder() as! SimpleMessage.Builder
-    }
-    public func getBuilder() -> SimpleMessage.Builder {
-        return classBuilder() as! SimpleMessage.Builder
-    }
-    override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return SimpleMessage.Builder()
-    }
-    override public func classBuilder() -> ProtocolBuffersMessageBuilder {
-        return SimpleMessage.Builder()
-    }
-    public func toBuilder() throws -> SimpleMessage.Builder {
-        return try SimpleMessage.builderWithPrototype(prototype:self)
-    }
-    public class func builderWithPrototype(prototype:SimpleMessage) throws -> SimpleMessage.Builder {
-        return try SimpleMessage.Builder().mergeFrom(other:prototype)
-    }
-    override public func encode() throws -> Dictionary<String,Any> {
-        try isInitialized()
-        var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
-        if hasName {
-            jsonMap["name"] = name
-        }
-        if hasValue {
-            jsonMap["value"] = try value.encode()
-        }
-        if hasEvent {
-            jsonMap["event"] = try event.encode()
-        }
-        return jsonMap
-    }
-    override class public func decode(jsonMap:Dictionary<String,Any>) throws -> SimpleMessage {
-        return try SimpleMessage.Builder.decodeToBuilder(jsonMap:jsonMap).build()
-    }
-    override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> SimpleMessage {
-        return try SimpleMessage.Builder.fromJSONToBuilder(data:data, options:options).build()
-    }
-    override public func getDescription(indent:String) throws -> String {
-        var output = ""
-        if hasName {
-            output += "\(indent) name: \(String(describing: name)) \n"
-        }
-        if hasValue {
-            output += "\(indent) value {\n"
-            if let outDescValue = value {
-                output += try outDescValue.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        if hasEvent {
-            output += "\(indent) event {\n"
-            if let outDescEvent = event {
-                output += try outDescEvent.getDescription(indent: "\(indent)  ")
-            }
-            output += "\(indent) }\n"
-        }
-        output += unknownFields.getDescription(indent: indent)
-        return output
-    }
-    override public var hashValue:Int {
-        get {
-            var hashCode:Int = 7
-            if hasName {
-                hashCode = (hashCode &* 31) &+ name.hashValue
-            }
-            if hasValue,let hashValuevalue = value?.hashValue  {
-               
-                    hashCode = (hashCode &* 31) &+ hashValuevalue
-                
-            }
-            if hasEvent,let hashValueevent = event?.hashValue {
-             
-                    hashCode = (hashCode &* 31) &+ hashValueevent
-              
-            }
-            hashCode = (hashCode &* 31) &+  unknownFields.hashValue
-            return hashCode
-        }
-    }
+        public fileprivate(set) var bus:Int32! = nil
+        public fileprivate(set) var hasBus:Bool = false
 
+        public fileprivate(set) var messageId:UInt32! = nil
+        public fileprivate(set) var hasMessageId:Bool = false
 
-    //Meta information declaration start
+        public fileprivate(set) var mode:UInt32! = nil
+        public fileprivate(set) var hasMode:Bool = false
 
-    override public class func className() -> String {
-        return "SimpleMessage"
-    }
-    override public func className() -> String {
-        return "SimpleMessage"
-    }
-    //Meta information declaration end
+        public fileprivate(set) var pid:UInt32! = nil
+        public fileprivate(set) var hasPid:Bool = false
 
-    final public class Builder : GeneratedMessageBuilder {
-        fileprivate var builderResult:SimpleMessage = SimpleMessage()
-        public func getMessage() -> SimpleMessage {
-            return builderResult
-        }
+        public fileprivate(set) var success:Bool! = nil
+        public fileprivate(set) var hasSuccess:Bool = false
 
-        required override public init () {
+        public fileprivate(set) var negativeResponseCode:UInt32! = nil
+        public fileprivate(set) var hasNegativeResponseCode:Bool = false
+
+        public fileprivate(set) var payload:Data! = nil
+        public fileprivate(set) var hasPayload:Bool = false
+
+        public fileprivate(set) var value:Openxc.DynamicField! = nil
+        public fileprivate(set) var hasValue:Bool = false
+        required public init() {
             super.init()
         }
-        public var name:String {
-            get {
-                return builderResult.name
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasBus {
+                try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
             }
-            set (value) {
-                builderResult.hasName = true
-                builderResult.name = value
+            if hasMessageId {
+                try codedOutputStream.writeUInt32(fieldNumber: 2, value:messageId)
             }
-        }
-        public var hasName:Bool {
-            get {
-                return builderResult.hasName
+            if hasMode {
+                try codedOutputStream.writeUInt32(fieldNumber: 3, value:mode)
             }
+            if hasPid {
+                try codedOutputStream.writeUInt32(fieldNumber: 4, value:pid)
+            }
+            if hasSuccess {
+                try codedOutputStream.writeBool(fieldNumber: 5, value:success)
+            }
+            if hasNegativeResponseCode {
+                try codedOutputStream.writeUInt32(fieldNumber: 6, value:negativeResponseCode)
+            }
+            if hasPayload {
+                try codedOutputStream.writeData(fieldNumber: 7, value:payload)
+            }
+            if hasValue {
+                try codedOutputStream.writeMessage(fieldNumber: 8, value:value)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
-        @discardableResult
-        public func setName(_ value:String) -> SimpleMessage.Builder {
-            self.name = value
-            return self
-        }
-        @discardableResult
-        public func clearName() -> SimpleMessage.Builder{
-            builderResult.hasName = false
-            builderResult.name = nil
-            return self
-        }
-        public var value:DynamicField! {
-            get {
-                if valueBuilder_ != nil {
-                    builderResult.value = valueBuilder_.getMessage()
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasBus {
+                serialize_size += bus.computeInt32Size(fieldNumber: 1)
+            }
+            if hasMessageId {
+                serialize_size += messageId.computeUInt32Size(fieldNumber: 2)
+            }
+            if hasMode {
+                serialize_size += mode.computeUInt32Size(fieldNumber: 3)
+            }
+            if hasPid {
+                serialize_size += pid.computeUInt32Size(fieldNumber: 4)
+            }
+            if hasSuccess {
+                serialize_size += success.computeBoolSize(fieldNumber: 5)
+            }
+            if hasNegativeResponseCode {
+                serialize_size += negativeResponseCode.computeUInt32Size(fieldNumber: 6)
+            }
+            if hasPayload {
+                serialize_size += payload.computeDataSize(fieldNumber: 7)
+            }
+            if hasValue {
+                if let varSizevalue = value?.computeMessageSize(fieldNumber: 8) {
+                    serialize_size += varSizevalue
                 }
-                return builderResult.value
             }
-            set (value) {
-                builderResult.hasValue = value != nil
-                builderResult.value = value
-            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
         }
-        public var hasValue:Bool {
+        public class func getBuilder() -> Openxc.DiagnosticResponse.Builder {
+            return Openxc.DiagnosticResponse.classBuilder() as! Openxc.DiagnosticResponse.Builder
+        }
+        public func getBuilder() -> Openxc.DiagnosticResponse.Builder {
+            return classBuilder() as! Openxc.DiagnosticResponse.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.DiagnosticResponse.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.DiagnosticResponse.Builder()
+        }
+        public func toBuilder() throws -> Openxc.DiagnosticResponse.Builder {
+            return try Openxc.DiagnosticResponse.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.DiagnosticResponse) throws -> Openxc.DiagnosticResponse.Builder {
+            return try Openxc.DiagnosticResponse.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasBus {
+                jsonMap["bus"] = Int(bus)
+            }
+            if hasMessageId {
+                jsonMap["messageId"] = UInt(messageId)
+            }
+            if hasMode {
+                jsonMap["mode"] = UInt(mode)
+            }
+            if hasPid {
+                jsonMap["pid"] = UInt(pid)
+            }
+            if hasSuccess {
+                jsonMap["success"] = success
+            }
+            if hasNegativeResponseCode {
+                jsonMap["negativeResponseCode"] = UInt(negativeResponseCode)
+            }
+            if hasPayload {
+                jsonMap["payload"] = payload.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+            }
+            if hasValue {
+                jsonMap["value"] = try value.encode()
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.DiagnosticResponse {
+            return try Openxc.DiagnosticResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.DiagnosticResponse {
+            return try Openxc.DiagnosticResponse.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasBus {
+                output += "\(indent) bus: \(String(describing: bus)) \n"
+            }
+            if hasMessageId {
+                output += "\(indent) messageId: \(String(describing: messageId)) \n"
+            }
+            if hasMode {
+                output += "\(indent) mode: \(String(describing: mode)) \n"
+            }
+            if hasPid {
+                output += "\(indent) pid: \(String(describing: pid)) \n"
+            }
+            if hasSuccess {
+                output += "\(indent) success: \(String(describing: success)) \n"
+            }
+            if hasNegativeResponseCode {
+                output += "\(indent) negativeResponseCode: \(String(describing: negativeResponseCode)) \n"
+            }
+            if hasPayload {
+                output += "\(indent) payload: \(String(describing: payload)) \n"
+            }
+            if hasValue {
+                output += "\(indent) value {\n"
+                if let outDescValue = value {
+                    output += try outDescValue.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
             get {
-                return builderResult.hasValue
-            }
-        }
-        fileprivate var valueBuilder_:DynamicField.Builder! {
-            didSet {
-                builderResult.hasValue = true
-            }
-        }
-        public func getValueBuilder() -> DynamicField.Builder {
-            if valueBuilder_ == nil {
-                valueBuilder_ = DynamicField.Builder()
-                builderResult.value = valueBuilder_.getMessage()
-                if value != nil {
-                    do{
-                        try valueBuilder_.mergeFrom(other: value)
-                    }catch let error{
-                        print("Error: \(error)")
+                var hashCode:Int = 7
+                if hasBus {
+                    hashCode = (hashCode &* 31) &+ bus.hashValue
+                }
+                if hasMessageId {
+                    hashCode = (hashCode &* 31) &+ messageId.hashValue
+                }
+                if hasMode {
+                    hashCode = (hashCode &* 31) &+ mode.hashValue
+                }
+                if hasPid {
+                    hashCode = (hashCode &* 31) &+ pid.hashValue
+                }
+                if hasSuccess {
+                    hashCode = (hashCode &* 31) &+ success.hashValue
+                }
+                if hasNegativeResponseCode {
+                    hashCode = (hashCode &* 31) &+ negativeResponseCode.hashValue
+                }
+                if hasPayload {
+                    hashCode = (hashCode &* 31) &+ payload.hashValue
+                }
+                if hasValue {
+                    if let hashValuevalue = value?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuevalue
                     }
-                    
                 }
-            }
-            return valueBuilder_
-        }
-        @discardableResult
-        public func setValue(_ value:DynamicField!) -> SimpleMessage.Builder {
-            self.value = value
-            return self
-        }
-        @discardableResult
-        public func mergeValue(value:DynamicField) throws -> SimpleMessage.Builder {
-            if builderResult.hasValue {
-                builderResult.value = try DynamicField.builderWithPrototype(prototype:builderResult.value).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.value = value
-            }
-            builderResult.hasValue = true
-            return self
-        }
-        @discardableResult
-        public func clearValue() -> SimpleMessage.Builder {
-            valueBuilder_ = nil
-            builderResult.hasValue = false
-            builderResult.value = nil
-            return self
-        }
-        public var event:DynamicField! {
-            get {
-                if eventBuilder_ != nil {
-                    builderResult.event = eventBuilder_.getMessage()
-                }
-                return builderResult.event
-            }
-            set (value) {
-                builderResult.hasEvent = value != nil
-                builderResult.event = value
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
             }
         }
-        public var hasEvent:Bool {
-            get {
-                return builderResult.hasEvent
-            }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.DiagnosticResponse"
         }
-        fileprivate var eventBuilder_:DynamicField.Builder! {
-            didSet {
-                builderResult.hasEvent = true
-            }
+        override public func className() -> String {
+            return "Openxc.DiagnosticResponse"
         }
-        public func getEventBuilder() -> DynamicField.Builder {
-            if eventBuilder_ == nil {
-                eventBuilder_ = DynamicField.Builder()
-                builderResult.event = eventBuilder_.getMessage()
-                if event != nil {
-                    do{
-                        try eventBuilder_.mergeFrom(other: event)
-                    }catch let error{
-                        print("Error: \(error)")
-                    }
-                    
-                }
-            }
-            return eventBuilder_
-        }
-        @discardableResult
-        public func setEvent(_ value:DynamicField!) -> SimpleMessage.Builder {
-            self.event = value
-            return self
-        }
-        @discardableResult
-        public func mergeEvent(value:DynamicField) throws -> SimpleMessage.Builder {
-            if builderResult.hasEvent {
-                builderResult.event = try DynamicField.builderWithPrototype(prototype:builderResult.event).mergeFrom(other: value).buildPartial()
-            } else {
-                builderResult.event = value
-            }
-            builderResult.hasEvent = true
-            return self
-        }
-        @discardableResult
-        public func clearEvent() -> SimpleMessage.Builder {
-            eventBuilder_ = nil
-            builderResult.hasEvent = false
-            builderResult.event = nil
-            return self
-        }
-        override public var internalGetResult:GeneratedMessage {
-            get {
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.DiagnosticResponse = Openxc.DiagnosticResponse()
+            public func getMessage() -> Openxc.DiagnosticResponse {
                 return builderResult
             }
-        }
-        @discardableResult
-        override public func clear() -> SimpleMessage.Builder {
-            builderResult = SimpleMessage()
-            return self
-        }
-        override public func clone() throws -> SimpleMessage.Builder {
-            return try SimpleMessage.builderWithPrototype(prototype:builderResult)
-        }
-        override public func build() throws -> SimpleMessage {
-            try checkInitialized()
-            return buildPartial()
-        }
-        public func buildPartial() -> SimpleMessage {
-            let returnMe:SimpleMessage = builderResult
-            return returnMe
-        }
-        @discardableResult
-        public func mergeFrom(other:SimpleMessage) throws -> SimpleMessage.Builder {
-            if other == SimpleMessage() {
+
+            required override public init () {
+                super.init()
+            }
+            public var bus:Int32 {
+                get {
+                    return builderResult.bus
+                }
+                set (value) {
+                    builderResult.hasBus = true
+                    builderResult.bus = value
+                }
+            }
+            public var hasBus:Bool {
+                get {
+                    return builderResult.hasBus
+                }
+            }
+            @discardableResult
+            public func setBus(_ value:Int32) -> Openxc.DiagnosticResponse.Builder {
+                self.bus = value
                 return self
             }
-            if other.hasName {
-                name = other.name
+            @discardableResult
+            public func clearBus() -> Openxc.DiagnosticResponse.Builder{
+                builderResult.hasBus = false
+                builderResult.bus = nil
+                return self
             }
-            if (other.hasValue) {
-                try mergeValue(value: other.value)
+            public var messageId:UInt32 {
+                get {
+                    return builderResult.messageId
+                }
+                set (value) {
+                    builderResult.hasMessageId = true
+                    builderResult.messageId = value
+                }
             }
-            if (other.hasEvent) {
-                try mergeEvent(value: other.event)
+            public var hasMessageId:Bool {
+                get {
+                    return builderResult.hasMessageId
+                }
             }
-            try merge(unknownField: other.unknownFields)
-            return self
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream) throws -> SimpleMessage.Builder {
-            return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
-        }
-        @discardableResult
-        override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> SimpleMessage.Builder {
-            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
-            while (true) {
-                let protobufTag = try codedInputStream.readTag()
-                switch protobufTag {
-                case 0: 
-                    self.unknownFields = try unknownFieldsBuilder.build()
+            @discardableResult
+            public func setMessageId(_ value:UInt32) -> Openxc.DiagnosticResponse.Builder {
+                self.messageId = value
+                return self
+            }
+            @discardableResult
+            public func clearMessageId() -> Openxc.DiagnosticResponse.Builder{
+                builderResult.hasMessageId = false
+                builderResult.messageId = nil
+                return self
+            }
+            public var mode:UInt32 {
+                get {
+                    return builderResult.mode
+                }
+                set (value) {
+                    builderResult.hasMode = true
+                    builderResult.mode = value
+                }
+            }
+            public var hasMode:Bool {
+                get {
+                    return builderResult.hasMode
+                }
+            }
+            @discardableResult
+            public func setMode(_ value:UInt32) -> Openxc.DiagnosticResponse.Builder {
+                self.mode = value
+                return self
+            }
+            @discardableResult
+            public func clearMode() -> Openxc.DiagnosticResponse.Builder{
+                builderResult.hasMode = false
+                builderResult.mode = nil
+                return self
+            }
+            public var pid:UInt32 {
+                get {
+                    return builderResult.pid
+                }
+                set (value) {
+                    builderResult.hasPid = true
+                    builderResult.pid = value
+                }
+            }
+            public var hasPid:Bool {
+                get {
+                    return builderResult.hasPid
+                }
+            }
+            @discardableResult
+            public func setPid(_ value:UInt32) -> Openxc.DiagnosticResponse.Builder {
+                self.pid = value
+                return self
+            }
+            @discardableResult
+            public func clearPid() -> Openxc.DiagnosticResponse.Builder{
+                builderResult.hasPid = false
+                builderResult.pid = nil
+                return self
+            }
+            public var success:Bool {
+                get {
+                    return builderResult.success
+                }
+                set (value) {
+                    builderResult.hasSuccess = true
+                    builderResult.success = value
+                }
+            }
+            public var hasSuccess:Bool {
+                get {
+                    return builderResult.hasSuccess
+                }
+            }
+            @discardableResult
+            public func setSuccess(_ value:Bool) -> Openxc.DiagnosticResponse.Builder {
+                self.success = value
+                return self
+            }
+            @discardableResult
+            public func clearSuccess() -> Openxc.DiagnosticResponse.Builder{
+                builderResult.hasSuccess = false
+                builderResult.success = nil
+                return self
+            }
+            public var negativeResponseCode:UInt32 {
+                get {
+                    return builderResult.negativeResponseCode
+                }
+                set (value) {
+                    builderResult.hasNegativeResponseCode = true
+                    builderResult.negativeResponseCode = value
+                }
+            }
+            public var hasNegativeResponseCode:Bool {
+                get {
+                    return builderResult.hasNegativeResponseCode
+                }
+            }
+            @discardableResult
+            public func setNegativeResponseCode(_ value:UInt32) -> Openxc.DiagnosticResponse.Builder {
+                self.negativeResponseCode = value
+                return self
+            }
+            @discardableResult
+            public func clearNegativeResponseCode() -> Openxc.DiagnosticResponse.Builder{
+                builderResult.hasNegativeResponseCode = false
+                builderResult.negativeResponseCode = nil
+                return self
+            }
+            public var payload:Data {
+                get {
+                    return builderResult.payload
+                }
+                set (value) {
+                    builderResult.hasPayload = true
+                    builderResult.payload = value
+                }
+            }
+            public var hasPayload:Bool {
+                get {
+                    return builderResult.hasPayload
+                }
+            }
+            @discardableResult
+            public func setPayload(_ value:Data) -> Openxc.DiagnosticResponse.Builder {
+                self.payload = value
+                return self
+            }
+            @discardableResult
+            public func clearPayload() -> Openxc.DiagnosticResponse.Builder{
+                builderResult.hasPayload = false
+                builderResult.payload = nil
+                return self
+            }
+            public var value:Openxc.DynamicField! {
+                get {
+                    if valueBuilder_ != nil {
+                        builderResult.value = valueBuilder_.getMessage()
+                    }
+                    return builderResult.value
+                }
+                set (value) {
+                    builderResult.hasValue = value != nil
+                    builderResult.value = value
+                }
+            }
+            public var hasValue:Bool {
+                get {
+                    return builderResult.hasValue
+                }
+            }
+            fileprivate var valueBuilder_:Openxc.DynamicField.Builder! {
+                didSet {
+                    builderResult.hasValue = true
+                }
+            }
+            public func getValueBuilder() -> Openxc.DynamicField.Builder {
+                if valueBuilder_ == nil {
+                    valueBuilder_ = Openxc.DynamicField.Builder()
+                    builderResult.value = valueBuilder_.getMessage()
+                    if value != nil {
+                        try! valueBuilder_.mergeFrom(other: value)
+                    }
+                }
+                return valueBuilder_
+            }
+            @discardableResult
+            public func setValue(_ value:Openxc.DynamicField!) -> Openxc.DiagnosticResponse.Builder {
+                self.value = value
+                return self
+            }
+            @discardableResult
+            public func mergeValue(value:Openxc.DynamicField) throws -> Openxc.DiagnosticResponse.Builder {
+                if builderResult.hasValue {
+                    builderResult.value = try Openxc.DynamicField.builderWithPrototype(prototype:builderResult.value).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.value = value
+                }
+                builderResult.hasValue = true
+                return self
+            }
+            @discardableResult
+            public func clearValue() -> Openxc.DiagnosticResponse.Builder {
+                valueBuilder_ = nil
+                builderResult.hasValue = false
+                builderResult.value = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.DiagnosticResponse.Builder {
+                builderResult = Openxc.DiagnosticResponse()
+                return self
+            }
+            override public func clone() throws -> Openxc.DiagnosticResponse.Builder {
+                return try Openxc.DiagnosticResponse.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.DiagnosticResponse {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.DiagnosticResponse {
+                let returnMe:Openxc.DiagnosticResponse = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.DiagnosticResponse) throws -> Openxc.DiagnosticResponse.Builder {
+                if other == Openxc.DiagnosticResponse() {
                     return self
-
-                case 10:
-                    name = try codedInputStream.readString()
-
-                case 18:
-                    let subBuilder:DynamicField.Builder = DynamicField.Builder()
-                    if hasValue {
-                        try subBuilder.mergeFrom(other: value)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    value = subBuilder.buildPartial()
-
-                case 26:
-                    let subBuilder:DynamicField.Builder = DynamicField.Builder()
-                    if hasEvent {
-                        try subBuilder.mergeFrom(other: event)
-                    }
-                    try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
-                    event = subBuilder.buildPartial()
-
-                default:
-                    if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
-                        unknownFields = try unknownFieldsBuilder.build()
+                }
+                if other.hasBus {
+                    bus = other.bus
+                }
+                if other.hasMessageId {
+                    messageId = other.messageId
+                }
+                if other.hasMode {
+                    mode = other.mode
+                }
+                if other.hasPid {
+                    pid = other.pid
+                }
+                if other.hasSuccess {
+                    success = other.success
+                }
+                if other.hasNegativeResponseCode {
+                    negativeResponseCode = other.negativeResponseCode
+                }
+                if other.hasPayload {
+                    payload = other.payload
+                }
+                if (other.hasValue) {
+                    try mergeValue(value: other.value)
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.DiagnosticResponse.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticResponse.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
                         return self
+
+                    case 8:
+                        bus = try codedInputStream.readInt32()
+
+                    case 16:
+                        messageId = try codedInputStream.readUInt32()
+
+                    case 24:
+                        mode = try codedInputStream.readUInt32()
+
+                    case 32:
+                        pid = try codedInputStream.readUInt32()
+
+                    case 40:
+                        success = try codedInputStream.readBool()
+
+                    case 48:
+                        negativeResponseCode = try codedInputStream.readUInt32()
+
+                    case 58:
+                        payload = try codedInputStream.readData()
+
+                    case 66:
+                        let subBuilder:Openxc.DynamicField.Builder = Openxc.DynamicField.Builder()
+                        if hasValue {
+                            try subBuilder.mergeFrom(other: value)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        value = subBuilder.buildPartial()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
                     }
                 }
             }
-        }
-        class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> SimpleMessage.Builder {
-            let resultDecodedBuilder = SimpleMessage.Builder()
-            if let jsonValueName = jsonMap["name"] as? String {
-                resultDecodedBuilder.name = jsonValueName
-            }
-            if let jsonValueValue = jsonMap["value"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.value = try DynamicField.Builder.decodeToBuilder(jsonMap:jsonValueValue).build()
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.DiagnosticResponse.Builder {
+                let resultDecodedBuilder = Openxc.DiagnosticResponse.Builder()
+                if let jsonValueBus = jsonMap["bus"] as? Int {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)
+                } else if let jsonValueBus = jsonMap["bus"] as? String {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)!
+                }
+                if let jsonValueMessageId = jsonMap["messageId"] as? UInt {
+                    resultDecodedBuilder.messageId = UInt32(jsonValueMessageId)
+                } else if let jsonValueMessageId = jsonMap["messageId"] as? String {
+                    resultDecodedBuilder.messageId = UInt32(jsonValueMessageId)!
+                }
+                if let jsonValueMode = jsonMap["mode"] as? UInt {
+                    resultDecodedBuilder.mode = UInt32(jsonValueMode)
+                } else if let jsonValueMode = jsonMap["mode"] as? String {
+                    resultDecodedBuilder.mode = UInt32(jsonValueMode)!
+                }
+                if let jsonValuePid = jsonMap["pid"] as? UInt {
+                    resultDecodedBuilder.pid = UInt32(jsonValuePid)
+                } else if let jsonValuePid = jsonMap["pid"] as? String {
+                    resultDecodedBuilder.pid = UInt32(jsonValuePid)!
+                }
+                if let jsonValueSuccess = jsonMap["success"] as? Bool {
+                    resultDecodedBuilder.success = jsonValueSuccess
+                }
+                if let jsonValueNegativeResponseCode = jsonMap["negativeResponseCode"] as? UInt {
+                    resultDecodedBuilder.negativeResponseCode = UInt32(jsonValueNegativeResponseCode)
+                } else if let jsonValueNegativeResponseCode = jsonMap["negativeResponseCode"] as? String {
+                    resultDecodedBuilder.negativeResponseCode = UInt32(jsonValueNegativeResponseCode)!
+                }
+                if let jsonValuePayload = jsonMap["payload"] as? String {
+                    resultDecodedBuilder.payload = Data(base64Encoded:jsonValuePayload, options: Data.Base64DecodingOptions(rawValue:0))!
+                }
+                if let jsonValueValue = jsonMap["value"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.value = try Openxc.DynamicField.Builder.decodeToBuilder(jsonMap:jsonValueValue).build()
 
+                }
+                return resultDecodedBuilder
             }
-            if let jsonValueEvent = jsonMap["event"] as? Dictionary<String,Any> {
-                resultDecodedBuilder.event = try DynamicField.Builder.decodeToBuilder(jsonMap:jsonValueEvent).build()
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.DiagnosticResponse.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.DiagnosticResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
+        }
 
+    }
+
+    final class DiagnosticStitchResponse : GeneratedMessage {
+        public typealias BuilderType = Openxc.DiagnosticStitchResponse.Builder
+
+        public static func == (lhs: Openxc.DiagnosticStitchResponse, rhs: Openxc.DiagnosticStitchResponse) -> Bool {
+            if lhs === rhs {
+                return true
             }
-            return resultDecodedBuilder
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasBus == rhs.hasBus) && (!lhs.hasBus || lhs.bus == rhs.bus)
+            fieldCheck = fieldCheck && (lhs.hasMessageId == rhs.hasMessageId) && (!lhs.hasMessageId || lhs.messageId == rhs.messageId)
+            fieldCheck = fieldCheck && (lhs.hasMode == rhs.hasMode) && (!lhs.hasMode || lhs.mode == rhs.mode)
+            fieldCheck = fieldCheck && (lhs.hasPid == rhs.hasPid) && (!lhs.hasPid || lhs.pid == rhs.pid)
+            fieldCheck = fieldCheck && (lhs.hasSuccess == rhs.hasSuccess) && (!lhs.hasSuccess || lhs.success == rhs.success)
+            fieldCheck = fieldCheck && (lhs.hasNegativeResponseCode == rhs.hasNegativeResponseCode) && (!lhs.hasNegativeResponseCode || lhs.negativeResponseCode == rhs.negativeResponseCode)
+            fieldCheck = fieldCheck && (lhs.hasPayload == rhs.hasPayload) && (!lhs.hasPayload || lhs.payload == rhs.payload)
+            fieldCheck = fieldCheck && (lhs.hasValue == rhs.hasValue) && (!lhs.hasValue || lhs.value == rhs.value)
+            fieldCheck = fieldCheck && (lhs.hasFrame == rhs.hasFrame) && (!lhs.hasFrame || lhs.frame == rhs.frame)
+            fieldCheck = fieldCheck && (lhs.hasTotalSize == rhs.hasTotalSize) && (!lhs.hasTotalSize || lhs.totalSize == rhs.totalSize)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
         }
-        override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> SimpleMessage.Builder {
-            let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
-            guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
-              throw ProtocolBuffersError.invalidProtocolBuffer(errMsgJSON)
+
+        public fileprivate(set) var bus:Int32! = nil
+        public fileprivate(set) var hasBus:Bool = false
+
+        public fileprivate(set) var messageId:UInt32! = nil
+        public fileprivate(set) var hasMessageId:Bool = false
+
+        public fileprivate(set) var mode:UInt32! = nil
+        public fileprivate(set) var hasMode:Bool = false
+
+        public fileprivate(set) var pid:UInt32! = nil
+        public fileprivate(set) var hasPid:Bool = false
+
+        public fileprivate(set) var success:Bool! = nil
+        public fileprivate(set) var hasSuccess:Bool = false
+
+        public fileprivate(set) var negativeResponseCode:UInt32! = nil
+        public fileprivate(set) var hasNegativeResponseCode:Bool = false
+
+        public fileprivate(set) var payload:Data! = nil
+        public fileprivate(set) var hasPayload:Bool = false
+
+        public fileprivate(set) var value:Openxc.DynamicField!
+        public fileprivate(set) var hasValue:Bool = false
+        public fileprivate(set) var frame:Int32! = nil
+        public fileprivate(set) var hasFrame:Bool = false
+
+        public fileprivate(set) var totalSize:UInt32! = nil
+        public fileprivate(set) var hasTotalSize:Bool = false
+
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasBus {
+                try codedOutputStream.writeInt32(fieldNumber: 1, value:bus)
             }
-            return try SimpleMessage.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            if hasMessageId {
+                try codedOutputStream.writeUInt32(fieldNumber: 2, value:messageId)
+            }
+            if hasMode {
+                try codedOutputStream.writeUInt32(fieldNumber: 3, value:mode)
+            }
+            if hasPid {
+                try codedOutputStream.writeUInt32(fieldNumber: 4, value:pid)
+            }
+            if hasSuccess {
+                try codedOutputStream.writeBool(fieldNumber: 5, value:success)
+            }
+            if hasNegativeResponseCode {
+                try codedOutputStream.writeUInt32(fieldNumber: 6, value:negativeResponseCode)
+            }
+            if hasPayload {
+                try codedOutputStream.writeData(fieldNumber: 7, value:payload)
+            }
+            if hasValue {
+                try codedOutputStream.writeMessage(fieldNumber: 8, value:value)
+            }
+            if hasFrame {
+                try codedOutputStream.writeInt32(fieldNumber: 9, value:frame)
+            }
+            if hasTotalSize {
+                try codedOutputStream.writeUInt32(fieldNumber: 10, value:totalSize)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
         }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasBus {
+                serialize_size += bus.computeInt32Size(fieldNumber: 1)
+            }
+            if hasMessageId {
+                serialize_size += messageId.computeUInt32Size(fieldNumber: 2)
+            }
+            if hasMode {
+                serialize_size += mode.computeUInt32Size(fieldNumber: 3)
+            }
+            if hasPid {
+                serialize_size += pid.computeUInt32Size(fieldNumber: 4)
+            }
+            if hasSuccess {
+                serialize_size += success.computeBoolSize(fieldNumber: 5)
+            }
+            if hasNegativeResponseCode {
+                serialize_size += negativeResponseCode.computeUInt32Size(fieldNumber: 6)
+            }
+            if hasPayload {
+                serialize_size += payload.computeDataSize(fieldNumber: 7)
+            }
+            if hasValue {
+                if let varSizevalue = value?.computeMessageSize(fieldNumber: 8) {
+                    serialize_size += varSizevalue
+                }
+            }
+            if hasFrame {
+                serialize_size += frame.computeInt32Size(fieldNumber: 9)
+            }
+            if hasTotalSize {
+                serialize_size += totalSize.computeUInt32Size(fieldNumber: 10)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.DiagnosticStitchResponse.Builder {
+            return Openxc.DiagnosticStitchResponse.classBuilder() as! Openxc.DiagnosticStitchResponse.Builder
+        }
+        public func getBuilder() -> Openxc.DiagnosticStitchResponse.Builder {
+            return classBuilder() as! Openxc.DiagnosticStitchResponse.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.DiagnosticStitchResponse.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.DiagnosticStitchResponse.Builder()
+        }
+        public func toBuilder() throws -> Openxc.DiagnosticStitchResponse.Builder {
+            return try Openxc.DiagnosticStitchResponse.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.DiagnosticStitchResponse) throws -> Openxc.DiagnosticStitchResponse.Builder {
+            return try Openxc.DiagnosticStitchResponse.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasBus {
+                jsonMap["bus"] = Int(bus)
+            }
+            if hasMessageId {
+                jsonMap["messageId"] = UInt(messageId)
+            }
+            if hasMode {
+                jsonMap["mode"] = UInt(mode)
+            }
+            if hasPid {
+                jsonMap["pid"] = UInt(pid)
+            }
+            if hasSuccess {
+                jsonMap["success"] = success
+            }
+            if hasNegativeResponseCode {
+                jsonMap["negativeResponseCode"] = UInt(negativeResponseCode)
+            }
+            if hasPayload {
+                jsonMap["payload"] = payload.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+            }
+            if hasValue {
+                jsonMap["value"] = try value.encode()
+            }
+            if hasFrame {
+                jsonMap["frame"] = Int(frame)
+            }
+            if hasTotalSize {
+                jsonMap["totalSize"] = UInt(totalSize)
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.DiagnosticStitchResponse {
+            return try Openxc.DiagnosticStitchResponse.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.DiagnosticStitchResponse {
+            return try Openxc.DiagnosticStitchResponse.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasBus {
+                output += "\(indent) bus: \(String(describing: bus)) \n"
+            }
+            if hasMessageId {
+                output += "\(indent) messageId: \(String(describing: messageId)) \n"
+            }
+            if hasMode {
+                output += "\(indent) mode: \(String(describing: mode)) \n"
+            }
+            if hasPid {
+                output += "\(indent) pid: \(String(describing: pid)) \n"
+            }
+            if hasSuccess {
+                output += "\(indent) success: \(String(describing: success)) \n"
+            }
+            if hasNegativeResponseCode {
+                output += "\(indent) negativeResponseCode: \(String(describing: negativeResponseCode)) \n"
+            }
+            if hasPayload {
+                output += "\(indent) payload: \(String(describing: payload)) \n"
+            }
+            if hasValue {
+                output += "\(indent) value {\n"
+                if let outDescValue = value {
+                    output += try outDescValue.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasFrame {
+                output += "\(indent) frame: \(String(describing: frame)) \n"
+            }
+            if hasTotalSize {
+                output += "\(indent) totalSize: \(String(describing: totalSize)) \n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasBus {
+                    hashCode = (hashCode &* 31) &+ bus.hashValue
+                }
+                if hasMessageId {
+                    hashCode = (hashCode &* 31) &+ messageId.hashValue
+                }
+                if hasMode {
+                    hashCode = (hashCode &* 31) &+ mode.hashValue
+                }
+                if hasPid {
+                    hashCode = (hashCode &* 31) &+ pid.hashValue
+                }
+                if hasSuccess {
+                    hashCode = (hashCode &* 31) &+ success.hashValue
+                }
+                if hasNegativeResponseCode {
+                    hashCode = (hashCode &* 31) &+ negativeResponseCode.hashValue
+                }
+                if hasPayload {
+                    hashCode = (hashCode &* 31) &+ payload.hashValue
+                }
+                if hasValue {
+                    if let hashValuevalue = value?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuevalue
+                    }
+                }
+                if hasFrame {
+                    hashCode = (hashCode &* 31) &+ frame.hashValue
+                }
+                if hasTotalSize {
+                    hashCode = (hashCode &* 31) &+ totalSize.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.DiagnosticStitchResponse"
+        }
+        override public func className() -> String {
+            return "Openxc.DiagnosticStitchResponse"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.DiagnosticStitchResponse = Openxc.DiagnosticStitchResponse()
+            public func getMessage() -> Openxc.DiagnosticStitchResponse {
+                return builderResult
+            }
+
+            required override public init () {
+                super.init()
+            }
+            public var bus:Int32 {
+                get {
+                    return builderResult.bus
+                }
+                set (value) {
+                    builderResult.hasBus = true
+                    builderResult.bus = value
+                }
+            }
+            public var hasBus:Bool {
+                get {
+                    return builderResult.hasBus
+                }
+            }
+            @discardableResult
+            public func setBus(_ value:Int32) -> Openxc.DiagnosticStitchResponse.Builder {
+                self.bus = value
+                return self
+            }
+            @discardableResult
+            public func clearBus() -> Openxc.DiagnosticStitchResponse.Builder{
+                builderResult.hasBus = false
+                builderResult.bus = nil
+                return self
+            }
+            public var messageId:UInt32 {
+                get {
+                    return builderResult.messageId
+                }
+                set (value) {
+                    builderResult.hasMessageId = true
+                    builderResult.messageId = value
+                }
+            }
+            public var hasMessageId:Bool {
+                get {
+                    return builderResult.hasMessageId
+                }
+            }
+            @discardableResult
+            public func setMessageId(_ value:UInt32) -> Openxc.DiagnosticStitchResponse.Builder {
+                self.messageId = value
+                return self
+            }
+            @discardableResult
+            public func clearMessageId() -> Openxc.DiagnosticStitchResponse.Builder{
+                builderResult.hasMessageId = false
+                builderResult.messageId = nil
+                return self
+            }
+            public var mode:UInt32 {
+                get {
+                    return builderResult.mode
+                }
+                set (value) {
+                    builderResult.hasMode = true
+                    builderResult.mode = value
+                }
+            }
+            public var hasMode:Bool {
+                get {
+                    return builderResult.hasMode
+                }
+            }
+            @discardableResult
+            public func setMode(_ value:UInt32) -> Openxc.DiagnosticStitchResponse.Builder {
+                self.mode = value
+                return self
+            }
+            @discardableResult
+            public func clearMode() -> Openxc.DiagnosticStitchResponse.Builder{
+                builderResult.hasMode = false
+                builderResult.mode = nil
+                return self
+            }
+            public var pid:UInt32 {
+                get {
+                    return builderResult.pid
+                }
+                set (value) {
+                    builderResult.hasPid = true
+                    builderResult.pid = value
+                }
+            }
+            public var hasPid:Bool {
+                get {
+                    return builderResult.hasPid
+                }
+            }
+            @discardableResult
+            public func setPid(_ value:UInt32) -> Openxc.DiagnosticStitchResponse.Builder {
+                self.pid = value
+                return self
+            }
+            @discardableResult
+            public func clearPid() -> Openxc.DiagnosticStitchResponse.Builder{
+                builderResult.hasPid = false
+                builderResult.pid = nil
+                return self
+            }
+            public var success:Bool {
+                get {
+                    return builderResult.success
+                }
+                set (value) {
+                    builderResult.hasSuccess = true
+                    builderResult.success = value
+                }
+            }
+            public var hasSuccess:Bool {
+                get {
+                    return builderResult.hasSuccess
+                }
+            }
+            @discardableResult
+            public func setSuccess(_ value:Bool) -> Openxc.DiagnosticStitchResponse.Builder {
+                self.success = value
+                return self
+            }
+            @discardableResult
+            public func clearSuccess() -> Openxc.DiagnosticStitchResponse.Builder{
+                builderResult.hasSuccess = false
+                builderResult.success = nil
+                return self
+            }
+            public var negativeResponseCode:UInt32 {
+                get {
+                    return builderResult.negativeResponseCode
+                }
+                set (value) {
+                    builderResult.hasNegativeResponseCode = true
+                    builderResult.negativeResponseCode = value
+                }
+            }
+            public var hasNegativeResponseCode:Bool {
+                get {
+                    return builderResult.hasNegativeResponseCode
+                }
+            }
+            @discardableResult
+            public func setNegativeResponseCode(_ value:UInt32) -> Openxc.DiagnosticStitchResponse.Builder {
+                self.negativeResponseCode = value
+                return self
+            }
+            @discardableResult
+            public func clearNegativeResponseCode() -> Openxc.DiagnosticStitchResponse.Builder{
+                builderResult.hasNegativeResponseCode = false
+                builderResult.negativeResponseCode = nil
+                return self
+            }
+            public var payload:Data {
+                get {
+                    return builderResult.payload
+                }
+                set (value) {
+                    builderResult.hasPayload = true
+                    builderResult.payload = value
+                }
+            }
+            public var hasPayload:Bool {
+                get {
+                    return builderResult.hasPayload
+                }
+            }
+            @discardableResult
+            public func setPayload(_ value:Data) -> Openxc.DiagnosticStitchResponse.Builder {
+                self.payload = value
+                return self
+            }
+            @discardableResult
+            public func clearPayload() -> Openxc.DiagnosticStitchResponse.Builder{
+                builderResult.hasPayload = false
+                builderResult.payload = nil
+                return self
+            }
+            public var value:Openxc.DynamicField! {
+                get {
+                    if valueBuilder_ != nil {
+                        builderResult.value = valueBuilder_.getMessage()
+                    }
+                    return builderResult.value
+                }
+                set (value) {
+                    builderResult.hasValue = value != nil
+                    builderResult.value = value
+                }
+            }
+            public var hasValue:Bool {
+                get {
+                    return builderResult.hasValue
+                }
+            }
+            fileprivate var valueBuilder_:Openxc.DynamicField.Builder! {
+                didSet {
+                    builderResult.hasValue = true
+                }
+            }
+            public func getValueBuilder() -> Openxc.DynamicField.Builder {
+                if valueBuilder_ == nil {
+                    valueBuilder_ = Openxc.DynamicField.Builder()
+                    builderResult.value = valueBuilder_.getMessage()
+                    if value != nil {
+                        try! valueBuilder_.mergeFrom(other: value)
+                    }
+                }
+                return valueBuilder_
+            }
+            @discardableResult
+            public func setValue(_ value:Openxc.DynamicField!) -> Openxc.DiagnosticStitchResponse.Builder {
+                self.value = value
+                return self
+            }
+            @discardableResult
+            public func mergeValue(value:Openxc.DynamicField) throws -> Openxc.DiagnosticStitchResponse.Builder {
+                if builderResult.hasValue {
+                    builderResult.value = try Openxc.DynamicField.builderWithPrototype(prototype:builderResult.value).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.value = value
+                }
+                builderResult.hasValue = true
+                return self
+            }
+            @discardableResult
+            public func clearValue() -> Openxc.DiagnosticStitchResponse.Builder {
+                valueBuilder_ = nil
+                builderResult.hasValue = false
+                builderResult.value = nil
+                return self
+            }
+            public var frame:Int32 {
+                get {
+                    return builderResult.frame
+                }
+                set (value) {
+                    builderResult.hasFrame = true
+                    builderResult.frame = value
+                }
+            }
+            public var hasFrame:Bool {
+                get {
+                    return builderResult.hasFrame
+                }
+            }
+            @discardableResult
+            public func setFrame(_ value:Int32) -> Openxc.DiagnosticStitchResponse.Builder {
+                self.frame = value
+                return self
+            }
+            @discardableResult
+            public func clearFrame() -> Openxc.DiagnosticStitchResponse.Builder{
+                builderResult.hasFrame = false
+                builderResult.frame = nil
+                return self
+            }
+            public var totalSize:UInt32 {
+                get {
+                    return builderResult.totalSize
+                }
+                set (value) {
+                    builderResult.hasTotalSize = true
+                    builderResult.totalSize = value
+                }
+            }
+            public var hasTotalSize:Bool {
+                get {
+                    return builderResult.hasTotalSize
+                }
+            }
+            @discardableResult
+            public func setTotalSize(_ value:UInt32) -> Openxc.DiagnosticStitchResponse.Builder {
+                self.totalSize = value
+                return self
+            }
+            @discardableResult
+            public func clearTotalSize() -> Openxc.DiagnosticStitchResponse.Builder{
+                builderResult.hasTotalSize = false
+                builderResult.totalSize = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.DiagnosticStitchResponse.Builder {
+                builderResult = Openxc.DiagnosticStitchResponse()
+                return self
+            }
+            override public func clone() throws -> Openxc.DiagnosticStitchResponse.Builder {
+                return try Openxc.DiagnosticStitchResponse.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.DiagnosticStitchResponse {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.DiagnosticStitchResponse {
+                let returnMe:Openxc.DiagnosticStitchResponse = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.DiagnosticStitchResponse) throws -> Openxc.DiagnosticStitchResponse.Builder {
+                if other == Openxc.DiagnosticStitchResponse() {
+                    return self
+                }
+                if other.hasBus {
+                    bus = other.bus
+                }
+                if other.hasMessageId {
+                    messageId = other.messageId
+                }
+                if other.hasMode {
+                    mode = other.mode
+                }
+                if other.hasPid {
+                    pid = other.pid
+                }
+                if other.hasSuccess {
+                    success = other.success
+                }
+                if other.hasNegativeResponseCode {
+                    negativeResponseCode = other.negativeResponseCode
+                }
+                if other.hasPayload {
+                    payload = other.payload
+                }
+                if (other.hasValue) {
+                    try mergeValue(value: other.value)
+                }
+                if other.hasFrame {
+                    frame = other.frame
+                }
+                if other.hasTotalSize {
+                    totalSize = other.totalSize
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.DiagnosticStitchResponse.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticStitchResponse.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                    case 8:
+                        bus = try codedInputStream.readInt32()
+
+                    case 16:
+                        messageId = try codedInputStream.readUInt32()
+
+                    case 24:
+                        mode = try codedInputStream.readUInt32()
+
+                    case 32:
+                        pid = try codedInputStream.readUInt32()
+
+                    case 40:
+                        success = try codedInputStream.readBool()
+
+                    case 48:
+                        negativeResponseCode = try codedInputStream.readUInt32()
+
+                    case 58:
+                        payload = try codedInputStream.readData()
+
+                    case 66:
+                        let subBuilder:Openxc.DynamicField.Builder = Openxc.DynamicField.Builder()
+                        if hasValue {
+                            try subBuilder.mergeFrom(other: value)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        value = subBuilder.buildPartial()
+
+                    case 72:
+                        frame = try codedInputStream.readInt32()
+
+                    case 80:
+                        totalSize = try codedInputStream.readUInt32()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
+                    }
+                }
+            }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.DiagnosticStitchResponse.Builder {
+                let resultDecodedBuilder = Openxc.DiagnosticStitchResponse.Builder()
+                if let jsonValueBus = jsonMap["bus"] as? Int {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)
+                } else if let jsonValueBus = jsonMap["bus"] as? String {
+                    resultDecodedBuilder.bus = Int32(jsonValueBus)!
+                }
+                if let jsonValueMessageId = jsonMap["messageId"] as? UInt {
+                    resultDecodedBuilder.messageId = UInt32(jsonValueMessageId)
+                } else if let jsonValueMessageId = jsonMap["messageId"] as? String {
+                    resultDecodedBuilder.messageId = UInt32(jsonValueMessageId)!
+                }
+                if let jsonValueMode = jsonMap["mode"] as? UInt {
+                    resultDecodedBuilder.mode = UInt32(jsonValueMode)
+                } else if let jsonValueMode = jsonMap["mode"] as? String {
+                    resultDecodedBuilder.mode = UInt32(jsonValueMode)!
+                }
+                if let jsonValuePid = jsonMap["pid"] as? UInt {
+                    resultDecodedBuilder.pid = UInt32(jsonValuePid)
+                } else if let jsonValuePid = jsonMap["pid"] as? String {
+                    resultDecodedBuilder.pid = UInt32(jsonValuePid)!
+                }
+                if let jsonValueSuccess = jsonMap["success"] as? Bool {
+                    resultDecodedBuilder.success = jsonValueSuccess
+                }
+                if let jsonValueNegativeResponseCode = jsonMap["negativeResponseCode"] as? UInt {
+                    resultDecodedBuilder.negativeResponseCode = UInt32(jsonValueNegativeResponseCode)
+                } else if let jsonValueNegativeResponseCode = jsonMap["negativeResponseCode"] as? String {
+                    resultDecodedBuilder.negativeResponseCode = UInt32(jsonValueNegativeResponseCode)!
+                }
+                if let jsonValuePayload = jsonMap["payload"] as? String {
+                    resultDecodedBuilder.payload = Data(base64Encoded:jsonValuePayload, options: Data.Base64DecodingOptions(rawValue:0))!
+                }
+                if let jsonValueValue = jsonMap["value"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.value = try Openxc.DynamicField.Builder.decodeToBuilder(jsonMap:jsonValueValue).build()
+
+                }
+                if let jsonValueFrame = jsonMap["frame"] as? Int {
+                    resultDecodedBuilder.frame = Int32(jsonValueFrame)
+                } else if let jsonValueFrame = jsonMap["frame"] as? String {
+                    resultDecodedBuilder.frame = Int32(jsonValueFrame)!
+                }
+                if let jsonValueTotalSize = jsonMap["totalSize"] as? UInt {
+                    resultDecodedBuilder.totalSize = UInt32(jsonValueTotalSize)
+                } else if let jsonValueTotalSize = jsonMap["totalSize"] as? String {
+                    resultDecodedBuilder.totalSize = UInt32(jsonValueTotalSize)!
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.DiagnosticStitchResponse.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.DiagnosticStitchResponse.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
+        }
+
+    }
+
+    final class DynamicField : GeneratedMessage {
+        public typealias BuilderType = Openxc.DynamicField.Builder
+
+        public static func == (lhs: Openxc.DynamicField, rhs: Openxc.DynamicField) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasType == rhs.hasType) && (!lhs.hasType || lhs.type == rhs.type)
+            fieldCheck = fieldCheck && (lhs.hasStringValue == rhs.hasStringValue) && (!lhs.hasStringValue || lhs.stringValue == rhs.stringValue)
+            fieldCheck = fieldCheck && (lhs.hasNumericValue == rhs.hasNumericValue) && (!lhs.hasNumericValue || lhs.numericValue == rhs.numericValue)
+            fieldCheck = fieldCheck && (lhs.hasBooleanValue == rhs.hasBooleanValue) && (!lhs.hasBooleanValue || lhs.booleanValue == rhs.booleanValue)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
+        }
+
+
+
+            //Enum type declaration start 
+
+            public enum ProtoType:Int32, GeneratedEnum {
+                case unused = 0
+                case `String` = 1
+                case num = 2
+                case bool = 3
+                public func toString() -> String {
+                    switch self {
+                    case .unused: return "UNUSED"
+                    case .`String`: return "STRING"
+                    case .num: return "NUM"
+                    case .bool: return "BOOL"
+                    }
+                }
+                public static func fromString(_ str:String) throws -> Openxc.DynamicField.ProtoType {
+                    switch str {
+                    case "UNUSED":    return .unused
+                    case "STRING":    return .`String`
+                    case "NUM":    return .num
+                    case "BOOL":    return .bool
+                    default: throw ProtocolBuffersError.invalidProtocolBuffer("Conversion failed.")
+                    }
+                }
+                public var debugDescription:String { return getDescription() }
+                public var description:String { return getDescription() }
+                private func getDescription() -> String { 
+                    switch self {
+                    case .unused: return ".unused"
+                    case .`String`: return ".`String`"
+                    case .num: return ".num"
+                    case .bool: return ".bool"
+                    }
+                }
+                public var hashValue:Int {
+                    return self.rawValue.hashValue
+                }
+                public static func ==(lhs:ProtoType, rhs:ProtoType) -> Bool {
+                    return lhs.hashValue == rhs.hashValue
+                }
+            }
+
+            //Enum type declaration end 
+
+        public fileprivate(set) var type:Openxc.DynamicField.ProtoType = Openxc.DynamicField.ProtoType.unused
+        public fileprivate(set) var hasType:Bool = false
+        public fileprivate(set) var stringValue:String! = nil
+        public fileprivate(set) var hasStringValue:Bool = false
+
+        public fileprivate(set) var numericValue:Double! = nil
+        public fileprivate(set) var hasNumericValue:Bool = false
+
+        public fileprivate(set) var booleanValue:Bool! = nil
+        public fileprivate(set) var hasBooleanValue:Bool = false
+
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasType {
+                try codedOutputStream.writeEnum(fieldNumber: 1, value:type.rawValue)
+            }
+            if hasStringValue {
+                try codedOutputStream.writeString(fieldNumber: 2, value:stringValue)
+            }
+            if hasNumericValue {
+                try codedOutputStream.writeDouble(fieldNumber: 3, value:numericValue)
+            }
+            if hasBooleanValue {
+                try codedOutputStream.writeBool(fieldNumber: 4, value:booleanValue)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if (hasType) {
+                serialize_size += type.rawValue.computeEnumSize(fieldNumber: 1)
+            }
+            if hasStringValue {
+                serialize_size += stringValue.computeStringSize(fieldNumber: 2)
+            }
+            if hasNumericValue {
+                serialize_size += numericValue.computeDoubleSize(fieldNumber: 3)
+            }
+            if hasBooleanValue {
+                serialize_size += booleanValue.computeBoolSize(fieldNumber: 4)
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.DynamicField.Builder {
+            return Openxc.DynamicField.classBuilder() as! Openxc.DynamicField.Builder
+        }
+        public func getBuilder() -> Openxc.DynamicField.Builder {
+            return classBuilder() as! Openxc.DynamicField.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.DynamicField.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.DynamicField.Builder()
+        }
+        public func toBuilder() throws -> Openxc.DynamicField.Builder {
+            return try Openxc.DynamicField.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.DynamicField) throws -> Openxc.DynamicField.Builder {
+            return try Openxc.DynamicField.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasType {
+                jsonMap["type"] = type.toString()
+            }
+            if hasStringValue {
+                jsonMap["stringValue"] = stringValue
+            }
+            if hasNumericValue {
+                jsonMap["numericValue"] = Double(numericValue)
+            }
+            if hasBooleanValue {
+                jsonMap["booleanValue"] = booleanValue
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.DynamicField {
+            return try Openxc.DynamicField.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.DynamicField {
+            return try Openxc.DynamicField.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if (hasType) {
+                output += "\(indent) type: \(type.description)\n"
+            }
+            if hasStringValue {
+                output += "\(indent) stringValue: \(String(describing: stringValue)) \n"
+            }
+            if hasNumericValue {
+                output += "\(indent) numericValue: \(String(describing: numericValue)) \n"
+            }
+            if hasBooleanValue {
+                output += "\(indent) booleanValue: \(String(describing: booleanValue)) \n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasType {
+                     hashCode = (hashCode &* 31) &+ type.hashValue
+                }
+                if hasStringValue {
+                    hashCode = (hashCode &* 31) &+ stringValue.hashValue
+                }
+                if hasNumericValue {
+                    hashCode = (hashCode &* 31) &+ numericValue.hashValue
+                }
+                if hasBooleanValue {
+                    hashCode = (hashCode &* 31) &+ booleanValue.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.DynamicField"
+        }
+        override public func className() -> String {
+            return "Openxc.DynamicField"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.DynamicField = Openxc.DynamicField()
+            public func getMessage() -> Openxc.DynamicField {
+                return builderResult
+            }
+
+            required override public init () {
+                super.init()
+            }
+                public var type:Openxc.DynamicField.ProtoType {
+                    get {
+                        return builderResult.type
+                    }
+                    set (value) {
+                        builderResult.hasType = true
+                        builderResult.type = value
+                    }
+                }
+                public var hasType:Bool{
+                    get {
+                        return builderResult.hasType
+                    }
+                }
+            @discardableResult
+                public func setType(_ value:Openxc.DynamicField.ProtoType) -> Openxc.DynamicField.Builder {
+                  self.type = value
+                  return self
+                }
+            @discardableResult
+                public func clearType() -> Openxc.DynamicField.Builder {
+                   builderResult.hasType = false
+                   builderResult.type = .unused
+                   return self
+                }
+            public var stringValue:String {
+                get {
+                    return builderResult.stringValue
+                }
+                set (value) {
+                    builderResult.hasStringValue = true
+                    builderResult.stringValue = value
+                }
+            }
+            public var hasStringValue:Bool {
+                get {
+                    return builderResult.hasStringValue
+                }
+            }
+            @discardableResult
+            public func setStringValue(_ value:String) -> Openxc.DynamicField.Builder {
+                self.stringValue = value
+                return self
+            }
+            @discardableResult
+            public func clearStringValue() -> Openxc.DynamicField.Builder{
+                builderResult.hasStringValue = false
+                builderResult.stringValue = nil
+                return self
+            }
+            public var numericValue:Double {
+                get {
+                    return builderResult.numericValue
+                }
+                set (value) {
+                    builderResult.hasNumericValue = true
+                    builderResult.numericValue = value
+                }
+            }
+            public var hasNumericValue:Bool {
+                get {
+                    return builderResult.hasNumericValue
+                }
+            }
+            @discardableResult
+            public func setNumericValue(_ value:Double) -> Openxc.DynamicField.Builder {
+                self.numericValue = value
+                return self
+            }
+            @discardableResult
+            public func clearNumericValue() -> Openxc.DynamicField.Builder{
+                builderResult.hasNumericValue = false
+                builderResult.numericValue = nil
+                return self
+            }
+            public var booleanValue:Bool {
+                get {
+                    return builderResult.booleanValue
+                }
+                set (value) {
+                    builderResult.hasBooleanValue = true
+                    builderResult.booleanValue = value
+                }
+            }
+            public var hasBooleanValue:Bool {
+                get {
+                    return builderResult.hasBooleanValue
+                }
+            }
+            @discardableResult
+            public func setBooleanValue(_ value:Bool) -> Openxc.DynamicField.Builder {
+                self.booleanValue = value
+                return self
+            }
+            @discardableResult
+            public func clearBooleanValue() -> Openxc.DynamicField.Builder{
+                builderResult.hasBooleanValue = false
+                builderResult.booleanValue = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.DynamicField.Builder {
+                builderResult = Openxc.DynamicField()
+                return self
+            }
+            override public func clone() throws -> Openxc.DynamicField.Builder {
+                return try Openxc.DynamicField.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.DynamicField {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.DynamicField {
+                let returnMe:Openxc.DynamicField = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.DynamicField) throws -> Openxc.DynamicField.Builder {
+                if other == Openxc.DynamicField() {
+                    return self
+                }
+                if other.hasType {
+                    type = other.type
+                }
+                if other.hasStringValue {
+                    stringValue = other.stringValue
+                }
+                if other.hasNumericValue {
+                    numericValue = other.numericValue
+                }
+                if other.hasBooleanValue {
+                    booleanValue = other.booleanValue
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.DynamicField.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DynamicField.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                    case 8:
+                        let valueInttype = try codedInputStream.readEnum()
+                        if let enumstype = Openxc.DynamicField.ProtoType(rawValue:valueInttype){
+                            type = enumstype
+                        } else {
+                            try unknownFieldsBuilder.mergeVarintField(fieldNumber: 1, value:Int64(valueInttype))
+                        }
+
+                    case 18:
+                        stringValue = try codedInputStream.readString()
+
+                    case 25:
+                        numericValue = try codedInputStream.readDouble()
+
+                    case 32:
+                        booleanValue = try codedInputStream.readBool()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
+                    }
+                }
+            }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.DynamicField.Builder {
+                let resultDecodedBuilder = Openxc.DynamicField.Builder()
+                if let jsonValueType = jsonMap["type"] as? String {
+                    resultDecodedBuilder.type = try Openxc.DynamicField.ProtoType.fromString(jsonValueType)
+                }
+                if let jsonValueStringValue = jsonMap["stringValue"] as? String {
+                    resultDecodedBuilder.stringValue = jsonValueStringValue
+                }
+                if let jsonValueNumericValue = jsonMap["numericValue"] as? Double {
+                    resultDecodedBuilder.numericValue = Double(jsonValueNumericValue)
+                } else if let jsonValueNumericValue = jsonMap["numericValue"] as? String {
+                    resultDecodedBuilder.numericValue = Double(jsonValueNumericValue)!
+                }
+                if let jsonValueBooleanValue = jsonMap["booleanValue"] as? Bool {
+                    resultDecodedBuilder.booleanValue = jsonValueBooleanValue
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.DynamicField.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.DynamicField.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
+        }
+
+    }
+
+    final class SimpleMessage : GeneratedMessage {
+        public typealias BuilderType = Openxc.SimpleMessage.Builder
+
+        public static func == (lhs: Openxc.SimpleMessage, rhs: Openxc.SimpleMessage) -> Bool {
+            if lhs === rhs {
+                return true
+            }
+            var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+            fieldCheck = fieldCheck && (lhs.hasName == rhs.hasName) && (!lhs.hasName || lhs.name == rhs.name)
+            fieldCheck = fieldCheck && (lhs.hasValue == rhs.hasValue) && (!lhs.hasValue || lhs.value == rhs.value)
+            fieldCheck = fieldCheck && (lhs.hasEvent == rhs.hasEvent) && (!lhs.hasEvent || lhs.event == rhs.event)
+            fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+            return fieldCheck
+        }
+
+        public fileprivate(set) var name:String! = nil
+        public fileprivate(set) var hasName:Bool = false
+
+        public fileprivate(set) var value:Openxc.DynamicField!
+        public fileprivate(set) var hasValue:Bool = false
+        public fileprivate(set) var event:Openxc.DynamicField!
+        public fileprivate(set) var hasEvent:Bool = false
+        required public init() {
+            super.init()
+        }
+        override public func isInitialized() throws {
+        }
+        override public func writeTo(codedOutputStream: CodedOutputStream) throws {
+            if hasName {
+                try codedOutputStream.writeString(fieldNumber: 1, value:name)
+            }
+            if hasValue {
+                try codedOutputStream.writeMessage(fieldNumber: 2, value:value)
+            }
+            if hasEvent {
+                try codedOutputStream.writeMessage(fieldNumber: 3, value:event)
+            }
+            try unknownFields.writeTo(codedOutputStream: codedOutputStream)
+        }
+        override public func serializedSize() -> Int32 {
+            var serialize_size:Int32 = memoizedSerializedSize
+            if serialize_size != -1 {
+             return serialize_size
+            }
+
+            serialize_size = 0
+            if hasName {
+                serialize_size += name.computeStringSize(fieldNumber: 1)
+            }
+            if hasValue {
+                if let varSizevalue = value?.computeMessageSize(fieldNumber: 2) {
+                    serialize_size += varSizevalue
+                }
+            }
+            if hasEvent {
+                if let varSizeevent = event?.computeMessageSize(fieldNumber: 3) {
+                    serialize_size += varSizeevent
+                }
+            }
+            serialize_size += unknownFields.serializedSize()
+            memoizedSerializedSize = serialize_size
+            return serialize_size
+        }
+        public class func getBuilder() -> Openxc.SimpleMessage.Builder {
+            return Openxc.SimpleMessage.classBuilder() as! Openxc.SimpleMessage.Builder
+        }
+        public func getBuilder() -> Openxc.SimpleMessage.Builder {
+            return classBuilder() as! Openxc.SimpleMessage.Builder
+        }
+        override public class func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.SimpleMessage.Builder()
+        }
+        override public func classBuilder() -> ProtocolBuffersMessageBuilder {
+            return Openxc.SimpleMessage.Builder()
+        }
+        public func toBuilder() throws -> Openxc.SimpleMessage.Builder {
+            return try Openxc.SimpleMessage.builderWithPrototype(prototype:self)
+        }
+        public class func builderWithPrototype(prototype:Openxc.SimpleMessage) throws -> Openxc.SimpleMessage.Builder {
+            return try Openxc.SimpleMessage.Builder().mergeFrom(other:prototype)
+        }
+        override public func encode() throws -> Dictionary<String,Any> {
+            try isInitialized()
+            var jsonMap:Dictionary<String,Any> = Dictionary<String,Any>()
+            if hasName {
+                jsonMap["name"] = name
+            }
+            if hasValue {
+                jsonMap["value"] = try value.encode()
+            }
+            if hasEvent {
+                jsonMap["event"] = try event.encode()
+            }
+            return jsonMap
+        }
+        override class public func decode(jsonMap:Dictionary<String,Any>) throws -> Openxc.SimpleMessage {
+            return try Openxc.SimpleMessage.Builder.decodeToBuilder(jsonMap:jsonMap).build()
+        }
+        override class public func fromJSON(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.SimpleMessage {
+            return try Openxc.SimpleMessage.Builder.fromJSONToBuilder(data:data, options:options).build()
+        }
+        override public func getDescription(indent:String) throws -> String {
+            var output = ""
+            if hasName {
+                output += "\(indent) name: \(String(describing: name)) \n"
+            }
+            if hasValue {
+                output += "\(indent) value {\n"
+                if let outDescValue = value {
+                    output += try outDescValue.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            if hasEvent {
+                output += "\(indent) event {\n"
+                if let outDescEvent = event {
+                    output += try outDescEvent.getDescription(indent: "\(indent)  ")
+                }
+                output += "\(indent) }\n"
+            }
+            output += unknownFields.getDescription(indent: indent)
+            return output
+        }
+        override public var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasName {
+                    hashCode = (hashCode &* 31) &+ name.hashValue
+                }
+                if hasValue {
+                    if let hashValuevalue = value?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValuevalue
+                    }
+                }
+                if hasEvent {
+                    if let hashValueevent = event?.hashValue {
+                        hashCode = (hashCode &* 31) &+ hashValueevent
+                    }
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override public class func className() -> String {
+            return "Openxc.SimpleMessage"
+        }
+        override public func className() -> String {
+            return "Openxc.SimpleMessage"
+        }
+        //Meta information declaration end
+
+        final public class Builder : GeneratedMessageBuilder {
+            fileprivate var builderResult:Openxc.SimpleMessage = Openxc.SimpleMessage()
+            public func getMessage() -> Openxc.SimpleMessage {
+                return builderResult
+            }
+
+            required override public init () {
+                super.init()
+            }
+            public var name:String {
+                get {
+                    return builderResult.name
+                }
+                set (value) {
+                    builderResult.hasName = true
+                    builderResult.name = value
+                }
+            }
+            public var hasName:Bool {
+                get {
+                    return builderResult.hasName
+                }
+            }
+            @discardableResult
+            public func setName(_ value:String) -> Openxc.SimpleMessage.Builder {
+                self.name = value
+                return self
+            }
+            @discardableResult
+            public func clearName() -> Openxc.SimpleMessage.Builder{
+                builderResult.hasName = false
+                builderResult.name = nil
+                return self
+            }
+            public var value:Openxc.DynamicField! {
+                get {
+                    if valueBuilder_ != nil {
+                        builderResult.value = valueBuilder_.getMessage()
+                    }
+                    return builderResult.value
+                }
+                set (value) {
+                    builderResult.hasValue = value != nil
+                    builderResult.value = value
+                }
+            }
+            public var hasValue:Bool {
+                get {
+                    return builderResult.hasValue
+                }
+            }
+            fileprivate var valueBuilder_:Openxc.DynamicField.Builder! {
+                didSet {
+                    builderResult.hasValue = true
+                }
+            }
+            public func getValueBuilder() -> Openxc.DynamicField.Builder {
+                if valueBuilder_ == nil {
+                    valueBuilder_ = Openxc.DynamicField.Builder()
+                    builderResult.value = valueBuilder_.getMessage()
+                    if value != nil {
+                        try! valueBuilder_.mergeFrom(other: value)
+                    }
+                }
+                return valueBuilder_
+            }
+            @discardableResult
+            public func setValue(_ value:Openxc.DynamicField!) -> Openxc.SimpleMessage.Builder {
+                self.value = value
+                return self
+            }
+            @discardableResult
+            public func mergeValue(value:Openxc.DynamicField) throws -> Openxc.SimpleMessage.Builder {
+                if builderResult.hasValue {
+                    builderResult.value = try Openxc.DynamicField.builderWithPrototype(prototype:builderResult.value).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.value = value
+                }
+                builderResult.hasValue = true
+                return self
+            }
+            @discardableResult
+            public func clearValue() -> Openxc.SimpleMessage.Builder {
+                valueBuilder_ = nil
+                builderResult.hasValue = false
+                builderResult.value = nil
+                return self
+            }
+            public var event:Openxc.DynamicField! {
+                get {
+                    if eventBuilder_ != nil {
+                        builderResult.event = eventBuilder_.getMessage()
+                    }
+                    return builderResult.event
+                }
+                set (value) {
+                    builderResult.hasEvent = value != nil
+                    builderResult.event = value
+                }
+            }
+            public var hasEvent:Bool {
+                get {
+                    return builderResult.hasEvent
+                }
+            }
+            fileprivate var eventBuilder_:Openxc.DynamicField.Builder! {
+                didSet {
+                    builderResult.hasEvent = true
+                }
+            }
+            public func getEventBuilder() -> Openxc.DynamicField.Builder {
+                if eventBuilder_ == nil {
+                    eventBuilder_ = Openxc.DynamicField.Builder()
+                    builderResult.event = eventBuilder_.getMessage()
+                    if event != nil {
+                        try! eventBuilder_.mergeFrom(other: event)
+                    }
+                }
+                return eventBuilder_
+            }
+            @discardableResult
+            public func setEvent(_ value:Openxc.DynamicField!) -> Openxc.SimpleMessage.Builder {
+                self.event = value
+                return self
+            }
+            @discardableResult
+            public func mergeEvent(value:Openxc.DynamicField) throws -> Openxc.SimpleMessage.Builder {
+                if builderResult.hasEvent {
+                    builderResult.event = try Openxc.DynamicField.builderWithPrototype(prototype:builderResult.event).mergeFrom(other: value).buildPartial()
+                } else {
+                    builderResult.event = value
+                }
+                builderResult.hasEvent = true
+                return self
+            }
+            @discardableResult
+            public func clearEvent() -> Openxc.SimpleMessage.Builder {
+                eventBuilder_ = nil
+                builderResult.hasEvent = false
+                builderResult.event = nil
+                return self
+            }
+            override public var internalGetResult:GeneratedMessage {
+                get {
+                    return builderResult
+                }
+            }
+            @discardableResult
+            override public func clear() -> Openxc.SimpleMessage.Builder {
+                builderResult = Openxc.SimpleMessage()
+                return self
+            }
+            override public func clone() throws -> Openxc.SimpleMessage.Builder {
+                return try Openxc.SimpleMessage.builderWithPrototype(prototype:builderResult)
+            }
+            override public func build() throws -> Openxc.SimpleMessage {
+                try checkInitialized()
+                return buildPartial()
+            }
+            public func buildPartial() -> Openxc.SimpleMessage {
+                let returnMe:Openxc.SimpleMessage = builderResult
+                return returnMe
+            }
+            @discardableResult
+            public func mergeFrom(other:Openxc.SimpleMessage) throws -> Openxc.SimpleMessage.Builder {
+                if other == Openxc.SimpleMessage() {
+                    return self
+                }
+                if other.hasName {
+                    name = other.name
+                }
+                if (other.hasValue) {
+                    try mergeValue(value: other.value)
+                }
+                if (other.hasEvent) {
+                    try mergeEvent(value: other.event)
+                }
+                try merge(unknownField: other.unknownFields)
+                return self
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream) throws -> Openxc.SimpleMessage.Builder {
+                return try mergeFrom(codedInputStream: codedInputStream, extensionRegistry:ExtensionRegistry())
+            }
+            @discardableResult
+            override public func mergeFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.SimpleMessage.Builder {
+                let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(copyFrom:self.unknownFields)
+                while (true) {
+                    let protobufTag = try codedInputStream.readTag()
+                    switch protobufTag {
+                    case 0: 
+                        self.unknownFields = try unknownFieldsBuilder.build()
+                        return self
+
+                    case 10:
+                        name = try codedInputStream.readString()
+
+                    case 18:
+                        let subBuilder:Openxc.DynamicField.Builder = Openxc.DynamicField.Builder()
+                        if hasValue {
+                            try subBuilder.mergeFrom(other: value)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        value = subBuilder.buildPartial()
+
+                    case 26:
+                        let subBuilder:Openxc.DynamicField.Builder = Openxc.DynamicField.Builder()
+                        if hasEvent {
+                            try subBuilder.mergeFrom(other: event)
+                        }
+                        try codedInputStream.readMessage(builder: subBuilder, extensionRegistry:extensionRegistry)
+                        event = subBuilder.buildPartial()
+
+                    default:
+                        if (!(try parse(codedInputStream:codedInputStream, unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
+                            unknownFields = try unknownFieldsBuilder.build()
+                            return self
+                        }
+                    }
+                }
+            }
+            class override public func decodeToBuilder(jsonMap:Dictionary<String,Any>) throws -> Openxc.SimpleMessage.Builder {
+                let resultDecodedBuilder = Openxc.SimpleMessage.Builder()
+                if let jsonValueName = jsonMap["name"] as? String {
+                    resultDecodedBuilder.name = jsonValueName
+                }
+                if let jsonValueValue = jsonMap["value"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.value = try Openxc.DynamicField.Builder.decodeToBuilder(jsonMap:jsonValueValue).build()
+
+                }
+                if let jsonValueEvent = jsonMap["event"] as? Dictionary<String,Any> {
+                    resultDecodedBuilder.event = try Openxc.DynamicField.Builder.decodeToBuilder(jsonMap:jsonValueEvent).build()
+
+                }
+                return resultDecodedBuilder
+            }
+            override class public func fromJSONToBuilder(data:Data, options: JSONSerialization.ReadingOptions = []) throws -> Openxc.SimpleMessage.Builder {
+                let jsonData = try JSONSerialization.jsonObject(with:data, options: options)
+                guard let jsDataCast = jsonData as? Dictionary<String,Any> else {
+                  throw ProtocolBuffersError.invalidProtocolBuffer("Invalid JSON data")
+                }
+                return try Openxc.SimpleMessage.Builder.decodeToBuilder(jsonMap:jsDataCast)
+            }
+        }
+
     }
 
 }
-
-extension VehicleMessage: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<VehicleMessage> {
-        var mergedArray = Array<VehicleMessage>()
+extension Openxc.VehicleMessage: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.VehicleMessage> {
+        var mergedArray = Array<Openxc.VehicleMessage>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> VehicleMessage? {
-        return try VehicleMessage.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.VehicleMessage? {
+        return try Openxc.VehicleMessage.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> VehicleMessage {
-        return try VehicleMessage.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.VehicleMessage {
+        return try Openxc.VehicleMessage.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> VehicleMessage {
-        return try VehicleMessage.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.VehicleMessage {
+        return try Openxc.VehicleMessage.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> VehicleMessage {
-        return try VehicleMessage.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.VehicleMessage {
+        return try Openxc.VehicleMessage.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> VehicleMessage {
-        return try VehicleMessage.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.VehicleMessage {
+        return try Openxc.VehicleMessage.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> VehicleMessage {
-        return try VehicleMessage.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.VehicleMessage {
+        return try Openxc.VehicleMessage.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> VehicleMessage {
-        return try VehicleMessage.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.VehicleMessage {
+        return try Openxc.VehicleMessage.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -7962,13 +8785,14 @@ extension VehicleMessage: GeneratedMessageProtocol {
         case "diagnosticResponse": return self.diagnosticResponse
         case "controlCommand": return self.controlCommand
         case "commandResponse": return self.commandResponse
+        case "diagnosticStitchResponse": return self.diagnosticStitchResponse
         case "timestamp": return self.timestamp
         default: return nil
         }
     }
 }
-extension VehicleMessage.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = VehicleMessage
+extension Openxc.VehicleMessage.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.VehicleMessage
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -7978,6 +8802,7 @@ extension VehicleMessage.Builder: GeneratedMessageBuilderProtocol {
             case "diagnosticResponse": return self.diagnosticResponse
             case "controlCommand": return self.controlCommand
             case "commandResponse": return self.commandResponse
+            case "diagnosticStitchResponse": return self.diagnosticStitchResponse
             case "timestamp": return self.timestamp
             default: return nil
             }
@@ -7985,35 +8810,40 @@ extension VehicleMessage.Builder: GeneratedMessageBuilderProtocol {
         set (newSubscriptValue) { 
             switch key {
             case "type":
-                guard let newSubscriptValue = newSubscriptValue as? VehicleMessage.ProtoType else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.VehicleMessage.ProtoType else {
                     return
                 }
                 self.type = newSubscriptValue
             case "canMessage":
-                guard let newSubscriptValue = newSubscriptValue as? CanMessage else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.CanMessage else {
                     return
                 }
                 self.canMessage = newSubscriptValue
             case "simpleMessage":
-                guard let newSubscriptValue = newSubscriptValue as? SimpleMessage else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.SimpleMessage else {
                     return
                 }
                 self.simpleMessage = newSubscriptValue
             case "diagnosticResponse":
-                guard let newSubscriptValue = newSubscriptValue as? DiagnosticResponse else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DiagnosticResponse else {
                     return
                 }
                 self.diagnosticResponse = newSubscriptValue
             case "controlCommand":
-                guard let newSubscriptValue = newSubscriptValue as? ControlCommand else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.ControlCommand else {
                     return
                 }
                 self.controlCommand = newSubscriptValue
             case "commandResponse":
-                guard let newSubscriptValue = newSubscriptValue as? CommandResponse else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.CommandResponse else {
                     return
                 }
                 self.commandResponse = newSubscriptValue
+            case "diagnosticStitchResponse":
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DiagnosticStitchResponse else {
+                    return
+                }
+                self.diagnosticStitchResponse = newSubscriptValue
             case "timestamp":
                 guard let newSubscriptValue = newSubscriptValue as? UInt64 else {
                     return
@@ -8024,34 +8854,34 @@ extension VehicleMessage.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension CanMessage: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<CanMessage> {
-        var mergedArray = Array<CanMessage>()
+extension Openxc.CanMessage: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.CanMessage> {
+        var mergedArray = Array<Openxc.CanMessage>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> CanMessage? {
-        return try CanMessage.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.CanMessage? {
+        return try Openxc.CanMessage.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> CanMessage {
-        return try CanMessage.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.CanMessage {
+        return try Openxc.CanMessage.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> CanMessage {
-        return try CanMessage.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.CanMessage {
+        return try Openxc.CanMessage.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> CanMessage {
-        return try CanMessage.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.CanMessage {
+        return try Openxc.CanMessage.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> CanMessage {
-        return try CanMessage.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.CanMessage {
+        return try Openxc.CanMessage.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> CanMessage {
-        return try CanMessage.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.CanMessage {
+        return try Openxc.CanMessage.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> CanMessage {
-        return try CanMessage.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.CanMessage {
+        return try Openxc.CanMessage.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8063,8 +8893,8 @@ extension CanMessage: GeneratedMessageProtocol {
         }
     }
 }
-extension CanMessage.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = CanMessage
+extension Openxc.CanMessage.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.CanMessage
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8093,7 +8923,7 @@ extension CanMessage.Builder: GeneratedMessageBuilderProtocol {
                 }
                 self.data = newSubscriptValue
             case "frameFormat":
-                guard let newSubscriptValue = newSubscriptValue as? CanMessage.FrameFormat else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.CanMessage.FrameFormat else {
                     return
                 }
                 self.frameFormat = newSubscriptValue
@@ -8102,34 +8932,34 @@ extension CanMessage.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension ControlCommand: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<ControlCommand> {
-        var mergedArray = Array<ControlCommand>()
+extension Openxc.ControlCommand: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.ControlCommand> {
+        var mergedArray = Array<Openxc.ControlCommand>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> ControlCommand? {
-        return try ControlCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.ControlCommand? {
+        return try Openxc.ControlCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> ControlCommand {
-        return try ControlCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.ControlCommand {
+        return try Openxc.ControlCommand.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> ControlCommand {
-        return try ControlCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.ControlCommand {
+        return try Openxc.ControlCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> ControlCommand {
-        return try ControlCommand.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.ControlCommand {
+        return try Openxc.ControlCommand.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> ControlCommand {
-        return try ControlCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.ControlCommand {
+        return try Openxc.ControlCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> ControlCommand {
-        return try ControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.ControlCommand {
+        return try Openxc.ControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> ControlCommand {
-        return try ControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.ControlCommand {
+        return try Openxc.ControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8145,8 +8975,8 @@ extension ControlCommand: GeneratedMessageProtocol {
         }
     }
 }
-extension ControlCommand.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = ControlCommand
+extension Openxc.ControlCommand.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.ControlCommand
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8164,42 +8994,42 @@ extension ControlCommand.Builder: GeneratedMessageBuilderProtocol {
         set (newSubscriptValue) { 
             switch key {
             case "type":
-                guard let newSubscriptValue = newSubscriptValue as? ControlCommand.ProtoType else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.ControlCommand.ProtoType else {
                     return
                 }
                 self.type = newSubscriptValue
             case "diagnosticRequest":
-                guard let newSubscriptValue = newSubscriptValue as? DiagnosticControlCommand else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DiagnosticControlCommand else {
                     return
                 }
                 self.diagnosticRequest = newSubscriptValue
             case "passthroughModeRequest":
-                guard let newSubscriptValue = newSubscriptValue as? PassthroughModeControlCommand else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.PassthroughModeControlCommand else {
                     return
                 }
                 self.passthroughModeRequest = newSubscriptValue
             case "acceptanceFilterBypassCommand":
-                guard let newSubscriptValue = newSubscriptValue as? AcceptanceFilterBypassCommand else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.AcceptanceFilterBypassCommand else {
                     return
                 }
                 self.acceptanceFilterBypassCommand = newSubscriptValue
             case "payloadFormatCommand":
-                guard let newSubscriptValue = newSubscriptValue as? PayloadFormatCommand else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.PayloadFormatCommand else {
                     return
                 }
                 self.payloadFormatCommand = newSubscriptValue
             case "predefinedObd2RequestsCommand":
-                guard let newSubscriptValue = newSubscriptValue as? PredefinedObd2RequestsCommand else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.PredefinedObd2RequestsCommand else {
                     return
                 }
                 self.predefinedObd2RequestsCommand = newSubscriptValue
             case "modemConfigurationCommand":
-                guard let newSubscriptValue = newSubscriptValue as? ModemConfigurationCommand else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.ModemConfigurationCommand else {
                     return
                 }
                 self.modemConfigurationCommand = newSubscriptValue
             case "rtcConfigurationCommand":
-                guard let newSubscriptValue = newSubscriptValue as? RtcconfigurationCommand else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.RtcconfigurationCommand else {
                     return
                 }
                 self.rtcConfigurationCommand = newSubscriptValue
@@ -8208,34 +9038,34 @@ extension ControlCommand.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension DiagnosticControlCommand: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<DiagnosticControlCommand> {
-        var mergedArray = Array<DiagnosticControlCommand>()
+extension Openxc.DiagnosticControlCommand: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.DiagnosticControlCommand> {
+        var mergedArray = Array<Openxc.DiagnosticControlCommand>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> DiagnosticControlCommand? {
-        return try DiagnosticControlCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.DiagnosticControlCommand? {
+        return try Openxc.DiagnosticControlCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> DiagnosticControlCommand {
-        return try DiagnosticControlCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.DiagnosticControlCommand {
+        return try Openxc.DiagnosticControlCommand.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> DiagnosticControlCommand {
-        return try DiagnosticControlCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticControlCommand {
+        return try Openxc.DiagnosticControlCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> DiagnosticControlCommand {
-        return try DiagnosticControlCommand.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.DiagnosticControlCommand {
+        return try Openxc.DiagnosticControlCommand.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> DiagnosticControlCommand {
-        return try DiagnosticControlCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticControlCommand {
+        return try Openxc.DiagnosticControlCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> DiagnosticControlCommand {
-        return try DiagnosticControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.DiagnosticControlCommand {
+        return try Openxc.DiagnosticControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> DiagnosticControlCommand {
-        return try DiagnosticControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticControlCommand {
+        return try Openxc.DiagnosticControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8245,8 +9075,8 @@ extension DiagnosticControlCommand: GeneratedMessageProtocol {
         }
     }
 }
-extension DiagnosticControlCommand.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = DiagnosticControlCommand
+extension Openxc.DiagnosticControlCommand.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.DiagnosticControlCommand
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8258,12 +9088,12 @@ extension DiagnosticControlCommand.Builder: GeneratedMessageBuilderProtocol {
         set (newSubscriptValue) { 
             switch key {
             case "request":
-                guard let newSubscriptValue = newSubscriptValue as? DiagnosticRequest else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DiagnosticRequest else {
                     return
                 }
                 self.request = newSubscriptValue
             case "action":
-                guard let newSubscriptValue = newSubscriptValue as? DiagnosticControlCommand.Action else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DiagnosticControlCommand.Action else {
                     return
                 }
                 self.action = newSubscriptValue
@@ -8272,34 +9102,34 @@ extension DiagnosticControlCommand.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension PassthroughModeControlCommand: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<PassthroughModeControlCommand> {
-        var mergedArray = Array<PassthroughModeControlCommand>()
+extension Openxc.PassthroughModeControlCommand: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.PassthroughModeControlCommand> {
+        var mergedArray = Array<Openxc.PassthroughModeControlCommand>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> PassthroughModeControlCommand? {
-        return try PassthroughModeControlCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.PassthroughModeControlCommand? {
+        return try Openxc.PassthroughModeControlCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> PassthroughModeControlCommand {
-        return try PassthroughModeControlCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.PassthroughModeControlCommand {
+        return try Openxc.PassthroughModeControlCommand.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> PassthroughModeControlCommand {
-        return try PassthroughModeControlCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.PassthroughModeControlCommand {
+        return try Openxc.PassthroughModeControlCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> PassthroughModeControlCommand {
-        return try PassthroughModeControlCommand.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.PassthroughModeControlCommand {
+        return try Openxc.PassthroughModeControlCommand.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> PassthroughModeControlCommand {
-        return try PassthroughModeControlCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.PassthroughModeControlCommand {
+        return try Openxc.PassthroughModeControlCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> PassthroughModeControlCommand {
-        return try PassthroughModeControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.PassthroughModeControlCommand {
+        return try Openxc.PassthroughModeControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> PassthroughModeControlCommand {
-        return try PassthroughModeControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.PassthroughModeControlCommand {
+        return try Openxc.PassthroughModeControlCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8309,8 +9139,8 @@ extension PassthroughModeControlCommand: GeneratedMessageProtocol {
         }
     }
 }
-extension PassthroughModeControlCommand.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = PassthroughModeControlCommand
+extension Openxc.PassthroughModeControlCommand.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.PassthroughModeControlCommand
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8336,34 +9166,34 @@ extension PassthroughModeControlCommand.Builder: GeneratedMessageBuilderProtocol
         }
     }
 }
-extension AcceptanceFilterBypassCommand: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<AcceptanceFilterBypassCommand> {
-        var mergedArray = Array<AcceptanceFilterBypassCommand>()
+extension Openxc.AcceptanceFilterBypassCommand: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.AcceptanceFilterBypassCommand> {
+        var mergedArray = Array<Openxc.AcceptanceFilterBypassCommand>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> AcceptanceFilterBypassCommand? {
-        return try AcceptanceFilterBypassCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.AcceptanceFilterBypassCommand? {
+        return try Openxc.AcceptanceFilterBypassCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> AcceptanceFilterBypassCommand {
-        return try AcceptanceFilterBypassCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.AcceptanceFilterBypassCommand {
+        return try Openxc.AcceptanceFilterBypassCommand.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> AcceptanceFilterBypassCommand {
-        return try AcceptanceFilterBypassCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.AcceptanceFilterBypassCommand {
+        return try Openxc.AcceptanceFilterBypassCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> AcceptanceFilterBypassCommand {
-        return try AcceptanceFilterBypassCommand.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.AcceptanceFilterBypassCommand {
+        return try Openxc.AcceptanceFilterBypassCommand.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> AcceptanceFilterBypassCommand {
-        return try AcceptanceFilterBypassCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.AcceptanceFilterBypassCommand {
+        return try Openxc.AcceptanceFilterBypassCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> AcceptanceFilterBypassCommand {
-        return try AcceptanceFilterBypassCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.AcceptanceFilterBypassCommand {
+        return try Openxc.AcceptanceFilterBypassCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> AcceptanceFilterBypassCommand {
-        return try AcceptanceFilterBypassCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.AcceptanceFilterBypassCommand {
+        return try Openxc.AcceptanceFilterBypassCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8373,8 +9203,8 @@ extension AcceptanceFilterBypassCommand: GeneratedMessageProtocol {
         }
     }
 }
-extension AcceptanceFilterBypassCommand.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = AcceptanceFilterBypassCommand
+extension Openxc.AcceptanceFilterBypassCommand.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.AcceptanceFilterBypassCommand
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8400,34 +9230,34 @@ extension AcceptanceFilterBypassCommand.Builder: GeneratedMessageBuilderProtocol
         }
     }
 }
-extension PayloadFormatCommand: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<PayloadFormatCommand> {
-        var mergedArray = Array<PayloadFormatCommand>()
+extension Openxc.PayloadFormatCommand: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.PayloadFormatCommand> {
+        var mergedArray = Array<Openxc.PayloadFormatCommand>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> PayloadFormatCommand? {
-        return try PayloadFormatCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.PayloadFormatCommand? {
+        return try Openxc.PayloadFormatCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> PayloadFormatCommand {
-        return try PayloadFormatCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.PayloadFormatCommand {
+        return try Openxc.PayloadFormatCommand.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> PayloadFormatCommand {
-        return try PayloadFormatCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.PayloadFormatCommand {
+        return try Openxc.PayloadFormatCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> PayloadFormatCommand {
-        return try PayloadFormatCommand.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.PayloadFormatCommand {
+        return try Openxc.PayloadFormatCommand.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> PayloadFormatCommand {
-        return try PayloadFormatCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.PayloadFormatCommand {
+        return try Openxc.PayloadFormatCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> PayloadFormatCommand {
-        return try PayloadFormatCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.PayloadFormatCommand {
+        return try Openxc.PayloadFormatCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> PayloadFormatCommand {
-        return try PayloadFormatCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.PayloadFormatCommand {
+        return try Openxc.PayloadFormatCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8436,8 +9266,8 @@ extension PayloadFormatCommand: GeneratedMessageProtocol {
         }
     }
 }
-extension PayloadFormatCommand.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = PayloadFormatCommand
+extension Openxc.PayloadFormatCommand.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.PayloadFormatCommand
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8448,7 +9278,7 @@ extension PayloadFormatCommand.Builder: GeneratedMessageBuilderProtocol {
         set (newSubscriptValue) { 
             switch key {
             case "format":
-                guard let newSubscriptValue = newSubscriptValue as? PayloadFormatCommand.PayloadFormat else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.PayloadFormatCommand.PayloadFormat else {
                     return
                 }
                 self.format = newSubscriptValue
@@ -8457,34 +9287,34 @@ extension PayloadFormatCommand.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension PredefinedObd2RequestsCommand: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<PredefinedObd2RequestsCommand> {
-        var mergedArray = Array<PredefinedObd2RequestsCommand>()
+extension Openxc.PredefinedObd2RequestsCommand: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.PredefinedObd2RequestsCommand> {
+        var mergedArray = Array<Openxc.PredefinedObd2RequestsCommand>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> PredefinedObd2RequestsCommand? {
-        return try PredefinedObd2RequestsCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.PredefinedObd2RequestsCommand? {
+        return try Openxc.PredefinedObd2RequestsCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> PredefinedObd2RequestsCommand {
-        return try PredefinedObd2RequestsCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.PredefinedObd2RequestsCommand {
+        return try Openxc.PredefinedObd2RequestsCommand.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> PredefinedObd2RequestsCommand {
-        return try PredefinedObd2RequestsCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.PredefinedObd2RequestsCommand {
+        return try Openxc.PredefinedObd2RequestsCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> PredefinedObd2RequestsCommand {
-        return try PredefinedObd2RequestsCommand.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.PredefinedObd2RequestsCommand {
+        return try Openxc.PredefinedObd2RequestsCommand.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> PredefinedObd2RequestsCommand {
-        return try PredefinedObd2RequestsCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.PredefinedObd2RequestsCommand {
+        return try Openxc.PredefinedObd2RequestsCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> PredefinedObd2RequestsCommand {
-        return try PredefinedObd2RequestsCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.PredefinedObd2RequestsCommand {
+        return try Openxc.PredefinedObd2RequestsCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> PredefinedObd2RequestsCommand {
-        return try PredefinedObd2RequestsCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.PredefinedObd2RequestsCommand {
+        return try Openxc.PredefinedObd2RequestsCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8493,8 +9323,8 @@ extension PredefinedObd2RequestsCommand: GeneratedMessageProtocol {
         }
     }
 }
-extension PredefinedObd2RequestsCommand.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = PredefinedObd2RequestsCommand
+extension Openxc.PredefinedObd2RequestsCommand.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.PredefinedObd2RequestsCommand
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8514,34 +9344,34 @@ extension PredefinedObd2RequestsCommand.Builder: GeneratedMessageBuilderProtocol
         }
     }
 }
-extension NetworkOperatorSettings: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<NetworkOperatorSettings> {
-        var mergedArray = Array<NetworkOperatorSettings>()
+extension Openxc.NetworkOperatorSettings: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.NetworkOperatorSettings> {
+        var mergedArray = Array<Openxc.NetworkOperatorSettings>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> NetworkOperatorSettings? {
-        return try NetworkOperatorSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.NetworkOperatorSettings? {
+        return try Openxc.NetworkOperatorSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> NetworkOperatorSettings {
-        return try NetworkOperatorSettings.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.NetworkOperatorSettings {
+        return try Openxc.NetworkOperatorSettings.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> NetworkOperatorSettings {
-        return try NetworkOperatorSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkOperatorSettings {
+        return try Openxc.NetworkOperatorSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> NetworkOperatorSettings {
-        return try NetworkOperatorSettings.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.NetworkOperatorSettings {
+        return try Openxc.NetworkOperatorSettings.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> NetworkOperatorSettings {
-        return try NetworkOperatorSettings.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkOperatorSettings {
+        return try Openxc.NetworkOperatorSettings.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> NetworkOperatorSettings {
-        return try NetworkOperatorSettings.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.NetworkOperatorSettings {
+        return try Openxc.NetworkOperatorSettings.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> NetworkOperatorSettings {
-        return try NetworkOperatorSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkOperatorSettings {
+        return try Openxc.NetworkOperatorSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8552,34 +9382,34 @@ extension NetworkOperatorSettings: GeneratedMessageProtocol {
         }
     }
 }
-extension NetworkOperatorSettings.NetworkDescriptor: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<NetworkOperatorSettings.NetworkDescriptor> {
-        var mergedArray = Array<NetworkOperatorSettings.NetworkDescriptor>()
+extension Openxc.NetworkOperatorSettings.NetworkDescriptor: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.NetworkOperatorSettings.NetworkDescriptor> {
+        var mergedArray = Array<Openxc.NetworkOperatorSettings.NetworkDescriptor>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> NetworkOperatorSettings.NetworkDescriptor? {
-        return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor? {
+        return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> NetworkOperatorSettings.NetworkDescriptor {
-        return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+        return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> NetworkOperatorSettings.NetworkDescriptor {
-        return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+        return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> NetworkOperatorSettings.NetworkDescriptor {
-        return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+        return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> NetworkOperatorSettings.NetworkDescriptor {
-        return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+        return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> NetworkOperatorSettings.NetworkDescriptor {
-        return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+        return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> NetworkOperatorSettings.NetworkDescriptor {
-        return try NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkOperatorSettings.NetworkDescriptor {
+        return try Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8589,8 +9419,8 @@ extension NetworkOperatorSettings.NetworkDescriptor: GeneratedMessageProtocol {
         }
     }
 }
-extension NetworkOperatorSettings.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = NetworkOperatorSettings
+extension Openxc.NetworkOperatorSettings.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.NetworkOperatorSettings
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8608,12 +9438,12 @@ extension NetworkOperatorSettings.Builder: GeneratedMessageBuilderProtocol {
                 }
                 self.allowDataRoaming = newSubscriptValue
             case "operatorSelectMode":
-                guard let newSubscriptValue = newSubscriptValue as? NetworkOperatorSettings.OperatorSelectMode else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.NetworkOperatorSettings.OperatorSelectMode else {
                     return
                 }
                 self.operatorSelectMode = newSubscriptValue
             case "networkDescriptor":
-                guard let newSubscriptValue = newSubscriptValue as? NetworkOperatorSettings.NetworkDescriptor else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.NetworkOperatorSettings.NetworkDescriptor else {
                     return
                 }
                 self.networkDescriptor = newSubscriptValue
@@ -8622,8 +9452,8 @@ extension NetworkOperatorSettings.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension NetworkOperatorSettings.NetworkDescriptor.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = NetworkOperatorSettings.NetworkDescriptor
+extension Openxc.NetworkOperatorSettings.NetworkDescriptor.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.NetworkOperatorSettings.NetworkDescriptor
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8640,7 +9470,7 @@ extension NetworkOperatorSettings.NetworkDescriptor.Builder: GeneratedMessageBui
                 }
                 self.plmn = newSubscriptValue
             case "networkType":
-                guard let newSubscriptValue = newSubscriptValue as? NetworkOperatorSettings.NetworkDescriptor.NetworkType else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.NetworkOperatorSettings.NetworkDescriptor.NetworkType else {
                     return
                 }
                 self.networkType = newSubscriptValue
@@ -8649,34 +9479,34 @@ extension NetworkOperatorSettings.NetworkDescriptor.Builder: GeneratedMessageBui
         }
     }
 }
-extension NetworkDataSettings: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<NetworkDataSettings> {
-        var mergedArray = Array<NetworkDataSettings>()
+extension Openxc.NetworkDataSettings: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.NetworkDataSettings> {
+        var mergedArray = Array<Openxc.NetworkDataSettings>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> NetworkDataSettings? {
-        return try NetworkDataSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.NetworkDataSettings? {
+        return try Openxc.NetworkDataSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> NetworkDataSettings {
-        return try NetworkDataSettings.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.NetworkDataSettings {
+        return try Openxc.NetworkDataSettings.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> NetworkDataSettings {
-        return try NetworkDataSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkDataSettings {
+        return try Openxc.NetworkDataSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> NetworkDataSettings {
-        return try NetworkDataSettings.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.NetworkDataSettings {
+        return try Openxc.NetworkDataSettings.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> NetworkDataSettings {
-        return try NetworkDataSettings.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkDataSettings {
+        return try Openxc.NetworkDataSettings.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> NetworkDataSettings {
-        return try NetworkDataSettings.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.NetworkDataSettings {
+        return try Openxc.NetworkDataSettings.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> NetworkDataSettings {
-        return try NetworkDataSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.NetworkDataSettings {
+        return try Openxc.NetworkDataSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8685,8 +9515,8 @@ extension NetworkDataSettings: GeneratedMessageProtocol {
         }
     }
 }
-extension NetworkDataSettings.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = NetworkDataSettings
+extension Openxc.NetworkDataSettings.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.NetworkDataSettings
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8706,34 +9536,34 @@ extension NetworkDataSettings.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension ServerConnectSettings: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<ServerConnectSettings> {
-        var mergedArray = Array<ServerConnectSettings>()
+extension Openxc.ServerConnectSettings: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.ServerConnectSettings> {
+        var mergedArray = Array<Openxc.ServerConnectSettings>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> ServerConnectSettings? {
-        return try ServerConnectSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.ServerConnectSettings? {
+        return try Openxc.ServerConnectSettings.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> ServerConnectSettings {
-        return try ServerConnectSettings.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.ServerConnectSettings {
+        return try Openxc.ServerConnectSettings.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> ServerConnectSettings {
-        return try ServerConnectSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.ServerConnectSettings {
+        return try Openxc.ServerConnectSettings.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> ServerConnectSettings {
-        return try ServerConnectSettings.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.ServerConnectSettings {
+        return try Openxc.ServerConnectSettings.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> ServerConnectSettings {
-        return try ServerConnectSettings.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.ServerConnectSettings {
+        return try Openxc.ServerConnectSettings.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> ServerConnectSettings {
-        return try ServerConnectSettings.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.ServerConnectSettings {
+        return try Openxc.ServerConnectSettings.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> ServerConnectSettings {
-        return try ServerConnectSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.ServerConnectSettings {
+        return try Openxc.ServerConnectSettings.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8743,8 +9573,8 @@ extension ServerConnectSettings: GeneratedMessageProtocol {
         }
     }
 }
-extension ServerConnectSettings.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = ServerConnectSettings
+extension Openxc.ServerConnectSettings.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.ServerConnectSettings
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8770,34 +9600,34 @@ extension ServerConnectSettings.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension ModemConfigurationCommand: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<ModemConfigurationCommand> {
-        var mergedArray = Array<ModemConfigurationCommand>()
+extension Openxc.ModemConfigurationCommand: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.ModemConfigurationCommand> {
+        var mergedArray = Array<Openxc.ModemConfigurationCommand>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> ModemConfigurationCommand? {
-        return try ModemConfigurationCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.ModemConfigurationCommand? {
+        return try Openxc.ModemConfigurationCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> ModemConfigurationCommand {
-        return try ModemConfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.ModemConfigurationCommand {
+        return try Openxc.ModemConfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> ModemConfigurationCommand {
-        return try ModemConfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.ModemConfigurationCommand {
+        return try Openxc.ModemConfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> ModemConfigurationCommand {
-        return try ModemConfigurationCommand.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.ModemConfigurationCommand {
+        return try Openxc.ModemConfigurationCommand.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> ModemConfigurationCommand {
-        return try ModemConfigurationCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.ModemConfigurationCommand {
+        return try Openxc.ModemConfigurationCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> ModemConfigurationCommand {
-        return try ModemConfigurationCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.ModemConfigurationCommand {
+        return try Openxc.ModemConfigurationCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> ModemConfigurationCommand {
-        return try ModemConfigurationCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.ModemConfigurationCommand {
+        return try Openxc.ModemConfigurationCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8808,8 +9638,8 @@ extension ModemConfigurationCommand: GeneratedMessageProtocol {
         }
     }
 }
-extension ModemConfigurationCommand.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = ModemConfigurationCommand
+extension Openxc.ModemConfigurationCommand.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.ModemConfigurationCommand
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8822,17 +9652,17 @@ extension ModemConfigurationCommand.Builder: GeneratedMessageBuilderProtocol {
         set (newSubscriptValue) { 
             switch key {
             case "networkOperatorSettings":
-                guard let newSubscriptValue = newSubscriptValue as? NetworkOperatorSettings else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.NetworkOperatorSettings else {
                     return
                 }
                 self.networkOperatorSettings = newSubscriptValue
             case "networkDataSettings":
-                guard let newSubscriptValue = newSubscriptValue as? NetworkDataSettings else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.NetworkDataSettings else {
                     return
                 }
                 self.networkDataSettings = newSubscriptValue
             case "serverConnectSettings":
-                guard let newSubscriptValue = newSubscriptValue as? ServerConnectSettings else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.ServerConnectSettings else {
                     return
                 }
                 self.serverConnectSettings = newSubscriptValue
@@ -8841,34 +9671,34 @@ extension ModemConfigurationCommand.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension RtcconfigurationCommand: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<RtcconfigurationCommand> {
-        var mergedArray = Array<RtcconfigurationCommand>()
+extension Openxc.RtcconfigurationCommand: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.RtcconfigurationCommand> {
+        var mergedArray = Array<Openxc.RtcconfigurationCommand>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> RtcconfigurationCommand? {
-        return try RtcconfigurationCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.RtcconfigurationCommand? {
+        return try Openxc.RtcconfigurationCommand.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> RtcconfigurationCommand {
-        return try RtcconfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.RtcconfigurationCommand {
+        return try Openxc.RtcconfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> RtcconfigurationCommand {
-        return try RtcconfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.RtcconfigurationCommand {
+        return try Openxc.RtcconfigurationCommand.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> RtcconfigurationCommand {
-        return try RtcconfigurationCommand.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.RtcconfigurationCommand {
+        return try Openxc.RtcconfigurationCommand.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> RtcconfigurationCommand {
-        return try RtcconfigurationCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.RtcconfigurationCommand {
+        return try Openxc.RtcconfigurationCommand.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> RtcconfigurationCommand {
-        return try RtcconfigurationCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.RtcconfigurationCommand {
+        return try Openxc.RtcconfigurationCommand.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> RtcconfigurationCommand {
-        return try RtcconfigurationCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.RtcconfigurationCommand {
+        return try Openxc.RtcconfigurationCommand.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8877,8 +9707,8 @@ extension RtcconfigurationCommand: GeneratedMessageProtocol {
         }
     }
 }
-extension RtcconfigurationCommand.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = RtcconfigurationCommand
+extension Openxc.RtcconfigurationCommand.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.RtcconfigurationCommand
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8898,34 +9728,34 @@ extension RtcconfigurationCommand.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension CommandResponse: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<CommandResponse> {
-        var mergedArray = Array<CommandResponse>()
+extension Openxc.CommandResponse: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.CommandResponse> {
+        var mergedArray = Array<Openxc.CommandResponse>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> CommandResponse? {
-        return try CommandResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.CommandResponse? {
+        return try Openxc.CommandResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> CommandResponse {
-        return try CommandResponse.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.CommandResponse {
+        return try Openxc.CommandResponse.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> CommandResponse {
-        return try CommandResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.CommandResponse {
+        return try Openxc.CommandResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> CommandResponse {
-        return try CommandResponse.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.CommandResponse {
+        return try Openxc.CommandResponse.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> CommandResponse {
-        return try CommandResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.CommandResponse {
+        return try Openxc.CommandResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> CommandResponse {
-        return try CommandResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.CommandResponse {
+        return try Openxc.CommandResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> CommandResponse {
-        return try CommandResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.CommandResponse {
+        return try Openxc.CommandResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -8936,8 +9766,8 @@ extension CommandResponse: GeneratedMessageProtocol {
         }
     }
 }
-extension CommandResponse.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = CommandResponse
+extension Openxc.CommandResponse.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.CommandResponse
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -8950,7 +9780,7 @@ extension CommandResponse.Builder: GeneratedMessageBuilderProtocol {
         set (newSubscriptValue) { 
             switch key {
             case "type":
-                guard let newSubscriptValue = newSubscriptValue as? ControlCommand.ProtoType else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.ControlCommand.ProtoType else {
                     return
                 }
                 self.type = newSubscriptValue
@@ -8969,34 +9799,34 @@ extension CommandResponse.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension DiagnosticRequest: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<DiagnosticRequest> {
-        var mergedArray = Array<DiagnosticRequest>()
+extension Openxc.DiagnosticRequest: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.DiagnosticRequest> {
+        var mergedArray = Array<Openxc.DiagnosticRequest>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> DiagnosticRequest? {
-        return try DiagnosticRequest.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.DiagnosticRequest? {
+        return try Openxc.DiagnosticRequest.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> DiagnosticRequest {
-        return try DiagnosticRequest.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.DiagnosticRequest {
+        return try Openxc.DiagnosticRequest.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> DiagnosticRequest {
-        return try DiagnosticRequest.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticRequest {
+        return try Openxc.DiagnosticRequest.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> DiagnosticRequest {
-        return try DiagnosticRequest.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.DiagnosticRequest {
+        return try Openxc.DiagnosticRequest.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> DiagnosticRequest {
-        return try DiagnosticRequest.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticRequest {
+        return try Openxc.DiagnosticRequest.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> DiagnosticRequest {
-        return try DiagnosticRequest.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.DiagnosticRequest {
+        return try Openxc.DiagnosticRequest.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> DiagnosticRequest {
-        return try DiagnosticRequest.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticRequest {
+        return try Openxc.DiagnosticRequest.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -9013,8 +9843,8 @@ extension DiagnosticRequest: GeneratedMessageProtocol {
         }
     }
 }
-extension DiagnosticRequest.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = DiagnosticRequest
+extension Openxc.DiagnosticRequest.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.DiagnosticRequest
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -9073,7 +9903,7 @@ extension DiagnosticRequest.Builder: GeneratedMessageBuilderProtocol {
                 }
                 self.name = newSubscriptValue
             case "decodedType":
-                guard let newSubscriptValue = newSubscriptValue as? DiagnosticRequest.DecodedType else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DiagnosticRequest.DecodedType else {
                     return
                 }
                 self.decodedType = newSubscriptValue
@@ -9082,34 +9912,34 @@ extension DiagnosticRequest.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension DiagnosticResponse: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<DiagnosticResponse> {
-        var mergedArray = Array<DiagnosticResponse>()
+extension Openxc.DiagnosticResponse: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.DiagnosticResponse> {
+        var mergedArray = Array<Openxc.DiagnosticResponse>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> DiagnosticResponse? {
-        return try DiagnosticResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.DiagnosticResponse? {
+        return try Openxc.DiagnosticResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> DiagnosticResponse {
-        return try DiagnosticResponse.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.DiagnosticResponse {
+        return try Openxc.DiagnosticResponse.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> DiagnosticResponse {
-        return try DiagnosticResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticResponse {
+        return try Openxc.DiagnosticResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> DiagnosticResponse {
-        return try DiagnosticResponse.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.DiagnosticResponse {
+        return try Openxc.DiagnosticResponse.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> DiagnosticResponse {
-        return try DiagnosticResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticResponse {
+        return try Openxc.DiagnosticResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> DiagnosticResponse {
-        return try DiagnosticResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.DiagnosticResponse {
+        return try Openxc.DiagnosticResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> DiagnosticResponse {
-        return try DiagnosticResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticResponse {
+        return try Openxc.DiagnosticResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -9125,8 +9955,8 @@ extension DiagnosticResponse: GeneratedMessageProtocol {
         }
     }
 }
-extension DiagnosticResponse.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = DiagnosticResponse
+extension Openxc.DiagnosticResponse.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.DiagnosticResponse
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -9179,7 +10009,7 @@ extension DiagnosticResponse.Builder: GeneratedMessageBuilderProtocol {
                 }
                 self.payload = newSubscriptValue
             case "value":
-                guard let newSubscriptValue = newSubscriptValue as? Double else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DynamicField else {
                     return
                 }
                 self.value = newSubscriptValue
@@ -9188,34 +10018,154 @@ extension DiagnosticResponse.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension DynamicField: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<DynamicField> {
-        var mergedArray = Array<DynamicField>()
+extension Openxc.DiagnosticStitchResponse: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.DiagnosticStitchResponse> {
+        var mergedArray = Array<Openxc.DiagnosticStitchResponse>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> DynamicField? {
-        return try DynamicField.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.DiagnosticStitchResponse? {
+        return try Openxc.DiagnosticStitchResponse.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> DynamicField {
-        return try DynamicField.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.DiagnosticStitchResponse {
+        return try Openxc.DiagnosticStitchResponse.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> DynamicField {
-        return try DynamicField.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticStitchResponse {
+        return try Openxc.DiagnosticStitchResponse.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> DynamicField {
-        return try DynamicField.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.DiagnosticStitchResponse {
+        return try Openxc.DiagnosticStitchResponse.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> DynamicField {
-        return try DynamicField.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticStitchResponse {
+        return try Openxc.DiagnosticStitchResponse.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> DynamicField {
-        return try DynamicField.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.DiagnosticStitchResponse {
+        return try Openxc.DiagnosticStitchResponse.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> DynamicField {
-        return try DynamicField.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DiagnosticStitchResponse {
+        return try Openxc.DiagnosticStitchResponse.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    }
+    public subscript(key: String) -> Any? {
+        switch key {
+        case "bus": return self.bus
+        case "messageId": return self.messageId
+        case "mode": return self.mode
+        case "pid": return self.pid
+        case "success": return self.success
+        case "negativeResponseCode": return self.negativeResponseCode
+        case "payload": return self.payload
+        case "value": return self.value
+        case "frame": return self.frame
+        case "totalSize": return self.totalSize
+        default: return nil
+        }
+    }
+}
+extension Openxc.DiagnosticStitchResponse.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.DiagnosticStitchResponse
+    public subscript(key: String) -> Any? {
+        get { 
+            switch key {
+            case "bus": return self.bus
+            case "messageId": return self.messageId
+            case "mode": return self.mode
+            case "pid": return self.pid
+            case "success": return self.success
+            case "negativeResponseCode": return self.negativeResponseCode
+            case "payload": return self.payload
+            case "value": return self.value
+            case "frame": return self.frame
+            case "totalSize": return self.totalSize
+            default: return nil
+            }
+        }
+        set (newSubscriptValue) { 
+            switch key {
+            case "bus":
+                guard let newSubscriptValue = newSubscriptValue as? Int32 else {
+                    return
+                }
+                self.bus = newSubscriptValue
+            case "messageId":
+                guard let newSubscriptValue = newSubscriptValue as? UInt32 else {
+                    return
+                }
+                self.messageId = newSubscriptValue
+            case "mode":
+                guard let newSubscriptValue = newSubscriptValue as? UInt32 else {
+                    return
+                }
+                self.mode = newSubscriptValue
+            case "pid":
+                guard let newSubscriptValue = newSubscriptValue as? UInt32 else {
+                    return
+                }
+                self.pid = newSubscriptValue
+            case "success":
+                guard let newSubscriptValue = newSubscriptValue as? Bool else {
+                    return
+                }
+                self.success = newSubscriptValue
+            case "negativeResponseCode":
+                guard let newSubscriptValue = newSubscriptValue as? UInt32 else {
+                    return
+                }
+                self.negativeResponseCode = newSubscriptValue
+            case "payload":
+                guard let newSubscriptValue = newSubscriptValue as? Data else {
+                    return
+                }
+                self.payload = newSubscriptValue
+            case "value":
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DynamicField else {
+                    return
+                }
+                self.value = newSubscriptValue
+            case "frame":
+                guard let newSubscriptValue = newSubscriptValue as? Int32 else {
+                    return
+                }
+                self.frame = newSubscriptValue
+            case "totalSize":
+                guard let newSubscriptValue = newSubscriptValue as? UInt32 else {
+                    return
+                }
+                self.totalSize = newSubscriptValue
+            default: return
+            }
+        }
+    }
+}
+extension Openxc.DynamicField: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.DynamicField> {
+        var mergedArray = Array<Openxc.DynamicField>()
+        while let value = try parseDelimitedFrom(inputStream: inputStream) {
+          mergedArray.append(value)
+        }
+        return mergedArray
+    }
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.DynamicField? {
+        return try Openxc.DynamicField.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    }
+    public class func parseFrom(data: Data) throws -> Openxc.DynamicField {
+        return try Openxc.DynamicField.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
+    }
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.DynamicField {
+        return try Openxc.DynamicField.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.DynamicField {
+        return try Openxc.DynamicField.Builder().mergeFrom(inputStream: inputStream).build()
+    }
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DynamicField {
+        return try Openxc.DynamicField.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    }
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.DynamicField {
+        return try Openxc.DynamicField.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    }
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.DynamicField {
+        return try Openxc.DynamicField.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -9227,8 +10177,8 @@ extension DynamicField: GeneratedMessageProtocol {
         }
     }
 }
-extension DynamicField.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = DynamicField
+extension Openxc.DynamicField.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.DynamicField
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -9242,7 +10192,7 @@ extension DynamicField.Builder: GeneratedMessageBuilderProtocol {
         set (newSubscriptValue) { 
             switch key {
             case "type":
-                guard let newSubscriptValue = newSubscriptValue as? DynamicField.ProtoType else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DynamicField.ProtoType else {
                     return
                 }
                 self.type = newSubscriptValue
@@ -9266,34 +10216,34 @@ extension DynamicField.Builder: GeneratedMessageBuilderProtocol {
         }
     }
 }
-extension SimpleMessage: GeneratedMessageProtocol {
-    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<SimpleMessage> {
-        var mergedArray = Array<SimpleMessage>()
+extension Openxc.SimpleMessage: GeneratedMessageProtocol {
+    public class func parseArrayDelimitedFrom(inputStream: InputStream) throws -> Array<Openxc.SimpleMessage> {
+        var mergedArray = Array<Openxc.SimpleMessage>()
         while let value = try parseDelimitedFrom(inputStream: inputStream) {
           mergedArray.append(value)
         }
         return mergedArray
     }
-    public class func parseDelimitedFrom(inputStream: InputStream) throws -> SimpleMessage? {
-        return try SimpleMessage.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
+    public class func parseDelimitedFrom(inputStream: InputStream) throws -> Openxc.SimpleMessage? {
+        return try Openxc.SimpleMessage.Builder().mergeDelimitedFrom(inputStream: inputStream)?.build()
     }
-    public class func parseFrom(data: Data) throws -> SimpleMessage {
-        return try SimpleMessage.Builder().mergeFrom(data: data, extensionRegistry:OpenxcRoot.defaultValue.extensionRegistry).build()
+    public class func parseFrom(data: Data) throws -> Openxc.SimpleMessage {
+        return try Openxc.SimpleMessage.Builder().mergeFrom(data: data, extensionRegistry:Openxc.OpenxcRoot.default.extensionRegistry).build()
     }
-    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> SimpleMessage {
-        return try SimpleMessage.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(data: Data, extensionRegistry:ExtensionRegistry) throws -> Openxc.SimpleMessage {
+        return try Openxc.SimpleMessage.Builder().mergeFrom(data: data, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(inputStream: InputStream) throws -> SimpleMessage {
-        return try SimpleMessage.Builder().mergeFrom(inputStream: inputStream).build()
+    public class func parseFrom(inputStream: InputStream) throws -> Openxc.SimpleMessage {
+        return try Openxc.SimpleMessage.Builder().mergeFrom(inputStream: inputStream).build()
     }
-    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> SimpleMessage {
-        return try SimpleMessage.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(inputStream: InputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.SimpleMessage {
+        return try Openxc.SimpleMessage.Builder().mergeFrom(inputStream: inputStream, extensionRegistry:extensionRegistry).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream) throws -> SimpleMessage {
-        return try SimpleMessage.Builder().mergeFrom(codedInputStream: codedInputStream).build()
+    public class func parseFrom(codedInputStream: CodedInputStream) throws -> Openxc.SimpleMessage {
+        return try Openxc.SimpleMessage.Builder().mergeFrom(codedInputStream: codedInputStream).build()
     }
-    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> SimpleMessage {
-        return try SimpleMessage.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
+    public class func parseFrom(codedInputStream: CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Openxc.SimpleMessage {
+        return try Openxc.SimpleMessage.Builder().mergeFrom(codedInputStream: codedInputStream, extensionRegistry:extensionRegistry).build()
     }
     public subscript(key: String) -> Any? {
         switch key {
@@ -9304,8 +10254,8 @@ extension SimpleMessage: GeneratedMessageProtocol {
         }
     }
 }
-extension SimpleMessage.Builder: GeneratedMessageBuilderProtocol {
-    public typealias GeneratedMessageType = SimpleMessage
+extension Openxc.SimpleMessage.Builder: GeneratedMessageBuilderProtocol {
+    public typealias GeneratedMessageType = Openxc.SimpleMessage
     public subscript(key: String) -> Any? {
         get { 
             switch key {
@@ -9323,12 +10273,12 @@ extension SimpleMessage.Builder: GeneratedMessageBuilderProtocol {
                 }
                 self.name = newSubscriptValue
             case "value":
-                guard let newSubscriptValue = newSubscriptValue as? DynamicField else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DynamicField else {
                     return
                 }
                 self.value = newSubscriptValue
             case "event":
-                guard let newSubscriptValue = newSubscriptValue as? DynamicField else {
+                guard let newSubscriptValue = newSubscriptValue as? Openxc.DynamicField else {
                     return
                 }
                 self.event = newSubscriptValue

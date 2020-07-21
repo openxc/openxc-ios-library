@@ -652,14 +652,14 @@
                                     <constraint firstItem="UnR-To-e15" firstAttribute="bottom" secondItem="Z5S-xG-hFi" secondAttribute="bottom" constant="-5" id="yKI-Wm-oVZ"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="30" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ras-Vw-2cZ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="30" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ras-Vw-2cZ" userLabel="dash Table">
                                 <rect key="frame" x="0.0" y="51" width="375" height="568"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.23568582534790039" green="0.23568582534790039" blue="0.23568582534790039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="8rJ-Kc-sve" id="V9n-jw-3iP"/>
-                                    <outlet property="delegate" destination="8rJ-Kc-sve" id="elE-63-UcU"/>
+                                    <outlet property="dataSource" destination="8rJ-Kc-sve" id="DNu-3t-8Jl"/>
+                                    <outlet property="delegate" destination="8rJ-Kc-sve" id="lOH-CT-Rjo"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -2519,7 +2519,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0wW-1I-R6M"/>
+        <segue reference="pVw-oo-j58"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="RadioBtn_white_Unchecked" width="24" height="24"/>
