@@ -951,20 +951,19 @@ open class VehicleManager: NSObject {
   }
   
     fileprivate func protobufDignosticMessage(msg : Openxc.VehicleMessage){
-print(msg)
-    // build diag response message
-    let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
-        if let timestamp = msg.timestamp{
-                 rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-             }
-    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
-//        if (frame != -1){
-//        if let payloadX = json["payload"] as? String,frame == 0   {
-//                multiFramePayload = payloadX
-//                print("payload : \(multiFramePayload)")
-//            return
-//                }
-//        }else{
+        print("DiagnosticResponse>>>>\(msg)")
+        // build diag response message
+
+        if let frame = (msg.diagnosticStitchResponse.frame){
+            print(frame)
+            self.protobufMultiFrameDignosticMessage(msg: msg)
+            
+        }else{
+        
+        let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
+               if let timestamp = msg.timestamp{
+                        rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+                    }
     rsp.bus = Int(msg.diagnosticResponse.bus)
     rsp.message_id = Int(msg.diagnosticResponse.messageId)
     rsp.mode = Int(msg.diagnosticResponse.mode)
@@ -974,10 +973,9 @@ print(msg)
     if  let successValue =  msg.diagnosticResponse.success {
         rsp.success = successValue //msg.diagnosticResponse.success
     }
-    if msg.diagnosticResponse.hasValue {
-        rsp.value = msg.diagnosticResponse.value as! NSInteger
+    if  msg.diagnosticResponse.hasValue {
+        rsp.value = Int(truncating: msg.diagnosticResponse.value as! NSNumber)
         print(msg.diagnosticResponse.value as Any)
-        
     }
     
     if rsp.value != 0 {
@@ -1017,8 +1015,95 @@ print(msg)
         
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
     }
+}
   }
   
+    fileprivate func protobufMultiFrameDignosticMessage(msg : Openxc.VehicleMessage){
+    print("DiagnosticResponse>>>>\(msg)")
+        // build diag response message
+       
+            //let frame = json["frame"] as?  NSInteger
+           // let frame = Int(msg.diagnosticStitchResponse.frame)
+        
+        //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+    //        if (frame != -1){
+    //        if let payloadX = String(truncating: msg.diagnosticResponse.value as! NSNumber)   {
+    //                multiFramePayload = payloadX
+    //                print("payload : \(multiFramePayload)")
+    //            return
+    //               }
+    //        }else{
+        let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
+                   if let timestamp = msg.timestamp{
+                            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+                        }
+        let frame = Int(msg.diagnosticStitchResponse.frame)
+        if  (frame != -1) {
+            if let payloadX = msg.diagnosticStitchResponse.payload as? String {
+                multiFramePayload = payloadX
+                return
+            }
+        }
+        
+        //var payload : String = ""
+        if let payloadX =  msg.diagnosticStitchResponse.payload as? String  {
+            rsp.payload = multiFramePayload  + payloadX
+          print("payload : \(rsp.payload)")
+          
+        }
+        rsp.bus = Int(msg.diagnosticStitchResponse.bus)
+        rsp.message_id = Int(msg.diagnosticStitchResponse.messageId)
+        rsp.mode = Int(msg.diagnosticStitchResponse.mode)
+        if msg.diagnosticStitchResponse.hasPid {
+            rsp.pid = Int(msg.diagnosticStitchResponse.pid)
+        }
+        if  let successValue =  msg.diagnosticStitchResponse.success {
+            rsp.success = successValue //msg.diagnosticResponse.success
+        }
+        if msg.diagnosticStitchResponse.hasValue {
+            rsp.value = Int(truncating: msg.diagnosticStitchResponse.value as! NSNumber)
+            print(msg.diagnosticResponse.value as Any)
+            
+        }
+        
+        if rsp.value != 0 {
+           rsp.success = true//msg.diagnosticResponse.success
+        }
+        // build the key that identifies this diagnostic response
+        // bus-id-mode-[X or pid]
+        let tupple : NSMutableString = ""
+        tupple.append("\(String(rsp.bus))-\(String(rsp.message_id))-\(String(rsp.mode))-")
+        if rsp.pid != 0 {
+          tupple.append(String(describing: rsp.pid))
+        } else {
+          tupple.append("X")
+        }
+        
+        // TODO: debug printouts, maybe remove
+        if rsp.value != 0 {
+          if rsp.pid != 0 {
+            vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ) success:\(rsp.success) value:\(rsp.value )")
+          } else {
+            vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.payload )")
+          }
+        }
+        ////////////////////////////
+        
+        // look for a specific callback for this diag response based on tupple created above
+        var found=false
+        for key in diagCallBacks.keys {
+          let act = diagCallBacks[key]
+          if act!.returnKey() == tupple {
+            found=true
+            act!.performAction(["vehiclemessage":rsp] as NSDictionary)
+          }
+        }
+        // otherwise use the default callback if it exists
+        if !found ,let act = defaultDiagCallBack {
+            
+            act.performAction(["vehiclemessage":rsp] as NSDictionary)
+        }
+      }
     fileprivate func protobufCanMessage(msg : Openxc.VehicleMessage){
     // build CAN response message
     let rsp : VehicleCanResponse = VehicleCanResponse()
