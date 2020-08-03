@@ -823,7 +823,7 @@ open class VehicleManager: NSObject {
       
       // Diagnostic messages
       /////////////////////////////
-      if msg.type == .diagnostic {
+        if msg.type == .diagnostic ||  msg.type == .diagnosticStitch {
         decoded = true
         print("Response Diagnostic>>>>\(msg)")
         self.protobufDignosticMessage(msg: msg)
@@ -957,6 +957,7 @@ open class VehicleManager: NSObject {
         if let frame = (msg.diagnosticStitchResponse.frame){
             print(frame)
             self.protobufMultiFrameDignosticMessage(msg: msg)
+        
             
         }else{
         
@@ -1021,32 +1022,20 @@ open class VehicleManager: NSObject {
     fileprivate func protobufMultiFrameDignosticMessage(msg : Openxc.VehicleMessage){
     print("DiagnosticResponse>>>>\(msg)")
         // build diag response message
-       
-            //let frame = json["frame"] as?  NSInteger
-           // let frame = Int(msg.diagnosticStitchResponse.frame)
-        
-        //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
-    //        if (frame != -1){
-    //        if let payloadX = String(truncating: msg.diagnosticResponse.value as! NSNumber)   {
-    //                multiFramePayload = payloadX
-    //                print("payload : \(multiFramePayload)")
-    //            return
-    //               }
-    //        }else{
         let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
                    if let timestamp = msg.timestamp{
                             rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
                         }
         let frame = Int(msg.diagnosticStitchResponse.frame)
         if  (frame != -1) {
-            if let payloadX = msg.diagnosticStitchResponse.payload as? String {
+            if let payloadX = String(data: msg.diagnosticStitchResponse.payload, encoding: .utf8) {
                 multiFramePayload = payloadX
                 return
             }
         }
         
         //var payload : String = ""
-        if let payloadX =  msg.diagnosticStitchResponse.payload as? String  {
+        if let payloadX =  String(data: msg.diagnosticStitchResponse.payload, encoding: .utf8)  {
             rsp.payload = multiFramePayload  + payloadX
           print("payload : \(rsp.payload)")
           
@@ -1200,15 +1189,19 @@ open class VehicleManager: NSObject {
         ///////////////////
         // both diagnostic response and CAN response messages have an "id" key
       else if let id = json["id"] as? NSInteger {
-        print("JSON ID = \(id) "as Any)
-        self.canMessagersp(json: json as [String:AnyObject],timestamp: timestamp,id:id)
+        if let frame = json["frame"] as? NSInteger{
+            print(frame)
+            print("DiagnosticSticherResponse>>>\(json as [String : AnyObject])")
+            self.diagSingleFrameMessagersp(json: json as [String : AnyObject], timestamp: timestamp, id: id)
+        }else{
+            let id = (json["id"] as? NSInteger)!
+            print("JSON ID = \(id) "as Any)
+            self.canMessagersp(json: json as [String:AnyObject],timestamp: timestamp,id:id)
+        }
         
       } else {
         // what the heck is it??
-        
-        if let id = json["message_id"] as? NSInteger {
-            self.diagSingleFrameMessagersp(json: json as [String : AnyObject], timestamp: timestamp, id: id)
-        }
+     
         if let act = managerCallBack {
           act.performAction(["status":VehicleManagerStatusMessage.ble_RX_DATA_PARSE_ERROR.rawValue] as NSMutableDictionary)
         }
@@ -1478,7 +1471,7 @@ open class VehicleManager: NSObject {
   // both diagnostic response and CAN response messages have an "id" key
   fileprivate func canMessagersp(json:[String:AnyObject],timestamp:NSInteger,id:NSInteger){
 
-    
+    print(json)
     // only diagnostic response messages have "success"
     if let success = json["success"] as? Bool {
       
@@ -1572,7 +1565,12 @@ open class VehicleManager: NSObject {
     rsp.pid = pid!
     rsp.success = success
     rsp.payload = payload
-    rsp.value = value!
+    if value != 0 {
+        rsp.value = value!
+    }else{
+        rsp.value = 0
+    }
+    
     
      //Adde for NRC fix
     self.nrcFix(success:success,json: json,rsp:rsp)
