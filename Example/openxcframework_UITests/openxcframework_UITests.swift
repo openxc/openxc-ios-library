@@ -19,13 +19,13 @@ class openxcframework_UITests: XCTestCase {
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
-    func testserchBleButton() {
+    func testSerchBleButton() {
         let app = XCUIApplication()
         app.launch()
         
-        let mybuttonButton = app.buttons["SearchForBle"]
-            mybuttonButton.tap()
-            XCTAssertTrue(mybuttonButton.exists)
+        let searchButton = app.buttons["SearchForBle"]
+            searchButton.tap()
+            XCTAssertTrue(searchButton.exists)
         
         let activeConnectionLabel = app.staticTexts["ActiveConnection"]
         XCTAssertTrue(activeConnectionLabel.exists)
