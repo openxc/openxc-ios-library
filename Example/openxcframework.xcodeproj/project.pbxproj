@@ -32,6 +32,7 @@
 		7D4C63C92239247700A04A53 /* ModalSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B72239247700A04A53 /* ModalSettingsView.swift */; };
 		7D4C63CB2239247E00A04A53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C63CA2239247E00A04A53 /* Main.storyboard */; };
 		7DC37E6B240E765E0074CBCC /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EE7BE22E0540D0098F6E5 /* ProtocolBuffers.framework */; };
+		7DD5C9AF24DAD4750017676A /* openxcframework_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5C9AE24DAD4750017676A /* openxcframework_UITests.swift */; };
 		BEB29CC5678B6E4083210FDD /* Pods_openxcframework_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081A0F364536344AAAFB65E7 /* Pods_openxcframework_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
 			remoteInfo = openxcframework;
+		};
+		7DD5C9B124DAD4750017676A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
+			remoteInfo = openxcframework_Example;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -84,6 +92,9 @@
 		7D4C63B62239247700A04A53 /* SendCanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendCanViewController.swift; sourceTree = "<group>"; };
 		7D4C63B72239247700A04A53 /* ModalSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalSettingsView.swift; sourceTree = "<group>"; };
 		7D4C63CA2239247E00A04A53 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		7DD5C9AC24DAD4750017676A /* openxcframework_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openxcframework_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DD5C9AE24DAD4750017676A /* openxcframework_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openxcframework_UITests.swift; sourceTree = "<group>"; };
+		7DD5C9B024DAD4750017676A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1C5174A9B5F4FA48061C6CB /* Pods_openxcframework_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openxcframework_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -105,6 +116,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7DD5C9A924DAD4750017676A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -114,6 +132,7 @@
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for openxcframework */,
 				607FACE81AFB9204008FA782 /* Tests */,
+				7DD5C9AD24DAD4750017676A /* openxcframework_UITests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				9C3FF183F839FA14F4E4DD3D /* Pods */,
 				762AE580AC8CFB6482897B57 /* Frameworks */,
@@ -125,6 +144,7 @@
 			children = (
 				607FACD01AFB9204008FA782 /* openxcframework_Example.app */,
 				607FACE51AFB9204008FA782 /* openxcframework_Tests.xctest */,
+				7DD5C9AC24DAD4750017676A /* openxcframework_UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +227,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7DD5C9AD24DAD4750017676A /* openxcframework_UITests */ = {
+			isa = PBXGroup;
+			children = (
+				7DD5C9AE24DAD4750017676A /* openxcframework_UITests.swift */,
+				7DD5C9B024DAD4750017676A /* Info.plist */,
+			);
+			path = openxcframework_UITests;
+			sourceTree = "<group>";
+		};
 		9C3FF183F839FA14F4E4DD3D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,13 +288,31 @@
 			productReference = 607FACE51AFB9204008FA782 /* openxcframework_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		7DD5C9AB24DAD4750017676A /* openxcframework_UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DD5C9B524DAD4750017676A /* Build configuration list for PBXNativeTarget "openxcframework_UITests" */;
+			buildPhases = (
+				7DD5C9A824DAD4750017676A /* Sources */,
+				7DD5C9A924DAD4750017676A /* Frameworks */,
+				7DD5C9AA24DAD4750017676A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7DD5C9B224DAD4750017676A /* PBXTargetDependency */,
+			);
+			name = openxcframework_UITests;
+			productName = openxcframework_UITests;
+			productReference = 7DD5C9AC24DAD4750017676A /* openxcframework_UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
@@ -280,6 +327,12 @@
 						DevelopmentTeam = D95XHVNG2Z;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
+						TestTargetID = 607FACCF1AFB9204008FA782;
+					};
+					7DD5C9AB24DAD4750017676A = {
+						CreatedOnToolsVersion = 11.4;
+						DevelopmentTeam = D95XHVNG2Z;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -299,6 +352,7 @@
 			targets = (
 				607FACCF1AFB9204008FA782 /* openxcframework_Example */,
 				607FACE41AFB9204008FA782 /* openxcframework_Tests */,
+				7DD5C9AB24DAD4750017676A /* openxcframework_UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -317,6 +371,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		607FACE31AFB9204008FA782 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DD5C9AA24DAD4750017676A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -425,6 +486,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7DD5C9A824DAD4750017676A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DD5C9AF24DAD4750017676A /* openxcframework_UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -432,6 +501,11 @@
 			isa = PBXTargetDependency;
 			target = 607FACCF1AFB9204008FA782 /* openxcframework_Example */;
 			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
+		};
+		7DD5C9B224DAD4750017676A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 607FACCF1AFB9204008FA782 /* openxcframework_Example */;
+			targetProxy = 7DD5C9B124DAD4750017676A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -655,6 +729,59 @@
 			};
 			name = Release;
 		};
+		7DD5C9B324DAD4750017676A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = D95XHVNG2Z;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = openxcframework_UITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ford.com.openxcframework-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d16af723-666a-4532-8004-d5969e95de57";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = openxcframework_Example;
+			};
+			name = Debug;
+		};
+		7DD5C9B424DAD4750017676A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D95XHVNG2Z;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = openxcframework_UITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ford.com.openxcframework-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d16af723-666a-4532-8004-d5969e95de57";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = openxcframework_Example;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -681,6 +808,15 @@
 			buildConfigurations = (
 				607FACF31AFB9204008FA782 /* Debug */,
 				607FACF41AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DD5C9B524DAD4750017676A /* Build configuration list for PBXNativeTarget "openxcframework_UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DD5C9B324DAD4750017676A /* Debug */,
+				7DD5C9B424DAD4750017676A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
