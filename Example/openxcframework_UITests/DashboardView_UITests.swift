@@ -44,15 +44,15 @@ class DashboardView_UITests: XCTestCase {
       XCTAssertTrue(dismissButton.exists)
       XCTAssertTrue(okButton.exists)
     }
-    func testExample() {
+    func testAlert() {
             
         let app = XCUIApplication()
         app.tabBars.buttons["Dashboard"].tap()
         
         let okButton = app.alerts["Error"].scrollViews.otherElements.buttons["OK"]
         okButton.tap()
-         XCTAssertTrue(okButton.exists)
-        
+        XCTAssertTrue(okButton.exists)
+        XCTAssertTrue(app.alerts.element.staticTexts["Error"].exists)
     }
     func testEmptyTable(){
         let app = XCUIApplication()
