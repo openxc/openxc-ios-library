@@ -7,7 +7,7 @@
 //
 
 import XCTest
-
+@testable import openxcframework_Example
 class DashboardView_UITests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -23,20 +23,46 @@ class DashboardView_UITests: XCTestCase {
     }
     func testdSettingButton() {
           let app = XCUIApplication()
-              app.launch()
-          
-          let settingButton = app.buttons["SettingButton"]
+          app.tabBars.buttons["Dashboard"].tap()
+          //let appView = DashboardViewController()
+          let settingButton = app.buttons["Settings"]
               XCTAssertTrue(settingButton.exists)
           
       }
     func testForLogoLabel(){
         
         let app = XCUIApplication()
-            app.launch()
+        app.tabBars.buttons["Dashboard"].tap()
         
-        let logoLabel = app.staticTexts["OpenxcLogo"]
-               XCTAssertTrue(logoLabel.exists)
-               
+        let okButton = app.alerts["Error"].scrollViews.otherElements.buttons["OK"]
+        okButton.tap()
+        let dismissButton = app.buttons["Dismiss"]
+        okButton.tap()
+        
+        let openxcDemoAppStaticText = app.staticTexts["OpenXC Demo App"]
+      XCTAssertTrue(openxcDemoAppStaticText.exists)
+      XCTAssertTrue(dismissButton.exists)
+      XCTAssertTrue(okButton.exists)
+    }
+    func testExample() {
+            
+        let app = XCUIApplication()
+        app.tabBars.buttons["Dashboard"].tap()
+        
+        let okButton = app.alerts["Error"].scrollViews.otherElements.buttons["OK"]
+        okButton.tap()
+         XCTAssertTrue(okButton.exists)
+        
+    }
+    func testEmptyTable(){
+        let app = XCUIApplication()
+            app.tabBars.buttons["Dashboard"].tap()
+        
+        let emptyListTable = app.tables["Empty list"]
+               emptyListTable.swipeUp()
+               emptyListTable.swipeDown()
+               emptyListTable.tap()
+          XCTAssertTrue(emptyListTable.exists)
     }
 
 }
