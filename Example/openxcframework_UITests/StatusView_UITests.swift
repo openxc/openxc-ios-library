@@ -9,7 +9,7 @@
 import XCTest
 
 
-class openxcframework_UITests: XCTestCase {
+class StatusView_UITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -146,4 +146,11 @@ class openxcframework_UITests: XCTestCase {
                XCTAssertTrue(logoLabel.exists)
                
     }
+//    func testEmptyTable() {
+//          let app = XCUIApplication()
+//              app.launch()
+//
+//          let emptyListTable = app.tables["Empty list"]
+//            XCTAssertTrue(emptyListTable.exists)
+//      }
 }
