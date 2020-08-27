@@ -31,6 +31,7 @@
 		7D4C63C82239247700A04A53 /* SendCanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B62239247700A04A53 /* SendCanViewController.swift */; };
 		7D4C63C92239247700A04A53 /* ModalSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C63B72239247700A04A53 /* ModalSettingsView.swift */; };
 		7D4C63CB2239247E00A04A53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C63CA2239247E00A04A53 /* Main.storyboard */; };
+		7D817C3A24F400D600C2B8AD /* DashboardView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D817C3924F400D600C2B8AD /* DashboardView_UITests.swift */; };
 		7DC37E6B240E765E0074CBCC /* ProtocolBuffers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D3EE7BE22E0540D0098F6E5 /* ProtocolBuffers.framework */; };
 		7DD5C9AF24DAD4750017676A /* openxcframework_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5C9AE24DAD4750017676A /* openxcframework_UITests.swift */; };
 		BEB29CC5678B6E4083210FDD /* Pods_openxcframework_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081A0F364536344AAAFB65E7 /* Pods_openxcframework_Example.framework */; };
@@ -92,6 +93,7 @@
 		7D4C63B62239247700A04A53 /* SendCanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendCanViewController.swift; sourceTree = "<group>"; };
 		7D4C63B72239247700A04A53 /* ModalSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalSettingsView.swift; sourceTree = "<group>"; };
 		7D4C63CA2239247E00A04A53 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		7D817C3924F400D600C2B8AD /* DashboardView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView_UITests.swift; sourceTree = "<group>"; };
 		7DD5C9AC24DAD4750017676A /* openxcframework_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openxcframework_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD5C9AE24DAD4750017676A /* openxcframework_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openxcframework_UITests.swift; sourceTree = "<group>"; };
 		7DD5C9B024DAD4750017676A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				7DD5C9AE24DAD4750017676A /* openxcframework_UITests.swift */,
+				7D817C3924F400D600C2B8AD /* DashboardView_UITests.swift */,
 				7DD5C9B024DAD4750017676A /* Info.plist */,
 			);
 			path = openxcframework_UITests;
@@ -491,6 +494,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DD5C9AF24DAD4750017676A /* openxcframework_UITests.swift in Sources */,
+				7D817C3A24F400D600C2B8AD /* DashboardView_UITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

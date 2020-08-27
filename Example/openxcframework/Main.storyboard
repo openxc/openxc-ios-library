@@ -254,6 +254,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OpenXC Demo App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgO-77-1MB">
                                         <rect key="frame" x="10" y="11" width="185" height="24"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="OpenxcLogo"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="185" id="I3o-iF-StT"/>
                                         </constraints>
@@ -263,6 +264,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Vx-5l-Vke">
                                         <rect key="frame" x="300" y="10" width="65" height="30"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="SettingButton"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="QlD-bm-lHc"/>
                                         </constraints>
@@ -293,6 +295,7 @@
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active Connections" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8I-p3-sTb">
                                 <rect key="frame" x="20" y="60" width="200" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ActiveConnection"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="f0n-Ge-cKv"/>
                                 </constraints>
@@ -302,6 +305,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Messages Received" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYu-Na-dM4">
                                 <rect key="frame" x="20" y="90" width="200" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="MessagesReceived"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="yK2-hb-VF4"/>
                                 </constraints>
@@ -311,6 +315,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Message Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5T-pS-nxr">
                                 <rect key="frame" x="20" y="123" width="200" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="AverageMessageSize"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="0s1-jr-UFU"/>
                                 </constraints>
@@ -320,12 +325,14 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmt-cZ-dyk" userLabel="msgRcvdLab">
                                 <rect key="frame" x="170" y="90" width="190" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="MessagesCount"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8a9-sK-hBj" userLabel="AveragemsgRcvdLab">
                                 <rect key="frame" x="172" y="123" width="190" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="MessageSize"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="wfJ-nT-lFy"/>
                                 </constraints>
@@ -335,7 +342,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twl-J0-AhF" userLabel="actConLab">
                                 <rect key="frame" x="170" y="60" width="190" height="25"/>
-                                <accessibility key="accessibilityConfiguration" identifier="ActiveConnection"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ConnectionState"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="n2a-CH-sSU"/>
                                 </constraints>
@@ -345,6 +352,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VI Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W5k-gD-FEj">
                                 <rect key="frame" x="20" y="158" width="200" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Version"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Tas-uo-rlj"/>
                                 </constraints>
@@ -354,6 +362,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VI Device ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zct-LP-Qof">
                                 <rect key="frame" x="20" y="188" width="200" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="DeviceId"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="9zz-fa-w2D"/>
                                 </constraints>
@@ -363,6 +372,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Throughput" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05Q-Za-WrI">
                                 <rect key="frame" x="20" y="250" width="200" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Throughput"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="kon-7i-FmD"/>
                                 </constraints>
@@ -372,6 +382,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOY-Ud-hZJ" userLabel="devidLab">
                                 <rect key="frame" x="170" y="188" width="190" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="DeviceNumber"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="bhI-xW-bQW"/>
                                 </constraints>
@@ -381,6 +392,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEW-VZ-SbC" userLabel="ThroughPutLab">
                                 <rect key="frame" x="170" y="243" width="190" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ThroughputAverage"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="HeO-UX-BGQ"/>
                                     <constraint firstAttribute="width" constant="190" id="XVa-hr-IXQ"/>
@@ -391,6 +403,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VI Platform" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xl-eI-rYy">
                                 <rect key="frame" x="20" y="218" width="200" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Platform"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="0c4-sO-wjI"/>
                                     <constraint firstAttribute="width" constant="200" id="49q-08-ckj"/>
@@ -401,6 +414,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xi9-ZS-hYJ" userLabel="PlatFormLab">
                                 <rect key="frame" x="170" y="218" width="190" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="PlatformNumber"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="Rjh-zn-sR3"/>
                                 </constraints>
@@ -410,6 +424,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ioC-fU-wIq" userLabel="verLab">
                                 <rect key="frame" x="170" y="158" width="190" height="25"/>
+                                <accessibility key="accessibilityConfiguration" identifier="VersionNumber"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -446,9 +461,10 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="i2t-qy-SbD"/>
                                 </connections>
                             </tableView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceN-pV-EP6" userLabel="disconnect Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceN-pV-EP6" userLabel="disconnect Button">
                                 <rect key="frame" x="162" y="290" width="135" height="35"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Disconnect"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="AD8-PL-TVm"/>
                                     <constraint firstAttribute="width" constant="135" id="fg1-lc-HZZ"/>
@@ -464,6 +480,7 @@
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZD-ZF-Ntt">
                                 <rect key="frame" x="162" y="290" width="135" height="35"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="TraceRestart"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="135" id="PRr-i0-lsV"/>
                                     <constraint firstAttribute="height" constant="35" id="dPh-Px-vDf"/>
@@ -479,6 +496,7 @@
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8a-rk-re3">
                                 <rect key="frame" x="20" y="330" width="135" height="35"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="TraceSplit"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="Dzt-Xv-dDk"/>
                                     <constraint firstAttribute="width" constant="135" id="iW0-eS-9AP"/>
@@ -494,6 +512,7 @@
                             <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYU-dO-wXU">
                                 <rect key="frame" x="162" y="330" width="135" height="35"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="TraceStartStop"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="135" id="C9D-TC-3qy"/>
                                     <constraint firstAttribute="height" constant="35" id="pNV-ar-CiN"/>
@@ -2521,7 +2540,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="pVw-oo-j58"/>
+        <segue reference="0wW-1I-R6M"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="RadioBtn_white_Unchecked" width="24" height="24"/>
