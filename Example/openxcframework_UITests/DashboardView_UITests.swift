@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import openxcframework_Example
+
 class DashboardView_UITests: XCTestCase {
 
     override func setUpWithError() throws {
