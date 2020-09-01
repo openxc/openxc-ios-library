@@ -21,35 +21,12 @@ class SendCanView_UITests: XCTestCase {
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
-
-    func testTextField() {
-        
-        let app = XCUIApplication()
-        app.tabBars.buttons["More"].tap()
-        
-        let window = app.children(matching: .window).element(boundBy: 0)
-        let element3 = window.children(matching: .other).element.children(matching: .other).element
-        let element = element3.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
-        element.children(matching: .other).element(boundBy: 0).tap()
-        element/*@START_MENU_TOKEN@*/.press(forDuration: 4.5);/*[[".tap()",".press(forDuration: 4.5);"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-        element.children(matching: .textField).element.tap()
-        
-        let element2 = element.children(matching: .other).element(boundBy: 1)
-        element2.children(matching: .textField).matching(identifier: "00").element(boundBy: 0).tap()
-        element2.children(matching: .textField).matching(identifier: "00").element(boundBy: 1).tap()
-        element2.children(matching: .textField).matching(identifier: "00").element(boundBy: 2).tap()
-        element2.children(matching: .textField).matching(identifier: "00").element(boundBy: 3).tap()
-        app.buttons["SEND"].tap()
-        element3.children(matching: .other).element(boundBy: 1).tap()
-        window.tap()
-                
-        
-    }
     func testAlert() {
              
          let app = XCUIApplication()
          app.tabBars.buttons["More"].tap()
-         
+         app.tables/*@START_MENU_TOKEN@*/.staticTexts["Send CAN"]/*[[".cells.staticTexts[\"Send CAN\"]",".staticTexts[\"Send CAN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
          let okButton = app.alerts["Error"].scrollViews.otherElements.buttons["OK"]
          okButton.tap()
          XCTAssertTrue(okButton.exists)
@@ -58,13 +35,15 @@ class SendCanView_UITests: XCTestCase {
     func testDismissButton() {
         let app = XCUIApplication()
             app.tabBars.buttons["More"].tap()
-            
+            app.tables/*@START_MENU_TOKEN@*/.staticTexts["Send CAN"]/*[[".cells.staticTexts[\"Send CAN\"]",".staticTexts[\"Send CAN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
         let dismissButton = app.buttons["Dismiss"]
         XCTAssertTrue(dismissButton.exists)
         }
     func testdSendButton() {
         let app = XCUIApplication()
             app.tabBars.buttons["More"].tap()
+        app.tables/*@START_MENU_TOKEN@*/.staticTexts["Send CAN"]/*[[".cells.staticTexts[\"Send CAN\"]",".staticTexts[\"Send CAN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
             
         let sendButton = app.buttons["SEND"]
         XCTAssertTrue(sendButton.exists)
@@ -72,6 +51,7 @@ class SendCanView_UITests: XCTestCase {
     func testdSettingButton() {
           let app = XCUIApplication()
           app.tabBars.buttons["More"].tap()
+        app.tables/*@START_MENU_TOKEN@*/.staticTexts["Send CAN"]/*[[".cells.staticTexts[\"Send CAN\"]",".staticTexts[\"Send CAN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
           let settingButton = app.buttons["Settings"]
               XCTAssertTrue(settingButton.exists)
           
@@ -80,9 +60,9 @@ class SendCanView_UITests: XCTestCase {
         
         let app = XCUIApplication()
         app.tabBars.buttons["More"].tap()
+        app.tables/*@START_MENU_TOKEN@*/.staticTexts["Send CAN"]/*[[".cells.staticTexts[\"Send CAN\"]",".staticTexts[\"Send CAN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
         let okButton = app.alerts["Error"].scrollViews.otherElements.buttons["OK"]
-        okButton.tap()
         //let dismissButton = app.buttons["Dismiss"]
         okButton.tap()
         
@@ -90,4 +70,40 @@ class SendCanView_UITests: XCTestCase {
       XCTAssertTrue(openxcDemoAppStaticText.exists)
      
     }
+    
+    func testBusLabele() {
+        
+        let app = XCUIApplication()
+        app.tabBars.buttons["More"].tap()
+        app.tables/*@START_MENU_TOKEN@*/.staticTexts["Send CAN"]/*[[".cells.staticTexts[\"Send CAN\"]",".staticTexts[\"Send CAN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        let labelBus = app.staticTexts["Bus"]
+        XCTAssertTrue(labelBus.exists)
+  
+
+    }
+    func testTextField() {
+        let app = XCUIApplication()
+            app.tabBars.buttons["More"].tap()
+            app.tables/*@START_MENU_TOKEN@*/.staticTexts["Send CAN"]/*[[".cells.staticTexts[\"Send CAN\"]",".staticTexts[\"Send CAN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
+            element.tap()
+            let textField = element.children(matching: .textField).element
+            textField.tap()
+            XCTAssertTrue(textField.exists)
+    }
+    func testSentMessageLabel() {
+        let app = XCUIApplication()
+            app.tabBars.buttons["More"].tap()
+            app.tables/*@START_MENU_TOKEN@*/.staticTexts["Send CAN"]/*[[".cells.staticTexts[\"Send CAN\"]",".staticTexts[\"Send CAN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+              let labelSentMessage = app.staticTexts["Sent Messages"]
+              XCTAssertTrue(labelSentMessage.exists)
+    }
+    func testPayloadLabel() {
+        let app = XCUIApplication()
+        app.tabBars.buttons["More"].tap()
+        app.tables/*@START_MENU_TOKEN@*/.staticTexts["Send CAN"]/*[[".cells.staticTexts[\"Send CAN\"]",".staticTexts[\"Send CAN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        let payloadHexStaticText = app.staticTexts["Payload (hex)"]
+         XCTAssertTrue(payloadHexStaticText.exists)
+    }
 }
+
