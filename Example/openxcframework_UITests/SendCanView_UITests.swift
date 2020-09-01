@@ -32,14 +32,7 @@ class SendCanView_UITests: XCTestCase {
          XCTAssertTrue(okButton.exists)
          XCTAssertTrue(app.alerts.element.staticTexts["Error"].exists)
      }
-    func testDismissButton() {
-        let app = XCUIApplication()
-            app.tabBars.buttons["More"].tap()
-            app.tables/*@START_MENU_TOKEN@*/.staticTexts["Send CAN"]/*[[".cells.staticTexts[\"Send CAN\"]",".staticTexts[\"Send CAN\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
-        let dismissButton = app.buttons["Dismiss"]
-        XCTAssertTrue(dismissButton.exists)
-        }
+ 
     func testdSendButton() {
         let app = XCUIApplication()
             app.tabBars.buttons["More"].tap()
