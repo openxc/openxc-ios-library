@@ -45,7 +45,7 @@ class CommandView_UITests: XCTestCase {
                XCTAssertTrue(logoLabel.exists)
                
     }
-    func testdSettingButton() {
+    func testSettingButton() {
         let app = XCUIApplication()
             app.tabBars.buttons["More"].tap()
             app.tables/*@START_MENU_TOKEN@*/.staticTexts["Commands"]/*[[".cells.staticTexts[\"Commands\"]",".staticTexts[\"Commands\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()

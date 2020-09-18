@@ -31,7 +31,7 @@ class DiagnosticView_UITests: XCTestCase {
                XCTAssertTrue(logoLabel.exists)
                
     }
-    func testdSettingButton() {
+    func testSettingButton() {
            let app = XCUIApplication()
            app.tabBars.buttons["Diagnostic"].tap()
           
