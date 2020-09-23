@@ -15,6 +15,8 @@
 		7D06DA1C225DE872003C8DF3 /* VehicleManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D06DA18225DE872003C8DF3 /* VehicleManagerTest.swift */; };
 		7D10F2B62507AB08002109DB /* CommandView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D10F2B52507AB08002109DB /* CommandView_UITests.swift */; };
 		7D10F2B82507AC02002109DB /* DiagnosticView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D10F2B72507AC02002109DB /* DiagnosticView_UITests.swift */; };
+		7D10F2BA250BB20A002109DB /* RecordingView_UiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D10F2B9250BB20A002109DB /* RecordingView_UiTests.swift */; };
+		7D10F2BC250BB24C002109DB /* DataSourceView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D10F2BB250BB24C002109DB /* DataSourceView_UITests.swift */; };
 		7D2243A924F7DDB6003C2763 /* CanSignalView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2243A824F7DDB6003C2763 /* CanSignalView_UITests.swift */; };
 		7D2243AB24F7E101003C2763 /* SendCanView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2243AA24F7E101003C2763 /* SendCanView_UITests.swift */; };
 		7D3ECA0423C729AE0058B84F /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3ECA0323C729AE0058B84F /* NotificationViewController.swift */; };
@@ -82,6 +84,8 @@
 		7D06DA18225DE872003C8DF3 /* VehicleManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleManagerTest.swift; sourceTree = "<group>"; };
 		7D10F2B52507AB08002109DB /* CommandView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandView_UITests.swift; sourceTree = "<group>"; };
 		7D10F2B72507AC02002109DB /* DiagnosticView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticView_UITests.swift; sourceTree = "<group>"; };
+		7D10F2B9250BB20A002109DB /* RecordingView_UiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingView_UiTests.swift; sourceTree = "<group>"; };
+		7D10F2BB250BB24C002109DB /* DataSourceView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceView_UITests.swift; sourceTree = "<group>"; };
 		7D2243A824F7DDB6003C2763 /* CanSignalView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanSignalView_UITests.swift; sourceTree = "<group>"; };
 		7D2243AA24F7E101003C2763 /* SendCanView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCanView_UITests.swift; sourceTree = "<group>"; };
 		7D2A168843053B76AF6B84CB /* Pods-openxcframework_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-openxcframework_Tests.release.xcconfig"; path = "Target Support Files/Pods-openxcframework_Tests/Pods-openxcframework_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -258,6 +262,8 @@
 				7D98FFF224FFCC3800414DE5 /* OutputView_UITests.swift */,
 				7D10F2B52507AB08002109DB /* CommandView_UITests.swift */,
 				7D10F2B72507AC02002109DB /* DiagnosticView_UITests.swift */,
+				7D10F2B9250BB20A002109DB /* RecordingView_UiTests.swift */,
+				7D10F2BB250BB24C002109DB /* DataSourceView_UITests.swift */,
 				7DD5C9B024DAD4750017676A /* Info.plist */,
 			);
 			path = openxcframework_UITests;
@@ -518,8 +524,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D10F2B62507AB08002109DB /* CommandView_UITests.swift in Sources */,
+				7D10F2BC250BB24C002109DB /* DataSourceView_UITests.swift in Sources */,
 				7DD5C9AF24DAD4750017676A /* StatusView_UITests.swift in Sources */,
 				7D98FFF124FFCC0F00414DE5 /* ModalSettingView_UITests.swift in Sources */,
+				7D10F2BA250BB20A002109DB /* RecordingView_UiTests.swift in Sources */,
 				7D98FFEF24FFCBE200414DE5 /* NotificationView_UITests.swift in Sources */,
 				7D817C3A24F400D600C2B8AD /* DashboardView_UITests.swift in Sources */,
 				7D10F2B82507AC02002109DB /* DiagnosticView_UITests.swift in Sources */,
