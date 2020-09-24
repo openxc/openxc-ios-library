@@ -536,6 +536,12 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cvc?.platformResponse = String(cr.message)
             
         }
+        else{
+            let alertController = UIAlertController(title: "", message:
+                "please Configure your firmware for VIN command", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     
@@ -607,7 +613,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // this function is called when the get vin button is hit
       @IBAction func getVinButtonHit(_ sender: UIButton) {
         let cmd = VehicleCommandRequest()
-        cmd.command = .version
+        cmd.command = .get_vin
         self.cm.sendCommand(cmd)
         
       }

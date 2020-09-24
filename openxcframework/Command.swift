@@ -189,6 +189,10 @@ open class Command: NSObject {
             _ = cbuild.setType(.platform)
             
         }
+//        if cmd.command == .get_vin {
+//                   _ = cbuild.setType(.get_vin)
+//
+//               }
         if cmd.command == .passthrough {
             let cbuild2 = PassthroughModeControlCommand.Builder()
             _ = cbuild2.setBus(Int32(cmd.bus))
@@ -284,7 +288,7 @@ open class Command: NSObject {
         // decode the command type and build the command depending on the command
         //print("cmd command...",cmd.command)
         
-        if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform {
+        if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform || cmd.command == .get_vin  {
             // build the command json
             cmdstr = "{\"command\":\"\(cmd.command.rawValue)\"}\0"
             print("cmdStr..",cmdstr)

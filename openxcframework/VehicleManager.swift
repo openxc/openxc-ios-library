@@ -860,7 +860,10 @@ open class VehicleManager: NSObject {
     
     // build measurement message
     let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
-    rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+    
+   if let timestamp = msg.timestamp{
+        rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+    }
     //rsp.name = msg.simpleMessage.name as NSString
     
     rsp.name = name
@@ -914,7 +917,9 @@ open class VehicleManager: NSObject {
     // build command response message
     print(msg)
     let rsp : VehicleCommandResponse = VehicleCommandResponse()
-        rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+       if let timestamp = msg.timestamp{
+            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+        }
         rsp.command_response = name.lowercased() as NSString
         rsp.message = msg.commandResponse.message as NSString
         rsp.status = msg.commandResponse.status
@@ -942,7 +947,9 @@ open class VehicleManager: NSObject {
 
     // build diag response message
     let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
-    rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+     if let timestamp = msg.timestamp{
+           rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+       }
     rsp.bus = Int(msg.diagnosticResponse.bus)
     rsp.message_id = Int(msg.diagnosticResponse.messageId)
     rsp.mode = Int(msg.diagnosticResponse.mode)
@@ -997,7 +1004,9 @@ open class VehicleManager: NSObject {
   fileprivate func protobufCanMessage(msg : VehicleMessage){
     // build CAN response message
     let rsp : VehicleCanResponse = VehicleCanResponse()
-    rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+     if let timestamp = msg.timestamp{
+           rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+       }
     rsp.bus = Int(msg.canMessage.bus)
     rsp.id = Int(msg.canMessage.id)
     rsp.data = String(data:msg.canMessage.data as Data,encoding: String.Encoding.utf8)! as NSString
