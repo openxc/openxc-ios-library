@@ -562,8 +562,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development: Vinod Lingamsetty (8CK4Y5ZHN7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Vinod Lingamsetty (8CK4Y5ZHN7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = D95XHVNG2Z;
 				INFOPLIST_FILE = openxcframework/Info.plist;
@@ -587,7 +587,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development: Vinod Lingamsetty (8CK4Y5ZHN7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = D95XHVNG2Z;
 				INFOPLIST_FILE = openxcframework/Info.plist;

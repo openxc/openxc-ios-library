@@ -1103,6 +1103,7 @@ open class VehicleManager: NSObject {
         // what the heck is it??
         
         if let id = json["message_id"] as? NSInteger {
+            print("Diagnostic JSON\(json)")
             self.diagSingleFrameMessagersp(json: json as [String : AnyObject], timestamp: timestamp, id: id)
         }
         if let act = managerCallBack {
