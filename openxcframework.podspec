@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   s.exclude_files = 'openxcframework/*.plist'
   s.source_files = 'openxcframework/*.{swift}'
-  s.dependency 'ProtocolBuffers-Swift'
+  s.dependency 'SwiftProtobuf', '~> 1.7'
   s.module_name = 'openXCiOSFramework'
   s.frameworks = 'ExternalAccessory', 'CoreBluetooth', 'Foundation'
 

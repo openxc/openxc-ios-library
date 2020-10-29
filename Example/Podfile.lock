@@ -8,8 +8,8 @@ PODS:
   - AppCenter/Crashes (3.1.0):
     - AppCenter/Core
   - openxcframework (6.2.0):
-    - ProtocolBuffers-Swift
-  - ProtocolBuffers-Swift (4.0.6)
+    - SwiftProtobuf (~> 1.7)
+  - SwiftProtobuf (1.9.0)
 
 DEPENDENCIES:
   - AppCenter
@@ -18,7 +18,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AppCenter
-    - ProtocolBuffers-Swift
+    - SwiftProtobuf
 
 EXTERNAL SOURCES:
   openxcframework:
@@ -26,8 +26,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppCenter: a1c30c47b7882a04a615ffa5ab26c007326436d8
-  openxcframework: b9d5d25aa9d3094fdc749114f888c5c2b6f8e90a
-  ProtocolBuffers-Swift: 09b5cfcc641ab512d6aaa1d2cc3879a40432052c
+  openxcframework: 80d6842cbc193dbd0a438dfa7122a2e3c2808cac
+  SwiftProtobuf: ecbec1be9036d15655f6b3443a1c4ea693c97932
 
 PODFILE CHECKSUM: f2d0fa3f68cab83a814e453755d9a4d8bf474222
 

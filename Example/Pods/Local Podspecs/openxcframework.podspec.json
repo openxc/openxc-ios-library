@@ -21,8 +21,8 @@
   "exclude_files": "openxcframework/*.plist",
   "source_files": "openxcframework/*.{swift}",
   "dependencies": {
-    "ProtocolBuffers-Swift": [
-
+    "SwiftProtobuf": [
+      "~> 1.7"
     ]
   },
   "module_name": "openXCiOSFramework",

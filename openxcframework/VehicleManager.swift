@@ -6,7 +6,7 @@
 //  Vrsion 0.9.2
 import Foundation
 import CoreBluetooth
-import ProtocolBuffers
+import SwiftProtobuf
 
 
 // comparison operators with optionals were removed from the Swift Standard Libary.
@@ -434,7 +434,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the command message
-        let cbuild = ControlCommand.Builder()
+       /* let cbuild = ControlCommand.Builder()
         self.protobufCommandRequest(cmd)
       
       if cmd.command == .predefined_odb2 {
@@ -490,7 +490,7 @@ open class VehicleManager: NSObject {
         print("command message failed")
         
       }
-      
+      */
       return
     }
     
@@ -500,7 +500,7 @@ open class VehicleManager: NSObject {
    
     
   }
-    fileprivate func protobufCommandRequest(_ cmd:VehicleCommandRequest){
+    /*fileprivate func protobufCommandRequest(_ cmd:VehicleCommandRequest){
         let cbuild = ControlCommand.Builder()
          if cmd.command == .version {
            _ = cbuild.setType(.version)
@@ -568,7 +568,7 @@ open class VehicleManager: NSObject {
           print("command message failed")
           
         }
-    }
+    }*/
     fileprivate func jsonCommandRequest(_ cmd:VehicleCommandRequest){
         var cmdstr = ""
         // decode the command type and build the command depending on the command
@@ -622,7 +622,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build diag message
-      let cbuild = ControlCommand.Builder()
+      /*let cbuild = ControlCommand.Builder()
       _ = cbuild.setType(.diagnostic)
       let c2build = DiagnosticControlCommand.Builder()
       _ = c2build.setAction(.add)
@@ -666,7 +666,7 @@ open class VehicleManager: NSObject {
       } catch {
         print("command build failed")
       }
-      
+      */
       return
     }
     self.lastReqMsg_id = cmd.message_id
@@ -716,7 +716,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the CAN message
-      let cbuild = CanMessage.Builder()
+     /* let cbuild = CanMessage.Builder()
       _ = cbuild.setBus(Int32(cmd.bus))
       _ = cbuild.setId(UInt32(cmd.id))
       let data = NSMutableData()
@@ -755,7 +755,7 @@ open class VehicleManager: NSObject {
       } catch {
         print("cmd msg build failed")
       }
-      
+      */
       return
     }
     
@@ -793,11 +793,16 @@ open class VehicleManager: NSObject {
   
   
   fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
-    var msg : VehicleMessage
+    var msg : SwiftProtobuf.Message
     do {
-      msg = try VehicleMessage.parseFrom(data: data_chunk as Data)
+     // msg = try VehicleMessage.parseFrom(data: data_chunk as Data)
+        // let binaryData: Data = try msg.serializedData()
+         //let decodedInfo = try simpleMessage(serializedData: binaryData)
       //print(msg)
-      
+     
+                
+                // Deserialize a received Data object from `binaryData`
+                
       
       let data_left : NSMutableData = NSMutableData()
       data_left.append(RxDataBuffer.subdata(with: NSMakeRange(packetlen+1, RxDataBuffer.length-packetlen-1)))
@@ -807,7 +812,7 @@ open class VehicleManager: NSObject {
       
       // measurement messages (normal and evented)
       ///////////////////////////////////////////
-      if msg.type == .simple {
+      /*if msg.type == .Openxc_SimpleMessage {
         
         decoded = true
         self.protobufMeasurementMessage(msg : msg)
@@ -845,7 +850,7 @@ open class VehicleManager: NSObject {
         // should never get here!
           act.performAction(["status":VehicleManagerStatusMessage.ble_RX_DATA_PARSE_ERROR.rawValue] as NSMutableDictionary)
         
-      }
+      }*/
     } catch {
       //self.jsonMode = true
       print("protobuf parse error")
@@ -854,23 +859,23 @@ open class VehicleManager: NSObject {
 
   }
   
-  fileprivate func protobufMeasurementMessage(msg : VehicleMessage){
+   /* fileprivate func protobufMeasurementMessage(msg : VehicleMessageType){
     //let name = msg.simpleMessage.name
-    let name = msg.simpleMessage.name as NSString
+    //let name = msg.simpleMessage.name as NSString
     
     // build measurement message
-    let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
+    //let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
     
-   if let timestamp = msg.timestamp{
+   /*if let timestamp = msg.timestamp{
         rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-    }
+    }*/
     //rsp.name = msg.simpleMessage.name as NSString
     
-    rsp.name = name
-    self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
+    //rsp.name = name
+    //self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
     
-  }
-    fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg : VehicleMessage){
+  }*/
+   /* fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg : VehicleMessage){
         
       if msg.simpleMessage.value.hasStringValue {
           rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
@@ -888,8 +893,8 @@ open class VehicleManager: NSObject {
           rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
       }
 
-  }
-    fileprivate func protoSimpleMsgCheck(rsp : VehicleMeasurementResponse, name:NSString){
+  }*/
+    /*fileprivate func protoSimpleMsgCheck(rsp : VehicleMeasurementResponse, name:NSString){
         
         // capture this message into the dictionary of latest messages
         latestVehicleMeasurements[name] = rsp
@@ -909,9 +914,9 @@ open class VehicleManager: NSObject {
             act.performAction(["vehiclemessage":rsp] as NSDictionary)
         
         }
-    }
+    }*/
   
-   fileprivate func protobufCommandResponse(msg : VehicleMessage){
+   /*fileprivate func protobufCommandResponse(msg : VehicleMessage){
 
     let name = msg.commandResponse.type.description
     // build command response message
@@ -942,8 +947,8 @@ open class VehicleManager: NSObject {
       ta.performAction(["vehiclemessage":rsp,"key":s] as NSDictionary)
     }
   }
-  
-  fileprivate func protobufDignosticMessage(msg : VehicleMessage){
+  */
+  /*fileprivate func protobufDignosticMessage(msg :VehicleMessage){
 
     // build diag response message
     let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
@@ -999,9 +1004,9 @@ open class VehicleManager: NSObject {
         
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
     }
-  }
+  }*/
   
-  fileprivate func protobufCanMessage(msg : VehicleMessage){
+  /*fileprivate func protobufCanMessage(msg : VehicleMessage){
     // build CAN response message
     let rsp : VehicleCanResponse = VehicleCanResponse()
      if let timestamp = msg.timestamp{
@@ -1035,7 +1040,7 @@ open class VehicleManager: NSObject {
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
      
     }
-  }
+  }*/
   
 
   ////////////////
@@ -1103,6 +1108,7 @@ open class VehicleManager: NSObject {
         // what the heck is it??
         
         if let id = json["message_id"] as? NSInteger {
+            print("Diagnostic JSON\(json)")
             self.diagSingleFrameMessagersp(json: json as [String : AnyObject], timestamp: timestamp, id: id)
         }
         if let act = managerCallBack {
