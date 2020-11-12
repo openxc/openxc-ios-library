@@ -871,9 +871,9 @@ open class VehicleManager: NSObject {
          //print("Response >>>\(vr)")
        
     let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
-        if let timestamp = msg.timestamp{
-            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-        }
+//        if let timestamp = msg.timestamp{
+//            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+//        }
     //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
     //rsp.name = msg.simpleMessage.name as NSString
     
