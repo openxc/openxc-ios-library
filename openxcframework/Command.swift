@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ProtocolBuffers
+import SwiftProtobuf
 
 public enum VehicleCommandType: NSString {
     case version
@@ -173,7 +173,7 @@ open class Command: NSObject {
     }
     
     // common function for sending a VehicleCommandRequest
-    func protobufSendCommand(cmd:VehicleCommandRequest){
+    /*func protobufSendCommand(cmd:VehicleCommandRequest){
         // in protobuf mode, build the command message
         let cbuild = Openxc.ControlCommand.Builder()
         if cmd.command == .version {
@@ -266,13 +266,13 @@ open class Command: NSObject {
                    } catch {
                        print("cmd msg build failed")
                    }
-    }
+    }*/
     fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
         
         if !self.vm.jsonMode {
 
 
-            self.protobufSendCommand(cmd: cmd)
+          //  self.protobufSendCommand(cmd: cmd)
            
             
             return
