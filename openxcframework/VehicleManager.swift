@@ -805,9 +805,9 @@ open class VehicleManager: NSObject {
         
         //msg = try Openxc.VehicleMessage.parseFrom(data: data_chunk as Data)
       
-//      let data_left : NSMutableData = NSMutableData()
-//      data_left.append(RxDataBuffer.subdata(with: NSMakeRange(packetlen+1, RxDataBuffer.length-packetlen-1)))
-//      RxDataBuffer = data_left
+      let data_left : NSMutableData = NSMutableData()
+      data_left.append(RxDataBuffer.subdata(with: NSMakeRange(packetlen+1, RxDataBuffer.length-packetlen-1)))
+      RxDataBuffer = data_left
     
       var decoded = false
       
@@ -874,7 +874,7 @@ open class VehicleManager: NSObject {
 //        if let timestamp = msg.timestamp{
 //            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
 //        }
-    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+    rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
     //rsp.name = msg.simpleMessage.name as NSString
     
     rsp.name = name
@@ -886,8 +886,21 @@ open class VehicleManager: NSObject {
     
     fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg : Openxc_VehicleMessage){
        
-        /*
-      if msg.simpleMessage.value.hasStringValue {
+        if msg.hasSimpleMessage{
+            rsp.value = msg.simpleMessage.value.stringValue as AnyObject
+            rsp.value = msg.simpleMessage.value.booleanValue as AnyObject
+            rsp.value = msg.simpleMessage.value.numericValue as AnyObject
+            if msg.simpleMessage.hasEvent {
+              rsp.isEvented = true
+              
+                rsp.event = msg.simpleMessage.event.stringValue as AnyObject
+             
+                rsp.event = msg.simpleMessage.event.booleanValue as AnyObject
+              
+                rsp.event = msg.simpleMessage.event.numericValue as AnyObject
+            }
+        }
+        /*if msg.simpleMessage.value.stringValue.hasStringValue {
           rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
       if msg.simpleMessage.value.hasBooleanValue {
           rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
