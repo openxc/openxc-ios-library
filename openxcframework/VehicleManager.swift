@@ -116,7 +116,7 @@ open class VehicleManager: NSObject {
   
   public var throughputEnabled: Bool = false
   // config variable determining whether trace output is generated
-  fileprivate var msg : Openxc_VehicleMessage!
+
   //Connected to network simulator
   open var isNetworkConnected: Bool = false
 
@@ -793,7 +793,7 @@ open class VehicleManager: NSObject {
   
   
   fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
-    
+    var msg : Openxc_VehicleMessage
     
     
     do {
