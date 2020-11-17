@@ -116,7 +116,7 @@ open class VehicleManager: NSObject {
   
   public var throughputEnabled: Bool = false
   // config variable determining whether trace output is generated
-
+  fileprivate var msg : Openxc_VehicleMessage!
   //Connected to network simulator
   open var isNetworkConnected: Bool = false
 
@@ -793,7 +793,7 @@ open class VehicleManager: NSObject {
   
   
   fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
-    var msg : Openxc_VehicleMessage
+    
     
     
     do {
@@ -802,8 +802,6 @@ open class VehicleManager: NSObject {
         print("Decoding  Message>>>>\(msg)")
     
        // msg = try Openxc_SimpleMessage(serializedData: data_chunk as Data)
-        
-        //msg = try Openxc.VehicleMessage.parseFrom(data: data_chunk as Data)
       
       let data_left : NSMutableData = NSMutableData()
       data_left.append(RxDataBuffer.subdata(with: NSMakeRange(packetlen+1, RxDataBuffer.length-packetlen-1)))
