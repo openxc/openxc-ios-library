@@ -795,7 +795,6 @@ open class VehicleManager: NSObject {
   fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
     var msg : Openxc_VehicleMessage
     
-    
     do {
         
         msg = try Openxc_VehicleMessage(serializedData: data_chunk as Data )
