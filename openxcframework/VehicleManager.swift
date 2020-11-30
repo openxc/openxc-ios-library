@@ -795,7 +795,6 @@ open class VehicleManager: NSObject {
   fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
     var msg : Openxc_VehicleMessage
     
-    
     do {
         
         msg = try Openxc_VehicleMessage(serializedData: data_chunk as Data )
@@ -814,7 +813,7 @@ open class VehicleManager: NSObject {
       if msg.type == .simple {
         
         decoded = true
-        self.protobufMeasurementMessage(msg : msg)
+       // self.protobufMeasurementMessage(msg : msg)
       }
       
       // Command Response messages

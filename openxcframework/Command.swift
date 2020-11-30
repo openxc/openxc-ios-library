@@ -173,22 +173,25 @@ open class Command: NSObject {
     }
     
     // common function for sending a VehicleCommandRequest
-    /*func protobufSendCommand(cmd:VehicleCommandRequest){
+    func protobufSendCommand(cmd:VehicleCommandRequest){
         // in protobuf mode, build the command message
-        let cbuild = Openxc.ControlCommand.Builder()
+        //let cbuild = Openxc.ControlCommand.Builder()
+        let cbuild = Openxc_ControlCommand.self
         if cmd.command == .version {
-            _ = cbuild.setType(.version)
-            
+           // _ = cbuild.setType(.version)
+            _ = cbuild.TypeEnum.version
         }
         if cmd.command == .device_id {
-            _ = cbuild.setType(.deviceId)
+           // _ = cbuild.setType(.deviceId)
+             _ = cbuild.TypeEnum.deviceID
             
         }
         if cmd.command == .platform {
-            _ = cbuild.setType(.platform)
+           // _ = cbuild.setType(.platform)
+             _ = cbuild.TypeEnum.deviceID
             
         }
-        if cmd.command == .passthrough {
+       /* if cmd.command == .passthrough {
             let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
             _ = cbuild2.setBus(Int32(cmd.bus))
             _ = cbuild2.setEnabled(cmd.enabled)
@@ -239,40 +242,37 @@ open class Command: NSObject {
         if cmd.command == .sd_mount_status {
             _ = cbuild.setType(.sdMountStatus)
             
-        }
+        }*/
         let mbuild = Openxc.VehicleMessage.Builder()
                    _ = mbuild.setType(.controlCommand)
                    
-                   do {
-                       let cmsg = try cbuild.build()
-                       _ = mbuild.setControlCommand(cmsg)
-                       let mmsg = try mbuild.build()
+                       let cmsg =  cbuild.self
+                       _ = mbuild.co
+                       let mmsg =  mbuild.build()
                        print (mmsg)
                        
                        
                        let cdata = mmsg.data()
                        let cdata2 = NSMutableData()
-                       let prepend : [UInt8] = [UInt8(cdata.count)]
+                       let prepend : [UInt8] = [UInt8(cdata)]
                        cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
                        cdata2.append(cdata)
                        print(cdata2)
-                       
+                      
                        // append to tx buffer
                       self.vm.bleTransmitDataBuffer.add(cdata2)
                        
                        // trigger a BLE data send
                        BluetoothManager.sharedInstance.bleSendFunction()
                        
-                   } catch {
-                       print("cmd msg build failed")
-                   }
-    }*/
+                   
+    }
     fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
         
         if !self.vm.jsonMode {
 
 
-          //  self.protobufSendCommand(cmd: cmd)
+            self.protobufSendCommand(cmd: cmd)
            
             
             return
