@@ -486,11 +486,80 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     // (tx buffer count==0), then the BLESendFunction returns immediately
     bleSendFunction()
   }
-  
+    public func bleSendFunction() {
+      
+      
+      var sendBytes: Data
+      
+      // Check to see if the tx buffer is actually empty.
+      // We need to do this because this function can be called as BLE notifications are
+      // received because we may have queued up some messages to send.
+      if VehicleManager.sharedInstance.bleTransmitDataBuffer.count == 0 {
+        return
+      }
+      
+      // Check to see if the tx write semaphore is >0.
+      // This indicates that the last message are still being sent.
+      // As the parts of the messsage are being queued up in CoreBluetooth
+      // (20B at a time), the tx write semaphore is incremented.
+      // As the parts of the message are actually sent (20B at a time) and
+      // acknowledged the tx write semaphore is decremented.
+      // We can only start to send a new message when the semaphore is empty (=0).
+      if bleTransmitWriteCount != 0 {
+        return
+      }
+      
+      if(isBleConnected){
+        // take the message to send from the head of the tx buffer queue
+        var cmdToSend : NSData = VehicleManager.sharedInstance.bleTransmitDataBuffer[0] as! NSData
+        print("cmdToSend:",cmdToSend)
+       // let datastring = NSString(data: (cmdToSend as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
+         // Let dataString = try cmdToSend.jsonUTF8Data()
+        //print("datastring:",datastring as Any)
+        
+        // we can only send 20B at a time in BLE
+        let rangedata = NSMakeRange(0, 20)
+        // loop through and send 20B at a time, make sure to handle <20B in the last send.
+        while cmdToSend.length > 0 {
+          if (cmdToSend.length<=20) {
+            print("cmdToSend if length < 20:",cmdToSend)
+            sendBytes = cmdToSend as Data
+            print("sendBytes if length < 20:",sendBytes)
+            
+            let try2Str = NSString(data: sendBytes, encoding:String.Encoding.utf8.rawValue)
+            print("try2Str....:",try2Str as Any)
+            
+            
+            cmdToSend = NSMutableData()
+          } else {
+            sendBytes = cmdToSend.subdata(with: rangedata)
+            print("20B chunks....:",sendBytes)
+            
+            let try1Str = NSString(data: (sendBytes as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
+            print("try1Str....:",try1Str as Any)
+            
+            let leftdata = NSMakeRange(20,cmdToSend.length-20)
+            cmdToSend = NSData(data: cmdToSend.subdata(with: leftdata))
+            
+          }
+          // write the byte chunk to the VI
+          print("sendBytes if length ",sendBytes)
+          openXCPeripheral.writeValue(sendBytes, for: openXCWriteChar, type: CBCharacteristicWriteType.withResponse)
+          // increment the tx write semaphore
+          bleTransmitWriteCount += 1
+          
+          
+        }
+      }
+      
+      // remove the message from the tx buffer queue once all parts of it have been sent
+      VehicleManager.sharedInstance.bleTransmitDataBuffer.removeObject(at: 0)
+      
+    }
   
   // common function called whenever any messages need to be sent over BLE
   //ranjan changed fileprivate to public due to travis fail
-  public func bleSendFunction() {
+ /* public func bleSendFunction() {
     
     
     var sendBytes: Data
@@ -516,36 +585,38 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     if(isBleConnected){
       // take the message to send from the head of the tx buffer queue
       var cmdToSend : NSData = VehicleManager.sharedInstance.bleTransmitDataBuffer[0] as! NSData
-      vmlog("cmdToSend:",cmdToSend)
-      let datastring = NSString(data: (cmdToSend as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
-      vmlog("datastring:",datastring as Any)
+      print("cmdToSend:",cmdToSend)
+     // let datastring = NSString(data: (cmdToSend as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
+       // Let dataString = try cmdToSend.jsonUTF8Data()
+      //print("datastring:",datastring as Any)
       
       // we can only send 20B at a time in BLE
       let rangedata = NSMakeRange(0, 20)
       // loop through and send 20B at a time, make sure to handle <20B in the last send.
       while cmdToSend.length > 0 {
         if (cmdToSend.length<=20) {
-          vmlog("cmdToSend if length < 20:",cmdToSend)
+          print("cmdToSend if length < 20:",cmdToSend)
           sendBytes = cmdToSend as Data
-          vmlog("sendBytes if length < 20:",sendBytes)
+          print("sendBytes if length < 20:",sendBytes)
           
-          let try2Str = NSString(data: (sendBytes as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
-          vmlog("try2Str....:",try2Str as Any)
+          let try2Str = NSString(data: sendBytes, encoding:String.Encoding.utf8.rawValue)
+          print("try2Str....:",try2Str as Any)
           
           
           cmdToSend = NSMutableData()
         } else {
           sendBytes = cmdToSend.subdata(with: rangedata)
-          vmlog("20B chunks....:",sendBytes)
+          print("20B chunks....:",sendBytes)
           
           let try1Str = NSString(data: (sendBytes as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
-          vmlog("try1Str....:",try1Str as Any)
+          print("try1Str....:",try1Str as Any)
           
           let leftdata = NSMakeRange(20,cmdToSend.length-20)
           cmdToSend = NSData(data: cmdToSend.subdata(with: leftdata))
           
         }
         // write the byte chunk to the VI
+        print("sendBytes if length ",sendBytes)
         openXCPeripheral.writeValue(sendBytes, for: openXCWriteChar, type: CBCharacteristicWriteType.withResponse)
         // increment the tx write semaphore
         bleTransmitWriteCount += 1
@@ -557,7 +628,7 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     // remove the message from the tx buffer queue once all parts of it have been sent
     VehicleManager.sharedInstance.bleTransmitDataBuffer.removeObject(at: 0)
     
-  }
+  }*/
   open func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
     vmlog("in peripheral:didWriteValueForDescriptor")
   }

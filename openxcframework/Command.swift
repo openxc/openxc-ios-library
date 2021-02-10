@@ -21,6 +21,7 @@ public enum VehicleCommandType: NSString {
     case sd_mount_status
     case rtc_configuration
     case custom_command
+    case getVin
 }
 
 
@@ -173,9 +174,30 @@ open class Command: NSObject {
     }
     
     // common function for sending a VehicleCommandRequest
-    /*func protobufSendCommand(cmd:VehicleCommandRequest){
+    func protobufSendCommand(cmd:VehicleCommandRequest){
         // in protobuf mode, build the command message
-        let cbuild = Openxc.ControlCommand.Builder()
+        
+        //var info = Openxc_ControlCommand()
+        var controlCommand = Openxc_ControlCommand()
+        if cmd.command == .version {
+            controlCommand.type = .version
+
+           }
+         if cmd.command == .device_id {
+            controlCommand.type = .deviceID
+
+           }
+         if cmd.command == .platform {
+            controlCommand.type = .platform
+
+           }
+        if cmd.command == .getVin {
+            controlCommand.type = .getVin
+
+          }
+        
+        
+       /* let cbuild = Openxc.ControlCommand.Builder()
         if cmd.command == .version {
             _ = cbuild.setType(.version)
             
@@ -239,11 +261,11 @@ open class Command: NSObject {
         if cmd.command == .sd_mount_status {
             _ = cbuild.setType(.sdMountStatus)
             
-        }
-        let mbuild = Openxc.VehicleMessage.Builder()
-                   _ = mbuild.setType(.controlCommand)
+        }*/
+       // let mbuild = Openxc.VehicleMessage.Builder()
+                 //  _ = mbuild.setType(.controlCommand)
                    
-                   do {
+                  /* do {
                        let cmsg = try cbuild.build()
                        _ = mbuild.setControlCommand(cmsg)
                        let mmsg = try mbuild.build()
@@ -265,14 +287,33 @@ open class Command: NSObject {
                        
                    } catch {
                        print("cmd msg build failed")
-                   }
-    }*/
+                   }*/
+        
+        
+        do {
+            // Serialize to binary protobuf format:
+            print(controlCommand)
+            let binaryData: Data = try controlCommand.serializedData()
+            //let binaryData: Data = try info.jsonUTF8Data()
+            print(binaryData)
+           
+            self.vm.bleTransmitDataBuffer.add(binaryData)
+               
+               // trigger a BLE data send
+               BluetoothManager.sharedInstance.bleSendFunction()
+            
+
+            
+        } catch {
+            print(error)
+        }
+    }
     fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
         
         if !self.vm.jsonMode {
 
 
-          //  self.protobufSendCommand(cmd: cmd)
+            self.protobufSendCommand(cmd: cmd)
            
             
             return

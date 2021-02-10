@@ -218,7 +218,7 @@ open class VehicleManager: NSObject {
     bleTransmitCommandToken.append(key)
     
     // common command send method
-    sendCommandCommon(cmd)
+    //sendCommandCommon(cmd)
     
     return key
     
@@ -243,7 +243,7 @@ open class VehicleManager: NSObject {
     bleTransmitCommandToken.append(key)
     
     // common command send method
-    sendCommandCommon(cmd)
+   // sendCommandCommon(cmd)
     
   }
   
@@ -429,14 +429,14 @@ open class VehicleManager: NSObject {
   
   
   // common function for sending a VehicleCommandRequest
-  fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
+ /* fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
     vmlog("in sendCommandCommon")
     
     if !jsonMode {
       // in protobuf mode, build the command message
-      /*  let cbuild = Openxc.ControlCommand.Builder()
+       // let cbuild = Openxc.ControlCommand.Builder()
         self.protobufCommandRequest(cmd)
-      
+     /*
       if cmd.command == .predefined_odb2 {
         let cbuild2 = Openxc.PredefinedObd2RequestsCommand.Builder()
         _ = cbuild2.setEnabled(cmd.enabled)
@@ -497,29 +497,80 @@ open class VehicleManager: NSObject {
     
    
     
-  }
-    /*
-    fileprivate func protobufCommandRequest(_ cmd:VehicleCommandRequest){
-        let cbuild = Openxc.ControlCommand.Builder()
+  }*/
+    
+    /*fileprivate func protobufCommandRequest(_ cmd:VehicleCommandRequest){
+        //let cbuild = Openxc_
+        var info = Openxc_ControlCommand.init()
+        
          if cmd.command == .version {
-           _ = cbuild.setType(.version)
+            info.type = .version
+            //info.type.rawValue = 1
            
            }
          if cmd.command == .device_id {
-           _ = cbuild.setType(.deviceId)
+            info.type = .deviceID
            
            }
          if cmd.command == .platform {
-           _ = cbuild.setType(.platform)
-           
+            info.type = .platform
+          
            }
+        
+//        // As above, but generating a read-only value:
+//               let info2 = BookInfo.with {
+//                   $0.id = 1735
+//                   $0.title = "Even More Interesting"
+//                   $0.author = "Ranjan kumar"
+//
+//                 }
+          
+
+               do {
+                   // Serialize to binary protobuf format:
+                   let binaryData: Data = try info.serializedData()
+                   print(binaryData)
+                  
+                 bleTransmitDataBuffer.add(binaryData)
+                      
+                      // trigger a BLE data send
+                      BluetoothManager.sharedInstance.bleSendFunction()
+                   
+
+                   
+               } catch {
+                   print(error)
+               }
+        /*
          if cmd.command == .passthrough {
-            let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
-           _ = cbuild2.setBus(Int32(cmd.bus))
-           _ = cbuild2.setEnabled(cmd.enabled)
-           _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
-           _ = cbuild.setType(.passthrough)
-         }
+            let info1 = Openxc_PassthroughModeControlCommand()
+            _ = info1.bus
+            _ = info1.enabled
+            _ = info1.self
+        do {
+                      // Serialize to binary protobuf format:
+                      let binaryData: Data = try info1.serializedData()
+                      print(binaryData)
+                     
+                    bleTransmitDataBuffer.add(binaryData)
+                         
+                         // trigger a BLE data send
+                         BluetoothManager.sharedInstance.bleSendFunction()
+                      
+
+                      
+                  } catch {
+                      print(error)
+                  }
+            
+            
+//            let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
+//           _ = cbuild2.setBus(Int32(cmd.bus))
+//           _ = cbuild2.setEnabled(cmd.enabled)
+//           _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
+//           _ = cbuild.setType(.passthrough)
+         }*/
+        /*
          if cmd.command == .af_bypass {
             let cbuild2 = Openxc.AcceptanceFilterBypassCommand.Builder()
            _ = cbuild2.setBus(Int32(cmd.bus))
@@ -539,34 +590,31 @@ open class VehicleManager: NSObject {
           }
           _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
           _ = cbuild.setType(.payloadFormat)
-        }
+        }*/
         
-        let mbuild = Openxc.VehicleMessage.Builder()
-            _ = mbuild.setType(.controlCommand)
-        do {
-          let cmsg = try cbuild.build()
-          _ = mbuild.setControlCommand(cmsg)
-          let mmsg = try mbuild.build()
-          //print (mmsg)
-          
-          
-          let cdata = mmsg.data()
-          let cdata2 = NSMutableData()
-          let prepend : [UInt8] = [UInt8(cdata.count)]
-          cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
-          cdata2.append(cdata)
+//        let mbuild = Openxc.VehicleMessage.Builder()
+//            _ = mbuild.setType(.controlCommand)
+//        do {
+//          let cmsg = try cbuild.build()
+//          _ = mbuild.setControlCommand(cmsg)
+//          let mmsg = try mbuild.build()
+//          //print (mmsg)
+//
+//
+//          let cdata = mmsg.data()
+//          let cdata2 = NSMutableData()
+//          let prepend : [UInt8] = [UInt8(cdata.count)]
+//          cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
+//          cdata2.append(cdata)
           //print(cdata2)
           
           // append to tx buffer
-          bleTransmitDataBuffer.add(cdata2)
-          
-          // trigger a BLE data send
-          BluetoothManager.sharedInstance.bleSendFunction()
-
-        } catch {
-          print("command message failed")
-          
-        }
+     
+//
+//        } catch {
+//          print("command message failed")
+//
+//        }
     }*/
     
     fileprivate func jsonCommandRequest(_ cmd:VehicleCommandRequest){
@@ -794,11 +842,16 @@ open class VehicleManager: NSObject {
   
   fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
     var msg : Openxc_VehicleMessage
-    
+    //var msg1 : Openxc_CommandResponse
+    //var msg2 : Openxc_ControlCommand
     do {
         
         msg = try Openxc_VehicleMessage(serializedData: data_chunk as Data )
-        print("Decoding  Message>>>>\(msg)")
+        print("msg -----\(msg)")
+        //msg1 = try Openxc_CommandResponse (serializedData: data_chunk as Data)
+        //msg2 = try Openxc_ControlCommand (serializedData: data_chunk as Data)
+       // print("Decoding  Message>>>>\(msg1)")
+        //print("Decoding  Message>>>>2\(msg2)")
     
        // msg = try Openxc_SimpleMessage(serializedData: data_chunk as Data)
       
@@ -807,7 +860,7 @@ open class VehicleManager: NSObject {
       RxDataBuffer = data_left
     
       var decoded = false
-      
+      print("msg -----\(msg.type)")
       // measurement messages (normal and evented)
       ///////////////////////////////////////////
       if msg.type == .simple {
