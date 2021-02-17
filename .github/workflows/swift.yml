@@ -23,5 +23,3 @@ jobs:
     - name: Test on iPhone X
       run: |
         xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=13.7,name=iPhone X"
-    - name: Push Pod
-      run: pod trunk push --verbose | ruby -e 'ARGF.each{ print "." }'
