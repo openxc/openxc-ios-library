@@ -7,7 +7,7 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Test on iPhone 11 Pro
+    - name: Install Cocopods
       run: |
         gem install cocoapods
         pod repo update
@@ -15,4 +15,6 @@ jobs:
         pod deintegrate
         pod install
         cd ../
-        xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=13.0,name=iPhone 11 Pro"
+    - name: Test on iPhone 11 Pro
+      run: |
+        xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=14.3,name=iPhone 11 Pro"
