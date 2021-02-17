@@ -22,4 +22,4 @@ jobs:
         xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=13.7,name=iPhone 11 Pro"
     - name: iPhone X
       run: |
-        xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=12.0,name=iPhone X"
+        xcodebuild test -enableCodeCoverage YES -workspace Example/openxcframework.xcworkspace -scheme openxcframework-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES -destination "platform=iOS Simulator,OS=13.7,name=iPhone X"
