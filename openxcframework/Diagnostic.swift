@@ -38,6 +38,6 @@ open class VehicleDiagnosticResponse : VehicleBaseMessage {
     open var pid : NSInteger = 0
     open var success : Bool = false
     open var negative_response_code : NSInteger = 0
-    open var payload : NSString = ""
+    open var payload : String = ""
     open var value : NSInteger = 0
 }

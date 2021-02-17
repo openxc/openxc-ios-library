@@ -9,24 +9,25 @@
 import UIKit
 import openXCiOSFramework
 
-class DiagViewController: UIViewController, UITextFieldDelegate {
+class DiagnosticViewController: UIViewController, UITextFieldDelegate {
     
     // UI outlets
-    @IBOutlet weak var bussel: UISegmentedControl!
+    @IBOutlet weak var busSegment: UISegmentedControl!
     @IBOutlet weak var idField: UITextField!
     @IBOutlet weak var modeField: UITextField!
     @IBOutlet weak var pidField: UITextField!
-    @IBOutlet weak var ploadField: UITextField!
-    @IBOutlet weak var requestBtn: UIButton!
+    @IBOutlet weak var payloadField: UITextField!
+    @IBOutlet weak var requestButton: UIButton!
     
-    @IBOutlet weak var lastReq: UILabel!
-    @IBOutlet weak var rspText: UITextView!
+    @IBOutlet weak var lastRequest: UILabel!
+    @IBOutlet weak var responseText: UITextView!
     
     var dashDict: NSMutableDictionary!
     var vm: VehicleManager!
     var bm : BluetoothManager!
+    var cmd : VehicleDiagnosticRequest!
     // string array holding last X diag responses
-    var rspStrings : [String] = []
+    var responseStrings : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +36,10 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         vm = VehicleManager.sharedInstance
         bm = BluetoothManager.sharedInstance
         // set default diag response target
-        vm.setDiagnosticDefaultTarget(self, action: DiagViewController.default_diag_rsp)
+        vm.setDiagnosticDefaultTarget(self, action: DiagnosticViewController.default_diag_rsp)
         // set custom target for specific Diagnostic request
-        vm.addDiagnosticTarget([1,2015,1], target: self, action: DiagViewController.new_diag_rsp)
-        vm.setManagerCallbackTarget(self, action: DiagViewController.manager_status_updates)
+        vm.addDiagnosticTarget([1,2015,1], target: self, action: DiagnosticViewController.new_diag_rsp)
+        vm.setManagerCallbackTarget(self, action: DiagnosticViewController.manager_status_updates)
         
         idField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
         modeField.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControl.Event.editingChanged)
@@ -96,7 +97,7 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         
         if(!bm.isBleConnected){
-            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)
+            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage:errorMsgBLE)
         }
     }
     func default_diag_rsp(_ rsp:NSDictionary) {
@@ -108,12 +109,12 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         let vr = rsp.object(forKey: "vehiclemessage") as! VehicleDiagnosticResponse
         
         // create the string we want to show in the received messages UI
-        var newTxt = "bus:"+vr.bus.description+" id:0x"+String(format:"%x",vr.message_id)+" mode:0x"+String(format:"%x",vr.mode)+"timestamp"+String(vr.timestamp)
-        if vr.pid != nil {
+        var newTxt = "bus:"+vr.bus.description+" id:0x"+String(format:"%x",vr.message_id)+" mode:0x"+String(format:"%x",vr.mode)+"timestamp"+String(vr.timeStamp)
+        if vr.pid != 0 {
             newTxt = newTxt+" pid:0x"+String(format:"%x",vr.pid)
         }
         newTxt = newTxt+" success:"+vr.success.description
-        if vr.value != nil {
+        if vr.value != 0 {
             newTxt = newTxt+" value:"+vr.value.description
             
         }else{
@@ -122,19 +123,19 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         
         
         // save only the 5 response strings
-        if rspStrings.count>5 {
-            rspStrings.removeFirst()
+        if responseStrings.count>5 {
+            responseStrings.removeFirst()
         }
         // append the new string
-        rspStrings.append(newTxt)
+        responseStrings.append(newTxt)
         
         // reload the label with the update string list
         DispatchQueue.main.async {
-            self.rspText.text = self.rspStrings.joined(separator: "\n")
-            self.requestBtn.isEnabled = true
+            self.responseText.text = self.responseStrings.joined(separator: "\n")
+            self.requestButton.isEnabled = true
         }
         
-        print("Daignostic Value..........\(self.rspStrings)")
+        print("Daignostic Value..........\(self.responseStrings)")
     }
     
     @objc func sendTraceURLData(rsp:NSDictionary) {
@@ -143,10 +144,10 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
         dashDict.setObject(vr.bus.description,forKey: "bus" as NSCopying)
         dashDict.setObject(String(format:"%x",vr.message_id),forKey: "id" as NSCopying)
         dashDict.setObject(String(format:"%x",vr.success.description),forKey: "success" as NSCopying)
-        if vr.pid != nil {
+        if vr.pid != 0 {
             dashDict.setObject(String(format:"%x",vr.pid),forKey: "pid" as NSCopying)
         }
-        if vr.value != nil {
+        if vr.value != 0 {
             dashDict.setObject(vr.value.description,forKey: "value" as NSCopying)
             
         }else{
@@ -175,53 +176,33 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         
-        // if the VM isn't operational, don't send anything
-        if bm.connectionState != VehicleManagerConnectionState.operational {
-            lastReq.text = "Not connected to VI"
-            return
-        }
+        self.bluetoothCheck()
         
         // create an empty diag request
-        let cmd = VehicleDiagnosticRequest()
+        cmd = VehicleDiagnosticRequest()
         
         // look at segmented control for bus
-        cmd.bus = bussel.selectedSegmentIndex + 1
+        cmd.bus = busSegment.selectedSegmentIndex + 1
         
         // check that the msg id field is valid
-        if let mid = idField.text as String? {
-            let midtrim = mid.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-            if midtrim=="" {
-                lastReq.text = "Invalid command : need a message_id"
-                return
-            }
-            if let midInt = Int(midtrim,radix:16) as NSInteger? {
-                cmd.message_id = midInt
-            } else {
-                lastReq.text = "Invalid command : message_id should be hex number (with no leading 0x)"
-                return
-            }
-        } else {
-            lastReq.text = "Invalid command : need a message_id"
-            return
-        }
+        self.checkMsgIdField(cmd: cmd)
         // check that the mode field is valid
         if let mode = modeField.text as String? {
             let modetrim = mode.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             if modetrim=="" {
-                lastReq.text = "Invalid command : need a mode"
+                lastRequest.text = "Invalid command : need a mode"
                 return
             }
             if let modeInt = Int(modetrim,radix:16) as NSInteger? {
                 cmd.mode = modeInt
             } else {
-                lastReq.text = "Invalid command : mode should be hex number (with no leading 0x)"
+                lastRequest.text = "Invalid command : mode should be hex number (with no leading 0x)"
                 return
             }
         } else {
-            lastReq.text = "Invalid command : need a mode"
+            lastRequest.text = "Invalid command : need a mode"
             return
         }
-        //("mode is ",cmd.mode)
         
         // check that the pid field is valid (or empty)
         if let pid = pidField.text as String? {
@@ -231,14 +212,35 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
             } else if let pidInt = Int(pidtrim,radix:16) as NSInteger? {
                 cmd.pid = pidInt
             } else {
-                lastReq.text = "Invalid command : pid should be hex number (with no leading 0x)"
+                lastRequest.text = "Invalid command : pid should be hex number (with no leading 0x)"
                 return
             }
         }
 
         //TODO: add payload in diag request
+        self.addPayload(cmd: cmd)
         
-        if let mload = ploadField.text as String? {
+        // Get the Unix timestamp
+        let timestamp = NSDate().timeIntervalSince1970
+        cmd.timeStamp = NSInteger(timestamp)
+        
+        
+        // send the diag request
+        vm.sendDiagReq(cmd)
+        
+        // update the last request sent label
+        lastRequest.text = "bus:"+String(cmd.bus)+" id:0x"+idField.text!+" mode:0x"+modeField.text!+"timestamp"+String(timestamp)
+        if cmd.pid != nil {
+            lastRequest.text = lastRequest.text!+" pid:0x"+pidField.text!
+        }
+        if !cmd.payload.isEqual(to: "") {
+            lastRequest.text = lastRequest.text!+" payload:"+payloadField.text!
+            requestButton.isEnabled = false
+        }
+    }
+    func addPayload(cmd:VehicleDiagnosticRequest)  {
+         // let cmd = VehicleDiagnosticRequest()
+        if let mload = payloadField.text as String? {
             let mloadtrim = mload.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             if mloadtrim=="" {
                 // its optional
@@ -250,27 +252,35 @@ class DiagViewController: UIViewController, UITextFieldDelegate {
                 cmd.payload = appendedStr as NSString
             }
         } else {
-            lastReq.text = "Invalid command : payload should be even length"
+            lastRequest.text = "Invalid command : payload should be even length"
             return
         }
+    }
+    func checkMsgIdField(cmd:VehicleDiagnosticRequest)  {
         
-        // Get the Unix timestamp
-        let timestamp = NSDate().timeIntervalSince1970
-        cmd.timestamp = NSInteger(timestamp)
-        
-        
-        // send the diag request
-        vm.sendDiagReq(cmd)
-        
-        // update the last request sent label
-        lastReq.text = "bus:"+String(cmd.bus)+" id:0x"+idField.text!+" mode:0x"+modeField.text!+"timestamp"+String(timestamp)
-        if cmd.pid != nil {
-            lastReq.text = lastReq.text!+" pid:0x"+pidField.text!
+            if let mid = idField.text as String? {
+            let midtrim = mid.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            if midtrim=="" {
+                lastRequest.text = "Invalid command : need a message_id"
+                return
+            }
+            if let midInt = Int(midtrim,radix:16) as NSInteger? {
+                cmd.message_id = midInt
+            } else {
+                lastRequest.text = "Invalid command : message_id should be hex number (with no leading 0x)"
+                return
+            }
+        } else {
+            lastRequest.text = "Invalid command : need a message_id"
+            return
         }
-        if !cmd.payload.isEqual(to: "") {
-            lastReq.text = lastReq.text!+" payload:"+ploadField.text!
-            requestBtn.isEnabled = false
-        }
+    }
+    func bluetoothCheck()  {
+         // if the VM isn't operational, don't send anything
+               if bm.connectionState != VehicleManagerConnectionState.operational {
+                   lastRequest.text = "Not connected to VI"
+                   return
+               }
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return (string.containsValidCharacter)

@@ -30,7 +30,7 @@ open class VehicleMessageUnit: NSObject {
         case acceleratorPedal,fuelLevel:
             measurmentUnit = stringValue + " %"
             return measurmentUnit
-        case enginespeed:
+        case engineSpeed:
             measurmentUnit = stringValue + " RPM"
             return measurmentUnit
         case fuelConsumed:

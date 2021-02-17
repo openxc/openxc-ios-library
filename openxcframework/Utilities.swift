@@ -9,7 +9,7 @@
 import Foundation
 
 public var acceleratorPedal: String = "accelerator_pedal_position"
-public var enginespeed: String = "engine_speed"
+public var engineSpeed: String = "engine_speed"
 public var fuelConsumed: String = "fuel_consumed_since_restart"
 public var fuelLevel: String = "fuel_level"
 public var latitude: String = "latitude"

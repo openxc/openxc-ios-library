@@ -46,7 +46,7 @@ class CanViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     override func viewDidAppear(_ animated: Bool) {
         if(!bm.isBleConnected){
             
-            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)
+            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage:errorMsgBLE)
         }
     }
     
@@ -97,7 +97,7 @@ class CanViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         let cr = canDict.object(forKey: k) as! VehicleCanResponse
         
         // convert timestamp to a normal time
-        let date = Date(timeIntervalSince1970: Double(cr.timestamp/1000))
+        let date = Date(timeIntervalSince1970: Double(cr.timeStamp/1000))
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "hh:mm:ss"
         let dateString = dayTimePeriodFormatter.string(from: date)
@@ -118,9 +118,7 @@ class CanViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         // selecting this table does nothing    
     }
     
-    
-    
-    
+
     
 }
 

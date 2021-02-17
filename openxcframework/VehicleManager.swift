@@ -61,8 +61,6 @@ open class VehicleManager: NSObject {
     let instance = VehicleManager()
     return instance
   }()
-  fileprivate override init() {
-  }
 
 
   // config for outputting debug messages to console
@@ -70,9 +68,8 @@ open class VehicleManager: NSObject {
     
   // config for protobuf vs json BLE mode, defaults to JSON
   public var jsonMode : Bool = true
-  
   // optional variable holding callback for VehicleManager status updates
-   var managerCallback: TargetAction?
+   var managerCallBack: TargetAction?
   
   // data buffer for receiving raw BTLE data
   public var RxDataBuffer: NSMutableData! = NSMutableData()
@@ -80,41 +77,42 @@ open class VehicleManager: NSObject {
   
   // data buffer for storing vehicle messages to send to BTLE
   //Ranjan changed fileprivate to public due to travis fail
-  public var BLETxDataBuffer: NSMutableArray! = NSMutableArray()
+  public var bleTransmitDataBuffer: NSMutableArray! = NSMutableArray()
 
   // BTLE transmit semaphore variable
-  fileprivate var BLETxWriteCount: Int = 0
+  fileprivate var bleTransmitWriteCount: Int = 0
   // BTLE transmit token increment variable
-  fileprivate var BLETxSendToken: Int = 0
+  fileprivate var bleTransmitSendToken: Int = 0
+  fileprivate var multiFramePayload : String = ""
   
   // ordered list for storing callbacks for in progress vehicle commands
-  fileprivate var BLETxCommandCallback = [TargetAction]()
+  fileprivate var bleTransmitCommandCallBack = [TargetAction]()
   // mirrored ordered list for storing command token for in progress vehicle commands
-  fileprivate var BLETxCommandToken = [String]()
+  fileprivate var bleTransmitCommandToken = [String]()
   // 'default' command callback. If this is defined, it takes priority over any other callback
   // defined above
-  fileprivate var defaultCommandCallback : TargetAction?
+  fileprivate var defaultCommandCallBack : TargetAction?
   
   
   // dictionary for holding registered measurement message callbacks
   // pairing measurement String with callback action
-  fileprivate var measurementCallbacks = [NSString:TargetAction]()
+  fileprivate var measurementCallBacks = [NSString:TargetAction]()
   // default callback action for measurement messages not registered above
-  fileprivate var defaultMeasurementCallback : TargetAction?
+  fileprivate var defaultMeasurementCallBack : TargetAction?
   // dictionary holding last received measurement message for each measurement type
   fileprivate var latestVehicleMeasurements = [NSString:VehicleMeasurementResponse]()
   
   // dictionary for holding registered diagnostic message callbacks
   // pairing bus-id-mode(-pid) String with callback action
-  fileprivate var diagCallbacks = [NSString:TargetAction]()
+  fileprivate var diagCallBacks = [NSString:TargetAction]()
   // default callback action for diagnostic messages not registered above
-  fileprivate var defaultDiagCallback : TargetAction?
+  fileprivate var defaultDiagCallBack : TargetAction?
   
   // dictionary for holding registered diagnostic message callbacks
   // pairing bus-id String with callback action
-  fileprivate var canCallbacks = [NSString:TargetAction]()
+  fileprivate var canCallBacks = [NSString:TargetAction]()
   // default callback action for can messages not registered above
-  fileprivate var defaultCanCallback : TargetAction?
+  fileprivate var defaultCanCallBack : TargetAction?
   
   public var throughputEnabled: Bool = false
   // config variable determining whether trace output is generated
@@ -136,7 +134,7 @@ open class VehicleManager: NSObject {
   
   // set the callback for VM status updates
   open func setManagerCallbackTarget<T: AnyObject>(_ target: T, action: @escaping (T) -> (NSDictionary) -> ()) {
-    managerCallback = TargetActionWrapper(key:"", target: target, action: action)
+    managerCallBack = TargetActionWrapper(key:"", target: target, action: action)
   }
   
   // change the debug config for the VM
@@ -184,22 +182,22 @@ open class VehicleManager: NSObject {
   
   // add a callback for a given measurement string name
   open func addMeasurementTarget<T: AnyObject>(_ key: NSString, target: T, action: @escaping (T) -> (NSDictionary) -> ()) {
-    measurementCallbacks[key] = TargetActionWrapper(key:key, target: target, action: action)
+    measurementCallBacks[key] = TargetActionWrapper(key:key, target: target, action: action)
   }
   
   // clear the callback for a given measurement string name
   open func clearMeasurementTarget(_ key: NSString) {
-    measurementCallbacks.removeValue(forKey: key)
+    measurementCallBacks.removeValue(forKey: key)
   }
   
   // add a default callback for any measurement messages not include in specified callbacks
   open func setMeasurementDefaultTarget<T: AnyObject>(_ target: T, action: @escaping (T) -> (NSDictionary) -> ()) {
-    defaultMeasurementCallback = TargetActionWrapper(key:"", target: target, action: action)
+    defaultMeasurementCallBack = TargetActionWrapper(key:"", target: target, action: action)
   }
   
   // clear default callback (by setting the default callback to a null method)
   open func clearMeasurementDefaultTarget() {
-    defaultMeasurementCallback = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
+    defaultMeasurementCallBack = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
   }
 
   // send a command message with a callback for when the command response is received
@@ -207,17 +205,17 @@ open class VehicleManager: NSObject {
     vmlog("in sendCommand:target")
     
     // if we have a trace input file, ignore this request!
-    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {
+    if (TraceFileManager.sharedInstance.traceFileSourceEnabled) {
         return ""
         
     }
     
     // save the callback in order, so we know which to call when responses are received
-    BLETxSendToken += 1
-    let key : String = String(BLETxSendToken)
+    bleTransmitSendToken += 1
+    let key : String = String(bleTransmitSendToken)
     let act : TargetAction = TargetActionWrapper(key:key as NSString, target: target, action: action)
-    BLETxCommandCallback.append(act)
-    BLETxCommandToken.append(key)
+    bleTransmitCommandCallBack.append(act)
+    bleTransmitCommandToken.append(key)
     
     // common command send method
     sendCommandCommon(cmd)
@@ -231,18 +229,18 @@ open class VehicleManager: NSObject {
     vmlog("in sendCommand")
     
     // if we have a trace input file, ignore this request!
-    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {
+    if (TraceFileManager.sharedInstance.traceFileSourceEnabled) {
         return
         
     }
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
-    BLETxSendToken += 1
-    let key : String = String(BLETxSendToken)
+    bleTransmitSendToken += 1
+    let key : String = String(bleTransmitSendToken)
     let act : TargetAction = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
-    BLETxCommandCallback.append(act)
-    BLETxCommandToken.append(key)
+    bleTransmitCommandCallBack.append(act)
+    bleTransmitCommandToken.append(key)
     
     // common command send method
     sendCommandCommon(cmd)
@@ -252,12 +250,12 @@ open class VehicleManager: NSObject {
   
   // add a default callback for any measurement messages not include in specified callbacks
   open func setCommandDefaultTarget<T: AnyObject>(_ target: T, action: @escaping (T) -> (NSDictionary) -> ()) {
-    defaultCommandCallback = TargetActionWrapper(key:"", target: target, action: action)
+    defaultCommandCallBack = TargetActionWrapper(key:"", target: target, action: action)
   }
   
   // clear default callback (by setting the default callback to a null method)
   open func clearCommandDefaultTarget() {
-    defaultCommandCallback = nil
+    defaultCommandCallBack = nil
   }
 
   // send a diagnostic message with a callback for when the diag command response is received
@@ -265,17 +263,17 @@ open class VehicleManager: NSObject {
     vmlog("in sendDiagReq:cmd")
     
     // if we have a trace input file, ignore this request!
-    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {
+    if (TraceFileManager.sharedInstance.traceFileSourceEnabled) {
         return ""
         
     }
     
     // save the callback in order, so we know which to call when responses are received
-    BLETxSendToken += 1
-    let key : String = String(BLETxSendToken)
+    bleTransmitSendToken += 1
+    let key : String = String(bleTransmitSendToken)
     let act : TargetAction = TargetActionWrapper(key:key as NSString, target: target, action: cmdaction)
-    BLETxCommandCallback.append(act)
-    BLETxCommandToken.append(key)
+    bleTransmitCommandCallBack.append(act)
+    bleTransmitCommandToken.append(key)
     
     // common diag send method
     sendDiagCommon(cmd)
@@ -289,18 +287,18 @@ open class VehicleManager: NSObject {
     vmlog("in sendDiagReq")
     
     // if we have a trace input file, ignore this request!
-    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {
+    if (TraceFileManager.sharedInstance.traceFileSourceEnabled) {
         return
         
     }
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
-    BLETxSendToken += 1
-    let key : String = String(BLETxSendToken)
+    bleTransmitSendToken += 1
+    let key : String = String(bleTransmitSendToken)
     let act : TargetAction = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
-    BLETxCommandCallback.append(act)
-    BLETxCommandToken.append(key)
+    bleTransmitCommandCallBack.append(act)
+    bleTransmitCommandToken.append(key)
     
     // common diag send method
     vmlog("diag cmd..", cmd)
@@ -328,7 +326,7 @@ open class VehicleManager: NSObject {
     // key string has been created
     vmlog("add diag key=",key)
     // save the callback associated with the key
-    diagCallbacks[key] = TargetActionWrapper(key:key, target: target, action: action)
+    diagCallBacks[key] = TargetActionWrapper(key:key, target: target, action: action)
   }
   
   // clear a callback for a given set of keys, defined as above.
@@ -348,17 +346,17 @@ open class VehicleManager: NSObject {
     // key string has been created
     vmlog("rm diag key=",key)
     // clear the callback associated with the key
-    diagCallbacks.removeValue(forKey: key)
+    diagCallBacks.removeValue(forKey: key)
   }
   
   // set a default callback for any diagnostic messages with a key set not specified above
   open func setDiagnosticDefaultTarget<T: AnyObject>(_ target: T, action: @escaping (T) -> (NSDictionary) -> ()) {
-    defaultDiagCallback = TargetActionWrapper(key:"", target: target, action: action)
+    defaultDiagCallBack = TargetActionWrapper(key:"", target: target, action: action)
   }
   
   // clear the default diag callback
   open func clearDiagnosticDefaultTarget() {
-    defaultDiagCallback = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
+    defaultDiagCallBack = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
   }
   
 
@@ -377,7 +375,7 @@ open class VehicleManager: NSObject {
     // key string has been created
     vmlog("add can key=",key)
     // save the callback associated with the key
-    diagCallbacks[key] = TargetActionWrapper(key:key, target: target, action: action)
+    diagCallBacks[key] = TargetActionWrapper(key:key, target: target, action: action)
   }
   
   // clear a callback for a given set of keys, defined as above.
@@ -394,18 +392,18 @@ open class VehicleManager: NSObject {
     // key string has been created
     vmlog("rm can key=",key)
     // clear the callback associated with the key
-    diagCallbacks.removeValue(forKey: key)
+    diagCallBacks.removeValue(forKey: key)
   }
   
   
   // set a default callback for any can messages with a key set not specified above
   open func setCanDefaultTarget<T: AnyObject>(_ target: T, action: @escaping (T) -> (NSDictionary) -> ()) {
-    defaultCanCallback = TargetActionWrapper(key:"", target: target, action: action)
+    defaultCanCallBack = TargetActionWrapper(key:"", target: target, action: action)
   }
   
   // clear the can diag callback
   open func clearCanDefaultTarget() {
-    defaultCanCallback = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
+    defaultCanCallBack = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
   }
   
   
@@ -415,7 +413,7 @@ open class VehicleManager: NSObject {
     vmlog("in sendCanReq")
     
     // if we have a trace input file, ignore this request!
-    if (TraceFileManager.sharedInstance.traceFilesourceEnabled) {
+    if (TraceFileManager.sharedInstance.traceFileSourceEnabled) {
         return
         
     }
@@ -436,63 +434,26 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the command message
-      let cbuild = ControlCommand.Builder()
-      if cmd.command == .version {
-        _ = cbuild.setType(.version)
-        
-        }
-      if cmd.command == .device_id {
-        _ = cbuild.setType(.deviceId)
-        
-        }
-      if cmd.command == .platform {
-        _ = cbuild.setType(.platform)
-        
-        }
-      if cmd.command == .passthrough {
-        let cbuild2 = PassthroughModeControlCommand.Builder()
-        _ = cbuild2.setBus(Int32(cmd.bus))
-        _ = cbuild2.setEnabled(cmd.enabled)
-        _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
-        _ = cbuild.setType(.passthrough)
-      }
-      if cmd.command == .af_bypass {
-        let cbuild2 = AcceptanceFilterBypassCommand.Builder()
-        _ = cbuild2.setBus(Int32(cmd.bus))
-        _ = cbuild2.setBypass(cmd.bypass)
-        _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
-        _ = cbuild.setType(.acceptanceFilterBypass)
-      }
-      if cmd.command == .payload_format {
-        let cbuild2 = PayloadFormatCommand.Builder()
-        if cmd.format == "json" {
-            _ = cbuild2.setFormat(.json)
-            
-        }
-        if cmd.format == "protobuf" {
-            _ = cbuild2.setFormat(.protobuf)
-            
-        }
-        _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
-        _ = cbuild.setType(.payloadFormat)
-      }
+        let cbuild = Openxc.ControlCommand.Builder()
+        self.protobufCommandRequest(cmd)
+      
       if cmd.command == .predefined_odb2 {
-        let cbuild2 = PredefinedObd2RequestsCommand.Builder()
+        let cbuild2 = Openxc.PredefinedObd2RequestsCommand.Builder()
         _ = cbuild2.setEnabled(cmd.enabled)
         _ = cbuild.setPredefinedObd2RequestsCommand(cbuild2.buildPartial())
         _ = cbuild.setType(.predefinedObd2Requests)
       }
       if cmd.command == .modem_configuration {
         _ = cbuild.setType(.modemConfiguration)
-        let cbuild2 = ModemConfigurationCommand.Builder()
-        let srv = ServerConnectSettings.Builder()
+        let cbuild2 = Openxc.ModemConfigurationCommand.Builder()
+        let srv = Openxc.ServerConnectSettings.Builder()
         _ = srv.setHost(cmd.server_host as String)
         _ = srv.setPort(UInt32(cmd.server_port))
         _ = cbuild2.setServerConnectSettings(srv.buildPartial())
         _ = cbuild.setModemConfigurationCommand(cbuild2.buildPartial())
       }
       if cmd.command == .rtc_configuration {
-        let cbuild2 = RtcconfigurationCommand.Builder()
+        let cbuild2 = Openxc.RtcconfigurationCommand.Builder()
         _ = cbuild2.setUnixTime(UInt32(cmd.unix_time))
         _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
         _ = cbuild.setType(.rtcConfiguration)
@@ -502,15 +463,13 @@ open class VehicleManager: NSObject {
         
         }
       
-      let mbuild = VehicleMessage.Builder()
+        let mbuild = Openxc.VehicleMessage.Builder()
       _ = mbuild.setType(.controlCommand)
       
       do {
         let cmsg = try cbuild.build()
         _ = mbuild.setControlCommand(cmsg)
         let mmsg = try mbuild.build()
-        //print (mmsg)
-        
         
         let cdata = mmsg.data()
         let cdata2 = NSMutableData()
@@ -520,66 +479,140 @@ open class VehicleManager: NSObject {
         //print(cdata2)
         
         // append to tx buffer
-        BLETxDataBuffer.add(cdata2)
+        bleTransmitDataBuffer.add(cdata2)
         
         // trigger a BLE data send
-        BluetoothManager.sharedInstance.BLESendFunction()
+        BluetoothManager.sharedInstance.bleSendFunction()
 
       } catch {
-        print("cmd msg build failed")
+        print("command message failed")
+        
       }
       
       return
     }
     
     // we're in json mode
-    var cmdstr = ""
-    // decode the command type and build the command depending on the command
-
-    if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\"}\0"
-    }
-    else if cmd.command == .passthrough {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"bus\":\(cmd.bus),\"enabled\":\(cmd.enabled)}\0"
-    }
-    else if cmd.command == .af_bypass {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"bus\":\(cmd.bus),\"bypass\":\(cmd.bypass)}\0"
-    }
-    else if cmd.command == .payload_format {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"format\":\"\(cmd.format)\"}\0"
-    }
-    else if cmd.command == .predefined_odb2 {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"enabled\":\(cmd.enabled)}\0"
-    }
-    else if cmd.command == .modem_configuration {
-      // build the command json
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"server\":{\"host\":\"\(cmd.server_host)\",\"port\":\(cmd.server_port)}}\0"
-    }
-    else if cmd.command == .rtc_configuration {
-      // build the command json
-      let timeInterval = Date().timeIntervalSince1970
-      cmd.unix_time = NSInteger(timeInterval);
-      print("timestamp is..",cmd.unix_time)
-      cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"unix_time\":\"\(cmd.unix_time)\"}\0"
-    } else {
-      // unknown command!
-      return
-      
-    }
+    self.jsonCommandRequest(cmd)
     
-    // append to tx buffer
-    BLETxDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
-    
-    // trigger a BLE data send
-    BluetoothManager.sharedInstance.BLESendFunction()
+   
     
   }
-  
+    fileprivate func protobufCommandRequest(_ cmd:VehicleCommandRequest){
+        let cbuild = Openxc.ControlCommand.Builder()
+         if cmd.command == .version {
+           _ = cbuild.setType(.version)
+           
+           }
+         if cmd.command == .device_id {
+           _ = cbuild.setType(.deviceId)
+           
+           }
+         if cmd.command == .platform {
+           _ = cbuild.setType(.platform)
+           
+           }
+         if cmd.command == .passthrough {
+            let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
+           _ = cbuild2.setBus(Int32(cmd.bus))
+           _ = cbuild2.setEnabled(cmd.enabled)
+           _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
+           _ = cbuild.setType(.passthrough)
+         }
+         if cmd.command == .af_bypass {
+            let cbuild2 = Openxc.AcceptanceFilterBypassCommand.Builder()
+           _ = cbuild2.setBus(Int32(cmd.bus))
+           _ = cbuild2.setBypass(cmd.bypass)
+           _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
+           _ = cbuild.setType(.acceptanceFilterBypass)
+         }
+        if cmd.command == .payload_format {
+            let cbuild2 = Openxc.PayloadFormatCommand.Builder()
+          if cmd.format == "json" {
+              _ = cbuild2.setFormat(.json)
+              
+          }
+          if cmd.format == "protobuf" {
+              _ = cbuild2.setFormat(.protobuf)
+              
+          }
+          _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
+          _ = cbuild.setType(.payloadFormat)
+        }
+        
+        let mbuild = Openxc.VehicleMessage.Builder()
+            _ = mbuild.setType(.controlCommand)
+        do {
+          let cmsg = try cbuild.build()
+          _ = mbuild.setControlCommand(cmsg)
+          let mmsg = try mbuild.build()
+          //print (mmsg)
+          
+          
+          let cdata = mmsg.data()
+          let cdata2 = NSMutableData()
+          let prepend : [UInt8] = [UInt8(cdata.count)]
+          cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
+          cdata2.append(cdata)
+          //print(cdata2)
+          
+          // append to tx buffer
+          bleTransmitDataBuffer.add(cdata2)
+          
+          // trigger a BLE data send
+          BluetoothManager.sharedInstance.bleSendFunction()
+
+        } catch {
+          print("command message failed")
+          
+        }
+    }
+    fileprivate func jsonCommandRequest(_ cmd:VehicleCommandRequest){
+        var cmdstr = ""
+        // decode the command type and build the command depending on the command
+
+        if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\"}\0"
+        }
+        else if cmd.command == .passthrough {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"bus\":\(cmd.bus),\"enabled\":\(cmd.enabled)}\0"
+        }
+        else if cmd.command == .af_bypass {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"bus\":\(cmd.bus),\"bypass\":\(cmd.bypass)}\0"
+        }
+        else if cmd.command == .payload_format {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"format\":\"\(cmd.format)\"}\0"
+        }
+        else if cmd.command == .predefined_odb2 {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"enabled\":\(cmd.enabled)}\0"
+        }
+        else if cmd.command == .modem_configuration {
+          // build the command json
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"server\":{\"host\":\"\(cmd.server_host)\",\"port\":\(cmd.server_port)}}\0"
+        }
+        else if cmd.command == .rtc_configuration {
+          // build the command json
+          let timeInterval = Date().timeIntervalSince1970
+          cmd.unix_time = NSInteger(timeInterval);
+          print("timestamp is..",cmd.unix_time)
+          cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"unix_time\":\"\(cmd.unix_time)\"}\0"
+        } else {
+          // unknown command!
+          return
+          
+        }
+        // append to tx buffer
+           bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
+           
+           // trigger a BLE data send
+           BluetoothManager.sharedInstance.bleSendFunction()
+    }
+    
   
   // common function for sending a VehicleDiagnosticRequest
   fileprivate func sendDiagCommon(_ cmd:VehicleDiagnosticRequest) {
@@ -587,11 +620,11 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build diag message
-      let cbuild = ControlCommand.Builder()
+        let cbuild = Openxc.ControlCommand.Builder()
       _ = cbuild.setType(.diagnostic)
-      let c2build = DiagnosticControlCommand.Builder()
+        let c2build = Openxc.DiagnosticControlCommand.Builder()
       _ = c2build.setAction(.add)
-      let dbuild = DiagnosticRequest.Builder()
+        let dbuild = Openxc.DiagnosticRequest.Builder()
       _ = dbuild.setBus(Int32(cmd.bus))
       _ = dbuild.setMessageId(UInt32(cmd.message_id))
       _ = dbuild.setMode(UInt32(cmd.mode))
@@ -601,7 +634,7 @@ open class VehicleManager: NSObject {
       if cmd.frequency>0 {
         _ =  dbuild.setFrequency(Double(cmd.frequency))
       }
-      let mbuild = VehicleMessage.Builder()
+        let mbuild = Openxc.VehicleMessage.Builder()
       _ = mbuild.setType(.controlCommand)
       
       do {
@@ -620,16 +653,16 @@ open class VehicleManager: NSObject {
         let prepend : [UInt8] = [UInt8(cdata.count)]
         cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
         cdata2.append(cdata)
-        //print(cdata2)
+        print("DiagnosticRequest>>\(cdata2)")
         
         // append to tx buffer
-        BLETxDataBuffer.add(cdata2)
+        bleTransmitDataBuffer.add(cdata2)
         
         // trigger a BLE data send
-        BluetoothManager.sharedInstance.BLESendFunction()
+        BluetoothManager.sharedInstance.bleSendFunction()
         
       } catch {
-        print("cmd msg build failed")
+        print("command build failed")
       }
       
       return
@@ -647,7 +680,7 @@ open class VehicleManager: NSObject {
       cmdjson.append(",\"frequency\":\(cmd.frequency)")
     }
     
-    print("payload : \(cmd.payload)")
+    
     
     if !cmd.payload.isEqual(to: "") {
       
@@ -665,10 +698,10 @@ open class VehicleManager: NSObject {
     
     vmlog("sending diag cmd:",cmdjson)
     // append to tx buffer
-    BLETxDataBuffer.add(cmdjson.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)!)
+    bleTransmitDataBuffer.add(cmdjson.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)!)
     
     // trigger a BLE data send
-    BluetoothManager.sharedInstance.BLESendFunction()
+    BluetoothManager.sharedInstance.bleSendFunction()
     
   }
   
@@ -681,7 +714,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the CAN message
-      let cbuild = CanMessage.Builder()
+        let cbuild = Openxc.CanMessage.Builder()
       _ = cbuild.setBus(Int32(cmd.bus))
       _ = cbuild.setId(UInt32(cmd.id))
       let data = NSMutableData()
@@ -694,7 +727,7 @@ open class VehicleManager: NSObject {
       }
       _ = cbuild.setData(data as Data)
       
-      let mbuild = VehicleMessage.Builder()
+        let mbuild = Openxc.VehicleMessage.Builder()
       _ = mbuild.setType(.can)
       
       do {
@@ -712,10 +745,10 @@ open class VehicleManager: NSObject {
         //print(cdata2)
         
         // append to tx buffer
-        BLETxDataBuffer.add(cdata2)
+        bleTransmitDataBuffer.add(cdata2)
         
         // trigger a BLE data send
-        BluetoothManager.sharedInstance.BLESendFunction()
+        BluetoothManager.sharedInstance.bleSendFunction()
         
       } catch {
         print("cmd msg build failed")
@@ -731,10 +764,10 @@ open class VehicleManager: NSObject {
     let cmdjson : NSMutableString = ""
     cmdjson.append("{\"bus\":\(cmd.bus),\"id\":\(cmd.id),\"data\":\"\(cmd.data)\"}\0")
     // append to tx buffer
-    BLETxDataBuffer.add(cmdjson.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)!)
+    bleTransmitDataBuffer.add(cmdjson.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: false)!)
     
     // trigger a BLE data send
-    BluetoothManager.sharedInstance.BLESendFunction()
+    BluetoothManager.sharedInstance.bleSendFunction()
     
   }
   
@@ -758,12 +791,10 @@ open class VehicleManager: NSObject {
   
   
   fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
-    var msg : VehicleMessage
+    var msg : Openxc.VehicleMessage
     do {
-      msg = try VehicleMessage.parseFrom(data: data_chunk as Data)
-      //print(msg)
-      
-      
+        msg = try Openxc.VehicleMessage.parseFrom(data: data_chunk as Data)
+      print("Decoding  Message>>>>\(msg)")
       let data_left : NSMutableData = NSMutableData()
       data_left.append(RxDataBuffer.subdata(with: NSMakeRange(packetlen+1, RxDataBuffer.length-packetlen-1)))
       RxDataBuffer = data_left
@@ -806,11 +837,10 @@ open class VehicleManager: NSObject {
         
       }
       
-      if (!decoded) {
+      if (!decoded) , let act = managerCallBack {
         // should never get here!
-        if let act = managerCallback {
           act.performAction(["status":VehicleManagerStatusMessage.ble_RX_DATA_PARSE_ERROR.rawValue] as NSMutableDictionary)
-        }
+        
       }
     } catch {
       //self.jsonMode = true
@@ -820,61 +850,83 @@ open class VehicleManager: NSObject {
 
   }
   
-  fileprivate func protobufMeasurementMessage(msg : VehicleMessage){
+    fileprivate func protobufMeasurementMessage(msg : Openxc.VehicleMessage){
     //let name = msg.simpleMessage.name
     let name = msg.simpleMessage.name as NSString
-    
+        let resultString = String(describing: msg)
+       // let vr = Dictionary(resultString)
+        print("Converting to string\(resultString)")
     // build measurement message
+        //let vr = msg.simpleMessage as!  NSString
+         //print("Response >>>\(vr)")
+       
     let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
-    rsp.timestamp = Int(truncatingIfNeeded:msg.timestamp)
+        if let timestamp = msg.timestamp{
+            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+        }
+    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
     //rsp.name = msg.simpleMessage.name as NSString
     
     rsp.name = name
-    
-    if msg.simpleMessage.value.hasStringValue {
-        rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
-    if msg.simpleMessage.value.hasBooleanValue {
-        rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
-    if msg.simpleMessage.value.hasNumericValue {
-        rsp.value = msg.simpleMessage.value.numericValue as AnyObject}
-    if msg.simpleMessage.hasEvent {
-      rsp.isEvented = true
-      if msg.simpleMessage.event.hasStringValue {
-        rsp.event = msg.simpleMessage.event.stringValue as AnyObject}
-      if msg.simpleMessage.event.hasBooleanValue {
-        rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
-      if msg.simpleMessage.event.hasNumericValue {
-        rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
-    }
-    
-    // capture this message into the dictionary of latest messages
-    latestVehicleMeasurements[name] = rsp
-    
-    // look for a specific callback for this measurement name
-    var found=false
-    for key in measurementCallbacks.keys {
-      let act = measurementCallbacks[key]
-      if act!.returnKey() == name {
-        found=true
-        act!.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
-    }
-    // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultMeasurementCallback {
-        act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
-    }
+       
+    self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
     
   }
+    fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg : Openxc.VehicleMessage){
+       
+        
+      if msg.simpleMessage.value.hasStringValue {
+          rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
+      if msg.simpleMessage.value.hasBooleanValue {
+          rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
+      if msg.simpleMessage.value.hasNumericValue {
+          rsp.value = msg.simpleMessage.value.numericValue as AnyObject}
+      if msg.simpleMessage.hasEvent {
+        rsp.isEvented = true
+        if msg.simpleMessage.event.hasStringValue {
+          rsp.event = msg.simpleMessage.event.stringValue as AnyObject}
+        if msg.simpleMessage.event.hasBooleanValue {
+          rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
+        if msg.simpleMessage.event.hasNumericValue {
+          rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
+      }
+        self.protoSimpleMsgCheck(rsp:rsp,name:name)
+
+  }
+    
+    fileprivate func protoSimpleMsgCheck(rsp : VehicleMeasurementResponse, name:NSString){
+        
+        // capture this message into the dictionary of latest messages
+        latestVehicleMeasurements[name] = rsp
+        
+        // look for a specific callback for this measurement name
+        var found=false
+        print(measurementCallBacks.keys)
+        for key in measurementCallBacks.keys {
+          let act = measurementCallBacks[key]
+          if act!.returnKey() == name {
+            found=true
+            act!.performAction(["vehiclemessage":rsp] as NSDictionary)
+          }
+        }
+        // otherwise use the default callback if it exists
+        if !found , let act = defaultMeasurementCallBack {
+          
+            act.performAction(["vehiclemessage":rsp] as NSDictionary)
+        
+        }
+    }
   
-   fileprivate func protobufCommandResponse(msg : VehicleMessage){
+    fileprivate func protobufCommandResponse(msg : Openxc.VehicleMessage){
 
     let name = msg.commandResponse.type.description
     // build command response message
     print(msg)
     let rsp : VehicleCommandResponse = VehicleCommandResponse()
-        rsp.timestamp = Int(truncatingIfNeeded:msg.timestamp)
+        if let timestamp = msg.timestamp{
+                 rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+             }
+        //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
         rsp.command_response = name.lowercased() as NSString
         rsp.message = msg.commandResponse.message as NSString
         rsp.status = msg.commandResponse.status
@@ -882,7 +934,7 @@ open class VehicleManager: NSObject {
     // First see if the default command callback is defined. If it is
     // then that takes priority. This will be the most likely use case,
     // with a single command response handler.
-    if let act = defaultCommandCallback {
+    if let act = defaultCommandCallBack {
       act.performAction(["vehiclemessage":rsp] as NSDictionary)
     }
       // Otherwise, grab the first callback message in the list of command callbacks.
@@ -891,80 +943,89 @@ open class VehicleManager: NSObject {
       // actually has something in it here (check for count>0) because if we're
       // receiving command responses via a trace file, then there was never an
       // actual command request message sent to the VI.
-    else if BLETxCommandCallback.count > 0 {
-      let ta : TargetAction = BLETxCommandCallback.removeFirst()
-      let s : String = BLETxCommandToken.removeFirst()
+    else if bleTransmitCommandCallBack.count > 0 {
+      let ta : TargetAction = bleTransmitCommandCallBack.removeFirst()
+      let s : String = bleTransmitCommandToken.removeFirst()
       ta.performAction(["vehiclemessage":rsp,"key":s] as NSDictionary)
     }
   }
   
-  fileprivate func protobufDignosticMessage(msg : VehicleMessage){
-
+    fileprivate func protobufDignosticMessage(msg : Openxc.VehicleMessage){
+print(msg)
     // build diag response message
     let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
-    rsp.timestamp = Int(truncatingIfNeeded:msg.timestamp)
+        if let timestamp = msg.timestamp{
+                 rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+             }
+    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+//        if (frame != -1){
+//        if let payloadX = json["payload"] as? String,frame == 0   {
+//                multiFramePayload = payloadX
+//                print("payload : \(multiFramePayload)")
+//            return
+//                }
+//        }else{
     rsp.bus = Int(msg.diagnosticResponse.bus)
     rsp.message_id = Int(msg.diagnosticResponse.messageId)
     rsp.mode = Int(msg.diagnosticResponse.mode)
     if msg.diagnosticResponse.hasPid {
         rsp.pid = Int(msg.diagnosticResponse.pid)
     }
-    rsp.success = msg.diagnosticResponse.success
+    if  let successValue =  msg.diagnosticResponse.success {
+        rsp.success = successValue //msg.diagnosticResponse.success
+    }
     if msg.diagnosticResponse.hasValue {
-        rsp.value = Int(msg.diagnosticResponse.value)
+        rsp.value = msg.diagnosticResponse.value as! NSInteger
+        print(msg.diagnosticResponse.value as Any)
         
     }
     
-    if rsp.value != nil {
+    if rsp.value != 0 {
        rsp.success = true//msg.diagnosticResponse.success
     }
     // build the key that identifies this diagnostic response
     // bus-id-mode-[X or pid]
     let tupple : NSMutableString = ""
     tupple.append("\(String(rsp.bus))-\(String(rsp.message_id))-\(String(rsp.mode))-")
-    if rsp.pid != nil {
+    if rsp.pid != 0 {
       tupple.append(String(describing: rsp.pid))
     } else {
       tupple.append("X")
     }
     
     // TODO: debug printouts, maybe remove
-    if rsp.value != nil {
-      if rsp.pid != nil {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ?? 0) success:\(rsp.success) value:\(rsp.value ?? 0)")
+    if rsp.value != 0 {
+      if rsp.pid != 0 {
+        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ) success:\(rsp.success) value:\(rsp.value )")
       } else {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.value ?? 0)")
-      }
-    } else {
-      if rsp.pid != nil {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ?? 0) success:\(rsp.success) payload:\(rsp.payload)")
-      } else {
-        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.payload)")
+        vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.value )")
       }
     }
     ////////////////////////////
     
     // look for a specific callback for this diag response based on tupple created above
     var found=false
-    for key in diagCallbacks.keys {
-      let act = diagCallbacks[key]
+    for key in diagCallBacks.keys {
+      let act = diagCallBacks[key]
       if act!.returnKey() == tupple {
         found=true
         act!.performAction(["vehiclemessage":rsp] as NSDictionary)
       }
     }
     // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultDiagCallback {
+    if !found ,let act = defaultDiagCallBack {
+        
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
     }
   }
   
-  fileprivate func protobufCanMessage(msg : VehicleMessage){
+    fileprivate func protobufCanMessage(msg : Openxc.VehicleMessage){
     // build CAN response message
     let rsp : VehicleCanResponse = VehicleCanResponse()
-    rsp.timestamp = Int(truncatingIfNeeded:msg.timestamp)
+        if let timestamp = msg.timestamp{
+                 rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+             }
+    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
     rsp.bus = Int(msg.canMessage.bus)
     rsp.id = Int(msg.canMessage.id)
     rsp.data = String(data:msg.canMessage.data as Data,encoding: String.Encoding.utf8)! as NSString
@@ -980,18 +1041,18 @@ open class VehicleManager: NSObject {
     
     // look for a specific callback for this CAN response based on tupple created above
     var found=false
-    for key in canCallbacks.keys {
-      let act = canCallbacks[key]
+    for key in canCallBacks.keys {
+      let act = canCallBacks[key]
       if act!.returnKey() as String == tupple {
         found=true
         act!.performAction(["vehiclemessage":rsp] as NSDictionary)
       }
     }
     // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultCanCallback {
+    if !found , let act = defaultCanCallBack {
+     
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
+     
     }
   }
   
@@ -1004,7 +1065,7 @@ open class VehicleManager: NSObject {
       
       // decode json
       let json = try JSONSerialization.jsonObject(with: data_chunk as Data, options: .mutableContainers) as! [String:AnyObject]
-      //print(json)
+        print("After json decoding \(json)" as Any)
       // every message will have a timestamp
       
       //Ranjan:  Added NSNumber in timestamp to parse as it is in number format then convert nsnumber to integer as per requirment.
@@ -1018,27 +1079,7 @@ open class VehicleManager: NSObject {
       
       
       // insert a delay if we're reading from a tracefile
-      // and we're tracking the timestamps in the file to
-      // decide when to send the next message
-      if TraceFileManager.sharedInstance.traceFilesourceTimeTracking {
-        let msTimeNow = Int(Date.timeIntervalSinceReferenceDate*1000)
-        if TraceFileManager.sharedInstance.traceFilesourceLastMsgTime == 0 {
-          // first time
-          TraceFileManager.sharedInstance.traceFilesourceLastMsgTime = timestamp
-          TraceFileManager.sharedInstance.traceFilesourceLastActualTime = msTimeNow
-
-        }
-        let msgDelta = timestamp - TraceFileManager.sharedInstance.traceFilesourceLastMsgTime
-        let actualDelta = msTimeNow - TraceFileManager.sharedInstance.traceFilesourceLastActualTime
-        let deltaDelta : Double = (Double(msgDelta) - Double(actualDelta))/1000.0
-        if deltaDelta > 0 {
-          Thread.sleep(forTimeInterval: deltaDelta)
-        }
-
-        TraceFileManager.sharedInstance.traceFilesourceLastMsgTime = timestamp
-        TraceFileManager.sharedInstance.traceFilesourceLastActualTime = msTimeNow
-
-      }
+        self.traceFileDelay(timestamp:timestamp)
       
       // evented measurement rsp
       ///////////////////
@@ -1074,12 +1115,16 @@ open class VehicleManager: NSObject {
         ///////////////////
         // both diagnostic response and CAN response messages have an "id" key
       else if let id = json["id"] as? NSInteger {
-        
+        print("JSON ID = \(id) "as Any)
         self.canMessagersp(json: json as [String:AnyObject],timestamp: timestamp,id:id)
         
       } else {
         // what the heck is it??
-        if let act = managerCallback {
+        
+        if let id = json["message_id"] as? NSInteger {
+            self.diagSingleFrameMessagersp(json: json as [String : AnyObject], timestamp: timestamp, id: id)
+        }
+        if let act = managerCallBack {
           act.performAction(["status":VehicleManagerStatusMessage.ble_RX_DATA_PARSE_ERROR.rawValue] as NSMutableDictionary)
         }
         
@@ -1087,8 +1132,8 @@ open class VehicleManager: NSObject {
 
       // if trace file output is enabled, create a string from the message
       // and send it to the trace file writer
-        vmlog(TraceFileManager.sharedInstance.traceFilesinkEnabled)
-      if (TraceFileManager.sharedInstance.traceFilesinkEnabled) {
+        vmlog(TraceFileManager.sharedInstance.traceFileSinkEnabled)
+      if (TraceFileManager.sharedInstance.traceFileSinkEnabled) {
         let str = String(data: data_chunk as Data,encoding: String.Encoding.utf8)
         TraceFileManager.sharedInstance.traceFileWriter(str!)
       }
@@ -1105,12 +1150,35 @@ open class VehicleManager: NSObject {
       // the json decode failed for some reason, usually data lost in connection
       vmlog("bad json")
       //self.jsonMode = false
-      if let act = managerCallback {
+      if let act = managerCallBack {
         act.performAction(["status":VehicleManagerStatusMessage.ble_RX_DATA_PARSE_ERROR.rawValue] as NSMutableDictionary)
       }
     }
   }
   
+    func traceFileDelay(timestamp:NSInteger){
+        // and we're tracking the timestamps in the file to
+        // decide when to send the next message
+        if TraceFileManager.sharedInstance.traceFileSourceTimeTracking {
+          let msTimeNow = Int(Date.timeIntervalSinceReferenceDate*1000)
+          if TraceFileManager.sharedInstance.traceFileSourceLastMsgTime == 0 {
+            // first time
+            TraceFileManager.sharedInstance.traceFileSourceLastMsgTime = timestamp
+            TraceFileManager.sharedInstance.traceFileSourceLastActualTime = msTimeNow
+
+          }
+          let msgDelta = timestamp - TraceFileManager.sharedInstance.traceFileSourceLastMsgTime
+          let actualDelta = msTimeNow - TraceFileManager.sharedInstance.traceFileSourceLastActualTime
+          let deltaDelta : Double = (Double(msgDelta) - Double(actualDelta))/1000.0
+          if deltaDelta > 0 {
+            Thread.sleep(forTimeInterval: deltaDelta)
+          }
+
+          TraceFileManager.sharedInstance.traceFileSourceLastMsgTime = timestamp
+          TraceFileManager.sharedInstance.traceFileSourceLastActualTime = msTimeNow
+
+        }
+    }
   // evented measurement rsp
   ///////////////////
   // evented measuerment messages will have an "event" key
@@ -1123,7 +1191,7 @@ open class VehicleManager: NSObject {
     
     // build measurement message
     let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
-    rsp.timestamp = timestamp
+    rsp.timeStamp = timestamp
     rsp.name = name
     rsp.value = value
     rsp.isEvented = true
@@ -1135,18 +1203,18 @@ open class VehicleManager: NSObject {
     
     // look for a specific callback for this measurement name
     var found=false
-    for key in measurementCallbacks.keys {
-      let act = measurementCallbacks[key]
+    for key in measurementCallBacks.keys {
+      let act = measurementCallBacks[key]
       if act!.returnKey() == name {
         found=true
         act!.performAction(["vehiclemessage":rsp] as NSDictionary)
       }
     }
     // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultMeasurementCallback {
+    if !found, let act = defaultMeasurementCallBack {
+    
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
+      
     }
   }
   
@@ -1163,7 +1231,7 @@ open class VehicleManager: NSObject {
     // build measurement message
     let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
     rsp.value = value
-    rsp.timestamp = timestamp
+    rsp.timeStamp = timestamp
     rsp.name = name
     
     // capture this message into the dictionary of latest messages
@@ -1172,18 +1240,18 @@ open class VehicleManager: NSObject {
     
     // look for a specific callback for this measurement name
     var found=false
-    for key in measurementCallbacks.keys {
-      let act = measurementCallbacks[key]
+    for key in measurementCallBacks.keys {
+      let act = measurementCallBacks[key]
       if act!.returnKey() == name {
         found=true
         act!.performAction(["vehiclemessage":rsp] as NSDictionary)
       }
     }
     // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultMeasurementCallback {
+    if !found,let act = defaultMeasurementCallBack {
+      
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
+      
     }
   }
   
@@ -1205,7 +1273,7 @@ open class VehicleManager: NSObject {
     
     // build command response message
     let rsp : VehicleCommandResponse = VehicleCommandResponse()
-    rsp.timestamp = timestamp
+    rsp.timeStamp = timestamp
     rsp.message = message
     rsp.command_response = cmd_rsp
     rsp.status = status
@@ -1213,7 +1281,7 @@ open class VehicleManager: NSObject {
     // First see if the default command callback is defined. If it is
     // then that takes priority. This will be the most likely use case,
     // with a single command response handler.
-    if let act = defaultCommandCallback {
+    if let act = defaultCommandCallBack {
       act.performAction(["vehiclemessage":rsp] as NSDictionary)
     }
       // Otherwise, grab the first callback message in the list of command callbacks.
@@ -1222,14 +1290,105 @@ open class VehicleManager: NSObject {
       // actually has something in it here (check for count>0) because if we're
       // receiving command responses via a trace file, then there was never an
       // actual command request message sent to the VI.
-    else if BLETxCommandCallback.count > 0 {
-      let ta : TargetAction = BLETxCommandCallback.removeFirst()
-      let s : String = BLETxCommandToken.removeFirst()
+    else if bleTransmitCommandCallBack.count > 0 {
+      let ta : TargetAction = bleTransmitCommandCallBack.removeFirst()
+      let s : String = bleTransmitCommandToken.removeFirst()
       ta.performAction(["vehiclemessage":rsp,"key":s] as NSDictionary)
     }
   }
   
   // diag rsp or CAN message
+    
+    fileprivate func diagSingleFrameMessagersp(json:[String:AnyObject],timestamp:NSInteger,id:NSInteger){
+        print("single Frame rsp\(json)")
+        let frame = json["frame"] as?  NSInteger
+        if (frame != -1){
+        if let payloadX = json["payload"] as? String,frame == 0   {
+                multiFramePayload = payloadX
+                print("payload : \(multiFramePayload)")
+            return
+                }
+        }else{
+        let success = json["success"] as? Bool
+        // extract other keys from message
+        var bus : NSInteger = 0
+        if let busX = json["bus"] as? NSInteger {
+          bus = busX
+        }
+        var mode : NSInteger = 0
+        if let modeX = json["mode"] as? NSInteger {
+          mode = modeX
+        }
+        var pid : NSInteger?
+        if let pidX = json["pid"] as? NSInteger {
+          pid = pidX
+        }
+        
+
+        var payload : String = ""
+        if let payloadX = json["payload"] as? String {
+          payload = multiFramePayload  + payloadX
+          print("payload : \(payload)")
+          
+        }
+        var value : NSInteger?
+        if let valueX = json["value"] as? NSInteger {
+          value = valueX
+        }
+        
+        // build diag response message
+        let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
+        rsp.timeStamp = timestamp
+        rsp.bus = bus
+        rsp.message_id = id
+        rsp.mode = mode
+        rsp.pid = pid!
+        rsp.success = success!
+        rsp.payload = payload
+        rsp.value = value!
+        
+         //Adde for NRC fix
+        self.nrcFix(success:success!,json: json,rsp:rsp)
+
+        
+        // build the key that identifies this diagnostic response
+        // bus-id-mode-[X or pid]
+        let tupple : NSMutableString = ""
+        var newid = 0
+        if(self.lastReqMsg_id == 2015) { //exception for 7df
+          newid = self.lastReqMsg_id
+        } else {
+          newid=id-8
+        }
+        tupple.append("\(String(bus))-\(String(newid))-\(String(mode))-")
+        if pid != nil {
+          tupple.append(String(describing: pid))
+        } else {
+          tupple.append("X")
+        }
+
+        ////////////////////////////
+        
+        // look for a specific callback for this diag response based on tupple created above
+        var found=false
+        for key in diagCallBacks.keys {
+          let act = diagCallBacks[key]
+          if act!.returnKey() == tupple {
+            found=true
+            act!.performAction(["vehiclemessage":rsp] as NSDictionary)
+          }
+        }
+        // otherwise use the default callback if it exists
+        if !found ,let act = defaultDiagCallBack{
+          
+            act.performAction(["vehiclemessage":rsp] as NSDictionary)
+
+        }
+        
+        }
+    }
+    
+    
   ///////////////////
   // both diagnostic response and CAN response messages have an "id" key
   fileprivate func canMessagersp(json:[String:AnyObject],timestamp:NSInteger,id:NSInteger){
@@ -1253,7 +1412,7 @@ open class VehicleManager: NSObject {
       
       // build CAN response message
       let rsp : VehicleCanResponse = VehicleCanResponse()
-      rsp.timestamp = timestamp
+      rsp.timeStamp = timestamp
       rsp.bus = bus
       rsp.id = id
       rsp.data = data
@@ -1269,24 +1428,24 @@ open class VehicleManager: NSObject {
       
       // look for a specific callback for this CAN response based on tupple created above
       var found=false
-      for key in canCallbacks.keys {
-        let act = canCallbacks[key]
+      for key in canCallBacks.keys {
+        let act = canCallBacks[key]
         if act!.returnKey() as String == tupple {
           found=true
           act!.performAction(["vehiclemessage":rsp] as NSDictionary)
         }
       }
       // otherwise use the default callback if it exists
-      if !found {
-        if let act = defaultCanCallback {
+      if !found , let act = defaultCanCallBack{
+        
           act.performAction(["vehiclemessage":rsp] as NSDictionary)
 
-        }
+        
       }
       
     } else {
       // should never get here!
-      if let act = managerCallback {
+      if let act = managerCallBack {
         act.performAction(["status":VehicleManagerStatusMessage.ble_RX_DATA_PARSE_ERROR.rawValue] as NSMutableDictionary)
       }
     }
@@ -1308,8 +1467,8 @@ open class VehicleManager: NSObject {
     }
     
 
-    var payload : NSString = ""
-    if let payloadX = json["payload"] as? NSString {
+    var payload : String = ""
+    if let payloadX = json["payload"] as? String {
       payload = payloadX
       print("payload : \(payload)")
       
@@ -1321,7 +1480,7 @@ open class VehicleManager: NSObject {
     
     // build diag response message
     let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
-    rsp.timestamp = timestamp
+    rsp.timeStamp = timestamp
     rsp.bus = bus
     rsp.message_id = id
     rsp.mode = mode
@@ -1331,12 +1490,8 @@ open class VehicleManager: NSObject {
     rsp.value = value!
     
      //Adde for NRC fix
-    if(!success){
-      //success false, parse negative response code. For DID commands.
-      if let nrcX = json["negative_response_code"] as? NSInteger{
-        rsp.negative_response_code = nrcX
-      }
-    }
+    self.nrcFix(success:success,json: json,rsp:rsp)
+
     
     // build the key that identifies this diagnostic response
     // bus-id-mode-[X or pid]
@@ -1358,23 +1513,29 @@ open class VehicleManager: NSObject {
     
     // look for a specific callback for this diag response based on tupple created above
     var found=false
-    for key in diagCallbacks.keys {
-      let act = diagCallbacks[key]
+    for key in diagCallBacks.keys {
+      let act = diagCallBacks[key]
       if act!.returnKey() == tupple {
         found=true
         act!.performAction(["vehiclemessage":rsp] as NSDictionary)
       }
     }
     // otherwise use the default callback if it exists
-    if !found {
-      if let act = defaultDiagCallback {
+    if !found ,let act = defaultDiagCallBack{
+      
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
-      }
 
     }
   }
   // Uncomment the code when there will be a server URL and test the code
-
+    func nrcFix(success:Bool,json:[String:AnyObject],rsp:VehicleDiagnosticResponse){
+        if(!success){
+          //success false, parse negative response code. For DID commands.
+          if let nrcX = json["negative_response_code"] as? NSInteger{
+            rsp.negative_response_code = nrcX
+          }
+        }
+    }
   //Send data using trace URL
     @objc public func sendTraceURLData(urlName:String,rspdict:NSMutableDictionary,isdrrsp:Bool) {
 
@@ -1529,13 +1690,11 @@ open class VehicleManager: NSObject {
   }
   public func calculateThroughput() -> (String) {
     //.. Code process
-    //print(tempDataBuffer1)
+
     let value = tempDataBuffer.length/5
     print(tempDataBuffer.length)
     tempDataBuffer.setData(NSMutableData() as Data)
     let result = String(value)
-    print(tempDataBuffer.length)
-    print(result)
     return result
   }
 
