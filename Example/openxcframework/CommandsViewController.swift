@@ -104,9 +104,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         if(bm.isBleConnected){
             
-            if (sRow == 8 && !vm.jsonMode ){
-  
-                    AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage: errorMsgCustomCommandProto)
+            if (sRow == 8 ){
                 
                 if(customCommandTextField.text == nil||customCommandTextField.text == ""){
                     AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage: errorMsgText)
@@ -295,8 +293,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             acceptanceFilterBypassResponse = String(cr.status)
         }
         self.handleVehicleCommandResponse(cr: cr)
-        
-      
+
     }
     func handleVehicleCommandResponse(cr:VehicleCommandResponse){
         
@@ -367,18 +364,24 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         selectedRowInPicker = row
         populateCommandResponseLabel(rowNum: row)
         responseLab.text = "---"
-        if (row == 8){
-            customCommandTextField.isHidden = false
-            
+        let protobufOn = UserDefaults.standard.bool(forKey: "protobufOn")
+      
+        if (selectedRowInPicker == 8){
+         
+            if protobufOn != true {
+                customCommandTextField.isHidden = false
+               
+            }else{
+                AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage: errorMsgCustomCommandProto)
+                customCommandTextField.isHidden = true
+                return
+            }
         }else{
             customCommandTextField.isHidden = true
-            
         }
-        
     }
     
     // MARK: UI Function
-    
     func populateCommandResponseLabel(rowNum: Int) {
         hideAll()
         hideActivityIndicator()

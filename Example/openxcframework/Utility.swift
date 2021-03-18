@@ -14,5 +14,5 @@ public var wifiNotConnected: String = "WIFI not connected."
 public var errorMsgBLE: String = "BLE is not connected to the device. "
 public var errorMsgCustomCommand: String = "It is not a valid json. "
 public var errorMsgText: String = "You need to enter the value. "
-public var errorMsgCustomCommandProto: String = "Change to json mode for custom command. "
+public var errorMsgCustomCommandProto: String = "Custom Command is not available for Protobuf mode."
 
