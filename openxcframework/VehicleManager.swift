@@ -6,7 +6,7 @@
 //  Vrsion 0.9.2
 import Foundation
 import CoreBluetooth
-import ProtocolBuffers
+import SwiftProtobuf
 
 
 // comparison operators with optionals were removed from the Swift Standard Libary.
@@ -218,7 +218,8 @@ open class VehicleManager: NSObject {
     bleTransmitCommandToken.append(key)
     
     // common command send method
-    sendCommandCommon(cmd)
+   // sendCommandCommon(cmd)
+    //cmd.sendCommandCommon(cmd)
     
     return key
     
@@ -243,7 +244,7 @@ open class VehicleManager: NSObject {
     bleTransmitCommandToken.append(key)
     
     // common command send method
-    sendCommandCommon(cmd)
+    //sendCommandCommon(cmd)
     
   }
   
@@ -434,7 +435,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the command message
-        let cbuild = Openxc.ControlCommand.Builder()
+        /*let cbuild = Openxc.ControlCommand.Builder()
         self.protobufCommandRequest(cmd)
       
       if cmd.command == .predefined_odb2 {
@@ -487,19 +488,20 @@ open class VehicleManager: NSObject {
       } catch {
         print("command message failed")
         
-      }
+      }*/
       
       return
     }
     
     // we're in json mode
-    self.jsonCommandRequest(cmd)
+   // self.jsonCommandRequest(cmd)
+    
     
    
     
   }
     fileprivate func protobufCommandRequest(_ cmd:VehicleCommandRequest){
-        let cbuild = Openxc.ControlCommand.Builder()
+      /*  let cbuild = Openxc.ControlCommand.Builder()
          if cmd.command == .version {
            _ = cbuild.setType(.version)
            
@@ -565,9 +567,9 @@ open class VehicleManager: NSObject {
         } catch {
           print("command message failed")
           
-        }
+        }*/
     }
-    fileprivate func jsonCommandRequest(_ cmd:VehicleCommandRequest){
+   /* fileprivate func jsonCommandRequest(_ cmd:VehicleCommandRequest){
         var cmdstr = ""
         // decode the command type and build the command depending on the command
 
@@ -611,7 +613,7 @@ open class VehicleManager: NSObject {
            
            // trigger a BLE data send
            BluetoothManager.sharedInstance.bleSendFunction()
-    }
+    }*/
     
   
   // common function for sending a VehicleDiagnosticRequest
@@ -620,7 +622,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build diag message
-        let cbuild = Openxc.ControlCommand.Builder()
+       /* let cbuild = Openxc.ControlCommand.Builder()
       _ = cbuild.setType(.diagnostic)
         let c2build = Openxc.DiagnosticControlCommand.Builder()
       _ = c2build.setAction(.add)
@@ -664,7 +666,7 @@ open class VehicleManager: NSObject {
       } catch {
         print("command build failed")
       }
-      
+      */
       return
     }
     self.lastReqMsg_id = cmd.message_id
@@ -714,7 +716,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the CAN message
-        let cbuild = Openxc.CanMessage.Builder()
+       /* let cbuild = Openxc.CanMessage.Builder()
       _ = cbuild.setBus(Int32(cmd.bus))
       _ = cbuild.setId(UInt32(cmd.id))
       let data = NSMutableData()
@@ -754,7 +756,7 @@ open class VehicleManager: NSObject {
         print("cmd msg build failed")
       }
       
-      return
+      return*/
     }
     
     
@@ -791,10 +793,10 @@ open class VehicleManager: NSObject {
   
   
   fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
-    var msg : Openxc.VehicleMessage
+    var msg : Openxc_VehicleMessage
     do {
-        msg = try Openxc.VehicleMessage.parseFrom(data: data_chunk as Data)
-      print("Decoding  Message>>>>\(msg)")
+        msg = try Openxc_VehicleMessage(serializedData: data_chunk as Data )
+        print("msg -----\(msg)")
       let data_left : NSMutableData = NSMutableData()
       data_left.append(RxDataBuffer.subdata(with: NSMakeRange(packetlen+1, RxDataBuffer.length-packetlen-1)))
       RxDataBuffer = data_left
@@ -816,7 +818,7 @@ open class VehicleManager: NSObject {
         if nameValue != .diagnostic{
           decoded = true
             print("Response command>>>>\(msg)")
-          self.protobufCommandResponse(msg : msg)
+          //self.protobufCommandResponse(msg : msg)
         }
         
       }
@@ -826,14 +828,14 @@ open class VehicleManager: NSObject {
       if msg.type == .diagnostic {
         decoded = true
         print("Response Diagnostic>>>>\(msg)")
-        self.protobufDignosticMessage(msg: msg)
+        //self.protobufDignosticMessage(msg: msg)
       }
       
       // CAN messages
       /////////////////////////////
       if msg.type == .can {
         decoded = true
-        self.protobufCanMessage(msg: msg)
+       // self.protobufCanMessage(msg: msg)
         
       }
       
@@ -850,33 +852,45 @@ open class VehicleManager: NSObject {
 
   }
   
-    fileprivate func protobufMeasurementMessage(msg : Openxc.VehicleMessage){
-    //let name = msg.simpleMessage.name
-    let name = msg.simpleMessage.name as NSString
-        let resultString = String(describing: msg)
-       // let vr = Dictionary(resultString)
-        print("Converting to string\(resultString)")
-    // build measurement message
-        //let vr = msg.simpleMessage as!  NSString
-         //print("Response >>>\(vr)")
-       
-    let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
-
-    
-   if let timestamp = msg.timestamp{
-        rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-    }
-    //rsp.name = msg.simpleMessage.name as NSString
-    
-    rsp.name = name
-       
-    self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
+    fileprivate func protobufMeasurementMessage(msg : Openxc_VehicleMessage){
+        //let name = msg.simpleMessage.name
+        let name = msg.simpleMessage.name as NSString
+            let resultString = String(describing: msg)
+           // let vr = Dictionary(resultString)
+            print("Converting to string\(resultString)")
+        // build measurement message
+            //let vr = msg.simpleMessage as!  NSString
+             //print("Response >>>\(vr)")
+           
+        let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
+    //        if let timestamp = msg.timestamp{
+    //            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+    //        }
+        rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+        //rsp.name = msg.simpleMessage.name as NSString
+        
+        rsp.name = name
+           
+        self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
     
   }
-    fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg : Openxc.VehicleMessage){
+    fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg :Openxc_VehicleMessage){
        
-        
-      if msg.simpleMessage.value.hasStringValue {
+        if msg.hasSimpleMessage{
+            rsp.value = msg.simpleMessage.value.stringValue as AnyObject
+            rsp.value = msg.simpleMessage.value.booleanValue as AnyObject
+            rsp.value = msg.simpleMessage.value.numericValue as AnyObject
+            if msg.simpleMessage.hasEvent {
+              rsp.isEvented = true
+              
+                rsp.event = msg.simpleMessage.event.stringValue as AnyObject
+             
+                rsp.event = msg.simpleMessage.event.booleanValue as AnyObject
+              
+                rsp.event = msg.simpleMessage.event.numericValue as AnyObject
+            }
+        }
+        /*if msg.simpleMessage.value.stringValue.hasStringValue {
           rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
       if msg.simpleMessage.value.hasBooleanValue {
           rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
@@ -890,7 +904,7 @@ open class VehicleManager: NSObject {
           rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
         if msg.simpleMessage.event.hasNumericValue {
           rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
-      }
+      }*/
         self.protoSimpleMsgCheck(rsp:rsp,name:name)
 
   }
@@ -918,7 +932,7 @@ open class VehicleManager: NSObject {
         }
     }
   
-    fileprivate func protobufCommandResponse(msg : Openxc.VehicleMessage){
+  /*  fileprivate func protobufCommandResponse(msg : Openxc_VehicleMessage){
 
     let name = msg.commandResponse.type.description
     // build command response message
@@ -950,9 +964,9 @@ open class VehicleManager: NSObject {
       let s : String = bleTransmitCommandToken.removeFirst()
       ta.performAction(["vehiclemessage":rsp,"key":s] as NSDictionary)
     }
-  }
+  }*/
   
-    fileprivate func protobufDignosticMessage(msg : Openxc.VehicleMessage){
+    /*fileprivate func protobufDignosticMessage(msg : Openxc_VehicleMessage){
 print(msg)
     // build diag response message
     let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
@@ -1013,9 +1027,9 @@ print(msg)
         
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
     }
-  }
+  }*/
   
-    fileprivate func protobufCanMessage(msg : Openxc.VehicleMessage){
+    /*fileprivate func protobufCanMessage(msg : Openxc_VehicleMessage){
     // build CAN response message
     let rsp : VehicleCanResponse = VehicleCanResponse()
 
@@ -1051,7 +1065,7 @@ print(msg)
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
      
     }
-  }
+  }*/
   
 
   ////////////////

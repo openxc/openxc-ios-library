@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ProtocolBuffers
+import SwiftProtobuf
 
 public enum VehicleCommandType: NSString {
     case version
@@ -176,7 +176,7 @@ open class Command: NSObject {
     // common function for sending a VehicleCommandRequest
     func protobufSendCommand(cmd:VehicleCommandRequest){
         // in protobuf mode, build the command message
-        let cbuild = Openxc.ControlCommand.Builder()
+       /* let cbuild = Openxc.ControlCommand.Builder()
         if cmd.command == .version {
             _ = cbuild.setType(.version)
             
@@ -270,7 +270,7 @@ open class Command: NSObject {
                        
                    } catch {
                        print("cmd msg build failed")
-                   }
+                   }*/
     }
     fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
         
@@ -328,8 +328,8 @@ open class Command: NSObject {
         // append to tx buffer
         bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
         
-        print("BLETxDataBuffer.count...",bleTransmitDataBuffer.count)
-        print("BLETxDataBuffer...",bleTransmitDataBuffer as Any)
+      //  print("BLETxDataBuffer.count...",bleTransmitDataBuffer.count)
+       // print("BLETxDataBuffer...",bleTransmitDataBuffer as Any)
         
         self.vm.bleTransmitDataBuffer = bleTransmitDataBuffer
         

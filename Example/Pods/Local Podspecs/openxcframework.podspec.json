@@ -21,7 +21,7 @@
   "exclude_files": "openxcframework/*.plist",
   "source_files": "openxcframework/*.{swift}",
   "dependencies": {
-    "ProtocolBuffers-Swift": [
+    "SwiftProtobuf": [
 
     ]
   },
