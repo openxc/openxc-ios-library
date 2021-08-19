@@ -37,7 +37,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
     @IBOutlet weak var acitivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var customCommandTextField : UITextField!
     
-    let commands = ["Version","Device Id","Passthrough CAN Mode","Acceptance Filter Bypass","Payload Format", "Platform", "RTC Config", "SD Card Status","Custom Command","get_vin"]
+    let commands = ["Version","Device Id","Passthrough CAN Mode","Acceptance Filter Bypass","Payload Format", "Platform", "RTC Config", "SD Card Status","get_vin","Custom Command"]
     
     var versionResponse: String!
     var deviceIdResponse: String!
@@ -261,15 +261,17 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         case 8:
             
             //let cm = VehicleCommandRequest()
-            vcm.command = .custom_command
-            self.cm.sendCommand(vcm)
-            showActivityIndicator()
-            case 9:
-            
-            //let cm = VehicleCommandRequest()
             vcm.command = .get_vin
             self.cm.sendCommand(vcm)
             showActivityIndicator()
+            break
+            
+            case 9:
+            
+            //let cm = VehicleCommandRequest()
+                vcm.command = .custom_command
+                self.cm.sendCommand(vcm)
+                showActivityIndicator()
             
             break
         default:
@@ -302,7 +304,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             acceptanceFilterBypassResponse = String(cr.status)
         }
         if cr.command_response.isEqual(to: "get_vin") || cr.command_response.isEqual(to: ".get_vin") {
-               versionResponse = cr.message as String
+            vinResponse = cr.message as String
            }
         self.handleVehicleCommandResponse(cr: cr)
         
@@ -377,7 +379,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         selectedRowInPicker = row
         populateCommandResponseLabel(rowNum: row)
         responseLab.text = "---"
-        if (row == 8){
+        if (row == 9){
             customCommandTextField.isHidden = false
             
         }else{
@@ -438,11 +440,11 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             break
         case 8:
             sendCommandButton.isHidden = false
-            responseLab.text = customCommandResp
+            responseLab.text = vinResponse
             break
         case 9:
             sendCommandButton.isHidden = false
-            responseLab.text = vinResponse
+            responseLab.text = customCommandResp
             break
         default:
             sendCommandButton.isHidden = true
