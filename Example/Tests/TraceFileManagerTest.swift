@@ -37,10 +37,10 @@ class TraceFileManagerTest: XCTestCase {
     func testTraceOutput(){
       XCTAssert(true)
     }
-  func testValueisBool() {
-    let value = measurmentObj.valueIsBool()
-    XCTAssert(!value)
-  }
+//  func testValueisBool() {
+//    let value = measurmentObj.valueIsBool()
+//    XCTAssert(!value)
+//  }
   
   //Vehicle manager Trace file sink test method
   func testEnableTraceFileSink() {
