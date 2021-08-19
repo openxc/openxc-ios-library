@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SwiftProtobuf
+//import SwiftProtobuf
 
 public enum VehicleCommandType: NSString {
     case version

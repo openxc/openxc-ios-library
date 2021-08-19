@@ -6,7 +6,7 @@
 //  Vrsion 0.9.2
 import Foundation
 import CoreBluetooth
-import SwiftProtobuf
+//import SwiftProtobuf
 
 
 // comparison operators with optionals were removed from the Swift Standard Libary.
@@ -792,7 +792,7 @@ open class VehicleManager: NSObject {
   /////////////////
   
   
-  fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
+  /*fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
     var msg : Openxc_VehicleMessage
     do {
         msg = try Openxc_VehicleMessage(serializedData: data_chunk as Data )
@@ -850,9 +850,9 @@ open class VehicleManager: NSObject {
       return
     }
 
-  }
+  }*/
   
-    fileprivate func protobufMeasurementMessage(msg : Openxc_VehicleMessage){
+   /* fileprivate func protobufMeasurementMessage(msg : Openxc_VehicleMessage){
         //let name = msg.simpleMessage.name
         let name = msg.simpleMessage.name as NSString
             let resultString = String(describing: msg)
@@ -873,8 +873,8 @@ open class VehicleManager: NSObject {
            
         self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
     
-  }
-    fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg :Openxc_VehicleMessage){
+  }*/
+   /* fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg :Openxc_VehicleMessage){
        
         if msg.hasSimpleMessage{
             rsp.value = msg.simpleMessage.value.stringValue as AnyObject
@@ -907,7 +907,7 @@ open class VehicleManager: NSObject {
       }*/
         self.protoSimpleMsgCheck(rsp:rsp,name:name)
 
-  }
+  }*/
     
     fileprivate func protoSimpleMsgCheck(rsp : VehicleMeasurementResponse, name:NSString){
         
@@ -1640,7 +1640,7 @@ print(msg)
         
        // vmlog(data_chunk)
         
-        self.protobufDecoding(data_chunk: data_chunk,packetlen:packetlen)
+      //  self.protobufDecoding(data_chunk: data_chunk,packetlen:packetlen)
         
         // Keep a count of how many messages were received in total
         // since connection. Can be used by the client app.

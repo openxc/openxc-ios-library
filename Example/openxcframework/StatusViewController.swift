@@ -531,6 +531,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if isGetVinClicked {
         if cr.command_response.isEqual(to: "get_vin") || cr.command_response.isEqual(to: ".get_vin") {
             
+            print("getVinResponse\(cr.command_response)")
             DispatchQueue.main.async {
                 
                 self.getVinButton.isHidden = true
