@@ -1,5 +1,13 @@
 # OpenXC iOS App Demo Changelog
 
+## v6.2.0
+
+* Note: Disabled older protobuf code in framework
+* Feature: Getvin command .
+* Feature: Multiframe diagnostic messages.
+* UI: Disabled protobuf button in setting page
+* Improvement: Support for iOS 14.
+
 ## v6.1.0
 
 * Feature: Alert Message to user for BLE power drop and network drop.
