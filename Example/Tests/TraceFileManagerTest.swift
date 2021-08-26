@@ -26,7 +26,7 @@ class TraceFileManagerTest: XCTestCase {
      */
     
     super.setUp()
-    measurmentObj = VehicleMeasurementResponse()
+   // measurmentObj = VehicleMeasurementResponse()
     // Put setup code here. This method is called before the invocation of each test method in the class.
   }
   
@@ -37,10 +37,10 @@ class TraceFileManagerTest: XCTestCase {
     func testTraceOutput(){
       XCTAssert(true)
     }
-  func testValueisBool() {
-    let value = measurmentObj.valueIsBool()
-    XCTAssert(!value)
-  }
+//  func testValueisBool() {
+//    let value = measurmentObj.valueIsBool()
+//    XCTAssert(!value)
+//  }
   
   //Vehicle manager Trace file sink test method
   func testEnableTraceFileSink() {

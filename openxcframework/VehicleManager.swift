@@ -6,7 +6,7 @@
 //  Vrsion 0.9.2
 import Foundation
 import CoreBluetooth
-import ProtocolBuffers
+//import SwiftProtobuf
 
 
 // comparison operators with optionals were removed from the Swift Standard Libary.
@@ -218,7 +218,8 @@ open class VehicleManager: NSObject {
     bleTransmitCommandToken.append(key)
     
     // common command send method
-    sendCommandCommon(cmd)
+   // sendCommandCommon(cmd)
+    //cmd.sendCommandCommon(cmd)
     
     return key
     
@@ -243,7 +244,7 @@ open class VehicleManager: NSObject {
     bleTransmitCommandToken.append(key)
     
     // common command send method
-    sendCommandCommon(cmd)
+    //sendCommandCommon(cmd)
     
   }
   
@@ -434,7 +435,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the command message
-        let cbuild = Openxc.ControlCommand.Builder()
+        /*let cbuild = Openxc.ControlCommand.Builder()
         self.protobufCommandRequest(cmd)
       
       if cmd.command == .predefined_odb2 {
@@ -487,19 +488,20 @@ open class VehicleManager: NSObject {
       } catch {
         print("command message failed")
         
-      }
+      }*/
       
       return
     }
     
     // we're in json mode
-    self.jsonCommandRequest(cmd)
+   // self.jsonCommandRequest(cmd)
+    
     
    
     
   }
     fileprivate func protobufCommandRequest(_ cmd:VehicleCommandRequest){
-        let cbuild = Openxc.ControlCommand.Builder()
+      /*  let cbuild = Openxc.ControlCommand.Builder()
          if cmd.command == .version {
            _ = cbuild.setType(.version)
            
@@ -565,9 +567,9 @@ open class VehicleManager: NSObject {
         } catch {
           print("command message failed")
           
-        }
+        }*/
     }
-    fileprivate func jsonCommandRequest(_ cmd:VehicleCommandRequest){
+   /* fileprivate func jsonCommandRequest(_ cmd:VehicleCommandRequest){
         var cmdstr = ""
         // decode the command type and build the command depending on the command
 
@@ -611,7 +613,7 @@ open class VehicleManager: NSObject {
            
            // trigger a BLE data send
            BluetoothManager.sharedInstance.bleSendFunction()
-    }
+    }*/
     
   
   // common function for sending a VehicleDiagnosticRequest
@@ -620,7 +622,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build diag message
-        let cbuild = Openxc.ControlCommand.Builder()
+       /* let cbuild = Openxc.ControlCommand.Builder()
       _ = cbuild.setType(.diagnostic)
         let c2build = Openxc.DiagnosticControlCommand.Builder()
       _ = c2build.setAction(.add)
@@ -664,7 +666,7 @@ open class VehicleManager: NSObject {
       } catch {
         print("command build failed")
       }
-      
+      */
       return
     }
     self.lastReqMsg_id = cmd.message_id
@@ -714,7 +716,7 @@ open class VehicleManager: NSObject {
     
     if !jsonMode {
       // in protobuf mode, build the CAN message
-        let cbuild = Openxc.CanMessage.Builder()
+       /* let cbuild = Openxc.CanMessage.Builder()
       _ = cbuild.setBus(Int32(cmd.bus))
       _ = cbuild.setId(UInt32(cmd.id))
       let data = NSMutableData()
@@ -754,7 +756,7 @@ open class VehicleManager: NSObject {
         print("cmd msg build failed")
       }
       
-      return
+      return*/
     }
     
     
@@ -790,11 +792,11 @@ open class VehicleManager: NSObject {
   /////////////////
   
   
-  fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
-    var msg : Openxc.VehicleMessage
+  /*fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
+    var msg : Openxc_VehicleMessage
     do {
-        msg = try Openxc.VehicleMessage.parseFrom(data: data_chunk as Data)
-      print("Decoding  Message>>>>\(msg)")
+        msg = try Openxc_VehicleMessage(serializedData: data_chunk as Data )
+        print("msg -----\(msg)")
       let data_left : NSMutableData = NSMutableData()
       data_left.append(RxDataBuffer.subdata(with: NSMakeRange(packetlen+1, RxDataBuffer.length-packetlen-1)))
       RxDataBuffer = data_left
@@ -816,24 +818,26 @@ open class VehicleManager: NSObject {
         if nameValue != .diagnostic{
           decoded = true
             print("Response command>>>>\(msg)")
-          self.protobufCommandResponse(msg : msg)
+          //self.protobufCommandResponse(msg : msg)
         }
         
       }
       
       // Diagnostic messages
       /////////////////////////////
-      if msg.type == .diagnostic {
-        decoded = true
-        print("Response Diagnostic>>>>\(msg)")
-        self.protobufDignosticMessage(msg: msg)
-      }
+     // Diagnostic messages
+     /////////////////////////////
+       if msg.type == .diagnostic ||  msg.type == .diagnosticStitch {
+       decoded = true
+       print("Response Diagnostic>>>>\(msg)")
+       self.protobufDignosticMessage(msg: msg)
+     }
       
       // CAN messages
       /////////////////////////////
       if msg.type == .can {
         decoded = true
-        self.protobufCanMessage(msg: msg)
+       // self.protobufCanMessage(msg: msg)
         
       }
       
@@ -848,34 +852,47 @@ open class VehicleManager: NSObject {
       return
     }
 
-  }
+  }*/
   
-    fileprivate func protobufMeasurementMessage(msg : Openxc.VehicleMessage){
-    //let name = msg.simpleMessage.name
-    let name = msg.simpleMessage.name as NSString
-        let resultString = String(describing: msg)
-       // let vr = Dictionary(resultString)
-        print("Converting to string\(resultString)")
-    // build measurement message
-        //let vr = msg.simpleMessage as!  NSString
-         //print("Response >>>\(vr)")
-       
-    let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
-        if let timestamp = msg.timestamp{
-            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-        }
-    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
-    //rsp.name = msg.simpleMessage.name as NSString
-    
-    rsp.name = name
-       
-    self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
-    
-  }
-    fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg : Openxc.VehicleMessage){
-       
+   /* fileprivate func protobufMeasurementMessage(msg : Openxc_VehicleMessage){
+        //let name = msg.simpleMessage.name
+        let name = msg.simpleMessage.name as NSString
+            let resultString = String(describing: msg)
+           // let vr = Dictionary(resultString)
+            print("Converting to string\(resultString)")
+        // build measurement message
+            //let vr = msg.simpleMessage as!  NSString
+             //print("Response >>>\(vr)")
+           
+        let rsp : VehicleMeasurementResponse = VehicleMeasurementResponse()
+    //        if let timestamp = msg.timestamp{
+    //            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+    //        }
+        rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+        //rsp.name = msg.simpleMessage.name as NSString
         
-      if msg.simpleMessage.value.hasStringValue {
+        rsp.name = name
+           
+        self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
+    
+  }*/
+   /* fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg :Openxc_VehicleMessage){
+       
+        if msg.hasSimpleMessage{
+            rsp.value = msg.simpleMessage.value.stringValue as AnyObject
+            rsp.value = msg.simpleMessage.value.booleanValue as AnyObject
+            rsp.value = msg.simpleMessage.value.numericValue as AnyObject
+            if msg.simpleMessage.hasEvent {
+              rsp.isEvented = true
+              
+                rsp.event = msg.simpleMessage.event.stringValue as AnyObject
+             
+                rsp.event = msg.simpleMessage.event.booleanValue as AnyObject
+              
+                rsp.event = msg.simpleMessage.event.numericValue as AnyObject
+            }
+        }
+        /*if msg.simpleMessage.value.stringValue.hasStringValue {
           rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
       if msg.simpleMessage.value.hasBooleanValue {
           rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
@@ -889,10 +906,10 @@ open class VehicleManager: NSObject {
           rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
         if msg.simpleMessage.event.hasNumericValue {
           rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
-      }
+      }*/
         self.protoSimpleMsgCheck(rsp:rsp,name:name)
 
-  }
+  }*/
     
     fileprivate func protoSimpleMsgCheck(rsp : VehicleMeasurementResponse, name:NSString){
         
@@ -917,16 +934,17 @@ open class VehicleManager: NSObject {
         }
     }
   
-    fileprivate func protobufCommandResponse(msg : Openxc.VehicleMessage){
+  /*  fileprivate func protobufCommandResponse(msg : Openxc_VehicleMessage){
 
     let name = msg.commandResponse.type.description
     // build command response message
     print(msg)
     let rsp : VehicleCommandResponse = VehicleCommandResponse()
-        if let timestamp = msg.timestamp{
-                 rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-             }
-        //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+
+       if let timestamp = msg.timestamp{
+            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+        }
+
         rsp.command_response = name.lowercased() as NSString
         rsp.message = msg.commandResponse.message as NSString
         rsp.status = msg.commandResponse.status
@@ -948,23 +966,23 @@ open class VehicleManager: NSObject {
       let s : String = bleTransmitCommandToken.removeFirst()
       ta.performAction(["vehiclemessage":rsp,"key":s] as NSDictionary)
     }
-  }
+  }*/
   
-    fileprivate func protobufDignosticMessage(msg : Openxc.VehicleMessage){
-print(msg)
-    // build diag response message
-    let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
-        if let timestamp = msg.timestamp{
-                 rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-             }
-    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
-//        if (frame != -1){
-//        if let payloadX = json["payload"] as? String,frame == 0   {
-//                multiFramePayload = payloadX
-//                print("payload : \(multiFramePayload)")
-//            return
-//                }
-//        }else{
+    /*fileprivate func protobufDignosticMessage(msg : Openxc.VehicleMessage){
+        print("DiagnosticResponse>>>>\(msg)")
+        // build diag response message
+
+        if let frame = (msg.diagnosticStitchResponse.frame){
+            print(frame)
+            self.protobufMultiFrameDignosticMessage(msg: msg)
+        
+            
+        }else{
+        
+        let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
+               if let timestamp = msg.timestamp{
+                        rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+                    }
     rsp.bus = Int(msg.diagnosticResponse.bus)
     rsp.message_id = Int(msg.diagnosticResponse.messageId)
     rsp.mode = Int(msg.diagnosticResponse.mode)
@@ -974,10 +992,9 @@ print(msg)
     if  let successValue =  msg.diagnosticResponse.success {
         rsp.success = successValue //msg.diagnosticResponse.success
     }
-    if msg.diagnosticResponse.hasValue {
-        rsp.value = msg.diagnosticResponse.value as! NSInteger
+    if  msg.diagnosticResponse.hasValue {
+        rsp.value = Int(truncating: msg.diagnosticResponse.value as! NSNumber)
         print(msg.diagnosticResponse.value as Any)
-        
     }
     
     if rsp.value != 0 {
@@ -1017,15 +1034,92 @@ print(msg)
         
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
     }
-  }
+}
+  }*/
+    
+   /* fileprivate func protobufMultiFrameDignosticMessage(msg : Openxc.VehicleMessage){
+    print("DiagnosticResponse>>>>\(msg)")
+        // build diag response message
+        let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
+                   if let timestamp = msg.timestamp{
+                            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+                        }
+        let frame = Int(msg.diagnosticStitchResponse.frame)
+        if  (frame != -1) {
+            if let payloadX = String(data: msg.diagnosticStitchResponse.payload, encoding: .utf8) {
+                multiFramePayload = payloadX
+                return
+            }
+        }
+        
+        //var payload : String = ""
+        if let payloadX =  String(data: msg.diagnosticStitchResponse.payload, encoding: .utf8)  {
+            rsp.payload = multiFramePayload  + payloadX
+          print("payload : \(rsp.payload)")
+          
+        }
+        rsp.bus = Int(msg.diagnosticStitchResponse.bus)
+        rsp.message_id = Int(msg.diagnosticStitchResponse.messageId)
+        rsp.mode = Int(msg.diagnosticStitchResponse.mode)
+        if msg.diagnosticStitchResponse.hasPid {
+            rsp.pid = Int(msg.diagnosticStitchResponse.pid)
+        }
+        if  let successValue =  msg.diagnosticStitchResponse.success {
+            rsp.success = successValue //msg.diagnosticResponse.success
+        }
+        if msg.diagnosticStitchResponse.hasValue {
+            rsp.value = Int(truncating: msg.diagnosticStitchResponse.value as! NSNumber)
+            print(msg.diagnosticResponse.value as Any)
+            
+        }
+        
+        if rsp.value != 0 {
+           rsp.success = true//msg.diagnosticResponse.success
+        }
+        // build the key that identifies this diagnostic response
+        // bus-id-mode-[X or pid]
+        let tupple : NSMutableString = ""
+        tupple.append("\(String(rsp.bus))-\(String(rsp.message_id))-\(String(rsp.mode))-")
+        if rsp.pid != 0 {
+          tupple.append(String(describing: rsp.pid))
+        } else {
+          tupple.append("X")
+        }
+        
+        // TODO: debug printouts, maybe remove
+        if rsp.value != 0 {
+          if rsp.pid != 0 {
+            vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) pid:\(rsp.pid ) success:\(rsp.success) value:\(rsp.value )")
+          } else {
+            vmlog("diag rsp msg:\(rsp.bus) id:\(rsp.message_id) mode:\(rsp.mode) success:\(rsp.success) value:\(rsp.payload )")
+          }
+        }
+        ////////////////////////////
+        
+        // look for a specific callback for this diag response based on tupple created above
+        var found=false
+        for key in diagCallBacks.keys {
+          let act = diagCallBacks[key]
+          if act!.returnKey() == tupple {
+            found=true
+            act!.performAction(["vehiclemessage":rsp] as NSDictionary)
+          }
+        }
+        // otherwise use the default callback if it exists
+        if !found ,let act = defaultDiagCallBack {
+            
+            act.performAction(["vehiclemessage":rsp] as NSDictionary)
+        }
+      }*/
   
-    fileprivate func protobufCanMessage(msg : Openxc.VehicleMessage){
+    /*fileprivate func protobufCanMessage(msg : Openxc_VehicleMessage){
     // build CAN response message
     let rsp : VehicleCanResponse = VehicleCanResponse()
-        if let timestamp = msg.timestamp{
-                 rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-             }
-    //rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+
+     if let timestamp = msg.timestamp{
+           rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+       }
+
     rsp.bus = Int(msg.canMessage.bus)
     rsp.id = Int(msg.canMessage.id)
     rsp.data = String(data:msg.canMessage.data as Data,encoding: String.Encoding.utf8)! as NSString
@@ -1054,7 +1148,7 @@ print(msg)
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
      
     }
-  }
+  }*/
   
 
   ////////////////
@@ -1122,6 +1216,7 @@ print(msg)
         // what the heck is it??
         
         if let id = json["message_id"] as? NSInteger {
+            print("Diagnostic JSON\(json)")
             self.diagSingleFrameMessagersp(json: json as [String : AnyObject], timestamp: timestamp, id: id)
         }
         if let act = managerCallBack {
@@ -1628,7 +1723,7 @@ print(msg)
         
        // vmlog(data_chunk)
         
-        self.protobufDecoding(data_chunk: data_chunk,packetlen:packetlen)
+      //  self.protobufDecoding(data_chunk: data_chunk,packetlen:packetlen)
         
         // Keep a count of how many messages were received in total
         // since connection. Can be used by the client app.

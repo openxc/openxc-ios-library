@@ -104,11 +104,11 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             disableTraceFilePlayLoopSwitch.setOn(true, animated:false)
         }
         // check saved value of protobuf switch
-        let protobufOn = UserDefaults.standard.bool(forKey: "protobufOn")
-        // update UI if necessary
-        if protobufOn == true {
-            protobufSwitch.setOn(true, animated:false)
-        }
+//        let protobufOn = UserDefaults.standard.bool(forKey: "protobufOn")
+//        // update UI if necessary
+//        if protobufOn == true {
+//            protobufSwitch.setOn(true, animated:false)
+//        }
         let vehicleInterface = (UserDefaults.standard.value(forKey: "vehicleInterface") as? String)
         
         if  vehicleInterface == "Bluetooth" {

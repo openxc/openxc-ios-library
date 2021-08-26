@@ -16,6 +16,8 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var deviceIdLabel: UILabel!
     @IBOutlet weak var platformLabel: UILabel!
     @IBOutlet weak var throughPutLabel: UILabel!
+    @IBOutlet weak var vinLabel: UILabel!
+     @IBOutlet weak var vinInfoDataLabel: UILabel!
     @IBOutlet weak var averageMessageLabel: UILabel!
     @IBOutlet weak var networkImageView: UIImageView!
     
@@ -30,9 +32,12 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var splitTraceButton: UIButton!
     // Trace Start/stop button
     @IBOutlet weak var startStopButton: UIButton!
+    // Get VIN button
+    @IBOutlet weak var getVinButton: UIButton!
     // table for holding/showing discovered VIs
     @IBOutlet weak var peripheralTableView: UITableView!
     
+    var isGetVinClicked:Bool!
     // the VM
     var vm: VehicleManager!
     var cm: Command!
@@ -48,6 +53,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.disconnectButton.isHidden = true
         self.splitTraceButton.isHidden = true
         self.startStopButton.isHidden = true
+        self.isGetVinClicked = false
 
         // change tab bar text colors
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for:UIControl.State())
@@ -317,9 +323,11 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         let value = tfm.enableTraceFileSink(name)
                     print(value)
                 }else{
+                    DispatchQueue.main.async {
                     let alertController = UIAlertController (title: "Setting", message: "Please Disable pre record tracefile in data source", preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                     self.present(alertController, animated: true, completion: nil)
+                    }
                 }
             }
             
@@ -361,6 +369,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                    
     }
     func updateBleStatus(){
+        DispatchQueue.main.async {
         let alertController = UIAlertController (title: "Setting", message: "Please enable Bluetooth", preferredStyle: .alert)
                            let url = URL(string: "App-Prefs:root=Bluetooth")
                            let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
@@ -384,6 +393,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                            alertController.addAction(cancelAction)
                            
                            self.present(alertController, animated: true, completion: nil)
+        }
     }
     // this function receives all status updates from the VM
     func manager_status_updates(_ rsp:NSDictionary) {
@@ -415,6 +425,9 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     self.startStopButton.isHidden = false
                     self.startStopButton.isSelected = true
                 }
+                self.vinLabel.isHidden = false
+                self.vinInfoDataLabel.isHidden = false
+                self.getVinButton.isHidden = false
                 self.disconnectButton.isHidden = false
                 self.peripheralTableView.isHidden = true
                 self.activeConnectionLabel.text = "✅"
@@ -515,6 +528,30 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cvc?.platformResponse = String(cr.message)
             
         }
+        if isGetVinClicked {
+        if cr.command_response.isEqual(to: "get_vin") || cr.command_response.isEqual(to: ".get_vin") {
+            
+            print("getVinResponse\(cr.command_response)")
+            DispatchQueue.main.async {
+                
+                self.getVinButton.isHidden = true
+                self.vinInfoDataLabel.isHidden = false
+                self.vinInfoDataLabel.text = cr.message as String
+                self.vinLabel.isHidden = false
+                
+            }
+            cvc?.platformResponse = String(cr.message)
+            
+        }
+        else{
+            DispatchQueue.main.async {
+            let alertController = UIAlertController(title: "", message:
+                "please Configure your firmware for VIN command", preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            }
+        }
+        }
     }
     
     
@@ -575,6 +612,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                        self.startStopButton.isHidden = true
                        self.throughPutLabel.text = "---"
                        self.averageMessageLabel.text = "---"
+                       self.vinInfoDataLabel.text = "---"
                        
                    }
     }
@@ -582,6 +620,14 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func restartTraceHit(_ sender: UIButton) {
                 tfm.traceFileRestart()
     }
+    // this function is called when the get vin button is hit
+      @IBAction func getVinButtonHit(_ sender: UIButton) {
+        let cmd = VehicleCommandRequest()
+        cmd.command = .get_vin
+        self.cm.sendCommand(cmd)
+        self.isGetVinClicked = true
+        
+      }
     // table view delegate functions
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

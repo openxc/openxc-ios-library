@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ProtocolBuffers
+//import SwiftProtobuf
 
 public enum VehicleCommandType: NSString {
     case version
@@ -21,6 +21,7 @@ public enum VehicleCommandType: NSString {
     case sd_mount_status
     case rtc_configuration
     case custom_command
+    case get_vin
 }
 
 
@@ -175,7 +176,7 @@ open class Command: NSObject {
     // common function for sending a VehicleCommandRequest
     func protobufSendCommand(cmd:VehicleCommandRequest){
         // in protobuf mode, build the command message
-        let cbuild = Openxc.ControlCommand.Builder()
+       /* let cbuild = Openxc.ControlCommand.Builder()
         if cmd.command == .version {
             _ = cbuild.setType(.version)
             
@@ -188,6 +189,10 @@ open class Command: NSObject {
             _ = cbuild.setType(.platform)
             
         }
+//        if cmd.command == .get_vin {
+//                   _ = cbuild.setType(.get_vin)
+//
+//               }
         if cmd.command == .passthrough {
             let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
             _ = cbuild2.setBus(Int32(cmd.bus))
@@ -265,7 +270,7 @@ open class Command: NSObject {
                        
                    } catch {
                        print("cmd msg build failed")
-                   }
+                   }*/
     }
     fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
         
@@ -283,7 +288,7 @@ open class Command: NSObject {
         // decode the command type and build the command depending on the command
         //print("cmd command...",cmd.command)
         
-        if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform {
+        if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform || cmd.command == .get_vin  {
             // build the command json
             cmdstr = "{\"command\":\"\(cmd.command.rawValue)\"}\0"
             print("cmdStr..",cmdstr)
@@ -323,8 +328,8 @@ open class Command: NSObject {
         // append to tx buffer
         bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
         
-        print("BLETxDataBuffer.count...",bleTransmitDataBuffer.count)
-        print("BLETxDataBuffer...",bleTransmitDataBuffer as Any)
+      //  print("BLETxDataBuffer.count...",bleTransmitDataBuffer.count)
+       // print("BLETxDataBuffer...",bleTransmitDataBuffer as Any)
         
         self.vm.bleTransmitDataBuffer = bleTransmitDataBuffer
         
