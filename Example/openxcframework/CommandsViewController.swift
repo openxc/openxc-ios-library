@@ -12,45 +12,45 @@ import openXCiOSFramework
 
 class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate {
     
-    // the VM
+    // the VM instance
     var vm: VehicleManager!
     var bm: BluetoothManager!
     var cm: Command!
-    var ObjectDic : NSMutableDictionary = NSMutableDictionary()
+    var objectDic : NSMutableDictionary = NSMutableDictionary()
     var dashDict: NSMutableDictionary!
     
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var responseLab: UILabel!
     
     @IBOutlet weak var busSeg: UISegmentedControl!
-    @IBOutlet weak var enabSeg: UISegmentedControl!
+    @IBOutlet weak var enabledSeg: UISegmentedControl!
     @IBOutlet weak var bypassSeg: UISegmentedControl!
-    @IBOutlet weak var pFormatSeg: UISegmentedControl!
+    @IBOutlet weak var payloadFormatSeg: UISegmentedControl!
     
     @IBOutlet weak var busLabel: UILabel!
     @IBOutlet weak var enabledLabel: UILabel!
     @IBOutlet weak var bypassLabel: UILabel!
     @IBOutlet weak var formatLabel: UILabel!
     
-    @IBOutlet weak var sendCmndButton: UIButton!
+    @IBOutlet weak var sendCommandButton: UIButton!
     
-    @IBOutlet weak var acitivityInd: UIActivityIndicatorView!
-    @IBOutlet weak var customCommandTF : UITextField!
+    @IBOutlet weak var acitivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var customCommandTextField : UITextField!
     
-    let commands = ["Version","Device Id","Passthrough CAN Mode","Acceptance Filter Bypass","Payload Format", "Platform", "RTC Config", "SD Card Status","Custom Command"]
+    let commands = ["Version","Device Id","Passthrough CAN Mode","Acceptance Filter Bypass","Payload Format", "Platform", "RTC Config", "SD Card Status","get_vin","Custom Command"]
     
-    var versionResp: String!
-    var deviceIdResp: String!
-    var passthroughResp: String!
-    var accFilterBypassResp: String!
-    var payloadFormatResp: String!
-    var platformResp: String!
-    var rtcConfigResp: String!
+    var versionResponse: String!
+    var deviceIdResponse: String!
+    var passThroughResponse: String!
+    var acceptanceFilterBypassResponse: String!
+    var payloadFormatResponse: String!
+    var platformResponse: String!
+    var rtcConfigResponse: String!
     var sdCardResp: String!
     var customCommandResp: String!
     var isJsonFormat:Bool!
-    
     var selectedRowInPicker: Int!
+    var vinResponse: String!
     
     
     override func viewDidLoad() {
@@ -58,35 +58,28 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         
         hideAll()
-        customCommandTF.delegate = self
-        acitivityInd.center = self.view.center
-        acitivityInd.hidesWhenStopped = true
-        acitivityInd.style =
+        customCommandTextField.delegate = self
+        acitivityIndicator.center = self.view.center
+        acitivityIndicator.hidesWhenStopped = true
+        acitivityIndicator.style =
             UIActivityIndicatorView.Style.whiteLarge
-        acitivityInd.isHidden = true
+        acitivityIndicator.isHidden = true
         
         // grab VM instance
         vm = VehicleManager.sharedInstance
         bm = BluetoothManager.sharedInstance
         cm = Command.sharedInstance
-        // vm.setCommandDefaultTarget(self, action: CommandsViewController.handle_cmd_response)
-        vm.setCommandDefaultTarget(self, action: CommandsViewController.handle_cmd_response)
-        //vm.cmdObj?.setCommandDefaultTarget(self, action: CommandsViewController.handle_cmd_response)
-        vm.setManagerCallbackTarget(self, action: CommandsViewController.manager_status_updates)
+        
+        vm.setCommandDefaultTarget(self, action: CommandsViewController.handleCommandResponse)
+        
+        vm.setManagerCallbackTarget(self, action: CommandsViewController.managerStatusUpdates)
         selectedRowInPicker = pickerView.selectedRow(inComponent: 0)
-        
-        //populateCommandResponseLabel(rowNum: selectedRowInPicker)
-        
-        // busSeg.addTarget(self, action: #selector(busSegmentedControlValueChanged), for: .valueChanged)
-        // enabSeg.addTarget(self, action: #selector(enabSegmentedControlValueChanged), for: .valueChanged)
-        //bypassSeg.addTarget(self, action: #selector(bypassSegmentedControlValueChanged), for: .valueChanged)
-        // pFormatSeg.addTarget(self, action: #selector(formatSegmentedControlValueChanged), for: .valueChanged)
         
         isJsonFormat = vm.jsonMode
         
         
     }
-    func manager_status_updates(_ rsp:NSDictionary) {
+    func managerStatusUpdates(_ rsp:NSDictionary) {
         // extract the status message
         let status = rsp.object(forKey: "status") as! Int
         let msg = VehicleManagerStatusMessage(rawValue: status)
@@ -101,28 +94,26 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         //Receive notification for the power drop
         
         if(!bm.isBleConnected){
-            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)
+            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage:errorMsgBLE)
         }
     }
     // MARK: Commands Function
     
-    @IBAction func sendCmnd() {
+    @IBAction func sendCommand() {
         
         let sRow = pickerView.selectedRow(inComponent: 0)
         
         if(bm.isBleConnected){
             
-            if (sRow == 8 ){
+            if (sRow == 8 && !vm.jsonMode ){
+  
+                    AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage: errorMsgCustomCommandProto)
                 
-                if !vm.jsonMode{
-                    AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage: errorMsgcustomCommand)
+                if(customCommandTextField.text == nil||customCommandTextField.text == ""){
+                    AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage: errorMsgText)
                     return
                 }
-                if(customCommandTF.text == nil||customCommandTF.text == ""){
-                    AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage: errorMsgforText)
-                    return
-                }
-                let str = customCommandTF.text!
+                let str = customCommandTextField.text!
                 let stringq = str.description.replacingOccurrences(of: "\"", with: "")
                 self.convertToJson(string: stringq)
                 let jsonString = self.createJSON()
@@ -135,22 +126,22 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
                     showActivityIndicator()
                     
                 }else{
-                    AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage: errorMsgCustomCommand)
+                    AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage: errorMsgCustomCommand)
                 }
                 
-            }else{
+            }else
+            {
                 self.sendCommandWithValue(sRow: sRow)
             }
             
         }else{
             
-            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage: errorMsgBLE)
+            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage: errorMsgBLE)
         }
-        
     }
     func validJson(strValue:String) -> Bool {
         
-        if (JSONSerialization.isValidJSONObject(ObjectDic)) {
+        if (JSONSerialization.isValidJSONObject(objectDic)) {
             // print("Valid Json")
             return true
         } else {
@@ -161,7 +152,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
     }
     func createJSON() -> String{
         
-        let jsonData = try? JSONSerialization.data(withJSONObject: ObjectDic, options: [])
+        let jsonData = try? JSONSerialization.data(withJSONObject: objectDic, options: [])
         let jsonString = String(data: jsonData!, encoding: .utf8)
         print(jsonString as Any)
         return jsonString!
@@ -179,15 +170,13 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
                     let newString3 = cleanedstring.replacingOccurrences(of: "\"", with: "")
                     let fullNameArr2 = newString3.components(separatedBy: ":")
                     
-                    ObjectDic[fullNameArr2[0]] = fullNameArr2[1]
+                    objectDic[fullNameArr2[0]] = fullNameArr2[1]
                 }
             }
             
-            print(ObjectDic)
         }else{
             let fullNameArr2 = cleanedstring.components(separatedBy: ":")
-            ObjectDic[fullNameArr2[0]] = fullNameArr2[1]
-            print(ObjectDic)
+            objectDic[fullNameArr2[0]] = fullNameArr2[1]
         }
     }
     func convertToJson(string:String){
@@ -201,55 +190,37 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         let vcm = VehicleCommandRequest()
         switch sRow {
         case 0:
-            //responseLab.text = ""
-            
             vcm.command = .version
             self.cm.sendCommand(vcm)
-            // activity indicator
             
             showActivityIndicator()
             break
         case 1:
-            //responseLab.text = ""
-            //let cm = VehicleCommandRequest()
             vcm.command = .device_id
             self.cm.sendCommand(vcm)
-            // activity indicator
             
             showActivityIndicator()
             break
         case 2:
             
-            
-            //let cm = VehicleCommandRequest()
-            
             // look at segmented control for bus
             vcm.bus = busSeg.selectedSegmentIndex + 1
-            
-            if enabSeg.selectedSegmentIndex==0 {
+            vcm.enabled = false
+            if enabledSeg.selectedSegmentIndex==0 {
                 vcm.enabled = true
-            } else {
-                vcm.enabled = false
             }
-            
             vcm.command = .passthrough
             self.cm.sendCommand(vcm)
-            // activity indicator
-            
             showActivityIndicator()
             
             break
         case 3:
-            
-            //let cm = VehicleCommandRequest()
             // look at segmented control for bus
             vcm.bus = busSeg.selectedSegmentIndex + 1
+            vcm.bypass = false
             if bypassSeg.selectedSegmentIndex==0 {
                 vcm.bypass = true
-            } else {
-                vcm.bypass = false
             }
-            
             vcm.command = .af_bypass
             self.cm.sendCommand(vcm)
             showActivityIndicator()
@@ -257,21 +228,16 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         case 4:
             
             //let cm = VehicleCommandRequest()
-            
-            if pFormatSeg.selectedSegmentIndex==0 {
+            vcm.format = "protobuf"
+            if payloadFormatSeg.selectedSegmentIndex==0 {
                 vcm.format = "json"
-            } else {
-                vcm.format = "protobuf"
             }
+             self.cm.sendCommand(vcm)
             vcm.command = .payload_format
-            if !vm.jsonMode && pFormatSeg.selectedSegmentIndex==0{
+            if !vm.jsonMode && payloadFormatSeg.selectedSegmentIndex==0{
                 self.cm.sendCommand(vcm)
-                showActivityIndicator()
             }
-            if vm.jsonMode && pFormatSeg.selectedSegmentIndex==1{
-                self.cm.sendCommand(vcm)
                 showActivityIndicator()
-            }
             break
         case 5:
             //let cm = VehicleCommandRequest()
@@ -295,18 +261,26 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         case 8:
             
             //let cm = VehicleCommandRequest()
-            vcm.command = .custom_command
+            vcm.command = .get_vin
             self.cm.sendCommand(vcm)
             showActivityIndicator()
+            break
+            
+            case 9:
+            
+            //let cm = VehicleCommandRequest()
+                vcm.command = .custom_command
+                self.cm.sendCommand(vcm)
+                showActivityIndicator()
             
             break
         default:
             break
         }
     }
+
     // this function handles all command responses
-    // this function handles all command responses
-    func handle_cmd_response(_ rsp:NSDictionary) {
+    func handleCommandResponse(_ rsp:NSDictionary) {
         if UserDefaults.standard.bool(forKey: "uploadTaraceOn") {
             self.sendTraceURLData(rsp: rsp)
         }
@@ -316,50 +290,55 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         // update the UI depending on the command type- version,device_id works for JSON mode, not in protobuf - TODO
         
         if cr.command_response.isEqual(to: "version") || cr.command_response.isEqual(to: ".version") {
-            versionResp = cr.message as String
+            versionResponse = cr.message as String
         }
-        if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
-            deviceIdResp = cr.message as String
+       if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
+            deviceIdResponse = cr.message as String
         }
         
         if cr.command_response.isEqual(to: "passthrough") || cr.command_response.isEqual(to: ".passthrough"){
-            passthroughResp = String(cr.status)
+            passThroughResponse = String(cr.status)
         }
         
-        if cr.command_response.isEqual(to: "af_bypass") || cr.command_response.isEqual(to: ".acceptancefilterbypass") {
-            accFilterBypassResp = String(cr.status)
+         if cr.command_response.isEqual(to: "af_bypass") || cr.command_response.isEqual(to: ".acceptancefilterbypass") {
+            acceptanceFilterBypassResponse = String(cr.status)
         }
+        if cr.command_response.isEqual(to: "get_vin") || cr.command_response.isEqual(to: ".get_vin") {
+            vinResponse = cr.message as String
+           }
+        self.handleVehicleCommandResponse(cr: cr)
+        
+      
+    }
+    func handleVehicleCommandResponse(cr:VehicleCommandResponse){
         
         if cr.command_response.isEqual(to: "payload_format") || cr.command_response.isEqual(to: ".payloadformat") {
-            if(cr.status){
-                if !vm.jsonMode && !isJsonFormat{
-                    vm.setProtobufMode(false)
-                    UserDefaults.standard.set(false, forKey:"protobufOn")
-                }
-                if vm.jsonMode && isJsonFormat{
-                    vm.setProtobufMode(true)
-                    UserDefaults.standard.set(true, forKey:"protobufOn")
-                    payloadFormatResp = String(cr.status)
-                }
-            }
-            payloadFormatResp = String(cr.status)
-            isJsonFormat = vm.jsonMode
-        }
-        if cr.command_response.isEqual(to: "platform") || cr.command_response.isEqual(to: ".platform"){
-            platformResp = cr.message as String
-        }
-        if cr.command_response.isEqual(to: "rtc_configuration") || cr.command_response.isEqual(to: ".rtcconfiguration") {
-            rtcConfigResp = String(cr.status)
-        }
-        if cr.command_response.isEqual(to: "sd_mount_status") || cr.command_response.isEqual(to: ".sdmountStatus") || cr.command_response.isEqual(to: ".sdMountStatus"){
-            sdCardResp = String(cr.status)
-        }else{
-            customCommandResp = String(cr.message)
-        }
-        // update the label
-        DispatchQueue.main.async {
-            self.populateCommandResponseLabel(rowNum: self.selectedRowInPicker)
-        }
+                   if(cr.status && !vm.jsonMode && !isJsonFormat){
+                           vm.setProtobufMode(false)
+                           UserDefaults.standard.set(false, forKey:"protobufOn")
+                       
+                   }else{
+                       vm.setProtobufMode(true)
+                       UserDefaults.standard.set(true, forKey:"protobufOn")
+                   }
+                   payloadFormatResponse = String(cr.status)
+                   isJsonFormat = vm.jsonMode
+               }
+                if cr.command_response.isEqual(to: "platform") || cr.command_response.isEqual(to: ".platform"){
+                   platformResponse = cr.message as String
+               }
+               if cr.command_response.isEqual(to: "rtc_configuration") || cr.command_response.isEqual(to: ".rtcconfiguration") {
+                   rtcConfigResponse = String(cr.status)
+               }
+                if cr.command_response.isEqual(to: "sd_mount_status") || cr.command_response.isEqual(to: ".sdmountStatus") || cr.command_response.isEqual(to: ".sdMountStatus"){
+                   sdCardResp = String(cr.status)
+               }else{
+                   customCommandResp = String(cr.message)
+               }
+               // update the label
+               DispatchQueue.main.async {
+                   self.populateCommandResponseLabel(rowNum: self.selectedRowInPicker)
+               }
     }
     
     @objc func sendTraceURLData(rsp:NSDictionary) {
@@ -400,11 +379,11 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         selectedRowInPicker = row
         populateCommandResponseLabel(rowNum: row)
         responseLab.text = "---"
-        if (row == 8){
-            customCommandTF.isHidden = false
+        if (row == 9){
+            customCommandTextField.isHidden = false
             
         }else{
-            customCommandTF.isHidden = true
+            customCommandTextField.isHidden = true
             
         }
         
@@ -418,62 +397,66 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         switch rowNum {
         case 0:
-            sendCmndButton.isHidden = false
-            responseLab.text = versionResp
+            sendCommandButton.isHidden = false
+            responseLab.text = versionResponse
             break
         case 1:
-            sendCmndButton.isHidden = false
-            responseLab.text = deviceIdResp
+            sendCommandButton.isHidden = false
+            responseLab.text = deviceIdResponse
             break
         case 2:
-            sendCmndButton.isHidden = false
-            responseLab.text = passthroughResp
+            sendCommandButton.isHidden = false
+            responseLab.text = passThroughResponse
             busLabel.isHidden = false
             busSeg.isHidden = false
             enabledLabel.isHidden = false
-            enabSeg.isHidden = false
+            enabledSeg.isHidden = false
             break
         case 3:
-            sendCmndButton.isHidden = false
-            responseLab.text = accFilterBypassResp
+            sendCommandButton.isHidden = false
+            responseLab.text = acceptanceFilterBypassResponse
             busLabel.isHidden = false
             busSeg.isHidden = false
             bypassLabel.isHidden = false
             bypassSeg.isHidden = false
             break
         case 4:
-            sendCmndButton.isHidden = false
-            responseLab.text = payloadFormatResp
+            sendCommandButton.isHidden = false
+            responseLab.text = payloadFormatResponse
             formatLabel.isHidden = false
-            pFormatSeg.isHidden = false
+            payloadFormatSeg.isHidden = false
             break
         case 5:
-            sendCmndButton.isHidden = false
-            responseLab.text = platformResp
+            sendCommandButton.isHidden = false
+            responseLab.text = platformResponse
             break
         case 6:
-            sendCmndButton.isHidden = false
-            responseLab.text = rtcConfigResp
+            sendCommandButton.isHidden = false
+            responseLab.text = rtcConfigResponse
             break
         case 7:
-            sendCmndButton.isHidden = false
+            sendCommandButton.isHidden = false
             responseLab.text = sdCardResp
             break
         case 8:
-            sendCmndButton.isHidden = false
+            sendCommandButton.isHidden = false
+            responseLab.text = vinResponse
+            break
+        case 9:
+            sendCommandButton.isHidden = false
             responseLab.text = customCommandResp
             break
         default:
-            sendCmndButton.isHidden = true
-            responseLab.text = versionResp
+            sendCommandButton.isHidden = true
+            responseLab.text = versionResponse
         }
     }
     
     func hideAll() {
         busSeg.isHidden = true
-        enabSeg.isHidden = true
+        enabledSeg.isHidden = true
         bypassSeg.isHidden = true
-        pFormatSeg.isHidden = true
+        payloadFormatSeg.isHidden = true
         busLabel.isHidden = true
         enabledLabel.isHidden = true
         bypassLabel.isHidden = true
@@ -481,20 +464,20 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
     }
     
     func showActivityIndicator() {
-        acitivityInd.startAnimating()
+        acitivityIndicator.startAnimating()
         self.view.alpha = 0.5
         self.view.isUserInteractionEnabled = false
         
     }
     func hideActivityIndicator() {
-        acitivityInd.stopAnimating()
+        acitivityIndicator.stopAnimating()
         self.view.alpha = 1.0
         self.view.isUserInteractionEnabled = true
         
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        customCommandTF.resignFirstResponder()
+        customCommandTextField.resignFirstResponder()
         
         return true
     }

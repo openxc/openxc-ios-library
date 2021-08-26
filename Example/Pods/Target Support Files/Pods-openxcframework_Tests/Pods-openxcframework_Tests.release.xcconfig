@@ -1,7 +1,7 @@
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ProtocolBuffers-Swift" "${PODS_CONFIGURATION_BUILD_DIR}/openxcframework" "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/iOS"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/openxcframework" "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/iOS"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ProtocolBuffers-Swift/ProtocolBuffers.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/openxcframework/openXCiOSFramework.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -l"c++" -l"sqlite3" -l"z" -framework "CoreBluetooth" -framework "CoreTelephony" -framework "ExternalAccessory" -framework "Foundation" -framework "ProtocolBuffers" -framework "SystemConfiguration" -framework "UIKit" -framework "openXCiOSFramework"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/openxcframework/openXCiOSFramework.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -l"c++" -l"sqlite3" -l"z" -framework "CoreBluetooth" -framework "CoreTelephony" -framework "ExternalAccessory" -framework "Foundation" -framework "SystemConfiguration" -framework "UIKit" -framework "openXCiOSFramework"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
