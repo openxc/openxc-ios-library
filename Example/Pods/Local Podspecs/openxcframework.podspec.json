@@ -20,6 +20,11 @@
   },
   "exclude_files": "openxcframework/*.plist",
   "source_files": "openxcframework/*.{swift}",
+  "dependencies": {
+    "SwiftProtobuf": [
+
+    ]
+  },
   "module_name": "openXCiOSFramework",
   "frameworks": [
     "ExternalAccessory",
