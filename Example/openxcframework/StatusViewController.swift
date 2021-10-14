@@ -498,6 +498,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // extract the command response message
         let cr = rsp.object(forKey: "vehiclemessage") as! VehicleCommandResponse
+        print("satus page command-----\(cr.command_response)")
         
         // update the UI depending on the command type- version,device_id works for JSON mode, not in protobuf - TODO
         
@@ -509,13 +510,13 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if cr.command_response.isEqual(to: "version") || cr.command_response.isEqual(to: ".version") {
             DispatchQueue.main.async {
-                self.versionLabel.text = cr.message as String
+               // self.versionLabel.text = cr.message as String
             }
             cvc?.versionResponse = String(cr.message)
         }
-        if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
+        if cr.command_response.isEqual(to: "deviceID") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
             DispatchQueue.main.async {
-                self.deviceIdLabel.text = cr.message as String
+               // self.deviceIdLabel.text = cr.message as String
             }
             cvc?.deviceIdResponse = String(cr.message)
             
@@ -523,13 +524,14 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if cr.command_response.isEqual(to: "platform") || cr.command_response.isEqual(to: ".platform") {
             
             DispatchQueue.main.async {
-                self.platformLabel.text = cr.message as String
+               // self.platformLabel.text = cr.message as String
             }
             cvc?.platformResponse = String(cr.message)
             
         }
+        //|| cr.command_response.isEqual(to: "GET_VIN"
         if isGetVinClicked {
-        if cr.command_response.isEqual(to: "get_vin") || cr.command_response.isEqual(to: ".get_vin") {
+        if cr.command_response.isEqual(to: "getVin") || cr.command_response.isEqual(to: ".get_vin" ) {
             
             print("getVinResponse\(cr.command_response)")
             DispatchQueue.main.async {
@@ -546,7 +548,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         else{
             DispatchQueue.main.async {
             let alertController = UIAlertController(title: "", message:
-                "please Configure your firmware for VIN command", preferredStyle: UIAlertController.Style.alert)
+                "Unable to get the VIN", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
             self.present(alertController, animated: true, completion: nil)
             }
@@ -623,7 +625,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // this function is called when the get vin button is hit
       @IBAction func getVinButtonHit(_ sender: UIButton) {
         let cmd = VehicleCommandRequest()
-        cmd.command = .get_vin
+        cmd.command = .get_Vin
         self.cm.sendCommand(cmd)
         self.isGetVinClicked = true
         

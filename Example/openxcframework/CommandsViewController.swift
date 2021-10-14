@@ -261,7 +261,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         case 8:
             
             //let cm = VehicleCommandRequest()
-            vcm.command = .get_vin
+            vcm.command = .get_Vin
             self.cm.sendCommand(vcm)
             showActivityIndicator()
             break

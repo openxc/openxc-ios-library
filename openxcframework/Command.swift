@@ -21,7 +21,7 @@ public enum VehicleCommandType: NSString {
     case sd_mount_status
     case rtc_configuration
     case custom_command
-    case get_vin
+    case get_Vin
 }
 
 
@@ -176,24 +176,34 @@ open class Command: NSObject {
     // common function for sending a VehicleCommandRequest
     func protobufSendCommand(cmd:VehicleCommandRequest){
         // in protobuf mode, build the command message
-       /* let cbuild = Openxc.ControlCommand.Builder()
+        var vehiclemessage = Openxc_VehicleMessage()
+        vehiclemessage.type = .controlCommand
         if cmd.command == .version {
-            _ = cbuild.setType(.version)
             
+            vehiclemessage.controlCommand.type = .version
+
+
         }
         if cmd.command == .device_id {
-            _ = cbuild.setType(.deviceId)
-            
-        }
+          
+           vehiclemessage.controlCommand.type = .deviceID
+
+
+          }
         if cmd.command == .platform {
-            _ = cbuild.setType(.platform)
-            
-        }
-//        if cmd.command == .get_vin {
-//                   _ = cbuild.setType(.get_vin)
-//
-//               }
-        if cmd.command == .passthrough {
+          
+           vehiclemessage.controlCommand.type = .platform
+
+
+          }
+        
+        if cmd.command == .get_Vin {
+          
+           vehiclemessage.controlCommand.type = .getVin
+
+          
+         }
+       /* if cmd.command == .passthrough {
             let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
             _ = cbuild2.setBus(Int32(cmd.bus))
             _ = cbuild2.setEnabled(cmd.enabled)
@@ -244,33 +254,25 @@ open class Command: NSObject {
         if cmd.command == .sd_mount_status {
             _ = cbuild.setType(.sdMountStatus)
             
+        }*/
+        
+        do
+        {
+            let binaryData:Data = try vehiclemessage.serializedData()
+            let cdata2 = NSMutableData()
+            let prepend : [UInt8] = [UInt8(binaryData.count)]
+            cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
+            cdata2.append(binaryData)
+           // print(cdata2)
+            self.vm.bleTransmitDataBuffer.add(cdata2)
+            BluetoothManager.sharedInstance.bleSendFunction()
+            print("_____version data \(cdata2 as NSData)")
+            BluetoothManager.sharedInstance.bleSendFunction()
+            
+        }catch{
+            print(error)
         }
-        let mbuild = Openxc.VehicleMessage.Builder()
-                   _ = mbuild.setType(.controlCommand)
-                   
-                   do {
-                       let cmsg = try cbuild.build()
-                       _ = mbuild.setControlCommand(cmsg)
-                       let mmsg = try mbuild.build()
-                       print (mmsg)
-                       
-                       
-                       let cdata = mmsg.data()
-                       let cdata2 = NSMutableData()
-                       let prepend : [UInt8] = [UInt8(cdata.count)]
-                       cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
-                       cdata2.append(cdata)
-                       print(cdata2)
-                       
-                       // append to tx buffer
-                      self.vm.bleTransmitDataBuffer.add(cdata2)
-                       
-                       // trigger a BLE data send
-                       BluetoothManager.sharedInstance.bleSendFunction()
-                       
-                   } catch {
-                       print("cmd msg build failed")
-                   }*/
+        
     }
     fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
         
@@ -288,7 +290,7 @@ open class Command: NSObject {
         // decode the command type and build the command depending on the command
         //print("cmd command...",cmd.command)
         
-        if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform || cmd.command == .get_vin  {
+        if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform || cmd.command == .get_Vin  {
             // build the command json
             cmdstr = "{\"command\":\"\(cmd.command.rawValue)\"}\0"
             print("cmdStr..",cmdstr)

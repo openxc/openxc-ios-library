@@ -161,6 +161,7 @@ open class VehicleManager: NSObject {
 
     if on{
     jsonMode = false
+        print("Protobuf------")
     }
     else{
     jsonMode = true
@@ -792,7 +793,7 @@ open class VehicleManager: NSObject {
   /////////////////
   
   
-  /*fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
+  fileprivate func protobufDecoding(data_chunk:NSMutableData,packetlen:Int){
     var msg : Openxc_VehicleMessage
     do {
         msg = try Openxc_VehicleMessage(serializedData: data_chunk as Data )
@@ -818,7 +819,7 @@ open class VehicleManager: NSObject {
         if nameValue != .diagnostic{
           decoded = true
             print("Response command>>>>\(msg)")
-          //self.protobufCommandResponse(msg : msg)
+          self.protobufCommandResponse(msg : msg)
         }
         
       }
@@ -827,10 +828,10 @@ open class VehicleManager: NSObject {
       /////////////////////////////
      // Diagnostic messages
      /////////////////////////////
-       if msg.type == .diagnostic ||  msg.type == .diagnosticStitch {
+        if msg.type == .diagnostic {
        decoded = true
        print("Response Diagnostic>>>>\(msg)")
-       self.protobufDignosticMessage(msg: msg)
+       //self.protobufDignosticMessage(msg: msg)
      }
       
       // CAN messages
@@ -852,9 +853,9 @@ open class VehicleManager: NSObject {
       return
     }
 
-  }*/
+  }
   
-   /* fileprivate func protobufMeasurementMessage(msg : Openxc_VehicleMessage){
+    fileprivate func protobufMeasurementMessage(msg : Openxc_VehicleMessage){
         //let name = msg.simpleMessage.name
         let name = msg.simpleMessage.name as NSString
             let resultString = String(describing: msg)
@@ -875,8 +876,8 @@ open class VehicleManager: NSObject {
            
         self.protobufMeasurement(rsp: rsp,name: name, msg: msg)
     
-  }*/
-   /* fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg :Openxc_VehicleMessage){
+  }
+    fileprivate func protobufMeasurement(rsp : VehicleMeasurementResponse, name:NSString,msg :Openxc_VehicleMessage){
        
         if msg.hasSimpleMessage{
             rsp.value = msg.simpleMessage.value.stringValue as AnyObject
@@ -909,7 +910,7 @@ open class VehicleManager: NSObject {
       }*/
         self.protoSimpleMsgCheck(rsp:rsp,name:name)
 
-  }*/
+  }
     
     fileprivate func protoSimpleMsgCheck(rsp : VehicleMeasurementResponse, name:NSString){
         
@@ -934,18 +935,19 @@ open class VehicleManager: NSObject {
         }
     }
   
-  /*  fileprivate func protobufCommandResponse(msg : Openxc_VehicleMessage){
+    fileprivate func protobufCommandResponse(msg : Openxc_VehicleMessage){
 
-    let name = msg.commandResponse.type.description
+    let name = msg.commandResponse.type
     // build command response message
     print(msg)
     let rsp : VehicleCommandResponse = VehicleCommandResponse()
 
-       if let timestamp = msg.timestamp{
-            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-        }
+        rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+      // if let timestamp = msg.timestamp{
+          //  rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
+       // }
 
-        rsp.command_response = name.lowercased() as NSString
+        rsp.command_response = String(describing: name) as NSString
         rsp.message = msg.commandResponse.message as NSString
         rsp.status = msg.commandResponse.status
 
@@ -966,7 +968,7 @@ open class VehicleManager: NSObject {
       let s : String = bleTransmitCommandToken.removeFirst()
       ta.performAction(["vehiclemessage":rsp,"key":s] as NSDictionary)
     }
-  }*/
+  }
   
     /*fileprivate func protobufDignosticMessage(msg : Openxc.VehicleMessage){
         print("DiagnosticResponse>>>>\(msg)")
@@ -1723,7 +1725,7 @@ open class VehicleManager: NSObject {
         
        // vmlog(data_chunk)
         
-      //  self.protobufDecoding(data_chunk: data_chunk,packetlen:packetlen)
+        self.protobufDecoding(data_chunk: data_chunk,packetlen:packetlen)
         
         // Keep a count of how many messages were received in total
         // since connection. Can be used by the client app.

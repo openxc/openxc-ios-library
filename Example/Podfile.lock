@@ -1,13 +1,15 @@
 PODS:
-  - AppCenter (3.1.0):
-    - AppCenter/Analytics (= 3.1.0)
-    - AppCenter/Crashes (= 3.1.0)
-  - AppCenter/Analytics (3.1.0):
+  - AppCenter (4.3.0):
+    - AppCenter/Analytics (= 4.3.0)
+    - AppCenter/Crashes (= 4.3.0)
+  - AppCenter/Analytics (4.3.0):
     - AppCenter/Core
-  - AppCenter/Core (3.1.0)
-  - AppCenter/Crashes (3.1.0):
+  - AppCenter/Core (4.3.0)
+  - AppCenter/Crashes (4.3.0):
     - AppCenter/Core
-  - openxcframework (6.3.0)
+  - openxcframework (6.3.0):
+    - SwiftProtobuf
+  - SwiftProtobuf (1.18.0)
 
 DEPENDENCIES:
   - AppCenter
@@ -16,15 +18,17 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AppCenter
+    - SwiftProtobuf
 
 EXTERNAL SOURCES:
   openxcframework:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AppCenter: a1c30c47b7882a04a615ffa5ab26c007326436d8
-  openxcframework: d605a0b1a7dbd9140df33ad716d2014e8fc26071
+  AppCenter: 883369ab78427b0561c688158d689dfe1f993ea9
+  openxcframework: ba7440ee3d4462efa58e985502422759ada1461b
+  SwiftProtobuf: c3c12645230d9b09c72267e0de89468c5543bd86
 
 PODFILE CHECKSUM: f2d0fa3f68cab83a814e453755d9a4d8bf474222
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.11.2
