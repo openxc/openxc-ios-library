@@ -2146,7 +2146,7 @@
                                             <action selector="sensorChange:" destination="9i4-pc-krT" eventType="touchUpInside" id="tJ9-3u-Rcs"/>
                                         </connections>
                                     </switch>
-                                    <switch opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xxv-EJ-IqP">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xxv-EJ-IqP">
                                         <rect key="frame" x="312" y="406.5" width="51" height="31"/>
                                         <connections>
                                             <action selector="protoChange:" destination="9i4-pc-krT" eventType="touchUpInside" id="Ny2-fQ-0Sn"/>

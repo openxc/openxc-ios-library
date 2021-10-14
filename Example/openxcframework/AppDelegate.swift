@@ -48,8 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     func setUpAppCenterSDK() {
-        MSAppCenter.start("8684d9e9-ea0b-4c3b-bc94-84ccb16965df", withServices: [MSAnalytics.self, MSCrashes.self])
-
+       // MSAppCenter.start("8684d9e9-ea0b-4c3b-bc94-84ccb16965df", withServices: [MSAnalytics.self, MSCrashes.self])
+        
+        
     }
     func getUUID () {
         let device_id = UIDevice.current.identifierForVendor!.uuidString
