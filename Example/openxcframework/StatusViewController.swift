@@ -548,7 +548,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         else{
             DispatchQueue.main.async {
             let alertController = UIAlertController(title: "", message:
-                "please Configure your firmware for VIN command", preferredStyle: UIAlertController.Style.alert)
+                "Unable to get the VIN", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
             self.present(alertController, animated: true, completion: nil)
             }
