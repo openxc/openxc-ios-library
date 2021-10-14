@@ -510,13 +510,13 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if cr.command_response.isEqual(to: "version") || cr.command_response.isEqual(to: ".version") {
             DispatchQueue.main.async {
-               // self.versionLabel.text = cr.message as String
+                self.versionLabel.text = cr.message as String
             }
             cvc?.versionResponse = String(cr.message)
         }
         if cr.command_response.isEqual(to: "deviceID") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
             DispatchQueue.main.async {
-               // self.deviceIdLabel.text = cr.message as String
+                self.deviceIdLabel.text = cr.message as String
             }
             cvc?.deviceIdResponse = String(cr.message)
             
@@ -524,7 +524,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if cr.command_response.isEqual(to: "platform") || cr.command_response.isEqual(to: ".platform") {
             
             DispatchQueue.main.async {
-               // self.platformLabel.text = cr.message as String
+                self.platformLabel.text = cr.message as String
             }
             cvc?.platformResponse = String(cr.message)
             
