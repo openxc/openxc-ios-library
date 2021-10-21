@@ -61,8 +61,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         customCommandTextField.delegate = self
         acitivityIndicator.center = self.view.center
         acitivityIndicator.hidesWhenStopped = true
-        acitivityIndicator.style =
-            UIActivityIndicatorView.Style.whiteLarge
+        acitivityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         acitivityIndicator.isHidden = true
         
         // grab VM instance
@@ -105,7 +104,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         if(bm.isBleConnected){
             
-            if (sRow == 8 && !vm.jsonMode ){
+            if (sRow == 9 && !vm.jsonMode ){
   
                     AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage: errorMsgCustomCommandProto)
                 
@@ -229,15 +228,29 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             
             //let cm = VehicleCommandRequest()
             vcm.format = "protobuf"
+            vcm.command = .payload_format
+            
             if payloadFormatSeg.selectedSegmentIndex==0 {
                 vcm.format = "json"
             }
-             self.cm.sendCommand(vcm)
-            vcm.command = .payload_format
-            if !vm.jsonMode && payloadFormatSeg.selectedSegmentIndex==0{
-                self.cm.sendCommand(vcm)
+           
+            if !vm.jsonMode && payloadFormatSeg.selectedSegmentIndex == 1{
+                let alertController = UIAlertController(title: "", message:
+                    "The payload format is in protobuf", preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+                self.present(alertController, animated: true, completion: nil)
             }
+            else if vm.jsonMode && payloadFormatSeg.selectedSegmentIndex == 0{
+                let alertController = UIAlertController(title: "", message:
+                    "The payload format is in Json", preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            }
+            else{
+                self.cm.sendCommand(vcm)
                 showActivityIndicator()
+            }
+               
             break
         case 5:
             //let cm = VehicleCommandRequest()
@@ -287,12 +300,13 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         // extract the command response message
         let cr = rsp.object(forKey: "vehiclemessage") as! VehicleCommandResponse
         
+        print(">>>>>>>>\(cr.command_response)")
         // update the UI depending on the command type- version,device_id works for JSON mode, not in protobuf - TODO
         
         if cr.command_response.isEqual(to: "version") || cr.command_response.isEqual(to: ".version") {
             versionResponse = cr.message as String
         }
-       if cr.command_response.isEqual(to: "device_id") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
+       if cr.command_response.isEqual(to: "deviceID") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
             deviceIdResponse = cr.message as String
         }
         
@@ -300,10 +314,10 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             passThroughResponse = String(cr.status)
         }
         
-         if cr.command_response.isEqual(to: "af_bypass") || cr.command_response.isEqual(to: ".acceptancefilterbypass") {
+         if cr.command_response.isEqual(to: "acceptanceFilterBypass") || cr.command_response.isEqual(to: ".acceptancefilterbypass") {
             acceptanceFilterBypassResponse = String(cr.status)
         }
-        if cr.command_response.isEqual(to: "get_vin") || cr.command_response.isEqual(to: ".get_vin") {
+        if cr.command_response.isEqual(to: "get_vin") || cr.command_response.isEqual(to: ".get_vin") || cr.command_response.isEqual(to: "getVin") {
             vinResponse = cr.message as String
            }
         self.handleVehicleCommandResponse(cr: cr)
@@ -312,7 +326,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
     }
     func handleVehicleCommandResponse(cr:VehicleCommandResponse){
         
-        if cr.command_response.isEqual(to: "payload_format") || cr.command_response.isEqual(to: ".payloadformat") {
+        if cr.command_response.isEqual(to: "payload_format") || cr.command_response.isEqual(to: ".payloadformat") || cr.command_response.isEqual(to: "payloadFormat") {
                    if(cr.status && !vm.jsonMode && !isJsonFormat){
                            vm.setProtobufMode(false)
                            UserDefaults.standard.set(false, forKey:"protobufOn")
@@ -327,10 +341,10 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
                 if cr.command_response.isEqual(to: "platform") || cr.command_response.isEqual(to: ".platform"){
                    platformResponse = cr.message as String
                }
-               if cr.command_response.isEqual(to: "rtc_configuration") || cr.command_response.isEqual(to: ".rtcconfiguration") {
+               if cr.command_response.isEqual(to: "rtc_configuration") || cr.command_response.isEqual(to: ".rtcconfiguration") || cr.command_response.isEqual(to: "rtcConfiguration") {
                    rtcConfigResponse = String(cr.status)
                }
-                if cr.command_response.isEqual(to: "sd_mount_status") || cr.command_response.isEqual(to: ".sdmountStatus") || cr.command_response.isEqual(to: ".sdMountStatus"){
+                if cr.command_response.isEqual(to: "sd_mount_status") || cr.command_response.isEqual(to: ".sdmountStatus") || cr.command_response.isEqual(to: "sdMountStatus"){
                    sdCardResp = String(cr.status)
                }else{
                    customCommandResp = String(cr.message)
@@ -364,7 +378,9 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return commands.count
+        
+            return commands.count
+   
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
@@ -379,11 +395,14 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         selectedRowInPicker = row
         populateCommandResponseLabel(rowNum: row)
         responseLab.text = "---"
-        if (row == 9){
-            customCommandTextField.isHidden = false
+    
+        if (row == 9 && !vm.jsonMode){
             
-        }else{
             customCommandTextField.isHidden = true
+            
+        } else if (vm.jsonMode && row == 9){
+            
+            customCommandTextField.isHidden = false
             
         }
         
@@ -399,10 +418,12 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         case 0:
             sendCommandButton.isHidden = false
             responseLab.text = versionResponse
+            customCommandTextField.isHidden = true
             break
         case 1:
             sendCommandButton.isHidden = false
             responseLab.text = deviceIdResponse
+            customCommandTextField.isHidden = true
             break
         case 2:
             sendCommandButton.isHidden = false
@@ -411,6 +432,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             busSeg.isHidden = false
             enabledLabel.isHidden = false
             enabledSeg.isHidden = false
+            customCommandTextField.isHidden = true
             break
         case 3:
             sendCommandButton.isHidden = false
@@ -419,32 +441,47 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
             busSeg.isHidden = false
             bypassLabel.isHidden = false
             bypassSeg.isHidden = false
+            customCommandTextField.isHidden = true
             break
         case 4:
             sendCommandButton.isHidden = false
             responseLab.text = payloadFormatResponse
             formatLabel.isHidden = false
             payloadFormatSeg.isHidden = false
+            customCommandTextField.isHidden = true
             break
         case 5:
             sendCommandButton.isHidden = false
             responseLab.text = platformResponse
+            customCommandTextField.isHidden = true
             break
         case 6:
             sendCommandButton.isHidden = false
             responseLab.text = rtcConfigResponse
+            customCommandTextField.isHidden = true
             break
         case 7:
             sendCommandButton.isHidden = false
             responseLab.text = sdCardResp
+            customCommandTextField.isHidden = true
             break
         case 8:
             sendCommandButton.isHidden = false
             responseLab.text = vinResponse
+            customCommandTextField.isHidden = true
             break
         case 9:
+            if (!vm.jsonMode) {
+                busLabel.isHidden = true
+                busSeg.isHidden = true
+                bypassLabel.isHidden = true
+                bypassSeg.isHidden = true
+                customCommandTextField.isHidden = true
+             
+            }else{
             sendCommandButton.isHidden = false
             responseLab.text = customCommandResp
+            }
             break
         default:
             sendCommandButton.isHidden = true

@@ -514,7 +514,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             cvc?.versionResponse = String(cr.message)
         }
-        if cr.command_response.isEqual(to: "deviceID") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: ".deviceid"){
+        if cr.command_response.isEqual(to: "deviceID") || cr.command_response.isEqual(to: ".deviceId") || cr.command_response.isEqual(to: "device_id"){
             DispatchQueue.main.async {
                 self.deviceIdLabel.text = cr.message as String
             }
@@ -531,7 +531,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         //|| cr.command_response.isEqual(to: "GET_VIN"
         if isGetVinClicked {
-        if cr.command_response.isEqual(to: "getVin") || cr.command_response.isEqual(to: ".get_vin" ) {
+        if cr.command_response.isEqual(to: "getVin") || cr.command_response.isEqual(to: ".get_vin") || cr.command_response.isEqual(to: "get_Vin") {
             
             print("getVinResponse\(cr.command_response)")
             DispatchQueue.main.async {
