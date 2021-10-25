@@ -178,6 +178,8 @@ open class Command: NSObject {
         // in protobuf mode, build the command message
         var vehiclemessage = Openxc_VehicleMessage()
         vehiclemessage.type = .controlCommand
+        
+        print(">>>>>>>>Comandtype\(cmd.command)")
         if cmd.command == .version {
             
             vehiclemessage.controlCommand.type = .version
@@ -203,58 +205,92 @@ open class Command: NSObject {
 
           
          }
-       /* if cmd.command == .passthrough {
-            let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
-            _ = cbuild2.setBus(Int32(cmd.bus))
-            _ = cbuild2.setEnabled(cmd.enabled)
-            _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
-            _ = cbuild.setType(.passthrough)
+        
+        if cmd.command == .passthrough {
+            
+            
+            vehiclemessage.controlCommand.type = .passthrough
+            vehiclemessage.controlCommand.passthroughModeRequest.bus = Int32(cmd.bus)
+            vehiclemessage.controlCommand.passthroughModeRequest.enabled = cmd.enabled
+            
+        
+            
+//            let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
+//            _ = cbuild2.setBus(Int32(cmd.bus))
+//            _ = cbuild2.setEnabled(cmd.enabled)
+//            _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
+//            _ = cbuild.setType(.passthrough)
         }
         if cmd.command == .af_bypass {
-            let cbuild2 = Openxc.AcceptanceFilterBypassCommand.Builder()
-            _ = cbuild2.setBus(Int32(cmd.bus))
-            _ = cbuild2.setBypass(cmd.bypass)
-            _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
-            _ = cbuild.setType(.acceptanceFilterBypass)
+            
+            vehiclemessage.controlCommand.type = .acceptanceFilterBypass
+            vehiclemessage.controlCommand.acceptanceFilterBypassCommand.bus = Int32(cmd.bus)
+            vehiclemessage.controlCommand.acceptanceFilterBypassCommand.bypass = cmd.bypass
+            
+       
+//            let cbuild2 = Openxc.AcceptanceFilterBypassCommand.Builder()
+//            _ = cbuild2.setBus(Int32(cmd.bus))
+//            _ = cbuild2.setBypass(cmd.bypass)
+//            _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
+//            _ = cbuild.setType(.acceptanceFilterBypass)
         }
         if cmd.command == .payload_format {
-            let cbuild2 = Openxc.PayloadFormatCommand.Builder()
-            if cmd.format == "json" {
-                _ = cbuild2.setFormat(.json)
-                
+            
+            vehiclemessage.controlCommand.type = .payloadFormat
+            
+           if cmd.format == "json" {
+            vehiclemessage.controlCommand.payloadFormatCommand.format = .json
+               
             }
             if cmd.format == "protobuf" {
-                _ = cbuild2.setFormat(.protobuf)
-                
+                vehiclemessage.controlCommand.payloadFormatCommand.format = .protobuf
+
             }
-            _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
-            _ = cbuild.setType(.payloadFormat)
+           
+
         }
         if cmd.command == .predefined_odb2 {
-            let cbuild2 = Openxc.PredefinedObd2RequestsCommand.Builder()
-            _ = cbuild2.setEnabled(cmd.enabled)
-            _ = cbuild.setPredefinedObd2RequestsCommand(cbuild2.buildPartial())
-            _ = cbuild.setType(.predefinedObd2Requests)
+            
+            vehiclemessage.controlCommand.type = .predefinedObd2Requests
+            vehiclemessage.controlCommand.predefinedObd2RequestsCommand.enabled = cmd.bypass
+           
+            
+//            let cbuild2 = Openxc.PredefinedObd2RequestsCommand.Builder()
+//            _ = cbuild2.setEnabled(cmd.enabled)
+//            _ = cbuild.setPredefinedObd2RequestsCommand(cbuild2.buildPartial())
+//            _ = cbuild.setType(.predefinedObd2Requests)
         }
         if cmd.command == .modem_configuration {
-            _ = cbuild.setType(.modemConfiguration)
-            let cbuild2 = Openxc.ModemConfigurationCommand.Builder()
-            let srv = Openxc.ServerConnectSettings.Builder()
-            _ = srv.setHost(cmd.server_host as String)
-            _ = srv.setPort(UInt32(cmd.server_port))
-            _ = cbuild2.setServerConnectSettings(srv.buildPartial())
-            _ = cbuild.setModemConfigurationCommand(cbuild2.buildPartial())
+            
+            
+            //        message->type = openxc_VehicleMessage_Type_CONTROL_COMMAND;
+            //        message->control_command.type = openxc_ControlCommand_Type_PASSTHROUGH;
+            //        message->control_command.passthrough_mode_request.bus = 1;
+            //        message->control_command.passthrough_mode_request.enabled = 1;
+            
+//            _ = cbuild.setType(.modemConfiguration)
+//            let cbuild2 = Openxc.ModemConfigurationCommand.Builder()
+//            let srv = Openxc.ServerConnectSettings.Builder()
+//            _ = srv.setHost(cmd.server_host as String)
+//            _ = srv.setPort(UInt32(cmd.server_port))
+//            _ = cbuild2.setServerConnectSettings(srv.buildPartial())
+//            _ = cbuild.setModemConfigurationCommand(cbuild2.buildPartial())
         }
         if cmd.command == .rtc_configuration {
-            let cbuild2 = Openxc.RtcconfigurationCommand.Builder()
-            _ = cbuild2.setUnixTime(UInt32(cmd.unix_time))
-            _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
-            _ = cbuild.setType(.rtcConfiguration)
+            
+            vehiclemessage.controlCommand.type = .rtcConfiguration
+            vehiclemessage.controlCommand.rtcConfigurationCommand.unixTime =  UInt32(cmd.unix_time)
+           
+//            let cbuild2 = Openxc.RtcconfigurationCommand.Builder()
+//            _ = cbuild2.setUnixTime(UInt32(cmd.unix_time))
+//            _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
+//            _ = cbuild.setType(.rtcConfiguration)
         }
         if cmd.command == .sd_mount_status {
-            _ = cbuild.setType(.sdMountStatus)
             
-        }*/
+            vehiclemessage.controlCommand.type = .sdMountStatus
+            
+        }
         
         do
         {
