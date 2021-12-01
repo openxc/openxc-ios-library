@@ -214,12 +214,6 @@ open class Command: NSObject {
             vehiclemessage.controlCommand.passthroughModeRequest.enabled = cmd.enabled
             
         
-            
-//            let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
-//            _ = cbuild2.setBus(Int32(cmd.bus))
-//            _ = cbuild2.setEnabled(cmd.enabled)
-//            _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
-//            _ = cbuild.setType(.passthrough)
         }
         if cmd.command == .af_bypass {
             
@@ -227,12 +221,7 @@ open class Command: NSObject {
             vehiclemessage.controlCommand.acceptanceFilterBypassCommand.bus = Int32(cmd.bus)
             vehiclemessage.controlCommand.acceptanceFilterBypassCommand.bypass = cmd.bypass
             
-       
-//            let cbuild2 = Openxc.AcceptanceFilterBypassCommand.Builder()
-//            _ = cbuild2.setBus(Int32(cmd.bus))
-//            _ = cbuild2.setBypass(cmd.bypass)
-//            _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
-//            _ = cbuild.setType(.acceptanceFilterBypass)
+
         }
         if cmd.command == .payload_format {
             
@@ -255,14 +244,9 @@ open class Command: NSObject {
             vehiclemessage.controlCommand.predefinedObd2RequestsCommand.enabled = cmd.bypass
            
             
-//            let cbuild2 = Openxc.PredefinedObd2RequestsCommand.Builder()
-//            _ = cbuild2.setEnabled(cmd.enabled)
-//            _ = cbuild.setPredefinedObd2RequestsCommand(cbuild2.buildPartial())
-//            _ = cbuild.setType(.predefinedObd2Requests)
         }
         if cmd.command == .modem_configuration {
-            
-            
+ 
             //        message->type = openxc_VehicleMessage_Type_CONTROL_COMMAND;
             //        message->control_command.type = openxc_ControlCommand_Type_PASSTHROUGH;
             //        message->control_command.passthrough_mode_request.bus = 1;
@@ -281,10 +265,6 @@ open class Command: NSObject {
             vehiclemessage.controlCommand.type = .rtcConfiguration
             vehiclemessage.controlCommand.rtcConfigurationCommand.unixTime =  UInt32(cmd.unix_time)
            
-//            let cbuild2 = Openxc.RtcconfigurationCommand.Builder()
-//            _ = cbuild2.setUnixTime(UInt32(cmd.unix_time))
-//            _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
-//            _ = cbuild.setType(.rtcConfiguration)
         }
         if cmd.command == .sd_mount_status {
             
