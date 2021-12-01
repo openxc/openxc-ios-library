@@ -161,7 +161,7 @@ open class VehicleManager: NSObject {
 
     if on{
     jsonMode = false
-        print("Protobuf------")
+       // print("Protobuf------")
     }
     else{
     jsonMode = true
@@ -619,10 +619,61 @@ open class VehicleManager: NSObject {
   
   // common function for sending a VehicleDiagnosticRequest
   fileprivate func sendDiagCommon(_ cmd:VehicleDiagnosticRequest) {
-    vmlog("in sendDiagCommon")
-    
+
+    print("cmd Values >>>>>>",cmd.bus)
+  
+    print("cmd frequency >>>>>>",cmd.frequency)
+    print("cmd message_id >>>>>>",cmd.message_id)
+    print("cmd mode >>>>>>",cmd.mode)
+    print("cmd multiple_responses >>>>>>",cmd.multiple_responses)
+   
+   
     if !jsonMode {
       // in protobuf mode, build diag message
+        
+        var vehicleMsg = Openxc_VehicleMessage()
+        
+        vehicleMsg.type = .controlCommand
+        vehicleMsg.controlCommand.type = .diagnostic
+        vehicleMsg.controlCommand.diagnosticRequest.action = .add
+        vehicleMsg.controlCommand.diagnosticRequest.request.bus = Int32(cmd.bus)
+        vehicleMsg.controlCommand.diagnosticRequest.request.messageID = UInt32(cmd.message_id)
+        vehicleMsg.controlCommand.diagnosticRequest.request.mode = UInt32(cmd.mode)
+        
+        if cmd.name != nil {
+            
+           // vehicleMsg.controlCommand.diagnosticRequest.request.name = "test"
+        
+        }
+        else{
+            vehicleMsg.controlCommand.diagnosticRequest.request.name = cmd.name as String
+            
+        }
+        
+        if cmd.pid != nil {
+        vehicleMsg.controlCommand.diagnosticRequest.request.pid = UInt32(cmd.pid!)
+        }
+
+        if cmd.frequency > 0 {
+            vehicleMsg.controlCommand.diagnosticRequest.request.frequency = Double(cmd.frequency)
+        }
+//        if !cmd.payload.isEmpty {
+//        let payloadData = Data(cmd.payload.utf8 )
+//       vehicleMsg.controlCommand.diagnosticRequest.request.payload = payloadData
+//        }
+        
+        vehicleMsg.controlCommand.diagnosticRequest.request.multipleResponses = cmd.multiple_responses
+        
+        if cmd.decoded_type != nil {
+            
+            vehicleMsg.controlCommand.diagnosticRequest.request.decodedType  = Openxc_DiagnosticRequest.DecodedType(rawValue: 0)!
+         }
+        
+        print("cmd payload >>>>>>",cmd.payload)
+        print("cmd name >>>>>>",cmd.name)
+        print("cmd decoded_type >>>>>>",cmd.decoded_type)
+        print(">>>>>\(vehicleMsg)")
+        
        /* let cbuild = Openxc.ControlCommand.Builder()
       _ = cbuild.setType(.diagnostic)
         let c2build = Openxc.DiagnosticControlCommand.Builder()
@@ -649,25 +700,44 @@ open class VehicleManager: NSObject {
         _ = mbuild.setControlCommand(cmsg)
         let mmsg = try mbuild.build()
         //print (mmsg)
+         */
         
+        do
+        {
+            let binaryData:Data = try vehicleMsg.serializedData()
+            let cdata2 = NSMutableData()
+            let prepend : [UInt8] = [UInt8(binaryData.count)]
+            cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
+            cdata2.append(binaryData)
+
+            self.bleTransmitDataBuffer.add(cdata2)
+            
+            print("_____Diagnostic data \(cdata2 as NSData)")
+            
+            BluetoothManager.sharedInstance.bleSendFunction()
+            
+        }catch{
+            print(error)
+        }
+
         
-        let cdata = mmsg.data()
-        let cdata2 = NSMutableData()
-        let prepend : [UInt8] = [UInt8(cdata.count)]
-        cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
-        cdata2.append(cdata)
-        print("DiagnosticRequest>>\(cdata2)")
+//        let cdata = vehicleMsg.serializedData()
+//        let cdata2 = NSMutableData()
+//        let prepend : [UInt8] = [UInt8(cdata.count)]
+//        cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
+//        cdata2.append(cdata)
+//        print("DiagnosticRequest>>\(cdata2)")
+//
+//        // append to tx buffer
+//        bleTransmitDataBuffer.add(cdata2)
+//
+//        // trigger a BLE data send
+//        BluetoothManager.sharedInstance.bleSendFunction()
         
-        // append to tx buffer
-        bleTransmitDataBuffer.add(cdata2)
+//      } catch {
+//        print("command build failed")
+//      }
         
-        // trigger a BLE data send
-        BluetoothManager.sharedInstance.bleSendFunction()
-        
-      } catch {
-        print("command build failed")
-      }
-      */
       return
     }
     self.lastReqMsg_id = cmd.message_id
@@ -685,7 +755,7 @@ open class VehicleManager: NSObject {
     
     
     
-    if !cmd.payload.isEqual(to: "") {
+    if !cmd.payload.isEqual("") {
       
       let payloadStr = String(cmd.payload)
       cmdjson.append(",\"payload\":")
@@ -722,7 +792,7 @@ open class VehicleManager: NSObject {
       _ = cbuild.setId(UInt32(cmd.id))
       let data = NSMutableData()
       var str : NSString = cmd.data
-      while str.length>0 {
+      while str.length > 0 {
         let substr = str.substring(to: 1)
         var num = UInt8(substr, radix: 16)
         data.append(&num, length:1)
@@ -831,7 +901,7 @@ open class VehicleManager: NSObject {
         if msg.type == .diagnostic {
        decoded = true
        print("Response Diagnostic>>>>\(msg)")
-       //self.protobufDignosticMessage(msg: msg)
+       self.protobufDignosticMessage(msg: msg)
      }
       
       // CAN messages
@@ -970,32 +1040,32 @@ open class VehicleManager: NSObject {
     }
   }
   
-    /*fileprivate func protobufDignosticMessage(msg : Openxc.VehicleMessage){
+    fileprivate func protobufDignosticMessage(msg : Openxc_VehicleMessage){
         print("DiagnosticResponse>>>>\(msg)")
         // build diag response message
 
-        if let frame = (msg.diagnosticStitchResponse.frame){
-            print(frame)
-            self.protobufMultiFrameDignosticMessage(msg: msg)
-        
-            
-        }else{
-        
+//        if let frame = (msg.diagnosticStitchResponse.frame){
+//            print(frame)
+//            self.protobufMultiFrameDignosticMessage(msg: msg)
+//
+//
+//        }else{
+//
         let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
-               if let timestamp = msg.timestamp{
-                        rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-                    }
+        //if let timestamp = msg.timestamp{
+        rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+                   // }
     rsp.bus = Int(msg.diagnosticResponse.bus)
-    rsp.message_id = Int(msg.diagnosticResponse.messageId)
+        rsp.message_id = Int(msg.diagnosticResponse.messageID)
     rsp.mode = Int(msg.diagnosticResponse.mode)
-    if msg.diagnosticResponse.hasPid {
+    if msg.diagnosticResponse.pid != 0 {
         rsp.pid = Int(msg.diagnosticResponse.pid)
     }
-    if  let successValue =  msg.diagnosticResponse.success {
-        rsp.success = successValue //msg.diagnosticResponse.success
+    if  msg.diagnosticResponse.success {
+        rsp.success = msg.diagnosticResponse.success
     }
     if  msg.diagnosticResponse.hasValue {
-        rsp.value = Int(truncating: msg.diagnosticResponse.value as! NSNumber)
+        rsp.value = Int(truncating: msg.diagnosticResponse.value.numericValue as NSNumber)
         print(msg.diagnosticResponse.value as Any)
     }
     
@@ -1036,8 +1106,8 @@ open class VehicleManager: NSObject {
         
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
     }
-}
-  }*/
+//}
+  }
     
    /* fileprivate func protobufMultiFrameDignosticMessage(msg : Openxc.VehicleMessage){
     print("DiagnosticResponse>>>>\(msg)")
@@ -1425,7 +1495,7 @@ open class VehicleManager: NSObject {
         var payload : String = ""
         if let payloadX = json["payload"] as? String {
           payload = multiFramePayload  + payloadX
-          print("payload : \(payload)")
+          //print("payload : \(payload)")
           
         }
         var value : NSInteger?
@@ -1567,7 +1637,7 @@ open class VehicleManager: NSObject {
     var payload : String = ""
     if let payloadX = json["payload"] as? String {
       payload = payloadX
-      print("payload : \(payload)")
+      //print("payload : \(payload)")
       
     }
     var value : NSInteger?
@@ -1789,7 +1859,7 @@ open class VehicleManager: NSObject {
     //.. Code process
 
     let value = tempDataBuffer.length/5
-    print(tempDataBuffer.length)
+   // print(tempDataBuffer.length)
     tempDataBuffer.setData(NSMutableData() as Data)
     let result = String(value)
     return result

@@ -18,11 +18,11 @@ open class VehicleDiagnosticRequest : VehicleBaseMessage {
     open var message_id : NSInteger = 0
     open var mode : NSInteger = 0
     open var pid : NSInteger?
-    open var payload : NSString = ""
-    open var name : NSString = ""
+    open var payload : String = ""
+    open var name : String = ""
     open var multiple_responses : Bool = false
     open var frequency : NSInteger = 0
-    open var decoded_type : NSString = ""
+    open var decoded_type : String = ""
 }
 
 

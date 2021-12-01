@@ -179,7 +179,7 @@ open class Command: NSObject {
         var vehiclemessage = Openxc_VehicleMessage()
         vehiclemessage.type = .controlCommand
         
-        print(">>>>>>>>Comandtype\(cmd.command)")
+       // print(">>>>>>>>Comandtype\(cmd.command)")
         if cmd.command == .version {
             
             vehiclemessage.controlCommand.type = .version
@@ -299,10 +299,10 @@ open class Command: NSObject {
             let prepend : [UInt8] = [UInt8(binaryData.count)]
             cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
             cdata2.append(binaryData)
-           // print(cdata2)
+           
             self.vm.bleTransmitDataBuffer.add(cdata2)
             BluetoothManager.sharedInstance.bleSendFunction()
-            print("_____version data \(cdata2 as NSData)")
+            //print("_____version data \(cdata2 as NSData)")
             BluetoothManager.sharedInstance.bleSendFunction()
             
         }catch{
@@ -324,12 +324,10 @@ open class Command: NSObject {
         // we're in json mode
         var cmdstr = ""
         // decode the command type and build the command depending on the command
-        //print("cmd command...",cmd.command)
         
         if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform || cmd.command == .get_Vin  {
             // build the command json
             cmdstr = "{\"command\":\"\(cmd.command.rawValue)\"}\0"
-            print("cmdStr..",cmdstr)
         }
         else if cmd.command == .passthrough {
             // build the command json
@@ -355,7 +353,7 @@ open class Command: NSObject {
             // build the command json
             let timeInterval = Date().timeIntervalSince1970
             cmd.unix_time = NSInteger(timeInterval);
-            print("timestamp is..",cmd.unix_time)
+            //print("timestamp is..",cmd.unix_time)
             cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"unix_time\":\"\(cmd.unix_time)\"}\0"
         } else {
             // unknown command!
@@ -365,9 +363,6 @@ open class Command: NSObject {
         
         // append to tx buffer
         bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
-        
-      //  print("BLETxDataBuffer.count...",bleTransmitDataBuffer.count)
-       // print("BLETxDataBuffer...",bleTransmitDataBuffer as Any)
         
         self.vm.bleTransmitDataBuffer = bleTransmitDataBuffer
         
@@ -399,12 +394,8 @@ open class Command: NSObject {
     // append to tx buffer
     // append to tx buffer
     var cmdstr = ""
-    print("cmdStr..",jsonString + "\0")
     cmdstr = jsonString + "\0"
     self.vm.bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
-    
-    print("BLETxDataBuffer.count...",self.vm.bleTransmitDataBuffer.count)
-    print("BLETxDataBuffer...",self.vm.bleTransmitDataBuffer as Any)
     
     // trigger a BLE data send
     BluetoothManager.sharedInstance.bleSendFunction()

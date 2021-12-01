@@ -442,7 +442,6 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
             textField.resignFirstResponder()
             UserDefaults.standard.set(traceFilePlayNameField.text, forKey:"traceInputFilename")
            let value = tfm.enableTraceFileSource(traceFilePlayNameField.text! as NSString)
-            print(value)
         }
         if textField.tag == 102{
             if (textField.text != ""){
@@ -476,7 +475,6 @@ class DataSourceController: UIViewController,UITextFieldDelegate,CLLocationManag
         let port  = Int(PortName)
         if(hostName != "" && PortName != ""){
             NetworkDataManager.sharedInstance.connect(ip:hostName, portvalue: port!, completionHandler: { (success) in
-                print(success)
                 if(success){
                     UserDefaults.standard.set(hostName, forKey:"networkHostName")
                     UserDefaults.standard.set(PortName, forKey:"networkPortName")

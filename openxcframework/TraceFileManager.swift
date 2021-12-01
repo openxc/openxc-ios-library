@@ -48,8 +48,8 @@ open class TraceFileManager: NSObject {
       let d = Date()
       let df = DateFormatter()
       df.dateFormat = "[H:m:ss.SSS]"
-      print(df.string(from: d),terminator:"")
-      print(" ",terminator:"")
+      //print(df.string(from: d),terminator:"")
+      //print(" ",terminator:"")
       for string in strings {
         print(string,terminator:"")
       }
