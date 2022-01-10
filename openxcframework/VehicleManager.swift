@@ -448,7 +448,7 @@ open class VehicleManager: NSObject {
     if !jsonMode {
       // in protobuf mode, build diag message
         
-        var vehicleMsg = Openxc_VehicleMessage()
+      /*  var vehicleMsg = Openxc_VehicleMessage()
         
         vehicleMsg.type = .controlCommand
         vehicleMsg.controlCommand.type = .diagnostic
@@ -459,7 +459,7 @@ open class VehicleManager: NSObject {
         
         if cmd.name != nil {
             
-            vehicleMsg.controlCommand.diagnosticRequest.request.name = "test"
+            vehicleMsg.controlCommand.diagnosticRequest.request.name = ""
         
         }
         else{
@@ -535,7 +535,7 @@ open class VehicleManager: NSObject {
             
         }catch{
             print(error)
-        }
+        }*/
 
         
 //        let cdata = vehicleMsg.serializedData()
@@ -569,9 +569,7 @@ open class VehicleManager: NSObject {
     if cmd.frequency > 0 {
       cmdjson.append(",\"frequency\":\(cmd.frequency)")
     }
-    
-    
-    
+
     if !cmd.payload.isEqual("") {
       
       let payloadStr = String(cmd.payload)

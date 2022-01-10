@@ -44,6 +44,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var tfm: TraceFileManager!
     var bm: BluetoothManager!
     
+    var errmsg: String!
     // timer for UI counter updates
     var timer: Timer!
     
@@ -531,27 +532,37 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         //|| cr.command_response.isEqual(to: "GET_VIN"
         if isGetVinClicked {
-        if cr.command_response.isEqual(to: "getVin") || cr.command_response.isEqual(to: ".get_vin") || cr.command_response.isEqual(to: "get_Vin") {
+            
+            if cr.command_response.isEqual(to: "getVin") || cr.command_response.isEqual(to: ".get_vin") || cr.command_response.isEqual(to: "get_Vin")   {
             
            // print("getVinResponse\(cr.command_response)")
-            DispatchQueue.main.async {
-                
-                self.getVinButton.isHidden = true
-                self.vinInfoDataLabel.isHidden = false
-                self.vinInfoDataLabel.text = cr.message as String
-                self.vinLabel.isHidden = false
-                
-            }
-            cvc?.platformResponse = String(cr.message)
+                if cr.status {
+                    DispatchQueue.main.async {
+                        
+                        self.getVinButton.isHidden = true
+                        self.vinInfoDataLabel.isHidden = false
+                        self.vinInfoDataLabel.text = cr.message as String
+                        self.errmsg = cr.message as String
+                        self.vinLabel.isHidden = false
+                        
+                        print(self.errmsg as Any)
+                    }
+                    cvc?.vinResponse = String(cr.message)
+                    
+                }else{
+                    DispatchQueue.main.async {
+                        self.vinInfoDataLabel.text = "---"
+                        let alertController = UIAlertController(title: "", message:  cr.message as String
+                    , preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                }
+          
+           
             
         }
-        else{
-            DispatchQueue.main.async {
-            let alertController = UIAlertController(title: "", message:
-                "Unable to get the VIN", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-            }
+      
         }
         }
     }
