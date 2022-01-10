@@ -43,7 +43,7 @@
 		7D98FFF124FFCC0F00414DE5 /* ModalSettingView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D98FFF024FFCC0F00414DE5 /* ModalSettingView_UITests.swift */; };
 		7D98FFF324FFCC3800414DE5 /* OutputView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D98FFF224FFCC3800414DE5 /* OutputView_UITests.swift */; };
 		7DD5C9AF24DAD4750017676A /* StatusView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5C9AE24DAD4750017676A /* StatusView_UITests.swift */; };
-		A3B2D98614085416F5F989B5 /* Pods_openxcframework_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081A0F364536344AAAFB65E7 /* Pods_openxcframework_Example.framework */; };
+		A3B2D98614085416F5F989B5 /* Pods_openxcframework_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081A0F364536344AAAFB65E7 /* Pods_openxcframework_Example.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +91,7 @@
 		7D2243AA24F7E101003C2763 /* SendCanView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCanView_UITests.swift; sourceTree = "<group>"; };
 		7D3ECA0323C729AE0058B84F /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		7D3EE7BE22E0540D0098F6E5 /* ProtocolBuffers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtocolBuffers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D477FA5270F1C4000A84A4A /* Pods_openxcframework_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_openxcframework_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D4C63A52239247500A04A53 /* openxcframework_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openxcframework_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		7D4C63A62239247600A04A53 /* nouns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nouns.txt; sourceTree = "<group>"; };
 		7D4C63A72239247600A04A53 /* StatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +243,7 @@
 		762AE580AC8CFB6482897B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7D477FA5270F1C4000A84A4A /* Pods_openxcframework_Example.framework */,
 				7DDA44A2269C645F00E93D39 /* openXCiOSFramework.framework */,
 				7D87EDC3269882850032A918 /* SwiftProtobuf.framework */,
 				7D3EE7BE22E0540D0098F6E5 /* ProtocolBuffers.framework */,
@@ -429,10 +431,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-openxcframework_Example/Pods-openxcframework_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/openxcframework/openXCiOSFramework.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openXCiOSFramework.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

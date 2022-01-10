@@ -160,9 +160,8 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="X2N-n1-PMH">
                                 <rect key="frame" x="177.5" y="321" width="20" height="20"/>
                             </activityIndicatorView>
-                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="{&quot;key&quot;:&quot;value&quot;,&quot;key&quot;:&quot;value&quot;}" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Qi-2l-lYc">
-                                <rect key="frame" x="7" y="243" width="359" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="{&quot;key&quot;:&quot;value&quot;,&quot;key&quot;:&quot;value&quot;}" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Qi-2l-lYc">
+                                <rect key="frame" x="7" y="225" width="359" height="39"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" smartQuotesType="no"/>
@@ -175,10 +174,12 @@
                         <constraints>
                             <constraint firstItem="Bsc-YI-Qyz" firstAttribute="leading" secondItem="ShR-o2-hVP" secondAttribute="leading" constant="-4" id="0tP-Ai-pvD"/>
                             <constraint firstItem="gCF-t9-4Xx" firstAttribute="leading" secondItem="J1r-B2-hYF" secondAttribute="leading" id="37D-wK-dSh"/>
+                            <constraint firstItem="6Qi-2l-lYc" firstAttribute="top" secondItem="gCF-t9-4Xx" secondAttribute="bottom" constant="-75" id="39O-7x-NJg"/>
                             <constraint firstItem="gCF-t9-4Xx" firstAttribute="trailing" secondItem="J1r-B2-hYF" secondAttribute="trailing" id="3E9-xv-9h2"/>
                             <constraint firstItem="eHj-Gx-9Sh" firstAttribute="top" secondItem="oMt-Yk-nYQ" secondAttribute="bottom" constant="18" id="3fW-sR-zr5"/>
                             <constraint firstItem="oMt-Yk-nYQ" firstAttribute="top" secondItem="sxb-kJ-vsJ" secondAttribute="bottom" constant="13" id="4Dw-Cf-rQm"/>
                             <constraint firstItem="3vU-lg-Vdj" firstAttribute="leading" secondItem="sxb-kJ-vsJ" secondAttribute="leading" id="6L6-7o-FLM"/>
+                            <constraint firstItem="6Qi-2l-lYc" firstAttribute="leading" secondItem="jWl-5H-6DI" secondAttribute="leadingMargin" constant="-9" id="7oi-KT-HP6"/>
                             <constraint firstItem="iF4-6p-1el" firstAttribute="top" secondItem="ShR-o2-hVP" secondAttribute="bottom" constant="-1" id="840-RK-d10"/>
                             <constraint firstItem="J1r-B2-hYF" firstAttribute="trailing" secondItem="l1W-i0-7OC" secondAttribute="trailing" id="8z3-OE-kAW"/>
                             <constraint firstItem="oMt-Yk-nYQ" firstAttribute="leading" secondItem="eHj-Gx-9Sh" secondAttribute="leading" id="Af6-X3-UNF"/>
@@ -187,10 +188,12 @@
                             <constraint firstItem="sxb-kJ-vsJ" firstAttribute="top" secondItem="3vU-lg-Vdj" secondAttribute="bottom" constant="14" id="CPF-Q1-Kvc"/>
                             <constraint firstItem="ouf-Un-Rfc" firstAttribute="top" secondItem="q5T-EL-zrt" secondAttribute="bottom" constant="25" id="Ds3-Bj-Lmv"/>
                             <constraint firstItem="3vU-lg-Vdj" firstAttribute="trailing" secondItem="sxb-kJ-vsJ" secondAttribute="trailing" id="GCR-wo-s2K"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6Qi-2l-lYc" secondAttribute="trailing" constant="-7" id="HYB-sx-Rmk"/>
                             <constraint firstItem="LJH-iX-4mf" firstAttribute="leading" secondItem="q5T-EL-zrt" secondAttribute="leading" id="Pin-s1-U1y"/>
                             <constraint firstItem="sxb-kJ-vsJ" firstAttribute="trailing" secondItem="oMt-Yk-nYQ" secondAttribute="trailing" id="PyW-5i-PcH"/>
                             <constraint firstItem="LJH-iX-4mf" firstAttribute="leading" secondItem="jWl-5H-6DI" secondAttribute="leading" id="R6G-Sv-cKB"/>
                             <constraint firstItem="l1W-i0-7OC" firstAttribute="trailing" secondItem="iF4-6p-1el" secondAttribute="trailing" id="TNm-Ey-hF7"/>
+                            <constraint firstItem="6Qi-2l-lYc" firstAttribute="bottom" secondItem="X2N-n1-PMH" secondAttribute="bottom" constant="-77" id="TyT-Bb-Iog"/>
                             <constraint firstItem="ouf-Un-Rfc" firstAttribute="leading" secondItem="gCF-t9-4Xx" secondAttribute="leading" id="U72-0p-mX1"/>
                             <constraint firstItem="J1r-B2-hYF" firstAttribute="top" secondItem="gCF-t9-4Xx" secondAttribute="bottom" constant="8" symbolic="YES" id="VOL-oh-4Oj"/>
                             <constraint firstItem="oMt-Yk-nYQ" firstAttribute="trailing" secondItem="eHj-Gx-9Sh" secondAttribute="trailing" id="Wf1-q8-Pxo"/>
@@ -224,7 +227,7 @@
                         <outlet property="busSeg" destination="ouf-Un-Rfc" id="Co2-EF-y4v"/>
                         <outlet property="bypassLabel" destination="oMt-Yk-nYQ" id="oNE-oR-cL4"/>
                         <outlet property="bypassSeg" destination="J1r-B2-hYF" id="VVn-E7-K5W"/>
-                        <outlet property="customCommandTextField" destination="6Qi-2l-lYc" id="lfT-ub-ElO"/>
+                        <outlet property="customCommandTextField" destination="6Qi-2l-lYc" id="qnn-Vn-Dsi"/>
                         <outlet property="enabledLabel" destination="sxb-kJ-vsJ" id="EVf-Fy-AXj"/>
                         <outlet property="enabledSeg" destination="gCF-t9-4Xx" id="48L-c6-KQh"/>
                         <outlet property="formatLabel" destination="eHj-Gx-9Sh" id="UwF-aw-zsU"/>
@@ -2146,7 +2149,7 @@
                                             <action selector="sensorChange:" destination="9i4-pc-krT" eventType="touchUpInside" id="tJ9-3u-Rcs"/>
                                         </connections>
                                     </switch>
-                                    <switch opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xxv-EJ-IqP">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xxv-EJ-IqP">
                                         <rect key="frame" x="312" y="406.5" width="51" height="31"/>
                                         <connections>
                                             <action selector="protoChange:" destination="9i4-pc-krT" eventType="touchUpInside" id="Ny2-fQ-0Sn"/>
@@ -2570,7 +2573,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0wW-1I-R6M"/>
+        <segue reference="d7V-sw-X5y"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="RadioBtn_white_Unchecked" width="24" height="24"/>
