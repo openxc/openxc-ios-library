@@ -412,7 +412,7 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     // grab the data from the characteristic
     let data = characteristic.value!
     let returnData = String(data: data, encoding: .utf8)
-    print(returnData as Any)
+   // print(returnData as Any)
     // if there is actually data, append it to the rx data buffer,
     // and try to parse any messages held in the buffer. The separator
     // in this case is nil because messages arriving from BLE is
@@ -531,13 +531,13 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
           
           let try2Str = NSString(data: (sendBytes as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
           vmlog("try2Str....:",try2Str as Any)
-          
+            print("left chunks....:",sendBytes)
           
           cmdToSend = NSMutableData()
         } else {
           sendBytes = cmdToSend.subdata(with: rangedata)
           vmlog("20B chunks....:",sendBytes)
-          
+          print("20B chunks....:",sendBytes)
           let try1Str = NSString(data: (sendBytes as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
           vmlog("try1Str....:",try1Str as Any)
           

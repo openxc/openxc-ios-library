@@ -179,7 +179,7 @@ open class Command: NSObject {
         var vehiclemessage = Openxc_VehicleMessage()
         vehiclemessage.type = .controlCommand
         
-        print(">>>>>>>>Comandtype\(cmd.command)")
+       // print(">>>>>>>>Comandtype\(cmd.command)")
         if cmd.command == .version {
             
             vehiclemessage.controlCommand.type = .version
@@ -214,12 +214,6 @@ open class Command: NSObject {
             vehiclemessage.controlCommand.passthroughModeRequest.enabled = cmd.enabled
             
         
-            
-//            let cbuild2 = Openxc.PassthroughModeControlCommand.Builder()
-//            _ = cbuild2.setBus(Int32(cmd.bus))
-//            _ = cbuild2.setEnabled(cmd.enabled)
-//            _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
-//            _ = cbuild.setType(.passthrough)
         }
         if cmd.command == .af_bypass {
             
@@ -227,12 +221,7 @@ open class Command: NSObject {
             vehiclemessage.controlCommand.acceptanceFilterBypassCommand.bus = Int32(cmd.bus)
             vehiclemessage.controlCommand.acceptanceFilterBypassCommand.bypass = cmd.bypass
             
-       
-//            let cbuild2 = Openxc.AcceptanceFilterBypassCommand.Builder()
-//            _ = cbuild2.setBus(Int32(cmd.bus))
-//            _ = cbuild2.setBypass(cmd.bypass)
-//            _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
-//            _ = cbuild.setType(.acceptanceFilterBypass)
+
         }
         if cmd.command == .payload_format {
             
@@ -255,14 +244,9 @@ open class Command: NSObject {
             vehiclemessage.controlCommand.predefinedObd2RequestsCommand.enabled = cmd.bypass
            
             
-//            let cbuild2 = Openxc.PredefinedObd2RequestsCommand.Builder()
-//            _ = cbuild2.setEnabled(cmd.enabled)
-//            _ = cbuild.setPredefinedObd2RequestsCommand(cbuild2.buildPartial())
-//            _ = cbuild.setType(.predefinedObd2Requests)
         }
         if cmd.command == .modem_configuration {
-            
-            
+ 
             //        message->type = openxc_VehicleMessage_Type_CONTROL_COMMAND;
             //        message->control_command.type = openxc_ControlCommand_Type_PASSTHROUGH;
             //        message->control_command.passthrough_mode_request.bus = 1;
@@ -281,10 +265,6 @@ open class Command: NSObject {
             vehiclemessage.controlCommand.type = .rtcConfiguration
             vehiclemessage.controlCommand.rtcConfigurationCommand.unixTime =  UInt32(cmd.unix_time)
            
-//            let cbuild2 = Openxc.RtcconfigurationCommand.Builder()
-//            _ = cbuild2.setUnixTime(UInt32(cmd.unix_time))
-//            _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
-//            _ = cbuild.setType(.rtcConfiguration)
         }
         if cmd.command == .sd_mount_status {
             
@@ -299,10 +279,10 @@ open class Command: NSObject {
             let prepend : [UInt8] = [UInt8(binaryData.count)]
             cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
             cdata2.append(binaryData)
-           // print(cdata2)
+           
             self.vm.bleTransmitDataBuffer.add(cdata2)
             BluetoothManager.sharedInstance.bleSendFunction()
-            print("_____version data \(cdata2 as NSData)")
+            //print("_____version data \(cdata2 as NSData)")
             BluetoothManager.sharedInstance.bleSendFunction()
             
         }catch{
@@ -324,12 +304,10 @@ open class Command: NSObject {
         // we're in json mode
         var cmdstr = ""
         // decode the command type and build the command depending on the command
-        //print("cmd command...",cmd.command)
         
         if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform || cmd.command == .get_Vin  {
             // build the command json
             cmdstr = "{\"command\":\"\(cmd.command.rawValue)\"}\0"
-            print("cmdStr..",cmdstr)
         }
         else if cmd.command == .passthrough {
             // build the command json
@@ -355,7 +333,7 @@ open class Command: NSObject {
             // build the command json
             let timeInterval = Date().timeIntervalSince1970
             cmd.unix_time = NSInteger(timeInterval);
-            print("timestamp is..",cmd.unix_time)
+            //print("timestamp is..",cmd.unix_time)
             cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"unix_time\":\"\(cmd.unix_time)\"}\0"
         } else {
             // unknown command!
@@ -365,9 +343,6 @@ open class Command: NSObject {
         
         // append to tx buffer
         bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
-        
-      //  print("BLETxDataBuffer.count...",bleTransmitDataBuffer.count)
-       // print("BLETxDataBuffer...",bleTransmitDataBuffer as Any)
         
         self.vm.bleTransmitDataBuffer = bleTransmitDataBuffer
         
@@ -399,12 +374,8 @@ open class Command: NSObject {
     // append to tx buffer
     // append to tx buffer
     var cmdstr = ""
-    print("cmdStr..",jsonString + "\0")
     cmdstr = jsonString + "\0"
     self.vm.bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
-    
-    print("BLETxDataBuffer.count...",self.vm.bleTransmitDataBuffer.count)
-    print("BLETxDataBuffer...",self.vm.bleTransmitDataBuffer as Any)
     
     // trigger a BLE data send
     BluetoothManager.sharedInstance.bleSendFunction()

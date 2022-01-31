@@ -46,7 +46,7 @@ class TraceFileManagerTest: XCTestCase {
   func testEnableTraceFileSink() {
     let value = TraceFileManager.sharedInstance.enableTraceFileSink(self.traceFileSinkPath)
     if let fs : Bool = Bundle.main.infoDictionary?["UIFileSharingEnabled"] as? Bool{
-        print(fs)
+        //print(fs)
       XCTAssert(!value)
     }else{
       XCTAssert(value)
@@ -57,7 +57,7 @@ class TraceFileManagerTest: XCTestCase {
   func testEnableTraceFileSource() {
     let value = TraceFileManager.sharedInstance.enableTraceFileSource( self.traceFileSourcePath, speed:60)
     if let fs : Bool = Bundle.main.infoDictionary?["UIFileSharingEnabled"] as? Bool{
-         print(fs)
+        // print(fs)
       XCTAssert(!value )
     }else{
       XCTAssert(value )

@@ -29,7 +29,7 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
         apiSourceNameLabel.text = (UserDefaults.standard.string(forKey: "DeviceUUID"))
         apiSourceName = (UserDefaults.standard.string(forKey: "DeviceUUID"))!.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
-        print(apiSourceName as Any)
+    
         // Do any additional setup after loading the view.
         // grab VM instance
         vm = VehicleManager.sharedInstance
@@ -54,10 +54,10 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         
         //UserDefaults.standard.set(interfaceValue, forKey:"vehicleInterface")
         let value =  UserDefaults.standard.string(forKey: "vehicleInterface")
-        print(value as Any)
+       
         // check saved value of trace Sink switch
         let traceOutOn = UserDefaults.standard.bool(forKey: "uploadTaraceOn")
-        print(traceOutOn)
+     
         // update UI if necessary
         if traceOutOn == true {
             uploadTraceSwitch.setOn(true, animated:false)
@@ -218,11 +218,9 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         }
         if textField.tag == 105{
             
-            print(textField.text as Any)
             if textField.text != "http://"{
                 let traceUrlArr = textField.text!.components(separatedBy: "//")
                 let traceURL = baseUrl + traceUrlArr[1] + apiSourceName + "/save"
-                print(traceURL)
                 UserDefaults.standard.set(traceURL, forKey:"traceURLname")
                 UserDefaults.standard.set(traceUrlArr[1], forKey:"traceURLbasename")
             }else{

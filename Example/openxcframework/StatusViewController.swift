@@ -44,6 +44,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var tfm: TraceFileManager!
     var bm: BluetoothManager!
     
+    var errmsg: String!
     // timer for UI counter updates
     var timer: Timer!
     
@@ -155,7 +156,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                       timer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(StatusViewController.msgRxdUpdate(_:)), userInfo: nil, repeats: true)
                       if(!vm.isTraceFileConnected){
                           let value = tfm.enableTraceFileSource(traceFileName)
-                        print(value)
+                    
                           self.searchButton.isEnabled = false
                           DispatchQueue.main.async {
                               self.activeConnectionLabel.text = "✅"
@@ -194,7 +195,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         vm.setThroughput(true)
                         throughPutLoop = Timer.scheduledTimer(timeInterval: 5.0, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
                 }
-                print(UserDefaults.standard.bool(forKey: "throughputOn"))
+                //print(UserDefaults.standard.bool(forKey: "throughputOn"))
                 
             }
             if name == "Network"{
@@ -233,7 +234,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let port  = Int(PortName)
         if(hostName != "" && PortName != ""){
             NetworkDataManager.sharedInstance.connect(ip:hostName, portvalue: port!, completionHandler: { (success) in
-                print(success)
+               
                 if(success){
                     self.timer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(StatusViewController.msgRxdUpdate(_:)), userInfo: nil, repeats: true)
                     if self.bm.messageCount > 0{
@@ -321,7 +322,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if UserDefaults.standard.bool(forKey: "traceOutputOn") && !vm.isTraceFileConnected {
                 if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
                         let value = tfm.enableTraceFileSink(name)
-                    print(value)
+                    //print(value)
                 }else{
                     DispatchQueue.main.async {
                     let alertController = UIAlertController (title: "Setting", message: "Please Disable pre record tracefile in data source", preferredStyle: .alert)
@@ -380,7 +381,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                if UIApplication.shared.canOpenURL(url!) {
                                    if #available(iOS 10.0, *) {
                                        UIApplication.shared.open(url!, completionHandler: { (success) in
-                                           print("Settings opened: \(success)") // Prints true
+                                           //print("Settings opened: \(success)") // Prints true
                                            
                                        })
                                    } else {
@@ -498,7 +499,7 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // extract the command response message
         let cr = rsp.object(forKey: "vehiclemessage") as! VehicleCommandResponse
-        print("satus page command-----\(cr.command_response)")
+        //print("satus page command-----\(cr.command_response)")
         
         // update the UI depending on the command type- version,device_id works for JSON mode, not in protobuf - TODO
         
@@ -531,27 +532,37 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         //|| cr.command_response.isEqual(to: "GET_VIN"
         if isGetVinClicked {
-        if cr.command_response.isEqual(to: "getVin") || cr.command_response.isEqual(to: ".get_vin") || cr.command_response.isEqual(to: "get_Vin") {
             
-            print("getVinResponse\(cr.command_response)")
-            DispatchQueue.main.async {
-                
-                self.getVinButton.isHidden = true
-                self.vinInfoDataLabel.isHidden = false
-                self.vinInfoDataLabel.text = cr.message as String
-                self.vinLabel.isHidden = false
-                
-            }
-            cvc?.platformResponse = String(cr.message)
+            if cr.command_response.isEqual(to: "getVin") || cr.command_response.isEqual(to: ".get_vin") || cr.command_response.isEqual(to: "get_Vin")   {
+            
+           // print("getVinResponse\(cr.command_response)")
+                if cr.status {
+                    DispatchQueue.main.async {
+                        
+                        self.getVinButton.isHidden = true
+                        self.vinInfoDataLabel.isHidden = false
+                        self.vinInfoDataLabel.text = cr.message as String
+                        self.errmsg = cr.message as String
+                        self.vinLabel.isHidden = false
+                        
+                        print(self.errmsg as Any)
+                    }
+                    cvc?.vinResponse = String(cr.message)
+                    
+                }else{
+                    DispatchQueue.main.async {
+                        self.vinInfoDataLabel.text = "---"
+                        let alertController = UIAlertController(title: "", message:  cr.message as String
+                    , preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                    
+                }
+          
+           
             
         }
-        else{
-            DispatchQueue.main.async {
-            let alertController = UIAlertController(title: "", message:
-                "Unable to get the VIN", preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-            }
+      
         }
         }
     }
@@ -589,9 +600,6 @@ class StatusViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // this function is called when the disconnect button is hit
     @IBAction func disconnectHit(_ sender: UIButton) {
-        
-        print(" in disconnect")
-        print(bm.connectionState as Any)
         
         // make sure we're not already connected first
         if (bm.isBleConnected) {
