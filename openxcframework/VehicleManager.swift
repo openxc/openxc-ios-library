@@ -448,7 +448,7 @@ open class VehicleManager: NSObject {
     if !jsonMode {
       // in protobuf mode, build diag message
         
-      /*  var vehicleMsg = Openxc_VehicleMessage()
+        var vehicleMsg = Openxc_VehicleMessage()
         
         vehicleMsg.type = .controlCommand
         vehicleMsg.controlCommand.type = .diagnostic
@@ -535,7 +535,7 @@ open class VehicleManager: NSObject {
             
         }catch{
             print(error)
-        }*/
+        }
 
         
 //        let cdata = vehicleMsg.serializedData()
