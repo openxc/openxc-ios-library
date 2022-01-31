@@ -135,7 +135,7 @@ class DiagnosticViewController: UIViewController, UITextFieldDelegate {
             self.requestButton.isEnabled = true
         }
         
-        print("Daignostic Value..........\(self.responseStrings)")
+        //print("Daignostic Value..........\(self.responseStrings)")
     }
     
     @objc func sendTraceURLData(rsp:NSDictionary) {
@@ -233,7 +233,7 @@ class DiagnosticViewController: UIViewController, UITextFieldDelegate {
         if cmd.pid != nil {
             lastRequest.text = lastRequest.text!+" pid:0x"+pidField.text!
         }
-        if !cmd.payload.isEqual(to: "") {
+        if !cmd.payload.isEqual("") {
             lastRequest.text = lastRequest.text!+" payload:"+payloadField.text!
             requestButton.isEnabled = false
         }
@@ -249,7 +249,7 @@ class DiagnosticViewController: UIViewController, UITextFieldDelegate {
                 
                 let appendedStr = "0x" + mloadtrim
                 
-                cmd.payload = appendedStr as NSString
+                cmd.payload = (appendedStr as NSString) as String
             }
         } else {
             lastRequest.text = "Invalid command : payload should be even length"

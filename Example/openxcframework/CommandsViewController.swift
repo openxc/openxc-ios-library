@@ -153,7 +153,7 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         let jsonData = try? JSONSerialization.data(withJSONObject: objectDic, options: [])
         let jsonString = String(data: jsonData!, encoding: .utf8)
-        print(jsonString as Any)
+       // print(jsonString as Any)
         return jsonString!
         
     }
@@ -300,7 +300,6 @@ class CommandsViewController:UIViewController,UIPickerViewDelegate,UIPickerViewD
         // extract the command response message
         let cr = rsp.object(forKey: "vehiclemessage") as! VehicleCommandResponse
         
-        print(">>>>>>>>\(cr.command_response)")
         // update the UI depending on the command type- version,device_id works for JSON mode, not in protobuf - TODO
         
         if cr.command_response.isEqual(to: "version") || cr.command_response.isEqual(to: ".version") {

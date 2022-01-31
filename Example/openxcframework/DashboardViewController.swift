@@ -367,7 +367,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     func connectionDidFinishLoading(_ connection: NSURLConnection!) {
         
         let responseString = String(data:dweetResponseData! as Data,encoding:String.Encoding.utf8)
-        print(responseString as Any)
+        //print(responseString as Any)
         
     }
     

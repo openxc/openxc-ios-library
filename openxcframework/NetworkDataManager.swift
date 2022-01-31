@@ -45,10 +45,9 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
         inputStream?.open()
         
         if ((outputStream?.open()) != nil){
-             print("connected")
             
         }else{
-            //print("not connected")
+           
             VehicleManager.sharedInstance.isNetworkConnected = false
             if let act = VehicleManager.sharedInstance.managerCallBack {
                 act.performAction(["status":VehicleManagerStatusMessage.networkDISCONNECTED.rawValue] as NSDictionary)
@@ -140,7 +139,7 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
                            if len < 0
                            {
                                let error = self.inputStream!.streamError
-                               print("Input stream has less than 0 bytes\(error!)")
+
                                //closeNetworkCommunication()
                            }
                            
@@ -150,7 +149,6 @@ open class NetworkDataManager: NSObject ,StreamDelegate {
                                let messageFromServer = NSString(bytes: &buffer, length: buffer.count, encoding: String.Encoding.utf8.rawValue)
                                let  msgdata = Data(bytes:buffer)
                                
-                               print("\(msgdata)")
                                if msgdata.count > 0 {
                                    VehicleManager.sharedInstance.RxDataBuffer.append(msgdata)
                                    VehicleManager.sharedInstance.RxDataParser(0x00)

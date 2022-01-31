@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func getUUID () {
         let device_id = UIDevice.current.identifierForVendor!.uuidString
-        print(device_id)
+       // print(device_id)
         UserDefaults.standard.set(device_id, forKey: "DeviceUUID") //setObject
         
     }

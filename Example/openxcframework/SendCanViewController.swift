@@ -64,12 +64,11 @@ class SendCanViewController: UIViewController, UITextFieldDelegate {
     func defaultSendCanResponse(_ rsp:NSDictionary) {
         // extract the CAN message
         let vr = rsp.object(forKey: "vehiclemessage") as! VehicleCanResponse
-        print(rsp)
         // create CAN key from measurement message
         let key = String(format:"%x-%x",vr.bus,vr.id)
         let val = "0x"+(vr.data as String)
-        print(key)
-        print(val)
+       // print(key)
+        //print(val)
         
         // save the CAN key and can message in the dictionary
         //canDict.setObject(vr, forKey:key as NSCopying)
