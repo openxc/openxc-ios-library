@@ -453,19 +453,10 @@ open class VehicleManager: NSObject {
         vehicleMsg.type = .controlCommand
         vehicleMsg.controlCommand.type = .diagnostic
         vehicleMsg.controlCommand.diagnosticRequest.action = .add
-        vehicleMsg.controlCommand.diagnosticRequest.request.bus = Int32(cmd.bus)
-        vehicleMsg.controlCommand.diagnosticRequest.request.messageID = UInt32(cmd.message_id)
-        vehicleMsg.controlCommand.diagnosticRequest.request.mode = UInt32(cmd.mode)
+        vehicleMsg.controlCommand.diagnosticRequest.request.bus = Int32(cmd.bus) //1
+        vehicleMsg.controlCommand.diagnosticRequest.request.messageID = UInt32(cmd.message_id)// 2000
+        vehicleMsg.controlCommand.diagnosticRequest.request.mode = UInt32(cmd.mode) //34
         
-        if cmd.name != nil {
-            
-            vehicleMsg.controlCommand.diagnosticRequest.request.name = ""
-        
-        }
-        else{
-            vehicleMsg.controlCommand.diagnosticRequest.request.name = cmd.name as String
-            
-        }
         
         if cmd.pid != nil {
         vehicleMsg.controlCommand.diagnosticRequest.request.pid = UInt32(cmd.pid!)
@@ -474,12 +465,34 @@ open class VehicleManager: NSObject {
         if cmd.frequency > 0 {
             vehicleMsg.controlCommand.diagnosticRequest.request.frequency = Double(cmd.frequency)
         }
+        
+        
+       // vehicleMsg.controlCommand.diagnosticRequest.request.pid = 56833//UInt32(cmd.pid!)
+       // vehicleMsg.controlCommand.diagnosticRequest.request.frequency = 0.0//Double(cmd.frequency)
+        
+//        if cmd.name != nil {
+//
+//            vehicleMsg.controlCommand.diagnosticRequest.request.name = ""
+//
+//        }
+//        else{
+//            vehicleMsg.controlCommand.diagnosticRequest.request.name = cmd.name as String
+//
+//        }
+        
+//        if cmd.pid != nil {
+//        vehicleMsg.controlCommand.diagnosticRequest.request.pid = UInt32(cmd.pid!)
+//        }
+//
+//        if cmd.frequency > 0 {
+//            vehicleMsg.controlCommand.diagnosticRequest.request.frequency = Double(cmd.frequency)
+//        }
 //        if !cmd.payload.isEmpty {
 //        let payloadData = Data(cmd.payload.utf8 )
 //       vehicleMsg.controlCommand.diagnosticRequest.request.payload = payloadData
 //        }
         
-        vehicleMsg.controlCommand.diagnosticRequest.request.multipleResponses = cmd.multiple_responses
+        vehicleMsg.controlCommand.diagnosticRequest.request.multipleResponses = (0 != 0) //cmd.multiple_responses
         
         if cmd.decoded_type != nil {
             
@@ -491,38 +504,19 @@ open class VehicleManager: NSObject {
         print("cmd decoded_type >>>>>>",cmd.decoded_type)
         print(">>>>>\(vehicleMsg)")
         
-       /* let cbuild = Openxc.ControlCommand.Builder()
-      _ = cbuild.setType(.diagnostic)
-        let c2build = Openxc.DiagnosticControlCommand.Builder()
-      _ = c2build.setAction(.add)
-        let dbuild = Openxc.DiagnosticRequest.Builder()
-      _ = dbuild.setBus(Int32(cmd.bus))
-      _ = dbuild.setMessageId(UInt32(cmd.message_id))
-      _ = dbuild.setMode(UInt32(cmd.mode))
-      if cmd.pid != nil {
-        _ = dbuild.setPid(UInt32(cmd.pid!))
-      }
-      if cmd.frequency>0 {
-        _ =  dbuild.setFrequency(Double(cmd.frequency))
-      }
-        let mbuild = Openxc.VehicleMessage.Builder()
-      _ = mbuild.setType(.controlCommand)
-      
-      do {
-        let dmsg = try dbuild.build()
-        _ = c2build.setRequest(dmsg)
-        let c2msg = try c2build.build()
-        _ = cbuild.setDiagnosticRequest(c2msg)
-        let cmsg = try cbuild.build()
-        _ = mbuild.setControlCommand(cmsg)
-        let mmsg = try mbuild.build()
-        //print (mmsg)
-         */
+       
         
         do
         {
             let binaryData:Data = try vehicleMsg.serializedData()
             let cdata2 = NSMutableData()
+           // let data:[UInt8] = [0x17, 0x08, 0x04, 0x2a, 0x13, 0x08, 0x03, 0x12, 0x0f,
+                              // 0x0a, 0x0b, 0x08, 0x01, 0x10, 0xd0, 0x0f, 0x18, 0x22, 0x20, 0x81, 0xbc,
+                             //  0x03, 0x10, 0x01 ]
+                //let cdata:Data = 0x0608042a020801
+               // let binaryData1 = Data(bytes: data, count: 24)
+
+
             let prepend : [UInt8] = [UInt8(binaryData.count)]
             cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
             cdata2.append(binaryData)
@@ -536,7 +530,35 @@ open class VehicleManager: NSObject {
         }catch{
             print(error)
         }
-
+        
+        
+        /* let cbuild = Openxc.ControlCommand.Builder()
+       _ = cbuild.setType(.diagnostic)
+         let c2build = Openxc.DiagnosticControlCommand.Builder()
+       _ = c2build.setAction(.add)
+         let dbuild = Openxc.DiagnosticRequest.Builder()
+       _ = dbuild.setBus(Int32(cmd.bus))
+       _ = dbuild.setMessageId(UInt32(cmd.message_id))
+       _ = dbuild.setMode(UInt32(cmd.mode))
+       if cmd.pid != nil {
+         _ = dbuild.setPid(UInt32(cmd.pid!))
+       }
+       if cmd.frequency>0 {
+         _ =  dbuild.setFrequency(Double(cmd.frequency))
+       }
+         let mbuild = Openxc.VehicleMessage.Builder()
+       _ = mbuild.setType(.controlCommand)
+       
+       do {
+         let dmsg = try dbuild.build()
+         _ = c2build.setRequest(dmsg)
+         let c2msg = try c2build.build()
+         _ = cbuild.setDiagnosticRequest(c2msg)
+         let cmsg = try cbuild.build()
+         _ = mbuild.setControlCommand(cmsg)
+         let mmsg = try mbuild.build()
+         //print (mmsg)
+          */
         
 //        let cdata = vehicleMsg.serializedData()
 //        let cdata2 = NSMutableData()
