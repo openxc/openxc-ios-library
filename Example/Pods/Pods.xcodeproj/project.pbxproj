@@ -73,7 +73,7 @@
 		723C9943ED7610E06E794821FC936A9F /* TextFormatDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC74B845F0B0C1F48E966B4BA583126B /* TextFormatDecodingError.swift */; };
 		73DDD1F0011BAB00A6435E4F84F7C396 /* JSONScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D95A4D510150C8DE4EE6A0AA77AD3B /* JSONScanner.swift */; };
 		780AD2CFB2BDEE01043F5E828E3D068E /* Google_Protobuf_NullValue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02517EDF162DE3BB401EF9647C7FFC5E /* Google_Protobuf_NullValue+Extensions.swift */; };
-		7D30678628118C590064FC8A /* openxc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D30678528118C590064FC8A /* openxc.pb.swift */; };
+		7D306788281195940064FC8A /* openxc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D306787281195940064FC8A /* openxc.pb.swift */; };
 		820BB8DE85121EF3F0820769A420CB63 /* HashVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1DA5DA5DDF0D95720F97CF938CBBC /* HashVisitor.swift */; };
 		83E2572C432C5A1C86EDD85A2035171E /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB266EF9887AC735BBE26A3CCB2F2B /* TargetAction.swift */; };
 		8493D50C6777CCA26850F01DBB65A6AD /* Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D38758C5047F2721766AABD499582C /* Internal.swift */; };
@@ -236,7 +236,7 @@
 		7719BCE1CBE53E627A3E8F9628B0CF64 /* BluetoothManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BluetoothManager.swift; path = openxcframework/BluetoothManager.swift; sourceTree = "<group>"; };
 		799DB1392466F84DC3C7513BF43B4709 /* TraceFileManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TraceFileManager.swift; path = openxcframework/TraceFileManager.swift; sourceTree = "<group>"; };
 		7CC751E568784D82B97AC1934C9F5012 /* VehicleMessageUnit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VehicleMessageUnit.swift; path = openxcframework/VehicleMessageUnit.swift; sourceTree = "<group>"; };
-		7D30678528118C590064FC8A /* openxc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = openxc.pb.swift; sourceTree = "<group>"; };
+		7D306787281195940064FC8A /* openxc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = openxc.pb.swift; path = openxcframework/openxc.pb.swift; sourceTree = "<group>"; };
 		7FD1C9F23600ABD9459D0C8DEC380710 /* TextFormatDecoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatDecoder.swift; path = Sources/SwiftProtobuf/TextFormatDecoder.swift; sourceTree = "<group>"; };
 		8089E96D339DD0163F54E680469CCA50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		822AD1DE06C1B49BEC94ED85E0808502 /* AppCenter.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = AppCenter.xcframework; path = "AppCenter-SDK-Apple/AppCenter.xcframework"; sourceTree = "<group>"; };
@@ -601,7 +601,7 @@
 		8F652AD59455B4776C8EDAA8194E2F03 /* openxcframework */ = {
 			isa = PBXGroup;
 			children = (
-				7D30678528118C590064FC8A /* openxc.pb.swift */,
+				7D306787281195940064FC8A /* openxc.pb.swift */,
 				7719BCE1CBE53E627A3E8F9628B0CF64 /* BluetoothManager.swift */,
 				885C86E0DD2E12501D7A96587EF25B5F /* CAN.swift */,
 				A775CA2AE3AAC46CA88506875F179241 /* Command.swift */,
@@ -907,7 +907,7 @@
 				30CE7EF9362A1299B2FD7B21C1C8831F /* Utilities.swift in Sources */,
 				1D15F01376E8B23C815CE970DF224C98 /* VehicleManager.swift in Sources */,
 				502FBC050AA4100F5A93AC153039EA71 /* VehicleMessageUnit.swift in Sources */,
-				7D30678628118C590064FC8A /* openxc.pb.swift in Sources */,
+				7D306788281195940064FC8A /* openxc.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
