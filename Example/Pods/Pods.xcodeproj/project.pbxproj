@@ -9,59 +9,59 @@
 /* Begin PBXAggregateTarget section */
 		A3282A5B2437E609EEB85861D7ECE717 /* AppCenter */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = D0944D0DEFF9CDF0CBE6D4A41B195020 /* Build configuration list for PBXAggregateTarget "AppCenter" */;
+			buildConfigurationList = 0437EB52E47F4DB542AB24721F109DA8 /* Build configuration list for PBXAggregateTarget "AppCenter" */;
 			buildPhases = (
+				1D06934B6CA4E608DB4BC52D02B50E2F /* [CP] Copy XCFrameworks */,
 			);
 			dependencies = (
 			);
 			name = AppCenter;
-			productName = AppCenter;
 		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		177334CCAC752CBA1A8410F6A907897A /* VehicleMessageUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C810F8309C8C694B1DAFF10315AF9EC6 /* VehicleMessageUnit.swift */; };
-		18BA542158CE7D8FB2F8CD2E0794272B /* Pods-openxcframework_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D25795DD8D971DE703E5FC0BD979F67D /* Pods-openxcframework_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B5CD86E080530C5E07F239F5DB080C5 /* CAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164B21A431F24599A3A4A3FEB9DA7E29 /* CAN.swift */; };
-		1C6ACB80DC8BED90D97292780C7CAD91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE022A6779F837538D84C78B88F90D24 /* Foundation.framework */; };
-		2581B557D5EB15420B1F0056AD207895 /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51720C159D527BEC38DB977FA7A2A880 /* VehicleManager.swift */; };
-		2B7141076DEFAA03E59EC241E4D89F8D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE022A6779F837538D84C78B88F90D24 /* Foundation.framework */; };
-		38C7BDC1F052D831B2C0481E7C391828 /* NetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA024B19CAD1DC3C88028FFEF6FEF3C9 /* NetworkDataManager.swift */; };
-		4228EDAA4281DCC66E8FFBF18F2D2D23 /* Pods-openxcframework_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5331ABDA72F26375E8CE90EC09B6F429 /* Pods-openxcframework_Example-dummy.m */; };
-		4E8C47377B18337334C2816979F3FCDD /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390C7EA835658F98C25AC1C9E6DAD5BB /* Measurement.swift */; };
-		52FC8BFB20A6824B6DBF7CCDE95126AC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA69CCB3BC6BD7EC76AEAB9375CBB9EF /* Utilities.swift */; };
-		6C494263B28F056620D0A530C442015A /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DE511961B74AC8D4AF80A8A50A9F07 /* Command.swift */; };
-		775DC9C30C8315C78B8BDC1BC52A6445 /* openxcframework-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8B9CFA77F582CAD455081E2244B810 /* openxcframework-dummy.m */; };
-		831A8D5F42113C5303A0343FFAFB4BD2 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED85DF008C2278FA080C07F13D2EB966 /* ExternalAccessory.framework */; };
-		853D655A0F6FEF1504854970321DE6A3 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A1DDE5481E5C9D3B7C6B98CF943427 /* CoreBluetooth.framework */; };
-		908318DC4A951693BD26D69AAE2DC871 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793D5FBE0E6C99B05CABBE07A41B7D8 /* Message.swift */; };
-		95145318E02E8DEBC9A77A018E71B60F /* OpenXCClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784BDF10D84D8B36BE144F5D44074ACD /* OpenXCClasses.swift */; };
-		9AE209A4075D3EA94512DE9119C66BE9 /* openxcframework-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D03F99B7A28BC7E3E0A126FFDCD7323 /* openxcframework-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A097A5ECE9C6C0031600C5385D023AF2 /* Pods-openxcframework_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2188810360A1A5BD7EFEBE1AA94D2535 /* Pods-openxcframework_Tests-dummy.m */; };
-		B561CE4E345563F3BD41F0E6C6BF76D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE022A6779F837538D84C78B88F90D24 /* Foundation.framework */; };
-		BC341DDEE59D3EE7987E48821E503716 /* Diagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982DD69B759461D5AA05428B8044632D /* Diagnostic.swift */; };
-		C8678A09753FA3BE4242EA0383A7CF44 /* TraceFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A44B5EB783AFD89856C122122AC9C0 /* TraceFileManager.swift */; };
-		CA899DB78156879BD8EB8D3F51AE5F9A /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3635F38FC66421032396D73A7684C772 /* TargetAction.swift */; };
-		CD8794A749EF260581FEFF95D87BD4B9 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C9416E1AAA53CBF32E7F59A0551CC /* BluetoothManager.swift */; };
-		CF61F63996A4654139900B4D3E253930 /* Pods-openxcframework_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F19044AFC07BBE7CB831A2A7359655BD /* Pods-openxcframework_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		013DF7898920C8582D5B433E63558F58 /* Diagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15951E3C73BA2810147CA3627EE35E8 /* Diagnostic.swift */; };
+		03CDE814376651D9640BEDDC7CC70379 /* openxcframework-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 70DB1C14F4E0DD1B3CFF652931684562 /* openxcframework-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		203A986D20DEC10C1EAB1AC2AE3D78A6 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A7CA5D05326CAAB236E187947B46F0 /* BluetoothManager.swift */; };
+		24B653E3087CAA1F5AD7D4AA33B41191 /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEDF11050D46CFAF2BB07AF5E3C73B8 /* VehicleManager.swift */; };
+		25A32A46BD3D95AA9F5AE7F2AC23C5DC /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB557F5A364DDDF77F84BCA2BC79E0E6 /* TargetAction.swift */; };
+		291E099474EC04626DC8FE7154A58A05 /* TraceFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F168DFE0D9C0ED3EF32AC0E39540CE6E /* TraceFileManager.swift */; };
+		31FDFF66C7E7D5DF3E8907650B8D8D86 /* CAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3632EC782B24AFFD1F0ADED4FB376D0 /* CAN.swift */; };
+		3BA894DEFA66BAA6DE4C8B1433BC830D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D43AF8FA66FE83F9B97A9534E11676 /* Message.swift */; };
+		3C41D219E6EA110B4263D79B08A19894 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8089E96D339DD0163F54E680469CCA50 /* Foundation.framework */; };
+		49A3904127A6CFB365D61FBE40ED4696 /* VehicleMessageUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FF3A4C4843B28DB68618F8F4CC8B71 /* VehicleMessageUnit.swift */; };
+		57152C6E08DF6D39AB0EC4E0A4DAA092 /* Pods-openxcframework_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5331ABDA72F26375E8CE90EC09B6F429 /* Pods-openxcframework_Example-dummy.m */; };
+		5AB9DE827F019561B74F929B578DB5E2 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59E41B2BE7BAB38BA00884A220D081F7 /* ExternalAccessory.framework */; };
+		835C37D600D3FD8665756DA158D4F973 /* OpenXCClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC713458351329FE47BCB1B5C4FEB0F3 /* OpenXCClasses.swift */; };
+		8CA32C4D406B1E304E48DA757CFECCDB /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35732AA858F1C24B7B5693137C065336 /* Measurement.swift */; };
+		8EBE9F12C98B1458F6B7B1B1856F0951 /* Pods-openxcframework_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F19044AFC07BBE7CB831A2A7359655BD /* Pods-openxcframework_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A56E663459DCDAE5621D30BF006D2655 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8089E96D339DD0163F54E680469CCA50 /* Foundation.framework */; };
+		A5E4A910E27824379C2115791B6BA4F8 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AFA3C802CFF48C94E70BF44B340BEF2 /* CoreBluetooth.framework */; };
+		C142191BDA59B0D5F11EEED9013E64DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8089E96D339DD0163F54E680469CCA50 /* Foundation.framework */; };
+		C9DFC2A142A3A9CDE830006627AB8352 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFCF1AF08D4E8D1C6D376047969CDD3 /* Command.swift */; };
+		E2BC719866DC2ADE0ACF5BF2FE7B085B /* openxcframework-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AD7454E6C357D8CF40C0BCC2DFA83F /* openxcframework-dummy.m */; };
+		E5C2AF5EC5549402028746C21CEE2AB5 /* Pods-openxcframework_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2188810360A1A5BD7EFEBE1AA94D2535 /* Pods-openxcframework_Tests-dummy.m */; };
+		F40BCF259DBDAC35F11E48EA2C0BF041 /* Pods-openxcframework_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D25795DD8D971DE703E5FC0BD979F67D /* Pods-openxcframework_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F91D186BEA607E99409B2AF2BF7AF038 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4223351C92C59AC889E11048E813CD /* Utilities.swift */; };
+		FB8905A2DA2FE7A29211B4C73813D80F /* NetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603FAEAFB638F3B5694FD3D40817AD3A /* NetworkDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2C9BEC9E1F87273B4BAF52E99533CB3C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A3282A5B2437E609EEB85861D7ECE717;
-			remoteInfo = AppCenter;
-		};
-		3434C353D859744F094B13F72033E879 /* PBXContainerItemProxy */ = {
+		478C7A23EF62C89A8633998E73B8F296 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3D15B7FEC0FC976FAAC42DAD60C46810;
 			remoteInfo = "Pods-openxcframework_Example";
 		};
-		BC99006E2F9BA9810E4A960FFB9A7511 /* PBXContainerItemProxy */ = {
+		B606A84CE3744830509A4DFB8272D1AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A3282A5B2437E609EEB85861D7ECE717;
+			remoteInfo = AppCenter;
+		};
+		FC7385F931A8E83CF0C423E3B4042AB1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -71,194 +71,201 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05A1DDE5481E5C9D3B7C6B98CF943427 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
 		0CCD3789D8FA09E8D2F93DB044915705 /* Pods-openxcframework_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Example-Info.plist"; sourceTree = "<group>"; };
-		0FEE3158F605D495B08188F7525FD262 /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenter.framework; path = "AppCenter-SDK-Apple/iOS/AppCenter.framework"; sourceTree = "<group>"; };
-		164B21A431F24599A3A4A3FEB9DA7E29 /* CAN.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CAN.swift; path = openxcframework/CAN.swift; sourceTree = "<group>"; };
-		1D8B9CFA77F582CAD455081E2244B810 /* openxcframework-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "openxcframework-dummy.m"; sourceTree = "<group>"; };
 		2188810360A1A5BD7EFEBE1AA94D2535 /* Pods-openxcframework_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-openxcframework_Tests-dummy.m"; sourceTree = "<group>"; };
-		23A44B5EB783AFD89856C122122AC9C0 /* TraceFileManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TraceFileManager.swift; path = openxcframework/TraceFileManager.swift; sourceTree = "<group>"; };
+		22CA09A2C91B9C2D90B02A3CD758485B /* openxcframework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = openxcframework.release.xcconfig; sourceTree = "<group>"; };
 		242BE1268323CD97945FE8DE98E15BCA /* Pods-openxcframework_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-openxcframework_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2678CF8C48F379CAAABCCFA9C940C19B /* openxcframework.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = openxcframework.modulemap; sourceTree = "<group>"; };
-		2A2F12CD70FF18A9D436BD98DCAD7621 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		2D56FFEA6EDA9FA407FF8C08EB657D98 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3635F38FC66421032396D73A7684C772 /* TargetAction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TargetAction.swift; path = openxcframework/TargetAction.swift; sourceTree = "<group>"; };
-		390C7EA835658F98C25AC1C9E6DAD5BB /* Measurement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Measurement.swift; path = openxcframework/Measurement.swift; sourceTree = "<group>"; };
+		35732AA858F1C24B7B5693137C065336 /* Measurement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Measurement.swift; path = openxcframework/Measurement.swift; sourceTree = "<group>"; };
+		3AFA3C802CFF48C94E70BF44B340BEF2 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
+		3D0CF4C8772C0B488AAD50FC8C8B195A /* AppCenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.debug.xcconfig; sourceTree = "<group>"; };
 		41CAE6A73EF3497366681451970E07EA /* Pods-openxcframework_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-openxcframework_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		4E24A6CB4A757F4A9FE1C9FCA466B758 /* Pods_openxcframework_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openxcframework_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		51720C159D527BEC38DB977FA7A2A880 /* VehicleManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VehicleManager.swift; path = openxcframework/VehicleManager.swift; sourceTree = "<group>"; };
+		477A4C111F8B017EEB98BBC3641D2158 /* openxcframework-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "openxcframework-prefix.pch"; sourceTree = "<group>"; };
+		4E24A6CB4A757F4A9FE1C9FCA466B758 /* Pods-openxcframework_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-openxcframework_Example"; path = Pods_openxcframework_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5331ABDA72F26375E8CE90EC09B6F429 /* Pods-openxcframework_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-openxcframework_Example-dummy.m"; sourceTree = "<group>"; };
-		5BE8D52BF9F7137B995A4B01EBA5DD4D /* Pods_openxcframework_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openxcframework_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53A7CA5D05326CAAB236E187947B46F0 /* BluetoothManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BluetoothManager.swift; path = openxcframework/BluetoothManager.swift; sourceTree = "<group>"; };
+		59E41B2BE7BAB38BA00884A220D081F7 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/ExternalAccessory.framework; sourceTree = DEVELOPER_DIR; };
+		5BE8D52BF9F7137B995A4B01EBA5DD4D /* Pods-openxcframework_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-openxcframework_Tests"; path = Pods_openxcframework_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F59A699A0D05FC9304EF9AE02F8568D /* Pods-openxcframework_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-openxcframework_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		688C9416E1AAA53CBF32E7F59A0551CC /* BluetoothManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BluetoothManager.swift; path = openxcframework/BluetoothManager.swift; sourceTree = "<group>"; };
-		698BB358AF8865BAB064E2FABFD209D6 /* openxcframework.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = openxcframework.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		603FAEAFB638F3B5694FD3D40817AD3A /* NetworkDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkDataManager.swift; path = openxcframework/NetworkDataManager.swift; sourceTree = "<group>"; };
+		60915F58B2DC39813E47219259850A89 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		70536956E19C921D63CC319D7FD8B054 /* Pods-openxcframework_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-openxcframework_Example.release.xcconfig"; sourceTree = "<group>"; };
+		70DB1C14F4E0DD1B3CFF652931684562 /* openxcframework-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "openxcframework-umbrella.h"; sourceTree = "<group>"; };
+		72F1C87A91DD130F3F8462BC71DEC0D9 /* AppCenter.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = AppCenter.xcframework; path = "AppCenter-SDK-Apple/AppCenter.xcframework"; sourceTree = "<group>"; };
 		7331C5F298F9F32F9445047E3CBD8C58 /* Pods-openxcframework_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-openxcframework_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		73CB6F4DE51629807245C97614FED393 /* openXCiOSFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = openXCiOSFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		784BDF10D84D8B36BE144F5D44074ACD /* OpenXCClasses.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OpenXCClasses.swift; path = openxcframework/OpenXCClasses.swift; sourceTree = "<group>"; };
-		8A2A0CB859A7DDE2E5CAAB4CC1F132EC /* openxcframework-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "openxcframework-prefix.pch"; sourceTree = "<group>"; };
-		982DD69B759461D5AA05428B8044632D /* Diagnostic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Diagnostic.swift; path = openxcframework/Diagnostic.swift; sourceTree = "<group>"; };
-		9D03F99B7A28BC7E3E0A126FFDCD7323 /* openxcframework-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "openxcframework-umbrella.h"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		73CB6F4DE51629807245C97614FED393 /* openxcframework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = openxcframework; path = openXCiOSFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AEDF11050D46CFAF2BB07AF5E3C73B8 /* VehicleManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VehicleManager.swift; path = openxcframework/VehicleManager.swift; sourceTree = "<group>"; };
+		7F34BEF80C134797A9A5E622E432E9FA /* openxcframework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = openxcframework.debug.xcconfig; sourceTree = "<group>"; };
+		7FFCF1AF08D4E8D1C6D376047969CDD3 /* Command.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Command.swift; path = openxcframework/Command.swift; sourceTree = "<group>"; };
+		8089E96D339DD0163F54E680469CCA50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		85FF3A4C4843B28DB68618F8F4CC8B71 /* VehicleMessageUnit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VehicleMessageUnit.swift; path = openxcframework/VehicleMessageUnit.swift; sourceTree = "<group>"; };
+		88AA5B4EF76733FFA2DB35A5A9013B6A /* openxcframework-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "openxcframework-Info.plist"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A06779CEF78828E7E0B9CEDD78C5B046 /* Pods-openxcframework_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-openxcframework_Tests.modulemap"; sourceTree = "<group>"; };
+		A3632EC782B24AFFD1F0ADED4FB376D0 /* CAN.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CAN.swift; path = openxcframework/CAN.swift; sourceTree = "<group>"; };
 		A81BD01229C43A778191B2CC347BA165 /* Pods-openxcframework_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-openxcframework_Example.modulemap"; sourceTree = "<group>"; };
 		A8C7675714E6F5233382997EE27FAA0A /* Pods-openxcframework_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-openxcframework_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		AA753160250FAF210624E9297C53771C /* openxcframework-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "openxcframework-Info.plist"; sourceTree = "<group>"; };
-		AC7CD1C412745CB23A2ED0C2A6D486EF /* AppCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterAnalytics.framework; path = "AppCenter-SDK-Apple/iOS/AppCenterAnalytics.framework"; sourceTree = "<group>"; };
-		AE146D4DBF4FCFD24A5C97DDB506616D /* AppCenter.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.xcconfig; sourceTree = "<group>"; };
 		B46719222A6502AE56F86EA92CACC305 /* Pods-openxcframework_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		B69D7A7B4C1622AD650EA2E030736707 /* AppCenterAnalytics.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = AppCenterAnalytics.xcframework; path = "AppCenter-SDK-Apple/AppCenterAnalytics.xcframework"; sourceTree = "<group>"; };
 		C37523B616010949815515E9CF94E82C /* Pods-openxcframework_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		C39874D5A2964042B413F857C0520145 /* AppCenter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.release.xcconfig; sourceTree = "<group>"; };
+		C3D43AF8FA66FE83F9B97A9534E11676 /* Message.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Message.swift; path = openxcframework/Message.swift; sourceTree = "<group>"; };
 		C61674B6E951970071B18C1CBF0D1F11 /* Pods-openxcframework_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Tests-Info.plist"; sourceTree = "<group>"; };
-		C793D5FBE0E6C99B05CABBE07A41B7D8 /* Message.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Message.swift; path = openxcframework/Message.swift; sourceTree = "<group>"; };
-		C810F8309C8C694B1DAFF10315AF9EC6 /* VehicleMessageUnit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VehicleMessageUnit.swift; path = openxcframework/VehicleMessageUnit.swift; sourceTree = "<group>"; };
-		CBF60A12C502CCD6CAA82C5108C7C98B /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterCrashes.framework; path = "AppCenter-SDK-Apple/iOS/AppCenterCrashes.framework"; sourceTree = "<group>"; };
+		CB557F5A364DDDF77F84BCA2BC79E0E6 /* TargetAction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TargetAction.swift; path = openxcframework/TargetAction.swift; sourceTree = "<group>"; };
+		CF6B99E9DBF64F4E2D95CF7E59239454 /* openxcframework.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = openxcframework.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D024FDD6D97527CD1036848CD81D190B /* AppCenterCrashes.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = AppCenterCrashes.xcframework; path = "AppCenter-SDK-Apple/AppCenterCrashes.xcframework"; sourceTree = "<group>"; };
+		D04D340392B9477E466B26B31D1DB4C9 /* openxcframework.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = openxcframework.modulemap; sourceTree = "<group>"; };
 		D25795DD8D971DE703E5FC0BD979F67D /* Pods-openxcframework_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-openxcframework_Tests-umbrella.h"; sourceTree = "<group>"; };
-		DA69CCB3BC6BD7EC76AEAB9375CBB9EF /* Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = openxcframework/Utilities.swift; sourceTree = "<group>"; };
-		E6BD6086E535ACAD7EF63DD3AF9A39BB /* openxcframework.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = openxcframework.xcconfig; sourceTree = "<group>"; };
-		ED85DF008C2278FA080C07F13D2EB966 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/ExternalAccessory.framework; sourceTree = DEVELOPER_DIR; };
-		EE022A6779F837538D84C78B88F90D24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E039AAFC7E20C4A1758D09A8960AA7D9 /* AppCenter-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "AppCenter-xcframeworks.sh"; sourceTree = "<group>"; };
+		E15951E3C73BA2810147CA3627EE35E8 /* Diagnostic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Diagnostic.swift; path = openxcframework/Diagnostic.swift; sourceTree = "<group>"; };
+		E6AD7454E6C357D8CF40C0BCC2DFA83F /* openxcframework-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "openxcframework-dummy.m"; sourceTree = "<group>"; };
+		EF4223351C92C59AC889E11048E813CD /* Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = openxcframework/Utilities.swift; sourceTree = "<group>"; };
+		F168DFE0D9C0ED3EF32AC0E39540CE6E /* TraceFileManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TraceFileManager.swift; path = openxcframework/TraceFileManager.swift; sourceTree = "<group>"; };
 		F19044AFC07BBE7CB831A2A7359655BD /* Pods-openxcframework_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-openxcframework_Example-umbrella.h"; sourceTree = "<group>"; };
-		F7DE511961B74AC8D4AF80A8A50A9F07 /* Command.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Command.swift; path = openxcframework/Command.swift; sourceTree = "<group>"; };
+		F26DDE860EFBFF499D05C2906E7E08B1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		F94D413AF18ADF087457090F9BC90E47 /* Pods-openxcframework_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-openxcframework_Example-frameworks.sh"; sourceTree = "<group>"; };
-		FA024B19CAD1DC3C88028FFEF6FEF3C9 /* NetworkDataManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkDataManager.swift; path = openxcframework/NetworkDataManager.swift; sourceTree = "<group>"; };
+		FC713458351329FE47BCB1B5C4FEB0F3 /* OpenXCClasses.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OpenXCClasses.swift; path = openxcframework/OpenXCClasses.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3B7B34180F3F759FE8C03638B7C4E88D /* Frameworks */ = {
+		05424C99E7E2F73B1AE5CDFF83934427 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				853D655A0F6FEF1504854970321DE6A3 /* CoreBluetooth.framework in Frameworks */,
-				831A8D5F42113C5303A0343FFAFB4BD2 /* ExternalAccessory.framework in Frameworks */,
-				B561CE4E345563F3BD41F0E6C6BF76D9 /* Foundation.framework in Frameworks */,
+				C142191BDA59B0D5F11EEED9013E64DA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A831189CC9599D91AC87558BDBB2D321 /* Frameworks */ = {
+		A07F2FA7743B161F424D6E9F44CC6CCE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B7141076DEFAA03E59EC241E4D89F8D /* Foundation.framework in Frameworks */,
+				A5E4A910E27824379C2115791B6BA4F8 /* CoreBluetooth.framework in Frameworks */,
+				5AB9DE827F019561B74F929B578DB5E2 /* ExternalAccessory.framework in Frameworks */,
+				A56E663459DCDAE5621D30BF006D2655 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C0079880B36CB3DDEE837D30A09E334D /* Frameworks */ = {
+		F2B4324D341AFAEB856BECEBFA2BCF4C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C6ACB80DC8BED90D97292780C7CAD91 /* Foundation.framework in Frameworks */,
+				3C41D219E6EA110B4263D79B08A19894 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		026FDD7325117180BF8F815911CA399A /* openxcframework */ = {
+			isa = PBXGroup;
+			children = (
+				53A7CA5D05326CAAB236E187947B46F0 /* BluetoothManager.swift */,
+				A3632EC782B24AFFD1F0ADED4FB376D0 /* CAN.swift */,
+				7FFCF1AF08D4E8D1C6D376047969CDD3 /* Command.swift */,
+				E15951E3C73BA2810147CA3627EE35E8 /* Diagnostic.swift */,
+				35732AA858F1C24B7B5693137C065336 /* Measurement.swift */,
+				C3D43AF8FA66FE83F9B97A9534E11676 /* Message.swift */,
+				603FAEAFB638F3B5694FD3D40817AD3A /* NetworkDataManager.swift */,
+				FC713458351329FE47BCB1B5C4FEB0F3 /* OpenXCClasses.swift */,
+				CB557F5A364DDDF77F84BCA2BC79E0E6 /* TargetAction.swift */,
+				F168DFE0D9C0ED3EF32AC0E39540CE6E /* TraceFileManager.swift */,
+				EF4223351C92C59AC889E11048E813CD /* Utilities.swift */,
+				7AEDF11050D46CFAF2BB07AF5E3C73B8 /* VehicleManager.swift */,
+				85FF3A4C4843B28DB68618F8F4CC8B71 /* VehicleMessageUnit.swift */,
+				DD7E3EF49FD32DAD3D64759B4323BE07 /* Pod */,
+				2F600EBDC81468676D6E85389075223E /* Support Files */,
+			);
+			name = openxcframework;
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		03C5C200A0787E300053CFA8F53CA094 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CBBAA8DBE03C184D06BC483427C5702C /* iOS */,
+				31F3609C749FD09D47025ADC39779331 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		126FFB397A9CB69EB94B45933BD8F0CE /* AppCenter */ = {
+		2F2B7A9E8A3AFDF43FD838C02D566CD8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4E719473D1F0C677F684CD950C300442 /* Analytics */,
-				78237BF1D9A1E14483E67C231EA24492 /* Core */,
-				C8A998CC47F12DC073FCF1059B8647DE /* Crashes */,
-				74E1E2013DA1AE0DE4601FBBD8CE0FFA /* Support Files */,
-			);
-			path = AppCenter;
-			sourceTree = "<group>";
-		};
-		16157222A926B5020657E757ECB0900D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				73CB6F4DE51629807245C97614FED393 /* openXCiOSFramework.framework */,
-				4E24A6CB4A757F4A9FE1C9FCA466B758 /* Pods_openxcframework_Example.framework */,
-				5BE8D52BF9F7137B995A4B01EBA5DD4D /* Pods_openxcframework_Tests.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		20EEEDC9468D383C17B78ABF7ED4629D /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				981DC699698FF7DA2D9245CCEE08A7C0 /* openxcframework */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		3EB831948BAC463725CBC5E64061B6AC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AC7CD1C412745CB23A2ED0C2A6D486EF /* AppCenterAnalytics.framework */,
+				B69D7A7B4C1622AD650EA2E030736707 /* AppCenterAnalytics.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4E719473D1F0C677F684CD950C300442 /* Analytics */ = {
+		2F600EBDC81468676D6E85389075223E /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				3EB831948BAC463725CBC5E64061B6AC /* Frameworks */,
-			);
-			name = Analytics;
-			sourceTree = "<group>";
-		};
-		7030FD8CF9845C21D78120FE7912E293 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				2678CF8C48F379CAAABCCFA9C940C19B /* openxcframework.modulemap */,
-				E6BD6086E535ACAD7EF63DD3AF9A39BB /* openxcframework.xcconfig */,
-				1D8B9CFA77F582CAD455081E2244B810 /* openxcframework-dummy.m */,
-				AA753160250FAF210624E9297C53771C /* openxcframework-Info.plist */,
-				8A2A0CB859A7DDE2E5CAAB4CC1F132EC /* openxcframework-prefix.pch */,
-				9D03F99B7A28BC7E3E0A126FFDCD7323 /* openxcframework-umbrella.h */,
+				D04D340392B9477E466B26B31D1DB4C9 /* openxcframework.modulemap */,
+				E6AD7454E6C357D8CF40C0BCC2DFA83F /* openxcframework-dummy.m */,
+				88AA5B4EF76733FFA2DB35A5A9013B6A /* openxcframework-Info.plist */,
+				477A4C111F8B017EEB98BBC3641D2158 /* openxcframework-prefix.pch */,
+				70DB1C14F4E0DD1B3CFF652931684562 /* openxcframework-umbrella.h */,
+				7F34BEF80C134797A9A5E622E432E9FA /* openxcframework.debug.xcconfig */,
+				22CA09A2C91B9C2D90B02A3CD758485B /* openxcframework.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/openxcframework";
 			sourceTree = "<group>";
 		};
-		74E1E2013DA1AE0DE4601FBBD8CE0FFA /* Support Files */ = {
+		31F3609C749FD09D47025ADC39779331 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				AE146D4DBF4FCFD24A5C97DDB506616D /* AppCenter.xcconfig */,
+				3AFA3C802CFF48C94E70BF44B340BEF2 /* CoreBluetooth.framework */,
+				59E41B2BE7BAB38BA00884A220D081F7 /* ExternalAccessory.framework */,
+				8089E96D339DD0163F54E680469CCA50 /* Foundation.framework */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/AppCenter";
+			name = iOS;
 			sourceTree = "<group>";
 		};
-		78237BF1D9A1E14483E67C231EA24492 /* Core */ = {
+		39EB189933603107C632FCC15085B375 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B8D12DB16B5F3A3C65C56744F91F693C /* Frameworks */,
+				73CB6F4DE51629807245C97614FED393 /* openxcframework */,
+				4E24A6CB4A757F4A9FE1C9FCA466B758 /* Pods-openxcframework_Example */,
+				5BE8D52BF9F7137B995A4B01EBA5DD4D /* Pods-openxcframework_Tests */,
 			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		82F786B55C98129CF1EC4406FE0CB364 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				2A2F12CD70FF18A9D436BD98DCAD7621 /* LICENSE */,
-				698BB358AF8865BAB064E2FABFD209D6 /* openxcframework.podspec */,
-				2D56FFEA6EDA9FA407FF8C08EB657D98 /* README.md */,
-			);
-			name = Pod;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		847EBDDE94B66B5A82F61EB451C88447 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				126FFB397A9CB69EB94B45933BD8F0CE /* AppCenter */,
+				CCF3AAA61B16584A1E11774EB7B0ADCC /* AppCenter */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		8E148A02952634D9C45857534695CF4B /* Frameworks */ = {
+		85087D08E7B7C1D192737E810CB045D4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				CBF60A12C502CCD6CAA82C5108C7C98B /* AppCenterCrashes.framework */,
+				8CBBAACAA4138B66D82A6EAD676BFF28 /* Frameworks */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		8A03BD2D38C58B1A7368EB6ABD03E3A1 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				026FDD7325117180BF8F815911CA399A /* openxcframework */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		8A73CCCFE9DD339E100B629D77BED900 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				2F2B7A9E8A3AFDF43FD838C02D566CD8 /* Frameworks */,
+			);
+			name = Analytics;
+			sourceTree = "<group>";
+		};
+		8CBBAACAA4138B66D82A6EAD676BFF28 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				72F1C87A91DD130F3F8462BC71DEC0D9 /* AppCenter.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -280,27 +287,23 @@
 			path = "Target Support Files/Pods-openxcframework_Example";
 			sourceTree = "<group>";
 		};
-		981DC699698FF7DA2D9245CCEE08A7C0 /* openxcframework */ = {
+		B3B45CEB94D12F1AFCD73811CEF39A57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				688C9416E1AAA53CBF32E7F59A0551CC /* BluetoothManager.swift */,
-				164B21A431F24599A3A4A3FEB9DA7E29 /* CAN.swift */,
-				F7DE511961B74AC8D4AF80A8A50A9F07 /* Command.swift */,
-				982DD69B759461D5AA05428B8044632D /* Diagnostic.swift */,
-				390C7EA835658F98C25AC1C9E6DAD5BB /* Measurement.swift */,
-				C793D5FBE0E6C99B05CABBE07A41B7D8 /* Message.swift */,
-				FA024B19CAD1DC3C88028FFEF6FEF3C9 /* NetworkDataManager.swift */,
-				784BDF10D84D8B36BE144F5D44074ACD /* OpenXCClasses.swift */,
-				3635F38FC66421032396D73A7684C772 /* TargetAction.swift */,
-				23A44B5EB783AFD89856C122122AC9C0 /* TraceFileManager.swift */,
-				DA69CCB3BC6BD7EC76AEAB9375CBB9EF /* Utilities.swift */,
-				51720C159D527BEC38DB977FA7A2A880 /* VehicleManager.swift */,
-				C810F8309C8C694B1DAFF10315AF9EC6 /* VehicleMessageUnit.swift */,
-				82F786B55C98129CF1EC4406FE0CB364 /* Pod */,
-				7030FD8CF9845C21D78120FE7912E293 /* Support Files */,
+				D024FDD6D97527CD1036848CD81D190B /* AppCenterCrashes.xcframework */,
 			);
-			name = openxcframework;
-			path = ../..;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B429B4E34BC53C308CEE01E3AB1A4C15 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				E039AAFC7E20C4A1758D09A8960AA7D9 /* AppCenter-xcframeworks.sh */,
+				3D0CF4C8772C0B488AAD50FC8C8B195A /* AppCenter.debug.xcconfig */,
+				C39874D5A2964042B413F857C0520145 /* AppCenter.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/AppCenter";
 			sourceTree = "<group>";
 		};
 		B780B9DEBE1820ACED757C86BA9ED8C0 /* Pods-openxcframework_Tests */ = {
@@ -319,42 +322,38 @@
 			path = "Target Support Files/Pods-openxcframework_Tests";
 			sourceTree = "<group>";
 		};
-		B8D12DB16B5F3A3C65C56744F91F693C /* Frameworks */ = {
+		CCF3AAA61B16584A1E11774EB7B0ADCC /* AppCenter */ = {
 			isa = PBXGroup;
 			children = (
-				0FEE3158F605D495B08188F7525FD262 /* AppCenter.framework */,
+				8A73CCCFE9DD339E100B629D77BED900 /* Analytics */,
+				85087D08E7B7C1D192737E810CB045D4 /* Core */,
+				ED5E0372385F80256AD185B82982C57C /* Crashes */,
+				B429B4E34BC53C308CEE01E3AB1A4C15 /* Support Files */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C8A998CC47F12DC073FCF1059B8647DE /* Crashes */ = {
-			isa = PBXGroup;
-			children = (
-				8E148A02952634D9C45857534695CF4B /* Frameworks */,
-			);
-			name = Crashes;
-			sourceTree = "<group>";
-		};
-		CBBAA8DBE03C184D06BC483427C5702C /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				05A1DDE5481E5C9D3B7C6B98CF943427 /* CoreBluetooth.framework */,
-				ED85DF008C2278FA080C07F13D2EB966 /* ExternalAccessory.framework */,
-				EE022A6779F837538D84C78B88F90D24 /* Foundation.framework */,
-			);
-			name = iOS;
+			name = AppCenter;
+			path = AppCenter;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				20EEEDC9468D383C17B78ABF7ED4629D /* Development Pods */,
+				8A03BD2D38C58B1A7368EB6ABD03E3A1 /* Development Pods */,
 				03C5C200A0787E300053CFA8F53CA094 /* Frameworks */,
 				847EBDDE94B66B5A82F61EB451C88447 /* Pods */,
-				16157222A926B5020657E757ECB0900D /* Products */,
+				39EB189933603107C632FCC15085B375 /* Products */,
 				DF303FAA3967C5A5CB08A0A2EB78DE65 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		DD7E3EF49FD32DAD3D64759B4323BE07 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				F26DDE860EFBFF499D05C2906E7E08B1 /* LICENSE */,
+				CF6B99E9DBF64F4E2D95CF7E59239454 /* openxcframework.podspec */,
+				60915F58B2DC39813E47219259850A89 /* README.md */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		DF303FAA3967C5A5CB08A0A2EB78DE65 /* Targets Support Files */ = {
@@ -366,30 +365,38 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		ED5E0372385F80256AD185B82982C57C /* Crashes */ = {
+			isa = PBXGroup;
+			children = (
+				B3B45CEB94D12F1AFCD73811CEF39A57 /* Frameworks */,
+			);
+			name = Crashes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		4B5A59CA15BEB939E43BCED639CFF51C /* Headers */ = {
+		4069D8976C293ED4A38C72ED69F12E6C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF61F63996A4654139900B4D3E253930 /* Pods-openxcframework_Example-umbrella.h in Headers */,
+				03CDE814376651D9640BEDDC7CC70379 /* openxcframework-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A2B337050E692465C0E60639AF79BA3 /* Headers */ = {
+		B8B9A5B65A89740EA04663FB0F3DFC61 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18BA542158CE7D8FB2F8CD2E0794272B /* Pods-openxcframework_Tests-umbrella.h in Headers */,
+				F40BCF259DBDAC35F11E48EA2C0BF041 /* Pods-openxcframework_Tests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C6AAB4751F1E63522D2B1AE8A40A7263 /* Headers */ = {
+		C04D22D67A414CEF5DA57152436DE110 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AE209A4075D3EA94512DE9119C66BE9 /* openxcframework-umbrella.h in Headers */,
+				8EBE9F12C98B1458F6B7B1B1856F0951 /* Pods-openxcframework_Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,59 +405,59 @@
 /* Begin PBXNativeTarget section */
 		3D15B7FEC0FC976FAAC42DAD60C46810 /* Pods-openxcframework_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7388C2532F472EDCF436084A138983C3 /* Build configuration list for PBXNativeTarget "Pods-openxcframework_Example" */;
+			buildConfigurationList = EDF94A2453A4438347BE2F46B59BC0E7 /* Build configuration list for PBXNativeTarget "Pods-openxcframework_Example" */;
 			buildPhases = (
-				4B5A59CA15BEB939E43BCED639CFF51C /* Headers */,
-				AEE95B3971C4E1DBDF218FC5D9C08655 /* Sources */,
-				A831189CC9599D91AC87558BDBB2D321 /* Frameworks */,
-				7518626E925D3A3A582F0EE1A994EC1E /* Resources */,
+				C04D22D67A414CEF5DA57152436DE110 /* Headers */,
+				4D1E3B052860958239B9D1AB15799F30 /* Sources */,
+				05424C99E7E2F73B1AE5CDFF83934427 /* Frameworks */,
+				E765535F48DCFD6438306B5492410E2C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7DAA008F9693A9E5BF5CC27ABCE8484F /* PBXTargetDependency */,
-				7F998962197D63370E6EDD94E2751570 /* PBXTargetDependency */,
+				848CC67A10A4C0674713143D8ACDC29C /* PBXTargetDependency */,
+				9B1C3113F48352713BD60AD0A780DEE2 /* PBXTargetDependency */,
 			);
 			name = "Pods-openxcframework_Example";
-			productName = "Pods-openxcframework_Example";
-			productReference = 4E24A6CB4A757F4A9FE1C9FCA466B758 /* Pods_openxcframework_Example.framework */;
+			productName = Pods_openxcframework_Example;
+			productReference = 4E24A6CB4A757F4A9FE1C9FCA466B758 /* Pods-openxcframework_Example */;
 			productType = "com.apple.product-type.framework";
 		};
 		6A3D364970EB13929099E1D9A38575D8 /* Pods-openxcframework_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B13A5629C0348E244D5ED6F39BBCA781 /* Build configuration list for PBXNativeTarget "Pods-openxcframework_Tests" */;
+			buildConfigurationList = EB425625DD4CF1CF5FEB3953F75018B9 /* Build configuration list for PBXNativeTarget "Pods-openxcframework_Tests" */;
 			buildPhases = (
-				7A2B337050E692465C0E60639AF79BA3 /* Headers */,
-				C82E78CF4F5CAE775CAC725D994ADFEB /* Sources */,
-				C0079880B36CB3DDEE837D30A09E334D /* Frameworks */,
-				634ACF684FDE7D013D5DDA6365E48120 /* Resources */,
+				B8B9A5B65A89740EA04663FB0F3DFC61 /* Headers */,
+				E63AB803410CC5B68DED19AF8141A2BF /* Sources */,
+				F2B4324D341AFAEB856BECEBFA2BCF4C /* Frameworks */,
+				21EFF02ACF9C9717AD5A079706522D19 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				45B039AA5358197C176FAB4EDF7323FE /* PBXTargetDependency */,
+				4B3F18F822F1D2CED61A063FAF05FD90 /* PBXTargetDependency */,
 			);
 			name = "Pods-openxcframework_Tests";
-			productName = "Pods-openxcframework_Tests";
-			productReference = 5BE8D52BF9F7137B995A4B01EBA5DD4D /* Pods_openxcframework_Tests.framework */;
+			productName = Pods_openxcframework_Tests;
+			productReference = 5BE8D52BF9F7137B995A4B01EBA5DD4D /* Pods-openxcframework_Tests */;
 			productType = "com.apple.product-type.framework";
 		};
 		80BE68E89A4FE7EA4D0D228982FC2AA8 /* openxcframework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E77ABC5AB380AA0F45F06EFE5ABECF04 /* Build configuration list for PBXNativeTarget "openxcframework" */;
+			buildConfigurationList = 68CFDA79562AEB10153134431E6D2485 /* Build configuration list for PBXNativeTarget "openxcframework" */;
 			buildPhases = (
-				C6AAB4751F1E63522D2B1AE8A40A7263 /* Headers */,
-				01C8755C1040A2717B048AD002866FC8 /* Sources */,
-				3B7B34180F3F759FE8C03638B7C4E88D /* Frameworks */,
-				B41E290B256C83E40AAE8F6300F72DEE /* Resources */,
+				4069D8976C293ED4A38C72ED69F12E6C /* Headers */,
+				D20A1252C1D39D421BE3B3668B0EACDA /* Sources */,
+				A07F2FA7743B161F424D6E9F44CC6CCE /* Frameworks */,
+				4BE039456D6C49291A5832F6B1F830A9 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = openxcframework;
-			productName = openxcframework;
-			productReference = 73CB6F4DE51629807245C97614FED393 /* openXCiOSFramework.framework */;
+			productName = openXCiOSFramework;
+			productReference = 73CB6F4DE51629807245C97614FED393 /* openxcframework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -459,19 +466,19 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1230;
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 16157222A926B5020657E757ECB0900D /* Products */;
+			productRefGroup = 39EB189933603107C632FCC15085B375 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -484,21 +491,21 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		634ACF684FDE7D013D5DDA6365E48120 /* Resources */ = {
+		21EFF02ACF9C9717AD5A079706522D19 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7518626E925D3A3A582F0EE1A994EC1E /* Resources */ = {
+		4BE039456D6C49291A5832F6B1F830A9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B41E290B256C83E40AAE8F6300F72DEE /* Resources */ = {
+		E765535F48DCFD6438306B5492410E2C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -507,104 +514,98 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1D06934B6CA4E608DB4BC52D02B50E2F /* [CP] Copy XCFrameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/AppCenter/AppCenter-xcframeworks.sh",
+				"${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenterAnalytics.xcframework",
+				"${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenter.xcframework",
+				"${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenterCrashes.xcframework",
+			);
+			name = "[CP] Copy XCFrameworks";
+			outputPaths = (
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AppCenter/Analytics/AppCenterAnalytics.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AppCenter/Core/AppCenter.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AppCenter/Crashes/AppCenterCrashes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/AppCenter/AppCenter-xcframeworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		01C8755C1040A2717B048AD002866FC8 /* Sources */ = {
+		4D1E3B052860958239B9D1AB15799F30 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD8794A749EF260581FEFF95D87BD4B9 /* BluetoothManager.swift in Sources */,
-				1B5CD86E080530C5E07F239F5DB080C5 /* CAN.swift in Sources */,
-				6C494263B28F056620D0A530C442015A /* Command.swift in Sources */,
-				BC341DDEE59D3EE7987E48821E503716 /* Diagnostic.swift in Sources */,
-				4E8C47377B18337334C2816979F3FCDD /* Measurement.swift in Sources */,
-				908318DC4A951693BD26D69AAE2DC871 /* Message.swift in Sources */,
-				38C7BDC1F052D831B2C0481E7C391828 /* NetworkDataManager.swift in Sources */,
-				95145318E02E8DEBC9A77A018E71B60F /* OpenXCClasses.swift in Sources */,
-				775DC9C30C8315C78B8BDC1BC52A6445 /* openxcframework-dummy.m in Sources */,
-				CA899DB78156879BD8EB8D3F51AE5F9A /* TargetAction.swift in Sources */,
-				C8678A09753FA3BE4242EA0383A7CF44 /* TraceFileManager.swift in Sources */,
-				52FC8BFB20A6824B6DBF7CCDE95126AC /* Utilities.swift in Sources */,
-				2581B557D5EB15420B1F0056AD207895 /* VehicleManager.swift in Sources */,
-				177334CCAC752CBA1A8410F6A907897A /* VehicleMessageUnit.swift in Sources */,
+				57152C6E08DF6D39AB0EC4E0A4DAA092 /* Pods-openxcframework_Example-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AEE95B3971C4E1DBDF218FC5D9C08655 /* Sources */ = {
+		D20A1252C1D39D421BE3B3668B0EACDA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4228EDAA4281DCC66E8FFBF18F2D2D23 /* Pods-openxcframework_Example-dummy.m in Sources */,
+				203A986D20DEC10C1EAB1AC2AE3D78A6 /* BluetoothManager.swift in Sources */,
+				31FDFF66C7E7D5DF3E8907650B8D8D86 /* CAN.swift in Sources */,
+				C9DFC2A142A3A9CDE830006627AB8352 /* Command.swift in Sources */,
+				013DF7898920C8582D5B433E63558F58 /* Diagnostic.swift in Sources */,
+				8CA32C4D406B1E304E48DA757CFECCDB /* Measurement.swift in Sources */,
+				3BA894DEFA66BAA6DE4C8B1433BC830D /* Message.swift in Sources */,
+				FB8905A2DA2FE7A29211B4C73813D80F /* NetworkDataManager.swift in Sources */,
+				835C37D600D3FD8665756DA158D4F973 /* OpenXCClasses.swift in Sources */,
+				E2BC719866DC2ADE0ACF5BF2FE7B085B /* openxcframework-dummy.m in Sources */,
+				25A32A46BD3D95AA9F5AE7F2AC23C5DC /* TargetAction.swift in Sources */,
+				291E099474EC04626DC8FE7154A58A05 /* TraceFileManager.swift in Sources */,
+				F91D186BEA607E99409B2AF2BF7AF038 /* Utilities.swift in Sources */,
+				24B653E3087CAA1F5AD7D4AA33B41191 /* VehicleManager.swift in Sources */,
+				49A3904127A6CFB365D61FBE40ED4696 /* VehicleMessageUnit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C82E78CF4F5CAE775CAC725D994ADFEB /* Sources */ = {
+		E63AB803410CC5B68DED19AF8141A2BF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A097A5ECE9C6C0031600C5385D023AF2 /* Pods-openxcframework_Tests-dummy.m in Sources */,
+				E5C2AF5EC5549402028746C21CEE2AB5 /* Pods-openxcframework_Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		45B039AA5358197C176FAB4EDF7323FE /* PBXTargetDependency */ = {
+		4B3F18F822F1D2CED61A063FAF05FD90 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-openxcframework_Example";
 			target = 3D15B7FEC0FC976FAAC42DAD60C46810 /* Pods-openxcframework_Example */;
-			targetProxy = 3434C353D859744F094B13F72033E879 /* PBXContainerItemProxy */;
+			targetProxy = 478C7A23EF62C89A8633998E73B8F296 /* PBXContainerItemProxy */;
 		};
-		7DAA008F9693A9E5BF5CC27ABCE8484F /* PBXTargetDependency */ = {
+		848CC67A10A4C0674713143D8ACDC29C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AppCenter;
 			target = A3282A5B2437E609EEB85861D7ECE717 /* AppCenter */;
-			targetProxy = 2C9BEC9E1F87273B4BAF52E99533CB3C /* PBXContainerItemProxy */;
+			targetProxy = B606A84CE3744830509A4DFB8272D1AF /* PBXContainerItemProxy */;
 		};
-		7F998962197D63370E6EDD94E2751570 /* PBXTargetDependency */ = {
+		9B1C3113F48352713BD60AD0A780DEE2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = openxcframework;
 			target = 80BE68E89A4FE7EA4D0D228982FC2AA8 /* openxcframework */;
-			targetProxy = BC99006E2F9BA9810E4A960FFB9A7511 /* PBXContainerItemProxy */;
+			targetProxy = FC7385F931A8E83CF0C423E3B4042AB1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		052B7A7080294A2D22AC36D81DB6D2D4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6BD6086E535ACAD7EF63DD3AF9A39BB /* openxcframework.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/openxcframework/openxcframework-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/openxcframework/openxcframework-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/openxcframework/openxcframework.modulemap";
-				PRODUCT_MODULE_NAME = openXCiOSFramework;
-				PRODUCT_NAME = openXCiOSFramework;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		131356BE54884448CA49C07BEDF4BB2A /* Debug */ = {
+		2B9E26EAE2CD392AD762421F663075A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -666,208 +667,11 @@
 			};
 			name = Debug;
 		};
-		15EB5D80579D2ACED973FB555C3FEC25 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AE146D4DBF4FCFD24A5C97DDB506616D /* AppCenter.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		19F1A0BB678F31697F589E05B3D085BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AE146D4DBF4FCFD24A5C97DDB506616D /* AppCenter.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		30D1132B9C76F39308FF0C03D1FBEB51 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F59A699A0D05FC9304EF9AE02F8568D /* Pods-openxcframework_Tests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-openxcframework_Tests/Pods-openxcframework_Tests-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-openxcframework_Tests/Pods-openxcframework_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		42D900E3C9438C9EE5D9529C836C77BE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7331C5F298F9F32F9445047E3CBD8C58 /* Pods-openxcframework_Example.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-openxcframework_Example/Pods-openxcframework_Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-openxcframework_Example/Pods-openxcframework_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		4F3B34F301750204A16293C7529A2396 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8C7675714E6F5233382997EE27FAA0A /* Pods-openxcframework_Tests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-openxcframework_Tests/Pods-openxcframework_Tests-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-openxcframework_Tests/Pods-openxcframework_Tests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		A13C764E5555ED4B621F8B378DB87FDE /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6BD6086E535ACAD7EF63DD3AF9A39BB /* openxcframework.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/openxcframework/openxcframework-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/openxcframework/openxcframework-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/openxcframework/openxcframework.modulemap";
-				PRODUCT_MODULE_NAME = openXCiOSFramework;
-				PRODUCT_NAME = openXCiOSFramework;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		E03C27D2CCC1DF286BEAC06ADB9EADFB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 70536956E19C921D63CC319D7FD8B054 /* Pods-openxcframework_Example.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-openxcframework_Example/Pods-openxcframework_Example-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-openxcframework_Example/Pods-openxcframework_Example.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		F090CD07A80273D5A73C8EA19224ADDB /* Release */ = {
+		63FAF33E1C55B71A5F5A8B3CC8749F99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -918,56 +722,289 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		64680F0330D5BB2FADD97771197C3A34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7331C5F298F9F32F9445047E3CBD8C58 /* Pods-openxcframework_Example.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-openxcframework_Example/Pods-openxcframework_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-openxcframework_Example/Pods-openxcframework_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7AAD361011C19CF4293DE5785DFFBA31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C39874D5A2964042B413F857C0520145 /* AppCenter.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7B35AFB080D83119C9C9A18B8C6B6E92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F34BEF80C134797A9A5E622E432E9FA /* openxcframework.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/openxcframework/openxcframework-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/openxcframework/openxcframework-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/openxcframework/openxcframework.modulemap";
+				PRODUCT_MODULE_NAME = openXCiOSFramework;
+				PRODUCT_NAME = openXCiOSFramework;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B60A0430CFAA119A9CD0BE9CA7B53C16 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D0CF4C8772C0B488AAD50FC8C8B195A /* AppCenter.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BC7CFFAD305C540BC90707D38F042EA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8C7675714E6F5233382997EE27FAA0A /* Pods-openxcframework_Tests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-openxcframework_Tests/Pods-openxcframework_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-openxcframework_Tests/Pods-openxcframework_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CBE753A409738BA6A6FF85FB5E79D461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70536956E19C921D63CC319D7FD8B054 /* Pods-openxcframework_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-openxcframework_Example/Pods-openxcframework_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-openxcframework_Example/Pods-openxcframework_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FAB7035A57415172895F2CA8B68C56C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F59A699A0D05FC9304EF9AE02F8568D /* Pods-openxcframework_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-openxcframework_Tests/Pods-openxcframework_Tests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-openxcframework_Tests/Pods-openxcframework_Tests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FBB756EAB780C7050861DEACDD3CD043 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22CA09A2C91B9C2D90B02A3CD758485B /* openxcframework.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/openxcframework/openxcframework-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/openxcframework/openxcframework-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/openxcframework/openxcframework.modulemap";
+				PRODUCT_MODULE_NAME = openXCiOSFramework;
+				PRODUCT_NAME = openXCiOSFramework;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0437EB52E47F4DB542AB24721F109DA8 /* Build configuration list for PBXAggregateTarget "AppCenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B60A0430CFAA119A9CD0BE9CA7B53C16 /* Debug */,
+				7AAD361011C19CF4293DE5785DFFBA31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				131356BE54884448CA49C07BEDF4BB2A /* Debug */,
-				F090CD07A80273D5A73C8EA19224ADDB /* Release */,
+				2B9E26EAE2CD392AD762421F663075A1 /* Debug */,
+				63FAF33E1C55B71A5F5A8B3CC8749F99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7388C2532F472EDCF436084A138983C3 /* Build configuration list for PBXNativeTarget "Pods-openxcframework_Example" */ = {
+		68CFDA79562AEB10153134431E6D2485 /* Build configuration list for PBXNativeTarget "openxcframework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				42D900E3C9438C9EE5D9529C836C77BE /* Debug */,
-				E03C27D2CCC1DF286BEAC06ADB9EADFB /* Release */,
+				7B35AFB080D83119C9C9A18B8C6B6E92 /* Debug */,
+				FBB756EAB780C7050861DEACDD3CD043 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B13A5629C0348E244D5ED6F39BBCA781 /* Build configuration list for PBXNativeTarget "Pods-openxcframework_Tests" */ = {
+		EB425625DD4CF1CF5FEB3953F75018B9 /* Build configuration list for PBXNativeTarget "Pods-openxcframework_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				30D1132B9C76F39308FF0C03D1FBEB51 /* Debug */,
-				4F3B34F301750204A16293C7529A2396 /* Release */,
+				FAB7035A57415172895F2CA8B68C56C5 /* Debug */,
+				BC7CFFAD305C540BC90707D38F042EA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D0944D0DEFF9CDF0CBE6D4A41B195020 /* Build configuration list for PBXAggregateTarget "AppCenter" */ = {
+		EDF94A2453A4438347BE2F46B59BC0E7 /* Build configuration list for PBXNativeTarget "Pods-openxcframework_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				15EB5D80579D2ACED973FB555C3FEC25 /* Debug */,
-				19F1A0BB678F31697F589E05B3D085BD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E77ABC5AB380AA0F45F06EFE5ABECF04 /* Build configuration list for PBXNativeTarget "openxcframework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				052B7A7080294A2D22AC36D81DB6D2D4 /* Debug */,
-				A13C764E5555ED4B621F8B378DB87FDE /* Release */,
+				64680F0330D5BB2FADD97771197C3A34 /* Debug */,
+				CBE753A409738BA6A6FF85FB5E79D461 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
