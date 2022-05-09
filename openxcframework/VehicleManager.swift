@@ -800,21 +800,7 @@ open class VehicleManager: NSObject {
                 rsp.event = msg.simpleMessage.event.numericValue as AnyObject
             }
         }
-        /*if msg.simpleMessage.value.stringValue.hasStringValue {
-          rsp.value = msg.simpleMessage.value.stringValue as AnyObject}
-      if msg.simpleMessage.value.hasBooleanValue {
-          rsp.value = msg.simpleMessage.value.booleanValue as AnyObject}
-      if msg.simpleMessage.value.hasNumericValue {
-          rsp.value = msg.simpleMessage.value.numericValue as AnyObject}
-      if msg.simpleMessage.hasEvent {
-        rsp.isEvented = true
-        if msg.simpleMessage.event.hasStringValue {
-          rsp.event = msg.simpleMessage.event.stringValue as AnyObject}
-        if msg.simpleMessage.event.hasBooleanValue {
-          rsp.event = msg.simpleMessage.event.booleanValue as AnyObject}
-        if msg.simpleMessage.event.hasNumericValue {
-          rsp.event = msg.simpleMessage.event.numericValue as AnyObject}
-      }*/
+        
         self.protoSimpleMsgCheck(rsp:rsp,name:name)
 
   }
