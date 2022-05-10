@@ -73,13 +73,13 @@
 		723C9943ED7610E06E794821FC936A9F /* TextFormatDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC74B845F0B0C1F48E966B4BA583126B /* TextFormatDecodingError.swift */; };
 		73DDD1F0011BAB00A6435E4F84F7C396 /* JSONScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D95A4D510150C8DE4EE6A0AA77AD3B /* JSONScanner.swift */; };
 		780AD2CFB2BDEE01043F5E828E3D068E /* Google_Protobuf_NullValue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02517EDF162DE3BB401EF9647C7FFC5E /* Google_Protobuf_NullValue+Extensions.swift */; };
+		7D306788281195940064FC8A /* openxc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D306787281195940064FC8A /* openxc.pb.swift */; };
 		820BB8DE85121EF3F0820769A420CB63 /* HashVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB1DA5DA5DDF0D95720F97CF938CBBC /* HashVisitor.swift */; };
 		83E2572C432C5A1C86EDD85A2035171E /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB266EF9887AC735BBE26A3CCB2F2B /* TargetAction.swift */; };
 		8493D50C6777CCA26850F01DBB65A6AD /* Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D38758C5047F2721766AABD499582C /* Internal.swift */; };
 		890872E5B9DDB90EB5A6677F481C0D39 /* TextFormatEncodingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B697AB1AF525F402E620CB2EB7F38E /* TextFormatEncodingOptions.swift */; };
 		8CDA8DFD544DC9982005FB05F144F2A8 /* BinaryEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71B75D8B482D8A4943614D3443BACC4 /* BinaryEncoder.swift */; };
 		8FD197805B8907DBEB3A8BDCA8E9E5A0 /* Visitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CE3D6846F771DD78C296D54E653D02 /* Visitor.swift */; };
-		93DB8067DFD20AE830EF4692240A84AB /* openxc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2421B8E94BD2B0D3EAE4AC5F9511966 /* openxc.pb.swift */; };
 		9663496F8E1417A4A77D8529018ABF9B /* ZigZag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2035044C5307474CD71615A1B26378 /* ZigZag.swift */; };
 		96703D8458242C148385EE138808DF75 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F244B74F3B6A73AF81AE05E357AA4B72 /* JSONDecoder.swift */; };
 		972871129B630E14DB847AA6CDA431B2 /* ProtobufMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51143F58664A71EE31593ADDCC54FE09 /* ProtobufMap.swift */; };
@@ -236,6 +236,7 @@
 		7719BCE1CBE53E627A3E8F9628B0CF64 /* BluetoothManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BluetoothManager.swift; path = openxcframework/BluetoothManager.swift; sourceTree = "<group>"; };
 		799DB1392466F84DC3C7513BF43B4709 /* TraceFileManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TraceFileManager.swift; path = openxcframework/TraceFileManager.swift; sourceTree = "<group>"; };
 		7CC751E568784D82B97AC1934C9F5012 /* VehicleMessageUnit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VehicleMessageUnit.swift; path = openxcframework/VehicleMessageUnit.swift; sourceTree = "<group>"; };
+		7D306787281195940064FC8A /* openxc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = openxc.pb.swift; path = openxcframework/openxc.pb.swift; sourceTree = "<group>"; };
 		7FD1C9F23600ABD9459D0C8DEC380710 /* TextFormatDecoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatDecoder.swift; path = Sources/SwiftProtobuf/TextFormatDecoder.swift; sourceTree = "<group>"; };
 		8089E96D339DD0163F54E680469CCA50 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		822AD1DE06C1B49BEC94ED85E0808502 /* AppCenter.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = AppCenter.xcframework; path = "AppCenter-SDK-Apple/AppCenter.xcframework"; sourceTree = "<group>"; };
@@ -281,7 +282,6 @@
 		BD2BA53DB298C5A45A0EEA9B6B852D96 /* Decoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Decoder.swift; path = Sources/SwiftProtobuf/Decoder.swift; sourceTree = "<group>"; };
 		BE1AADD3B0A153B4ACF1BDA227187001 /* ExtensionMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionMap.swift; path = Sources/SwiftProtobuf/ExtensionMap.swift; sourceTree = "<group>"; };
 		BE291EFFB342172237C86608F92D25ED /* MessageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessageExtension.swift; path = Sources/SwiftProtobuf/MessageExtension.swift; sourceTree = "<group>"; };
-		C2421B8E94BD2B0D3EAE4AC5F9511966 /* openxc.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = openxc.pb.swift; path = openxcframework/openxc.pb.swift; sourceTree = "<group>"; };
 		C37523B616010949815515E9CF94E82C /* Pods-openxcframework_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-openxcframework_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		C3D02FAF0525DA1F94CDFF05BF43B6FB /* AnyUnpackError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnyUnpackError.swift; path = Sources/SwiftProtobuf/AnyUnpackError.swift; sourceTree = "<group>"; };
 		C4C96CDB046EB0A0DB510E746B825AD6 /* Message.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Message.swift; path = openxcframework/Message.swift; sourceTree = "<group>"; };
@@ -601,6 +601,7 @@
 		8F652AD59455B4776C8EDAA8194E2F03 /* openxcframework */ = {
 			isa = PBXGroup;
 			children = (
+				7D306787281195940064FC8A /* openxc.pb.swift */,
 				7719BCE1CBE53E627A3E8F9628B0CF64 /* BluetoothManager.swift */,
 				885C86E0DD2E12501D7A96587EF25B5F /* CAN.swift */,
 				A775CA2AE3AAC46CA88506875F179241 /* Command.swift */,
@@ -608,7 +609,6 @@
 				FE42983FFE4F734CCEE2EE0215C0F736 /* Measurement.swift */,
 				C4C96CDB046EB0A0DB510E746B825AD6 /* Message.swift */,
 				C7612CB03946CD31469D6AE8237B296D /* NetworkDataManager.swift */,
-				C2421B8E94BD2B0D3EAE4AC5F9511966 /* openxc.pb.swift */,
 				9208EA2724843EF4B6CC3B1EDE1886E6 /* OpenXCClasses.swift */,
 				CFDB266EF9887AC735BBE26A3CCB2F2B /* TargetAction.swift */,
 				799DB1392466F84DC3C7513BF43B4709 /* TraceFileManager.swift */,
@@ -808,7 +808,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1330;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -900,7 +900,6 @@
 				0DD6E5238F5AE2E498775F29BDB0C2F5 /* Measurement.swift in Sources */,
 				1DAF0B26F6152C0C17AFE125B9263587 /* Message.swift in Sources */,
 				EDD6C37325CA67240DF9E06A16BC4FAA /* NetworkDataManager.swift in Sources */,
-				93DB8067DFD20AE830EF4692240A84AB /* openxc.pb.swift in Sources */,
 				EF2338D18F331D626515A1EED01AB752 /* OpenXCClasses.swift in Sources */,
 				0174584C74881F4C89185701BAF9078E /* openxcframework-dummy.m in Sources */,
 				83E2572C432C5A1C86EDD85A2035171E /* TargetAction.swift in Sources */,
@@ -908,6 +907,7 @@
 				30CE7EF9362A1299B2FD7B21C1C8831F /* Utilities.swift in Sources */,
 				1D15F01376E8B23C815CE970DF224C98 /* VehicleManager.swift in Sources */,
 				502FBC050AA4100F5A93AC153039EA71 /* VehicleMessageUnit.swift in Sources */,
+				7D306788281195940064FC8A /* openxc.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1060,7 +1060,6 @@
 			baseConfigurationReference = 70536956E19C921D63CC319D7FD8B054 /* Pods-openxcframework_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1160,7 +1159,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FB03A91C34F5C490889B5FDC19C23EE3 /* openxcframework.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1173,7 +1171,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/openxcframework/openxcframework-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/openxcframework/openxcframework-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/openxcframework/openxcframework.modulemap";
 				PRODUCT_MODULE_NAME = openXCiOSFramework;
@@ -1193,7 +1191,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1988843AB0D4749FBE385196BC5CEE8A /* SwiftProtobuf.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1205,7 +1202,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftProtobuf/SwiftProtobuf-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftProtobuf/SwiftProtobuf-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SwiftProtobuf/SwiftProtobuf.modulemap";
 				PRODUCT_MODULE_NAME = SwiftProtobuf;
@@ -1225,7 +1222,6 @@
 			baseConfigurationReference = 7331C5F298F9F32F9445047E3CBD8C58 /* Pods-openxcframework_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1319,10 +1315,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0D167D55B1C97D72D2EE932415B20D8B /* AppCenter.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1334,7 +1329,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3EDD700CDA0AF79D474020B6604E62D8 /* SwiftProtobuf.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1346,7 +1340,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftProtobuf/SwiftProtobuf-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftProtobuf/SwiftProtobuf-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SwiftProtobuf/SwiftProtobuf.modulemap";
 				PRODUCT_MODULE_NAME = SwiftProtobuf;
@@ -1366,10 +1360,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4311C0285789C00D8910F812ABD9E3E /* AppCenter.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1381,7 +1374,6 @@
 			baseConfigurationReference = A8C7675714E6F5233382997EE27FAA0A /* Pods-openxcframework_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1415,7 +1407,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6227A21ADAACFFCBAA56C0F0420A2376 /* openxcframework.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1428,7 +1419,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/openxcframework/openxcframework-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/openxcframework/openxcframework-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/openxcframework/openxcframework.modulemap";
 				PRODUCT_MODULE_NAME = openXCiOSFramework;
@@ -1448,7 +1439,6 @@
 			baseConfigurationReference = 5F59A699A0D05FC9304EF9AE02F8568D /* Pods-openxcframework_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";

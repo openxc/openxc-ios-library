@@ -190,12 +190,10 @@ open class Command: NSObject {
           
            vehiclemessage.controlCommand.type = .deviceID
 
-
           }
         if cmd.command == .platform {
           
            vehiclemessage.controlCommand.type = .platform
-
 
           }
         

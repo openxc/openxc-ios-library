@@ -1,4 +1,20 @@
-# OpenXC iOS App Demo Changelog
+# OpenXC iOS App Demo Change log
+
+## v7.0.0
+
+* Feature: Integrated Apple protobuf .
+* Feature: Integrated protobuf 3 which is latest protobuf .
+* Feature: Integrated Getvin command .
+* Feature: Integrated Diagnostic stitch messages for JSON mode.
+* UI: Added GET VIN UI on landing page as well as on the control command page.
+* UI: Support the UI for multiple Device.
+* Improvement: Code refactor and bug fixes.
+* Improvement: Support for iOS 15.
+* Improvement: Support for Xcode 13.3.
+* Improvement: Support for swift 5.
+
+Known Issue: Diagnostic messages currently do not work in protobuf mode .
+
 
 ## v6.2.0
 

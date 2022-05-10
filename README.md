@@ -12,12 +12,12 @@ This framework is part of the OpenXC project. This iOS framework contains the to
 OpenXC iOS framework for use with the C5 BLE device. To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## OpenXC-iOS-Library-Version
-* V6.0.0
+* V7.0.0
 
 ## Supported versions:
-* iOS - up to 13.3
-* XCode - up to 11.4
-* Swift - Swift5
+* iOS - up to 15.0
+* XCode - up to 13.3
+* Swift - Swift 5
 
 Note: TravisCI build run will work only till XCode 10.2 -iOS 12.0 (https://github.com/travis-ci/travis-ci/issues/7031) but the framework supports XCode 10.2 and iOS 12
 
