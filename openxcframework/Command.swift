@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ProtocolBuffers
+//import SwiftProtobuf
 
 public enum VehicleCommandType: NSString {
     case version
@@ -21,6 +21,7 @@ public enum VehicleCommandType: NSString {
     case sd_mount_status
     case rtc_configuration
     case custom_command
+    case get_Vin
 }
 
 
@@ -48,7 +49,7 @@ open class VehicleCommandResponse : VehicleBaseMessage {
     open var message : NSString = ""
     open var status : Bool = false
     override func traceOutput() -> NSString {
-        return "{\"timestamp\":\(timestamp),\"command_response\":\"\(command_response)\",\"message\":\"\(message)\",\"status\":\(status)}" as NSString
+        return "{\"timestamp\":\(timeStamp),\"command_response\":\"\(command_response)\",\"message\":\"\(message)\",\"status\":\(status)}" as NSString
     }
 }
 
@@ -64,20 +65,18 @@ open class Command: NSObject {
         let instance = Command()
         return instance
     }()
-    fileprivate override init() {
-    }
     
     // config variable determining whether trace input is used instead of BTLE data
-    fileprivate var traceFilesourceEnabled: Bool = false
+    fileprivate var traceFileSourceEnabled: Bool = false
 
     // BTLE transmit token increment variable
-    fileprivate var BLETxSendToken: Int = 0
+    fileprivate var bleTransmitSendToken: Int = 0
 
     // ordered list for storing callbacks for in progress vehicle commands
-    fileprivate var BLETxCommandCallback = [TargetAction]()
+    fileprivate var bleTransmitCommandCallback = [TargetAction]()
 
     // mirrored ordered list for storing command token for in progress vehicle commands
-    fileprivate var BLETxCommandToken = [String]()
+    fileprivate var bleTransmitCommandToken = [String]()
 
     // config for protobuf vs json BLE mode, defaults to JSON
    // fileprivate var jsonMode : Bool = true
@@ -87,7 +86,7 @@ open class Command: NSObject {
     fileprivate var managerDebug : Bool = false
 
     // data buffer for storing vehicle messages to send to BTLE
-    fileprivate var BLETxDataBuffer: NSMutableArray! = NSMutableArray()
+    fileprivate var bleTransmitDataBuffer: NSMutableArray! = NSMutableArray()
     
     var vm = VehicleManager.sharedInstance
 
@@ -116,17 +115,17 @@ open class Command: NSObject {
         vmlog("in sendCommand:target")
         
         // if we have a trace input file, ignore this request!
-        if (traceFilesourceEnabled) {
+        if (traceFileSourceEnabled) {
             return ""
             
         }
         
         // save the callback in order, so we know which to call when responses are received
-        BLETxSendToken += 1
-        let key : String = String(BLETxSendToken)
+        bleTransmitSendToken += 1
+        let key : String = String(bleTransmitSendToken)
         let act : TargetAction = TargetActionWrapper(key:key as NSString, target: target, action: action)
-        BLETxCommandCallback.append(act)
-        BLETxCommandToken.append(key)
+        bleTransmitCommandCallback.append(act)
+        bleTransmitCommandToken.append(key)
         
         // common command send method
         sendCommandCommon(cmd)
@@ -140,18 +139,18 @@ open class Command: NSObject {
         vmlog("in sendCommand")
         
         // if we have a trace input file, ignore this request!
-        if (traceFilesourceEnabled) {
+        if (traceFileSourceEnabled) {
             return
             
         }
         
         // we still need to keep a spot for the callback in the ordered list, so
         // nothing gets out of sync. Assign the callback to the null callback method.
-        BLETxSendToken += 1
-        let key : String = String(BLETxSendToken)
+        bleTransmitSendToken += 1
+        let key : String = String(bleTransmitSendToken)
         let act : TargetAction = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
-        BLETxCommandCallback.append(act)
-        BLETxCommandToken.append(key)
+        bleTransmitCommandCallback.append(act)
+        bleTransmitCommandToken.append(key)
         
         // common command send method
         sendCommandCommon(cmd)
@@ -175,103 +174,127 @@ open class Command: NSObject {
     }
     
     // common function for sending a VehicleCommandRequest
+    func protobufSendCommand(cmd:VehicleCommandRequest){
+        // in protobuf mode, build the command message
+        var vehiclemessage = Openxc_VehicleMessage()
+        vehiclemessage.type = .controlCommand
+        
+       // print(">>>>>>>>Comandtype\(cmd.command)")
+        if cmd.command == .version {
+            
+            vehiclemessage.controlCommand.type = .version
+
+
+        }
+        if cmd.command == .device_id {
+          
+           vehiclemessage.controlCommand.type = .deviceID
+
+          }
+        if cmd.command == .platform {
+          
+           vehiclemessage.controlCommand.type = .platform
+
+          }
+        
+        if cmd.command == .get_Vin {
+          
+           vehiclemessage.controlCommand.type = .getVin
+
+          
+         }
+        
+        if cmd.command == .passthrough {
+            
+            
+            vehiclemessage.controlCommand.type = .passthrough
+            vehiclemessage.controlCommand.passthroughModeRequest.bus = Int32(cmd.bus)
+            vehiclemessage.controlCommand.passthroughModeRequest.enabled = cmd.enabled
+            
+        
+        }
+        if cmd.command == .af_bypass {
+            
+            vehiclemessage.controlCommand.type = .acceptanceFilterBypass
+            vehiclemessage.controlCommand.acceptanceFilterBypassCommand.bus = Int32(cmd.bus)
+            vehiclemessage.controlCommand.acceptanceFilterBypassCommand.bypass = cmd.bypass
+            
+
+        }
+        if cmd.command == .payload_format {
+            
+            vehiclemessage.controlCommand.type = .payloadFormat
+            
+           if cmd.format == "json" {
+            vehiclemessage.controlCommand.payloadFormatCommand.format = .json
+               
+            }
+            if cmd.format == "protobuf" {
+                vehiclemessage.controlCommand.payloadFormatCommand.format = .protobuf
+
+            }
+           
+
+        }
+        if cmd.command == .predefined_odb2 {
+            
+            vehiclemessage.controlCommand.type = .predefinedObd2Requests
+            vehiclemessage.controlCommand.predefinedObd2RequestsCommand.enabled = cmd.bypass
+           
+            
+        }
+        if cmd.command == .modem_configuration {
+ 
+            //        message->type = openxc_VehicleMessage_Type_CONTROL_COMMAND;
+            //        message->control_command.type = openxc_ControlCommand_Type_PASSTHROUGH;
+            //        message->control_command.passthrough_mode_request.bus = 1;
+            //        message->control_command.passthrough_mode_request.enabled = 1;
+            
+//            _ = cbuild.setType(.modemConfiguration)
+//            let cbuild2 = Openxc.ModemConfigurationCommand.Builder()
+//            let srv = Openxc.ServerConnectSettings.Builder()
+//            _ = srv.setHost(cmd.server_host as String)
+//            _ = srv.setPort(UInt32(cmd.server_port))
+//            _ = cbuild2.setServerConnectSettings(srv.buildPartial())
+//            _ = cbuild.setModemConfigurationCommand(cbuild2.buildPartial())
+        }
+        if cmd.command == .rtc_configuration {
+            
+            vehiclemessage.controlCommand.type = .rtcConfiguration
+            vehiclemessage.controlCommand.rtcConfigurationCommand.unixTime =  UInt32(cmd.unix_time)
+           
+        }
+        if cmd.command == .sd_mount_status {
+            
+            vehiclemessage.controlCommand.type = .sdMountStatus
+            
+        }
+        
+        do
+        {
+            let binaryData:Data = try vehiclemessage.serializedData()
+            let cdata2 = NSMutableData()
+            let prepend : [UInt8] = [UInt8(binaryData.count)]
+            cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
+            cdata2.append(binaryData)
+           
+            self.vm.bleTransmitDataBuffer.add(cdata2)
+            BluetoothManager.sharedInstance.bleSendFunction()
+            //print("_____version data \(cdata2 as NSData)")
+            BluetoothManager.sharedInstance.bleSendFunction()
+            
+        }catch{
+            print(error)
+        }
+        
+    }
     fileprivate func sendCommandCommon(_ cmd:VehicleCommandRequest) {
         
         if !self.vm.jsonMode {
 
-            // in protobuf mode, build the command message
-            let cbuild = ControlCommand.Builder()
-            if cmd.command == .version {
-                _ = cbuild.setType(.version)
-                
-            }
-            if cmd.command == .device_id {
-                _ = cbuild.setType(.deviceId)
-                
-            }
-            if cmd.command == .platform {
-                _ = cbuild.setType(.platform)
-                
-            }
-            if cmd.command == .passthrough {
-                let cbuild2 = PassthroughModeControlCommand.Builder()
-                _ = cbuild2.setBus(Int32(cmd.bus))
-                _ = cbuild2.setEnabled(cmd.enabled)
-                _ = cbuild.setPassthroughModeRequest(cbuild2.buildPartial())
-                _ = cbuild.setType(.passthrough)
-            }
-            if cmd.command == .af_bypass {
-                let cbuild2 = AcceptanceFilterBypassCommand.Builder()
-                _ = cbuild2.setBus(Int32(cmd.bus))
-                _ = cbuild2.setBypass(cmd.bypass)
-                _ = cbuild.setAcceptanceFilterBypassCommand(cbuild2.buildPartial())
-                _ = cbuild.setType(.acceptanceFilterBypass)
-            }
-            if cmd.command == .payload_format {
-                let cbuild2 = PayloadFormatCommand.Builder()
-                if cmd.format == "json" {
-                    _ = cbuild2.setFormat(.json)
-                    
-                }
-                if cmd.format == "protobuf" {
-                    _ = cbuild2.setFormat(.protobuf)
-                    
-                }
-                _ = cbuild.setPayloadFormatCommand(cbuild2.buildPartial())
-                _ = cbuild.setType(.payloadFormat)
-            }
-            if cmd.command == .predefined_odb2 {
-                let cbuild2 = PredefinedObd2RequestsCommand.Builder()
-                _ = cbuild2.setEnabled(cmd.enabled)
-                _ = cbuild.setPredefinedObd2RequestsCommand(cbuild2.buildPartial())
-                _ = cbuild.setType(.predefinedObd2Requests)
-            }
-            if cmd.command == .modem_configuration {
-                _ = cbuild.setType(.modemConfiguration)
-                let cbuild2 = ModemConfigurationCommand.Builder()
-                let srv = ServerConnectSettings.Builder()
-                _ = srv.setHost(cmd.server_host as String)
-                _ = srv.setPort(UInt32(cmd.server_port))
-                _ = cbuild2.setServerConnectSettings(srv.buildPartial())
-                _ = cbuild.setModemConfigurationCommand(cbuild2.buildPartial())
-            }
-            if cmd.command == .rtc_configuration {
-                let cbuild2 = RtcconfigurationCommand.Builder()
-                _ = cbuild2.setUnixTime(UInt32(cmd.unix_time))
-                _ = cbuild.setRtcConfigurationCommand(cbuild2.buildPartial())
-                _ = cbuild.setType(.rtcConfiguration)
-            }
-            if cmd.command == .sd_mount_status {
-                _ = cbuild.setType(.sdMountStatus)
-                
-            }
-            
-            let mbuild = VehicleMessage.Builder()
-            _ = mbuild.setType(.controlCommand)
-            
-            do {
-                let cmsg = try cbuild.build()
-                _ = mbuild.setControlCommand(cmsg)
-                let mmsg = try mbuild.build()
-                print (mmsg)
-                
-                
-                let cdata = mmsg.data()
-                let cdata2 = NSMutableData()
-                let prepend : [UInt8] = [UInt8(cdata.count)]
-                cdata2.append(Data(bytes: UnsafePointer<UInt8>(prepend), count:1))
-                cdata2.append(cdata)
-                print(cdata2)
-                
-                // append to tx buffer
-               self.vm.BLETxDataBuffer.add(cdata2)
-                
-                // trigger a BLE data send
-                BluetoothManager.sharedInstance.BLESendFunction()
-                
-            } catch {
-                print("cmd msg build failed")
-            }
+
+            self.protobufSendCommand(cmd: cmd)
+           
             
             return
         }
@@ -279,12 +302,10 @@ open class Command: NSObject {
         // we're in json mode
         var cmdstr = ""
         // decode the command type and build the command depending on the command
-        //print("cmd command...",cmd.command)
         
-        if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform {
+        if cmd.command == .version || cmd.command == .device_id || cmd.command == .sd_mount_status || cmd.command == .platform || cmd.command == .get_Vin  {
             // build the command json
             cmdstr = "{\"command\":\"\(cmd.command.rawValue)\"}\0"
-            print("cmdStr..",cmdstr)
         }
         else if cmd.command == .passthrough {
             // build the command json
@@ -310,7 +331,7 @@ open class Command: NSObject {
             // build the command json
             let timeInterval = Date().timeIntervalSince1970
             cmd.unix_time = NSInteger(timeInterval);
-            print("timestamp is..",cmd.unix_time)
+            //print("timestamp is..",cmd.unix_time)
             cmdstr = "{\"command\":\"\(cmd.command.rawValue)\",\"unix_time\":\"\(cmd.unix_time)\"}\0"
         } else {
             // unknown command!
@@ -319,15 +340,12 @@ open class Command: NSObject {
         }
         
         // append to tx buffer
-        BLETxDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
+        bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
         
-        print("BLETxDataBuffer.count...",BLETxDataBuffer.count)
-        print("BLETxDataBuffer...",BLETxDataBuffer)
-        
-        self.vm.BLETxDataBuffer = BLETxDataBuffer
+        self.vm.bleTransmitDataBuffer = bleTransmitDataBuffer
         
         // trigger a BLE data send
-        BluetoothManager.sharedInstance.BLESendFunction()
+        BluetoothManager.sharedInstance.bleSendFunction()
         //BLESendFunction()
         
     }
@@ -335,18 +353,18 @@ open class Command: NSObject {
   open func customCommand(jsonString:String) {
     
     // if we have a trace input file, ignore this request!
-    if (traceFilesourceEnabled) {
+    if (traceFileSourceEnabled) {
         return
         
     }
     
     // we still need to keep a spot for the callback in the ordered list, so
     // nothing gets out of sync. Assign the callback to the null callback method.
-    BLETxSendToken += 1
-    let key : String = String(BLETxSendToken)
+    bleTransmitSendToken += 1
+    let key : String = String(bleTransmitSendToken)
     let act : TargetAction = TargetActionWrapper(key: "", target: VehicleManager.sharedInstance, action: VehicleManager.CallbackNull)
-    BLETxCommandCallback.append(act)
-    BLETxCommandToken.append(key)
+    bleTransmitCommandCallback.append(act)
+    bleTransmitCommandToken.append(key)
     // we're in json mode
     //var cmdstr = ""
     // build the command json
@@ -354,15 +372,11 @@ open class Command: NSObject {
     // append to tx buffer
     // append to tx buffer
     var cmdstr = ""
-    print("cmdStr..",jsonString + "\0")
     cmdstr = jsonString + "\0"
-    self.vm.BLETxDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
-    
-    print("BLETxDataBuffer.count...",self.vm.BLETxDataBuffer.count)
-    print("BLETxDataBuffer...",self.vm.BLETxDataBuffer as Any)
+    self.vm.bleTransmitDataBuffer.add(cmdstr.data(using: String.Encoding.utf8, allowLossyConversion: false)!)
     
     // trigger a BLE data send
-    BluetoothManager.sharedInstance.BLESendFunction()
+    BluetoothManager.sharedInstance.bleSendFunction()
   }
 
 }

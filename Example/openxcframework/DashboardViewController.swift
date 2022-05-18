@@ -30,24 +30,24 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // sensor related vars
     fileprivate var sensorLoop: Timer = Timer()
-    fileprivate var headphones : String = "No"
+    fileprivate var headPhones : String = "No"
     fileprivate var motionManager : CMMotionManager = CMMotionManager()
     fileprivate var locationManager : CLLocationManager = CLLocationManager()
-    fileprivate var lat : Double = 0
-    fileprivate var long : Double = 0
-    fileprivate var alt : Double = 0
+    fileprivate var latitude : Double = 0
+    fileprivate var longitude : Double = 0
+    fileprivate var altitude : Double = 0
     fileprivate var head : Double = 0
     fileprivate var speed : Double = 0.0
     
     // dweet related vars
     fileprivate var dweetLoop: Timer = Timer()
-    fileprivate var dweetConn: NSURLConnection?
-    fileprivate var dweetRspData: NSMutableData?
+    fileprivate var dweetConnection: NSURLConnection?
+    fileprivate var dweetResponseData: NSMutableData?
     
     // TraceURL related vars
     fileprivate var traceURLLoop: Timer = Timer()
-    fileprivate var traceConn: NSURLConnection?
-    fileprivate var traceRspData: NSMutableData?
+    fileprivate var traceConnection: NSURLConnection?
+    fileprivate var traceResponseData: NSMutableData?
     fileprivate var traceSinkLoop: Timer = Timer()
     
     override func viewDidLoad() {
@@ -63,7 +63,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         dashDict = NSMutableDictionary()
         dashTable.reloadData()
         
-        // set default measurement target
+       // set default measurement target
         vm.setMeasurementDefaultTarget(self, action: DashboardViewController.default_measurement_change)
         vm.setManagerCallbackTarget(self, action: DashboardViewController.manager_status_updates)
         
@@ -78,11 +78,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @objc func sendTraceURLData() {
-        if UserDefaults.standard.bool(forKey: "uploadTaraceOn")  && dashDict.allKeys.count>0 {
-            if let urlname = (UserDefaults.standard.value(forKey: "traceURLname") as? String) {
+        if let urlname = (UserDefaults.standard.value(forKey: "traceURLname") as? String), UserDefaults.standard.bool(forKey: "uploadTaraceOn")  && dashDict.allKeys.count>0 {
                 
                     vm.sendTraceURLData(urlName:urlname,rspdict: dashDict,isdrrsp:false)
-            }
         }
         
         
@@ -130,10 +128,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             traceSinkLoop = Timer.scheduledTimer(timeInterval: 2.5, target:self, selector:#selector(sendTraceURLData), userInfo: nil, repeats:true)
         }
         if(!bm.isBleConnected && !vm.isTraceFileConnected && !vm.isNetworkConnected){
-            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMSG, withMessage:errorMsgBLE)
+            AlertHandling.sharedInstance.showAlert(onViewController: self, withText: errorMsg, withMessage:errorMsgBLE)
             dashDict = NSMutableDictionary()
             dashTable.reloadData()
         }
+        dashTable.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -232,13 +231,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 cell!.detailTextLabel?.text = "Off"
             } else {
                 // round any floating points
-                let nvr = Double(round(10.0*Double(nv))/10)
+                let nvr = Double(round(10.0*Double(truncating: nv))/10)
                 let valueMeasure1 = String(format:"%.2f",nvr)
                 let valueMeasure = vmu.getMesurementUnit(key: k, value: valueMeasure1 as AnyObject)
                 cell!.detailTextLabel?.text = (valueMeasure as! String)
             }
         } else {
-            // if valueMeasurement is NSNumber {
+           
             let floatvalue = (v as AnyObject).doubleValue
             let nvr = Double(round(10.0*Double(floatvalue!))/10)
             if nvr != 0.0{
@@ -277,9 +276,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         dashDict.setObject(UIScreen.main.brightness, forKey:"phone_brightness" as NSCopying)
         
         if let motion = motionManager.deviceMotion {
-            let p = 180/M_PI*motion.attitude.pitch;
-            let r = 180/M_PI*motion.attitude.roll;
-            let y = 180/M_PI*motion.attitude.yaw;
+            let p = 180/Double.pi*motion.attitude.pitch;
+            let r = 180/Double.pi*motion.attitude.roll;
+            let y = 180/Double.pi*motion.attitude.yaw;
             dashDict.setObject(p, forKey:"phone_motion_pitch" as NSCopying)
             dashDict.setObject(r, forKey:"phone_motion_roll" as NSCopying)
             dashDict.setObject(y, forKey:"phone_motion_yaw" as NSCopying)
@@ -324,15 +323,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @objc func sendDweet() {
         
-        if let conn = dweetConn {
+        if let conn = dweetConnection {
             // connection already exists!
             conn.cancel()
         }
-        dweetConn = nil
-        dweetRspData = NSMutableData()
+        dweetConnection = nil
+        dweetResponseData = NSMutableData()
         
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: dashDict, options: .prettyPrinted)
+            let jsonData = try JSONSerialization.data(withJSONObject: dashDict as Any, options: .prettyPrinted)
             
             if let dweetname = UserDefaults.standard.string(forKey: "dweetname") {
                 let urlStr = URL(string:"https://dweet.io/dweet/for/"+dweetname)
@@ -360,14 +359,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     private func connection(_ connection: NSURLConnection!, didReceiveData data: Data!){
-        dweetRspData?.append(data)
+        dweetResponseData?.append(data)
         
         
     }
     
     func connectionDidFinishLoading(_ connection: NSURLConnection!) {
         
-        //let responseString = String(data:dweetRspData!,encoding:NSUTF8StringEncoding)
+        let responseString = String(data:dweetResponseData! as Data,encoding:String.Encoding.utf8)
+        //print(responseString as Any)
         
     }
     

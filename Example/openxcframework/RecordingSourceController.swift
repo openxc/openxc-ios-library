@@ -11,72 +11,78 @@ import openXCiOSFramework
 
 class RecordingSourceController: UIViewController,UITextFieldDelegate {
     
-    @IBOutlet weak var recswitch: UISwitch!
-    @IBOutlet weak var recname: UITextField!
-    @IBOutlet weak var dweetswitch: UISwitch!
-    @IBOutlet weak var dweetname: UITextField!
-    @IBOutlet weak var dweetnamelabel: UILabel!
-    @IBOutlet weak var uploadtraceswitch: UISwitch!
-    @IBOutlet weak var traceURLname: UITextField!
-    @IBOutlet weak var tergetURLnamelabel: UILabel!
-    @IBOutlet weak var apiSourcenamelabel: UILabel!
+    @IBOutlet weak var recordingSwitch: UISwitch!
+    @IBOutlet weak var recordingNameField: UITextField!
+    @IBOutlet weak var dweetSwitch: UISwitch!
+    @IBOutlet weak var dweetNameField: UITextField!
+    @IBOutlet weak var dweetNameLabel: UILabel!
+    @IBOutlet weak var uploadTraceSwitch: UISwitch!
+    @IBOutlet weak var traceUrlNameField: UITextField!
+    @IBOutlet weak var targetUrlNameLabel: UILabel!
+    @IBOutlet weak var apiSourceNameLabel: UILabel!
+    
     var apiSourceName:String!
-    var BaseUrl: String = "http://oxccs-api-qa.apps.pp01.useast.cf.ford.com/"
-    // the VM
+    var baseUrl: String = "http://oxccs-api-qa.apps.pp01.useast.cf.ford.com/"
+   
     var vm: VehicleManager!
     override func viewDidLoad() {
         super.viewDidLoad()
-        apiSourcenamelabel.text = (UserDefaults.standard.string(forKey: "DeviceUUID"))
+        apiSourceNameLabel.text = (UserDefaults.standard.string(forKey: "DeviceUUID"))
         apiSourceName = (UserDefaults.standard.string(forKey: "DeviceUUID"))!.data(using: .utf8, allowLossyConversion: false)?.base64EncodedString()
-        print(apiSourceName as Any)
+    
         // Do any additional setup after loading the view.
         // grab VM instance
         vm = VehicleManager.sharedInstance
         // watch for changes to trace file output file name field
-        recname.addTarget(self, action: #selector(recFieldDidChange), for: UIControl.Event.editingChanged)
-        recname.isHidden = true
+        recordingNameField.addTarget(self, action: #selector(recFieldDidChange), for: UIControl.Event.editingChanged)
+        recordingNameField.isHidden = true
         
         // watch for changes to dweet name field
-        dweetname.addTarget(self, action: #selector(dweetFieldDidChange), for: UIControl.Event.editingChanged)
-        dweetname.addTarget(self, action: #selector(keyboardWillShow), for: UIControl.Event.editingDidBegin)
-        dweetname.addTarget(self, action: #selector(keyboardWillHide), for: UIControl.Event.editingDidEnd)
-        dweetname.isHidden = true
-        dweetnamelabel.isHidden = true
+        dweetNameField.addTarget(self, action: #selector(dweetFieldDidChange), for: UIControl.Event.editingChanged)
+        dweetNameField.addTarget(self, action: #selector(keyboardWillShow), for: UIControl.Event.editingDidBegin)
+        dweetNameField.addTarget(self, action: #selector(keyboardWillHide), for: UIControl.Event.editingDidEnd)
+        dweetNameField.isHidden = true
+        dweetNameLabel.isHidden = true
         
         
         // watch for changes to dweet name field
-        traceURLname.addTarget(self, action: #selector(traceURLFieldDidChange), for: UIControl.Event.editingChanged)
-        traceURLname.addTarget(self, action: #selector(keyboardWillShow), for: UIControl.Event.editingDidBegin)
-        traceURLname.addTarget(self, action: #selector(keyboardWillHide), for: UIControl.Event.editingDidEnd)
-        traceURLname.isHidden = true
-        tergetURLnamelabel.isHidden = true
+        traceUrlNameField.addTarget(self, action: #selector(traceURLFieldDidChange), for: UIControl.Event.editingChanged)
+        traceUrlNameField.addTarget(self, action: #selector(keyboardWillShow), for: UIControl.Event.editingDidBegin)
+        traceUrlNameField.addTarget(self, action: #selector(keyboardWillHide), for: UIControl.Event.editingDidEnd)
+        traceUrlNameField.isHidden = true
+        targetUrlNameLabel.isHidden = true
         
         //UserDefaults.standard.set(interfaceValue, forKey:"vehicleInterface")
         let value =  UserDefaults.standard.string(forKey: "vehicleInterface")
-        print(value as Any)
+       
         // check saved value of trace Sink switch
         let traceOutOn = UserDefaults.standard.bool(forKey: "uploadTaraceOn")
-        print(traceOutOn)
+     
         // update UI if necessary
         if traceOutOn == true {
-            uploadtraceswitch.setOn(true, animated:false)
-            traceURLname.isHidden = false
-            tergetURLnamelabel.isHidden = false
+            uploadTraceSwitch.setOn(true, animated:false)
+            traceUrlNameField.isHidden = false
+            targetUrlNameLabel.isHidden = false
         }
         // check saved value of trace output switch
         let traceSinkOn = UserDefaults.standard.bool(forKey: "traceOutputOn")
         // update UI if necessary
         if (traceSinkOn) {
-            recswitch.setOn(true, animated:false)
-            recname.isHidden = false
+            recordingSwitch.setOn(true, animated:false)
+            recordingNameField.isHidden = false
         }
         if let name = UserDefaults.standard.value(forKey: "traceOutputFilename") as? NSString {
-            recname.text = name as String
+            recordingNameField.text = name as String
         }
         if let name = UserDefaults.standard.value(forKey: "traceURLbasename") as? NSString {
-            traceURLname.text = name as String
+            traceUrlNameField.text = name as String
         }
-        // at first run, get a random dweet name
+        
+        self.checkDweetFile()
+    }
+    
+    func checkDweetFile()  {
+                // at first run, get a random dweet name
         if UserDefaults.standard.string(forKey: "dweetname") == nil {
             let name : NSMutableString = ""
             
@@ -129,16 +135,16 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
             
         }
         // load the dweet name into the text field
-        dweetname.text = UserDefaults.standard.string(forKey: "dweetname")
+        dweetNameField.text = UserDefaults.standard.string(forKey: "dweetname")
         // check value of dweet out switch
         let dweetOn = UserDefaults.standard.bool(forKey: "dweetOutputOn")
         // update UI if necessary
         if dweetOn == true {
-            dweetswitch.setOn(true, animated:false)
-            dweetname.isHidden = false
-            dweetnamelabel.isHidden = false
+            dweetSwitch.setOn(true, animated:false)
+            dweetNameField.isHidden = false
+            dweetNameLabel.isHidden = false
         }
-        
+
     }
     // the trace output enabled switch changed, save it's new value
     // and show or hide the text field for filename accordingly
@@ -147,12 +153,12 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         if (!vm.isTraceFileConnected) {
         UserDefaults.standard.set(sender.isOn, forKey:"traceOutputOn")
         if sender.isOn {
-            recname.isHidden = false
+            recordingNameField.isHidden = false
         } else {
-            recname.isHidden = true
+            recordingNameField.isHidden = true
         }
         }else{
-            recswitch.setOn(false, animated:false)
+            recordingSwitch.setOn(false, animated:false)
             let alertController = UIAlertController(title: "", message:
                 "Please stop playing from trace file", preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
@@ -163,21 +169,21 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
     @IBAction func dweetChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey:"dweetOutputOn")
         if sender.isOn {
-            dweetname.isHidden = false
-            dweetnamelabel.isHidden = false
+            dweetNameField.isHidden = false
+            dweetNameLabel.isHidden = false
         } else {
-            dweetname.isHidden = true
-            dweetnamelabel.isHidden = true
+            dweetNameField.isHidden = true
+            dweetNameLabel.isHidden = true
         }
     }
     @IBAction func uploadTraceChange(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey:"uploadTaraceOn")
         if sender.isOn {
-            traceURLname.isHidden = false
-            tergetURLnamelabel.isHidden = false
+            traceUrlNameField.isHidden = false
+            targetUrlNameLabel.isHidden = false
         } else {
-            traceURLname.isHidden = true
-            tergetURLnamelabel.isHidden = true
+            traceUrlNameField.isHidden = true
+            targetUrlNameLabel.isHidden = true
         }
     }
     override func didReceiveMemoryWarning() {
@@ -212,11 +218,9 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
         }
         if textField.tag == 105{
             
-            print(textField.text as Any)
             if textField.text != "http://"{
                 let traceUrlArr = textField.text!.components(separatedBy: "//")
-                let traceURL = BaseUrl + traceUrlArr[1] + apiSourceName + "/save"
-                print(traceURL)
+                let traceURL = baseUrl + traceUrlArr[1] + apiSourceName + "/save"
                 UserDefaults.standard.set(traceURL, forKey:"traceURLname")
                 UserDefaults.standard.set(traceUrlArr[1], forKey:"traceURLbasename")
             }else{
@@ -254,10 +258,6 @@ class RecordingSourceController: UIViewController,UITextFieldDelegate {
             self.view.frame.origin.y += 120
         }
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     */
+
     
 }

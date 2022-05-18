@@ -39,27 +39,27 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   // config for outputting debug messages to console
   fileprivate var managerDebug : Bool = false
   var result: String!
-  var troughputtimer: Timer!
+  var throughputTimer: Timer!
   // optional variable holding callback for VehicleManager status updates
   // fileprivate var managerCallback: TargetAction?
   // dictionary holding last received measurement message for each measurement type
   fileprivate var latestVehicleMeasurements: NSMutableDictionary! = NSMutableDictionary()
   public var tempDataBuffer : NSMutableData! = NSMutableData()
   
-  //ublic var tempDataArray : Array<Any> = Array()
+  //public var tempDataArray : Array<Any> = Array()
   // public variable holding VehicleManager connection state enum
   public var connectionState: VehicleManagerConnectionState! = .notConnected
   
-  //Iphone device blutooth is on/fff status
+  //Iphone device blutooth is on/off status
   
   open var isDeviceBluetoothIsOn :Bool = false
   
-  var callbackHandler: ((Bool) -> ())?  = nil
+  var callBackHandler: ((Bool) -> ())?  = nil
 
   //Connected to Ble simulator
   open var isBleConnected: Bool = false
   // BTLE transmit semaphore variable
-  fileprivate var BLETxWriteCount: Int = 0
+  fileprivate var bleTransmitWriteCount: Int = 0
   
   //  variable holding number of messages received since last Connection established
   open var messageCount: Int = 0
@@ -142,7 +142,7 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   
   // initialize the VM and scan for nearby VIs
   open func scan(completionHandler: @escaping (_ success: Bool) -> ()) {
-    self.callbackHandler = completionHandler
+    self.callBackHandler = completionHandler
     // if the VM is already connected, don't do anything
     if connectionState != .notConnected{
       vmlog("VehicleManager already scanning or connected! Sorry!")
@@ -191,11 +191,11 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     vmlog("in centralManagerDidUpdateState:")
     if central.state == .poweredOff {
       
-      self.callbackHandler!(false)
+      self.callBackHandler!(false)
       vmlog(" PoweredOff")
     } else if central.state == .poweredOn {
       vmlog(" PoweredOn")
-      self.callbackHandler!(true)
+      self.callBackHandler!(true)
       
     } else {
       vmlog(" Other")
@@ -213,10 +213,9 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
   // Core Bluetooth has discovered a BLE peripheral
   open func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
   
-    if openXCPeripheral == nil {
+    if openXCPeripheral == nil, let advName : String = advertisementData["kCBAdvDataLocalName"] as? String {
       
       // only find the right kinds of the BLE devices (C5 VI)
-      if let advName : String = advertisementData["kCBAdvDataLocalName"] as? String {
           // check to see if we already have this one
           // and save the discovered peripheral
           if foundOpenXCPeripherals[advName] == nil && advName.uppercased().hasPrefix(OpenXCConstants.C5_VI_NAME_PREFIX) {
@@ -225,28 +224,32 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
             vmlog(advertisementData["kCBAdvDataLocalName"] as Any)
             foundOpenXCPeripherals[advName] = peripheral
             // notify client if the callback is enabled
-            if let act = VehicleManager.sharedInstance.managerCallback {
+            if let act = VehicleManager.sharedInstance.managerCallBack {
               act.performAction(["status":VehicleManagerStatusMessage.c5DETECTED.rawValue] as NSDictionary)
             }
             
           }
           
         else{
-          if(foundOpenXCPeripherals.count > 0) && autoConnectPeripheral{
-            if isDeviceKey(){
-              connect(UserDefaults.standard.string(forKey:"LastConnectedBle"))
-              return
-            }else{
-              connect()
-              return
-            }
-          }
+            self.checkDevice()
         }
-      }
+      
      
     }
   
   }
+    func checkDevice(){
+        
+        if(foundOpenXCPeripherals.count > 0) && autoConnectPeripheral{
+                 if isDeviceKey(){
+                   connect(UserDefaults.standard.string(forKey:"LastConnectedBle"))
+                   return
+                 }else{
+                   connect()
+                   return
+                 }
+               }
+    }
 
   func isDeviceKey() -> Bool {
     for (theKey,_) in foundOpenXCPeripherals{
@@ -267,11 +270,9 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     peripheral.discoverServices(nil)
     
     // notify client if the callback is enabled
-    if let act = VehicleManager.sharedInstance.managerCallback {
+    if let act = VehicleManager.sharedInstance.managerCallBack {
       act.performAction(["status":VehicleManagerStatusMessage.c5CONNECTED.rawValue] as NSDictionary)
       isBleConnected = true
-      
-      //self.troughputtimer = Timer.scheduledTimer(timeInterval: 0.5, target:self, selector:#selector(calculateThroughput), userInfo: nil, repeats:true)
     }
   }
   
@@ -301,7 +302,7 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
         
     }
        // notify client if the callback is enabled
-    if let act = VehicleManager.sharedInstance.managerCallback {
+    if let act = VehicleManager.sharedInstance.managerCallBack {
             act.performAction(["status":VehicleManagerStatusMessage.c5DISCONNECTED.rawValue] as NSDictionary)
     }
  
@@ -334,7 +335,7 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
         openXCPeripheral.discoverCharacteristics(nil, for:service)
         
         // notify client if the callback is enabled
-        if let act = VehicleManager.sharedInstance.managerCallback {
+        if let act = VehicleManager.sharedInstance.managerCallBack {
           act.performAction(["status":VehicleManagerStatusMessage.c5SERVICEFOUND.rawValue] as NSDictionary)
         }
       }
@@ -370,7 +371,7 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
         // discover any descriptors for the characteristic
         openXCPeripheral.discoverDescriptors(for: characteristic)
         // notify client if the callback is enabled
-        if let act = VehicleManager.sharedInstance.managerCallback {
+        if let act = VehicleManager.sharedInstance.managerCallBack {
           act.performAction(["status":VehicleManagerStatusMessage.c5NOTIFYON.rawValue] as NSDictionary)
         }
         // update connection state to indicate that we're fully operational and receiving data
@@ -404,14 +405,14 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     
     // If we have a trace input file enabled, we need to mask any
     // data coming in from BLE. Just ignore the data by returning early.
-    if TraceFileManager.sharedInstance.traceFilesourceEnabled {
+    if TraceFileManager.sharedInstance.traceFileSourceEnabled {
         return
     }
     
     // grab the data from the characteristic
     let data = characteristic.value!
     let returnData = String(data: data, encoding: .utf8)
-    print(returnData as Any)
+   // print(returnData as Any)
     // if there is actually data, append it to the rx data buffer,
     // and try to parse any messages held in the buffer. The separator
     // in this case is nil because messages arriving from BLE is
@@ -478,18 +479,18 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     Thread.sleep(forTimeInterval: 0.05)
     // Decrement the tx write semaphone, indicating that we have received acknowledgement
     // for sending one chunk of data
-    BLETxWriteCount -= 1
+     bleTransmitWriteCount -= 1
     // Call the BLESendFunction again, in case this is the last chunk of data acknowledged for
     // a message, and we have another message queued up in the buffer. If this is not the last chunk
     // for this message (tx write semaphore>0) or there aren't any other messages queued
     // (tx buffer count==0), then the BLESendFunction returns immediately
-    BLESendFunction()
+    bleSendFunction()
   }
   
   
   // common function called whenever any messages need to be sent over BLE
   //ranjan changed fileprivate to public due to travis fail
-  public func BLESendFunction() {
+  public func bleSendFunction() {
     
     
     var sendBytes: Data
@@ -497,7 +498,7 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     // Check to see if the tx buffer is actually empty.
     // We need to do this because this function can be called as BLE notifications are
     // received because we may have queued up some messages to send.
-    if VehicleManager.sharedInstance.BLETxDataBuffer.count == 0 {
+    if VehicleManager.sharedInstance.bleTransmitDataBuffer.count == 0 {
       return
     }
     
@@ -508,13 +509,13 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
     // As the parts of the message are actually sent (20B at a time) and
     // acknowledged the tx write semaphore is decremented.
     // We can only start to send a new message when the semaphore is empty (=0).
-    if BLETxWriteCount != 0 {
+    if bleTransmitWriteCount != 0 {
       return
     }
     
     if(isBleConnected){
       // take the message to send from the head of the tx buffer queue
-      var cmdToSend : NSData = VehicleManager.sharedInstance.BLETxDataBuffer[0] as! NSData
+      var cmdToSend : NSData = VehicleManager.sharedInstance.bleTransmitDataBuffer[0] as! NSData
       vmlog("cmdToSend:",cmdToSend)
       let datastring = NSString(data: (cmdToSend as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
       vmlog("datastring:",datastring as Any)
@@ -530,13 +531,13 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
           
           let try2Str = NSString(data: (sendBytes as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
           vmlog("try2Str....:",try2Str as Any)
-          
+            print("left chunks....:",sendBytes)
           
           cmdToSend = NSMutableData()
         } else {
           sendBytes = cmdToSend.subdata(with: rangedata)
           vmlog("20B chunks....:",sendBytes)
-          
+          print("20B chunks....:",sendBytes)
           let try1Str = NSString(data: (sendBytes as NSData) as Data, encoding:String.Encoding.utf8.rawValue)
           vmlog("try1Str....:",try1Str as Any)
           
@@ -547,14 +548,14 @@ open class BluetoothManager: NSObject,CBCentralManagerDelegate,CBPeripheralDeleg
         // write the byte chunk to the VI
         openXCPeripheral.writeValue(sendBytes, for: openXCWriteChar, type: CBCharacteristicWriteType.withResponse)
         // increment the tx write semaphore
-        BLETxWriteCount += 1
+        bleTransmitWriteCount += 1
         
         
       }
     }
     
     // remove the message from the tx buffer queue once all parts of it have been sent
-    VehicleManager.sharedInstance.BLETxDataBuffer.removeObject(at: 0)
+    VehicleManager.sharedInstance.bleTransmitDataBuffer.removeObject(at: 0)
     
   }
   open func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {

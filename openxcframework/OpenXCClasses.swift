@@ -30,10 +30,7 @@ public enum VehicleMessageType: NSString {
 
 
 open class VehicleBaseMessage {
-  public init() {
-    
-  }
-  open var timestamp: NSInteger = 0
+  open var timeStamp: NSInteger = 0
   open var type: VehicleMessageType = .measurementResponse
   func traceOutput() -> NSString {
     return "{}"
