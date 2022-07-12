@@ -864,16 +864,20 @@ open class VehicleManager: NSObject {
   }
   
     fileprivate func protobufDignosticMessage(msg : Openxc_VehicleMessage){
-        print("DiagnosticResponse>>>>\(msg)")
+       // print("DiagnosticResponse>>>>\(msg)")
         // build diag response message
 
 //        if let frame = (msg.diagnosticStitchResponse.frame){
 //            print(frame)
-//            self.protobufMultiFrameDignosticMessage(msg: msg)
+//         self.protobufMultiFrameDignosticMessage(msg: msg)
 //
 //
 //        }else{
 //
+        if  msg.diagnosticResponse.totalSize != 0 {
+            self.protobufMultiFrameDignosticMessage(msg: msg)
+           // return
+        }else{
         let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
         //if let timestamp = msg.timestamp{
         rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
@@ -891,7 +895,8 @@ open class VehicleManager: NSObject {
         rsp.value = Int(truncating: msg.diagnosticResponse.value.numericValue as NSNumber)
         print(msg.diagnosticResponse.value as Any)
     }
-    
+
+        
     if rsp.value != 0 {
        rsp.success = true//msg.diagnosticResponse.success
     }
@@ -929,41 +934,44 @@ open class VehicleManager: NSObject {
         
         act.performAction(["vehiclemessage":rsp] as NSDictionary)
     }
-//}
+}
   }
     
-   /* fileprivate func protobufMultiFrameDignosticMessage(msg : Openxc.VehicleMessage){
+   fileprivate func protobufMultiFrameDignosticMessage(msg : Openxc_VehicleMessage){
     print("DiagnosticResponse>>>>\(msg)")
         // build diag response message
-        let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
-                   if let timestamp = msg.timestamp{
-                            rsp.timeStamp = Int(truncatingIfNeeded:timestamp)
-                        }
-        let frame = Int(msg.diagnosticStitchResponse.frame)
+       let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
+       //if let timestamp = msg.timestamp{
+       rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+       // let rsp : VehicleDiagnosticResponse = VehicleDiagnosticResponse()
+                   //if let timestamp = msg.timestamp{
+       rsp.timeStamp = Int(truncatingIfNeeded:msg.timestamp)
+                       // }
+        let frame = Int(msg.diagnosticResponse.frame)
         if  (frame != -1) {
-            if let payloadX = String(data: msg.diagnosticStitchResponse.payload, encoding: .utf8) {
+            if let payloadX = String(data: msg.diagnosticResponse.payload, encoding: .utf8) {
                 multiFramePayload = payloadX
                 return
             }
         }
         
         //var payload : String = ""
-        if let payloadX =  String(data: msg.diagnosticStitchResponse.payload, encoding: .utf8)  {
+        if let payloadX =  String(data: msg.diagnosticResponse.payload, encoding: .utf8)  {
             rsp.payload = multiFramePayload  + payloadX
           print("payload : \(rsp.payload)")
           
         }
-        rsp.bus = Int(msg.diagnosticStitchResponse.bus)
-        rsp.message_id = Int(msg.diagnosticStitchResponse.messageId)
-        rsp.mode = Int(msg.diagnosticStitchResponse.mode)
-        if msg.diagnosticStitchResponse.hasPid {
-            rsp.pid = Int(msg.diagnosticStitchResponse.pid)
-        }
-        if  let successValue =  msg.diagnosticStitchResponse.success {
-            rsp.success = successValue //msg.diagnosticResponse.success
-        }
-        if msg.diagnosticStitchResponse.hasValue {
-            rsp.value = Int(truncating: msg.diagnosticStitchResponse.value as! NSNumber)
+        rsp.bus = Int(msg.diagnosticResponse.bus)
+        rsp.message_id = Int(msg.diagnosticResponse.messageID)
+        rsp.mode = Int(msg.diagnosticResponse.mode)
+      // if msg.diagnosticResponse.pid {
+            rsp.pid = Int(msg.diagnosticResponse.pid)
+       // }
+       //if  let successValue =  msg.diagnosticResponse.success {
+            rsp.success = msg.diagnosticResponse.success //msg.diagnosticResponse.success
+       // }
+        if msg.diagnosticResponse.hasValue {
+            rsp.value = Int(truncating: msg.diagnosticResponse.value as! NSNumber)
             print(msg.diagnosticResponse.value as Any)
             
         }
@@ -1005,7 +1013,7 @@ open class VehicleManager: NSObject {
             
             act.performAction(["vehiclemessage":rsp] as NSDictionary)
         }
-      }*/
+      }
   
     /*fileprivate func protobufCanMessage(msg : Openxc_VehicleMessage){
     // build CAN response message
