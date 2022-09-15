@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'openxcframework'
-  s.version          = '6.3.0'
+  s.version          = '7.0.0'
   s.summary          = 'OpenXC™ is a combination of open source hardware & software that 
                         lets you extend your vehicle with custom applications & pluggable modules.'
   s.swift_version    = '5.0'
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/openxc/openxc-ios-library.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
   s.exclude_files = 'openxcframework/*.plist'
   s.source_files = 'openxcframework/*.{swift}'
   s.dependency 'SwiftProtobuf'
