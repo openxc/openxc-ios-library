@@ -30,9 +30,9 @@ The framework can be picked directly from the releases
 
 Make sure you have XCode10 installed with iOS11 to build it from XCode. This framework must be included in any iOS application that needs to connect to a VI
 
-Refer to this [document](https://github.com/openxc/openxc-ios-library/blob/master/OpenXC_iOS_Document.docx) for more details on installation and usage.
+Refer to this [document](OpenXC_iOS_Document.md) for more details on installation and usage.
 
-API usage details are available [here](https://github.com/openxc/openxc-ios-library/blob/master/iOS%20Framework%20API%20Guide.pdf). 
+API usage details are available [here](iOS%20Framework%20API%20Guide.md). 
 
 Also see [Step by Step Guide](https://github.com/openxc/openxc-ios-library/blob/master/StepsToBuildOpenXCiOSFrameworkAndDemoApp.docx) to build framework. 
 
